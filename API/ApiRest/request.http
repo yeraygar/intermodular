@@ -1,0 +1,77 @@
+###
+POST http://localhost:8081/api/users HTTP/1.1
+Content-Type: application/json
+
+{
+    "name":"John Rambo",
+    "email":"nosientolaspiernas@email.com",
+    "id_client": "Ecosistema1"
+}
+
+###
+POST http://localhost:8081/api/tables HTTP/1.1
+Content-Type: application/json
+
+{
+    "name":"MESA 1",
+    "status": false,
+    "id_client": "Ecosistema1",
+    "id_zone": "1",
+    "id_row": "1",
+    "id_column":"1",
+    "comensales":"10",
+    "id_user":"que exista en users"
+}
+###
+GET http://localhost:8081/api/users/61c4c5a77d7ffe11ecbe1783 HTTP/1.1
+
+###
+GET http://localhost:8081/api/users/ HTTP/1.1
+
+
+###
+PUT http://localhost:8081/api/users/61c4c925185c8fb6c5838862 HTTP/1.1
+Content-Type: application/json
+
+{
+    "name":"Alphonse Elric",
+    "email":"fullMetal@email.com"
+}
+
+###
+PUT http://localhost:8081/api/users/61c4c925185c8fb6c5838862 HTTP/1.1
+Content-Type: application/json
+
+{
+    "name":"Eduard Elric"
+}
+
+###
+DELETE http://localhost:8081/api/users/61c4c5a77d7ffe11ecbe1783 HTTP/1.1
+
+###
+POST http://localhost:8081/api/zones HTTP/1.1
+Content-Type: application/json
+
+{
+    "id_client" : "eco1",
+    "num_tables" : 1
+}
+
+###
+GET http://localhost:8081/api/zones HTTP/1.1
+
+###
+GET http://localhost:8081/api/zones/61e168915f84f0d055c3b9d7 HTTP/1.1
+
+###
+PUT http://localhost:8081/api/zones/61e168915f84f0d055c3b9d7 HTTP/1.1
+Content-Type: application/json
+
+{
+    "num_tables" : 50,
+    "zone_status" : true
+}
+
+###
+DELETE http://localhost:8081/api/zones/61e16a32103ef9d9322ac1af HTTP/1.1

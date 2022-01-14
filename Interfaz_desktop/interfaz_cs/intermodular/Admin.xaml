@@ -1,0 +1,131 @@
+﻿<Window x:Class="intermodular.Admin"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:intermodular"
+        mc:Ignorable="d"
+        Title="Admin" 
+        Height="800" 
+        Width="600"
+        MinHeight="800"
+        MinWidth="600"
+        MaxHeight="800"
+        MaxWidth="600"
+        WindowStyle="None"
+        AllowsTransparency="True"
+        Background="Transparent"
+        WindowStartupLocation="CenterScreen">
+    <Border CornerRadius="10" Background="WhiteSmoke">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Border  Background="#26b7fb" CornerRadius="10,10,0,0">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition Width="60"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock FontSize="25" Foreground="White" VerticalAlignment="Center" Margin="10,0,0,0">Administrador</TextBlock>
+                    <Button x:Name="btn_cerrar" Style="{StaticResource btnRedondo}" Grid.Column="1" Height="40" Width="40" Cursor="Hand" MouseEnter="btn_cerrar_MouseEnter" MouseLeave="btn_cerrar_MouseLeave" Click="btn_cerrar_Click">
+                        <Image Source="cerrar.png" Width="20" Height="20" RenderOptions.BitmapScalingMode="HighQuality"/>
+                    </Button>
+                </Grid>
+            </Border>
+            <Grid Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Button x:Name="btn_abrirCaja" Width="260" Height="150" Style="{StaticResource btnRedondo}" MouseEnter="btn_abrirCaja_MouseEnter" MouseLeave="btn_abrirCaja_MouseLeave" Cursor="Hand" Click="btn_abrirCaja_Click">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="2*"/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <Image x:Name="img_abrirCaja" Source="abrir_caja.png" Width="80" Height="80" RenderOptions.BitmapScalingMode="HighQuality"/>
+                        <TextBlock x:Name="txt_abrirCaja" Grid.Row="1" HorizontalAlignment="Center" Padding="5" FontSize="20">Abrir caja</TextBlock>
+                    </Grid>
+                </Button>
+                <Button x:Name="btn_cerrarCaja" Width="260" Height="150" Style="{StaticResource btnRedondo}" Grid.Column="1" MouseEnter="btn_cerrarCaja_MouseEnter" MouseLeave="btn_cerrarCaja_MouseLeave" Cursor="Hand" Click="btn_cerrarCaja_Click">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="2*"/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <Image x:Name="img_cerrarCaja" Source="cerrar_caja.png" Width="80" Height="80" RenderOptions.BitmapScalingMode="HighQuality"/>
+                        <TextBlock x:Name="txt_cerrarCaja" Grid.Row="1" HorizontalAlignment="Center" Padding="5" FontSize="20">Cerrar caja</TextBlock>
+                    </Grid>
+                </Button>
+                <Button x:Name="btn_mesas" Width="260" Height="150" Style="{StaticResource btnRedondo}" Grid.Row="1" MouseEnter="btn_mesas_MouseEnter" MouseLeave="btn_mesas_MouseLeave" Cursor="Hand">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="2*"/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <Image x:Name="img_mesas" Source="mesas.png" Width="80" Height="80" RenderOptions.BitmapScalingMode="HighQuality"/>
+                        <TextBlock x:Name="txt_mesas" Grid.Row="1" HorizontalAlignment="Center" Padding="5" FontSize="20">Mesas</TextBlock>
+                    </Grid>
+                </Button>
+                <Button x:Name="btn_zonas" Width="260" Height="150" Style="{StaticResource btnRedondo}" Grid.Row="1" Grid.Column="1" MouseEnter="btn_zonas_MouseEnter" MouseLeave="btn_zonas_MouseLeave" Cursor="Hand" Click="btn_zonas_Click">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="2*"/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <Image x:Name="img_zonas" Source="zonas.png" Width="80" Height="80" RenderOptions.BitmapScalingMode="HighQuality"/>
+                        <TextBlock x:Name="txt_zonas" Grid.Row="1" HorizontalAlignment="Center" Padding="5" FontSize="20">Zonas</TextBlock>
+                    </Grid>
+                </Button>
+                <Button x:Name="btn_empleados" Width="260" Height="150" Style="{StaticResource btnRedondo}" Grid.Row="2" Grid.Column="2" MouseEnter="btn_empleados_MouseEnter" MouseLeave="btn_empleados_MouseLeave" Cursor="Hand">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="2*"/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <Image x:Name="img_empleados" Source="empleado.png" Width="80" Height="80" RenderOptions.BitmapScalingMode="HighQuality"/>
+                        <TextBlock x:Name="txt_empleados" Grid.Row="1" HorizontalAlignment="Center" Padding="5" FontSize="20">Empleados</TextBlock>
+                    </Grid>
+                </Button>
+                <Button x:Name="btn_salir" Width="260" Height="150" Style="{StaticResource btnRedondo}" Grid.Row="3" Grid.Column="3" MouseEnter="btn_salir_MouseEnter" MouseLeave="btn_salir_MouseLeave" Click="btn_salir_Click" Cursor="Hand">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="2*"/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <Image x:Name="img_salir" Source="exit.png" Width="80" Height="80" RenderOptions.BitmapScalingMode="HighQuality"/>
+                        <TextBlock x:Name="txt_salir" Grid.Row="1" HorizontalAlignment="Center" Padding="5" FontSize="20">Salir</TextBlock>
+                    </Grid>
+                </Button>
+                <Button x:Name="btn_productos" Width="260" Height="150" Style="{StaticResource btnRedondo}" Grid.Row="2" MouseEnter="btn_productos_MouseEnter" MouseLeave="btn_productos_MouseLeave" Cursor="Hand">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="2*"/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <Image x:Name="img_productos" Source="producto.png" Width="80" Height="80" RenderOptions.BitmapScalingMode="HighQuality"/>
+                        <TextBlock x:Name="txt_productos" Grid.Row="1" HorizontalAlignment="Center" Padding="5" FontSize="20">Productos</TextBlock>
+                    </Grid>
+                </Button>
+                <Button x:Name="btn_totales" Width="260" Height="150" Style="{StaticResource btnRedondo}" Grid.Row="3" MouseEnter="btn_totales_MouseEnter" MouseLeave="btn_totales_MouseLeave" Cursor="Hand">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="2*"/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <Image x:Name="img_totales" Source="totales.png" Width="80" Height="80" RenderOptions.BitmapScalingMode="HighQuality"/>
+                        <TextBlock x:Name="txt_totales" Grid.Row="1" HorizontalAlignment="Center" Padding="5" FontSize="20">Totales</TextBlock>
+                    </Grid>
+                </Button>
+            </Grid>
+        </Grid>
+    </Border>
+</Window>

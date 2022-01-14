@@ -1,0 +1,29 @@
+{
+  "name": "apirest",
+  "version": "1.0.0",
+  "description": "Api Rest MongoDB y Express",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon index.js",
+    "node": "node index.js"
+  },
+  "keywords": [
+    "Node.js",
+    "Express",
+    "MongoDB",
+    "Mongoose",
+    "DotEnv"
+  ],
+  "author": "Pablo L",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "10.0.0",
+    "express": "4.17.1",
+    "mongoose": "6.1.3",
+    "serve-favicon": "2.5.0"
+  },
+  "devDependencies": {
+    "nodemon": "2.0.15"
+  }
+}
