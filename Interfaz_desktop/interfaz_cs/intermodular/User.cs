@@ -33,6 +33,8 @@ namespace intermodular
 
         public static User currentUser;
 
+        public static User usuarioElegido; 
+
         public User(string name, string email, string passw, string id_client)
         {
             this.name = name;

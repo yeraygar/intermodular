@@ -115,6 +115,10 @@ namespace intermodular
         private void btn_firmarEntrada_Click(object sender, RoutedEventArgs e)
         {
             //abrir Activity de entradas
+            this.Close();
+            Empleados empl = new Empleados();
+            empl.ShowDialog();
+
         }
 
         //abre la ventana de introducir la clave del admin y si la clave es correcta entonces abre el menú de admin.
