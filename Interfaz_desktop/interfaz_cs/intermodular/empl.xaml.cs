@@ -21,14 +21,12 @@ namespace intermodular
 
         public Empleados() {
             InitializeComponent();
-            //Comentario Maria para probar
+            
 
             User.getAllUsers().ContinueWith(task =>
             {
 
-                //String[] lista = new string[] { "maria", "pablo", "matias", "alejandro", "marta", "laura", "pepa", "saul", "oscar", "alfonso", "juan", "alba", "alfredo", "rosa", "maria", "lucia" };
-
-                //for (int x = 0; x < User.allUsers.Count; x++)
+                
                 foreach(User user in User.allUsers)
                 {
 
