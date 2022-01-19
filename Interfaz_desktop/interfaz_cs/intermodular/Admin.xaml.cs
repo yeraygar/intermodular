@@ -56,112 +56,112 @@ namespace intermodular
         private void btn_abrirCaja_MouseEnter(object sender, MouseEventArgs e)
         {
             btn_abrirCaja.Background = btn_enter_color;
-            img_abrirCaja.Source = (ImageSource)new ImageSourceConverter().ConvertFrom("..\\..\\abrir_caja_blanco.png");
+            img_abrirCaja.Source = (ImageSource)new ImageSourceConverter().ConvertFrom("..\\..\\images\\abrir_caja_blanco.png");
             txt_abrirCaja.Foreground = text_enter_color;
         }
 
         private void btn_cerrarCaja_MouseEnter(object sender, MouseEventArgs e)
         {
             btn_cerrarCaja.Background = btn_enter_color;
-            img_cerrarCaja.Source = (ImageSource)new ImageSourceConverter().ConvertFrom("..\\..\\cerrar_caja_blanco.png");
+            img_cerrarCaja.Source = (ImageSource)new ImageSourceConverter().ConvertFrom("..\\..\\images\\cerrar_caja_blanco.png");
             txt_cerrarCaja.Foreground = text_enter_color;
         }
 
         private void btn_mesas_MouseEnter(object sender, MouseEventArgs e)
         {
             btn_mesas.Background = btn_enter_color;
-            img_mesas.Source = (ImageSource)new ImageSourceConverter().ConvertFrom("..\\..\\mesas_blanco.png");
+            img_mesas.Source = (ImageSource)new ImageSourceConverter().ConvertFrom("..\\..\\images\\mesas_blanco.png");
             txt_mesas.Foreground = text_enter_color;
         }
 
         private void btn_zonas_MouseEnter(object sender, MouseEventArgs e)
         {
             btn_zonas.Background = btn_enter_color;
-            img_zonas.Source = (ImageSource)new ImageSourceConverter().ConvertFrom("..\\..\\zonas_blanco.png");
+            img_zonas.Source = (ImageSource)new ImageSourceConverter().ConvertFrom("..\\..\\images\\zonas_blanco.png");
             txt_zonas.Foreground = text_enter_color;
         }
 
         private void btn_productos_MouseEnter(object sender, MouseEventArgs e)
         {
             btn_productos.Background = btn_enter_color;
-            img_productos.Source = (ImageSource)new ImageSourceConverter().ConvertFrom("..\\..\\producto_blanco.png");
+            img_productos.Source = (ImageSource)new ImageSourceConverter().ConvertFrom("..\\..\\images\\producto_blanco.png");
             txt_productos.Foreground = text_enter_color;
         }
 
         private void btn_empleados_MouseEnter(object sender, MouseEventArgs e)
         {
             btn_empleados.Background = btn_enter_color;
-            img_empleados.Source = (ImageSource)new ImageSourceConverter().ConvertFrom("..\\..\\empleado_blanco.png");
+            img_empleados.Source = (ImageSource)new ImageSourceConverter().ConvertFrom("..\\..\\images\\empleado_blanco.png");
             txt_empleados.Foreground = text_enter_color;
         }
 
         private void btn_totales_MouseEnter(object sender, MouseEventArgs e)
         {
             btn_totales.Background = btn_enter_color;
-            img_totales.Source = (ImageSource)new ImageSourceConverter().ConvertFrom("..\\..\\totales_blanco.png");
+            img_totales.Source = (ImageSource)new ImageSourceConverter().ConvertFrom("..\\..\\images\\totales_blanco.png");
             txt_totales.Foreground = text_enter_color;
         }
 
         private void btn_salir_MouseEnter(object sender, MouseEventArgs e)
         {
             btn_salir.Background = btn_enter_color;
-            img_salir.Source = (ImageSource)new ImageSourceConverter().ConvertFrom("..\\..\\exit_blanco.png");
+            img_salir.Source = (ImageSource)new ImageSourceConverter().ConvertFrom("..\\..\\images\\exit_blanco.png");
             txt_salir.Foreground = text_enter_color;
         }
 
         private void btn_abrirCaja_MouseLeave(object sender, MouseEventArgs e)
         {
             btn_abrirCaja.Background = btn_leave_color;
-            img_abrirCaja.Source = (ImageSource)new ImageSourceConverter().ConvertFrom("..\\..\\abrir_caja.png");
+            img_abrirCaja.Source = (ImageSource)new ImageSourceConverter().ConvertFrom("..\\..\\images\\abrir_caja.png");
             txt_abrirCaja.Foreground = text_leave_color;
         }
 
         private void btn_cerrarCaja_MouseLeave(object sender, MouseEventArgs e)
         {
             btn_cerrarCaja.Background = btn_leave_color;
-            img_cerrarCaja.Source = (ImageSource)new ImageSourceConverter().ConvertFrom("..\\..\\cerrar_caja.png");
+            img_cerrarCaja.Source = (ImageSource)new ImageSourceConverter().ConvertFrom("..\\..\\images\\cerrar_caja.png");
             txt_cerrarCaja.Foreground = text_leave_color;
         }
 
         private void btn_mesas_MouseLeave(object sender, MouseEventArgs e)
         {
             btn_mesas.Background = btn_leave_color;
-            img_mesas.Source = (ImageSource)new ImageSourceConverter().ConvertFrom("..\\..\\mesas.png");
+            img_mesas.Source = (ImageSource)new ImageSourceConverter().ConvertFrom("..\\..\\images\\mesas.png");
             txt_mesas.Foreground = text_leave_color;
         }
 
         private void btn_zonas_MouseLeave(object sender, MouseEventArgs e)
         {
             btn_zonas.Background = btn_leave_color;
-            img_zonas.Source = (ImageSource)new ImageSourceConverter().ConvertFrom("..\\..\\zonas.png");
+            img_zonas.Source = (ImageSource)new ImageSourceConverter().ConvertFrom("..\\..\\images\\zonas.png");
             txt_zonas.Foreground = text_leave_color;
         }
 
         private void btn_productos_MouseLeave(object sender, MouseEventArgs e)
         {
             btn_productos.Background = btn_leave_color;
-            img_productos.Source = (ImageSource)new ImageSourceConverter().ConvertFrom("..\\..\\producto.png");
+            img_productos.Source = (ImageSource)new ImageSourceConverter().ConvertFrom("..\\..\\images\\producto.png");
             txt_productos.Foreground = text_leave_color;
         }
 
         private void btn_empleados_MouseLeave(object sender, MouseEventArgs e)
         {
             btn_empleados.Background = btn_leave_color;
-            img_empleados.Source = (ImageSource)new ImageSourceConverter().ConvertFrom("..\\..\\empleado.png");
+            img_empleados.Source = (ImageSource)new ImageSourceConverter().ConvertFrom("..\\..\\images\\empleado.png");
             txt_empleados.Foreground = text_leave_color;
         }
 
         private void btn_totales_MouseLeave(object sender, MouseEventArgs e)
         {
             btn_totales.Background = btn_leave_color;
-            img_totales.Source = (ImageSource)new ImageSourceConverter().ConvertFrom("..\\..\\totales.png");
+            img_totales.Source = (ImageSource)new ImageSourceConverter().ConvertFrom("..\\..\\images\\totales.png");
             txt_totales.Foreground = text_leave_color;
         }
 
         private void btn_salir_MouseLeave(object sender, MouseEventArgs e)
         {
             btn_salir.Background = btn_leave_color;
-            img_salir.Source = (ImageSource)new ImageSourceConverter().ConvertFrom("..\\..\\exit.png");
+            img_salir.Source = (ImageSource)new ImageSourceConverter().ConvertFrom("..\\..\\images\\exit.png");
             txt_salir.Foreground = text_leave_color;
         }
 

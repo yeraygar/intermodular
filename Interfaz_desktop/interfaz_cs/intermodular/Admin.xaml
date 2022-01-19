@@ -30,7 +30,7 @@
                     </Grid.ColumnDefinitions>
                     <TextBlock FontSize="25" Foreground="White" VerticalAlignment="Center" Margin="10,0,0,0">Administrador</TextBlock>
                     <Button x:Name="btn_cerrar" Style="{StaticResource btnRedondo}" Grid.Column="1" Height="40" Width="40" Cursor="Hand" MouseEnter="btn_cerrar_MouseEnter" MouseLeave="btn_cerrar_MouseLeave" Click="btn_cerrar_Click">
-                        <Image Source="cerrar.png" Width="20" Height="20" RenderOptions.BitmapScalingMode="HighQuality"/>
+                        <Image Source="images\cerrar.png" Width="20" Height="20" RenderOptions.BitmapScalingMode="HighQuality"/>
                     </Button>
                 </Grid>
             </Border>
@@ -52,7 +52,7 @@
                             <RowDefinition Height="2*"/>
                             <RowDefinition/>
                         </Grid.RowDefinitions>
-                        <Image x:Name="img_abrirCaja" Source="abrir_caja.png" Width="80" Height="80" RenderOptions.BitmapScalingMode="HighQuality"/>
+                            <Image x:Name="img_abrirCaja" Source="images\abrir_caja.png" Width="80" Height="80" RenderOptions.BitmapScalingMode="HighQuality"/>
                         <TextBlock x:Name="txt_abrirCaja" Grid.Row="1" HorizontalAlignment="Center" Padding="5" FontSize="20">Abrir caja</TextBlock>
                     </Grid>
                 </Button>
@@ -62,7 +62,7 @@
                             <RowDefinition Height="2*"/>
                             <RowDefinition/>
                         </Grid.RowDefinitions>
-                        <Image x:Name="img_cerrarCaja" Source="cerrar_caja.png" Width="80" Height="80" RenderOptions.BitmapScalingMode="HighQuality"/>
+                            <Image x:Name="img_cerrarCaja" Source="images\cerrar_caja.png" Width="80" Height="80" RenderOptions.BitmapScalingMode="HighQuality"/>
                         <TextBlock x:Name="txt_cerrarCaja" Grid.Row="1" HorizontalAlignment="Center" Padding="5" FontSize="20">Cerrar caja</TextBlock>
                     </Grid>
                 </Button>
@@ -72,7 +72,7 @@
                             <RowDefinition Height="2*"/>
                             <RowDefinition/>
                         </Grid.RowDefinitions>
-                        <Image x:Name="img_mesas" Source="mesas.png" Width="80" Height="80" RenderOptions.BitmapScalingMode="HighQuality"/>
+                            <Image x:Name="img_mesas" Source="images\mesas.png" Width="80" Height="80" RenderOptions.BitmapScalingMode="HighQuality"/>
                         <TextBlock x:Name="txt_mesas" Grid.Row="1" HorizontalAlignment="Center" Padding="5" FontSize="20">Mesas</TextBlock>
                     </Grid>
                 </Button>
@@ -82,7 +82,7 @@
                             <RowDefinition Height="2*"/>
                             <RowDefinition/>
                         </Grid.RowDefinitions>
-                        <Image x:Name="img_zonas" Source="zonas.png" Width="80" Height="80" RenderOptions.BitmapScalingMode="HighQuality"/>
+                            <Image x:Name="img_zonas" Source="images\zonas.png" Width="80" Height="80" RenderOptions.BitmapScalingMode="HighQuality"/>
                         <TextBlock x:Name="txt_zonas" Grid.Row="1" HorizontalAlignment="Center" Padding="5" FontSize="20">Zonas</TextBlock>
                     </Grid>
                 </Button>
@@ -92,7 +92,7 @@
                             <RowDefinition Height="2*"/>
                             <RowDefinition/>
                         </Grid.RowDefinitions>
-                        <Image x:Name="img_empleados" Source="empleado.png" Width="80" Height="80" RenderOptions.BitmapScalingMode="HighQuality"/>
+                            <Image x:Name="img_empleados" Source="images\empleado.png" Width="80" Height="80" RenderOptions.BitmapScalingMode="HighQuality"/>
                         <TextBlock x:Name="txt_empleados" Grid.Row="1" HorizontalAlignment="Center" Padding="5" FontSize="20">Empleados</TextBlock>
                     </Grid>
                 </Button>
@@ -102,7 +102,7 @@
                             <RowDefinition Height="2*"/>
                             <RowDefinition/>
                         </Grid.RowDefinitions>
-                        <Image x:Name="img_salir" Source="exit.png" Width="80" Height="80" RenderOptions.BitmapScalingMode="HighQuality"/>
+                            <Image x:Name="img_salir" Source="images\exit.png" Width="80" Height="80" RenderOptions.BitmapScalingMode="HighQuality"/>
                         <TextBlock x:Name="txt_salir" Grid.Row="1" HorizontalAlignment="Center" Padding="5" FontSize="20">Salir</TextBlock>
                     </Grid>
                 </Button>
@@ -112,7 +112,7 @@
                             <RowDefinition Height="2*"/>
                             <RowDefinition/>
                         </Grid.RowDefinitions>
-                        <Image x:Name="img_productos" Source="producto.png" Width="80" Height="80" RenderOptions.BitmapScalingMode="HighQuality"/>
+                            <Image x:Name="img_productos" Source="images\producto.png" Width="80" Height="80" RenderOptions.BitmapScalingMode="HighQuality"/>
                         <TextBlock x:Name="txt_productos" Grid.Row="1" HorizontalAlignment="Center" Padding="5" FontSize="20">Productos</TextBlock>
                     </Grid>
                 </Button>
@@ -122,7 +122,7 @@
                             <RowDefinition Height="2*"/>
                             <RowDefinition/>
                         </Grid.RowDefinitions>
-                        <Image x:Name="img_totales" Source="totales.png" Width="80" Height="80" RenderOptions.BitmapScalingMode="HighQuality"/>
+                            <Image x:Name="img_totales" Source="images\totales.png" Width="80" Height="80" RenderOptions.BitmapScalingMode="HighQuality"/>
                         <TextBlock x:Name="txt_totales" Grid.Row="1" HorizontalAlignment="Center" Padding="5" FontSize="20">Totales</TextBlock>
                     </Grid>
                 </Button>

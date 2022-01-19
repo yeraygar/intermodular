@@ -34,5 +34,11 @@
                 </Setter.Value>
             </Setter>
         </Style>
+        <ResourceDictionary Source="res\img\settings.img" x:Key="myDick">
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Dictionary1.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+
     </Application.Resources>
 </Application>

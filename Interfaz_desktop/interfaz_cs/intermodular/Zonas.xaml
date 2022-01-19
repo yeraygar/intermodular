@@ -26,7 +26,7 @@
                 </Grid.ColumnDefinitions>
                 <TextBlock FontSize="25" Foreground="White" VerticalAlignment="Center" Margin="10,0,0,0">Zonas</TextBlock>
                 <Button x:Name="btn_cerrar" Style="{StaticResource btnRedondo}" Grid.Column="1" Height="40" Width="40" Cursor="Hand" Click="btn_cerrar_Click" MouseEnter="btn_cerrar_MouseEnter" MouseLeave="btn_cerrar_MouseLeave">
-                    <Image Source="cerrar.png" Width="20" Height="20" RenderOptions.BitmapScalingMode="HighQuality"/>
+                    <Image Source="images\cerrar.png" Width="20" Height="20" RenderOptions.BitmapScalingMode="HighQuality"/>
                 </Button>
             </Grid>
             <Border Grid.Row="1" BorderThickness="3">
@@ -63,7 +63,7 @@
                                                 <RowDefinition/>
                                                 <RowDefinition/>
                                             </Grid.RowDefinitions>
-                                            <Image Source="agregar.png" Width="50" Height="50" HorizontalAlignment="Center" VerticalAlignment="Center" RenderOptions.BitmapScalingMode="Fant"/>
+                                                <Image Source="images\agregar.png" Width="50" Height="50" HorizontalAlignment="Center" VerticalAlignment="Center" RenderOptions.BitmapScalingMode="Fant"/>
                                             <TextBlock Grid.Row="1" FontSize="20" VerticalAlignment="Top" HorizontalAlignment="Center">Agregar</TextBlock>
                                         </Grid>
                                     </Button>
@@ -73,7 +73,7 @@
                                                 <RowDefinition/>
                                                 <RowDefinition/>
                                             </Grid.RowDefinitions>
-                                            <Image Source="eliminar.png" Width="50" Height="50" HorizontalAlignment="Center" VerticalAlignment="Center" RenderOptions.BitmapScalingMode="Fant"/>
+                                                <Image Source="images\eliminar.png" Width="50" Height="50" HorizontalAlignment="Center" VerticalAlignment="Center" RenderOptions.BitmapScalingMode="Fant"/>
                                             <TextBlock Grid.Row="1" FontSize="20" VerticalAlignment="Top" HorizontalAlignment="Center">Eliminar</TextBlock>
                                         </Grid>
                                     </Button>
