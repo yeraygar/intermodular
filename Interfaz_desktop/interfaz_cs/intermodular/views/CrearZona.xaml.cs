@@ -82,28 +82,28 @@ namespace intermodular
         {
             btnCancelar.Background = (Brush)(new BrushConverter().ConvertFrom("#ff3232"));
             btnCancelar.Foreground = Brushes.White;
-            imgCancel.Source = (ImageSource)new ImageSourceConverter().ConvertFrom("..\\..\\cancel_blanco.png");
+            imgCancel.Source = (ImageSource)new ImageSourceConverter().ConvertFrom("..\\..\\images\\cancel_blanco.png");
         }
 
         private void btnCancelar_MouseLeave(object sender, MouseEventArgs e)
         {
             btnCancelar.Background = Brushes.White;
             btnCancelar.Foreground = Brushes.Black;
-            imgCancel.Source = (ImageSource)new ImageSourceConverter().ConvertFrom("..\\..\\cancel.png");
+            imgCancel.Source = (ImageSource)new ImageSourceConverter().ConvertFrom("..\\..\\images\\cancel.png");
         }
 
         private void btnSiguiente_MouseEnter(object sender, MouseEventArgs e)
         {
             btnSiguiente.Background = (Brush)(new BrushConverter().ConvertFrom("#63c554"));
             btnSiguiente.Foreground = Brushes.White;
-            imgNext.Source = (ImageSource)new ImageSourceConverter().ConvertFrom("..\\..\\next_blanco.png");
+            imgNext.Source = (ImageSource)new ImageSourceConverter().ConvertFrom("..\\..\\images\\next_blanco.png");
         }
 
         private void btnSiguiente_MouseLeave(object sender, MouseEventArgs e)
         {
             btnSiguiente.Background = Brushes.White;
             btnSiguiente.Foreground = Brushes.Black;
-            imgNext.Source = (ImageSource)new ImageSourceConverter().ConvertFrom("..\\..\\next.png");
+            imgNext.Source = (ImageSource)new ImageSourceConverter().ConvertFrom("..\\..\\images\\next.png");
         }
 
 
@@ -163,12 +163,12 @@ namespace intermodular
             if (checkZoneName(txtZona.Text))
             {
                 //MessageBox.Show("Nombre de zona válido");
-                imgValidZoneName.Source = (ImageSource)new ImageSourceConverter().ConvertFrom("..\\..\\verify.png");
+                imgValidZoneName.Source = (ImageSource)new ImageSourceConverter().ConvertFrom("..\\..\\images\\verify.png");
                 imgValidZoneName.ToolTip = null;
             }
             else
             {
-                imgValidZoneName.Source = (ImageSource)new ImageSourceConverter().ConvertFrom("..\\..\\error.png");
+                imgValidZoneName.Source = (ImageSource)new ImageSourceConverter().ConvertFrom("..\\..\\images\\error.png");
                 imgValidZoneName.ToolTip = "El nombre no puede estar vacío";
             }
         }
@@ -180,11 +180,11 @@ namespace intermodular
             imgValidNumTables.Visibility = Visibility.Visible;
             if(checkZoneNumber(txtNumMesas.Text))
             {
-                imgValidNumTables.Source = (ImageSource)new ImageSourceConverter().ConvertFrom("..\\..\\verify.png");
+                imgValidNumTables.Source = (ImageSource)new ImageSourceConverter().ConvertFrom("..\\..\\images\\verify.png");
                 imgValidNumTables.ToolTip = null;
             }else
             {
-                imgValidNumTables.Source = (ImageSource)new ImageSourceConverter().ConvertFrom("..\\..\\error.png");
+                imgValidNumTables.Source = (ImageSource)new ImageSourceConverter().ConvertFrom("..\\..\\images\\error.png");
                 imgValidNumTables.ToolTip = "valor no válido, introduzca otro valor.";
             }
         }
