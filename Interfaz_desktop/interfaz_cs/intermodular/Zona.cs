@@ -16,13 +16,12 @@ namespace intermodular
         private string _zone_name;
         private int _num_tables;
         private bool _zone_status;
-        private string[] _tables;
-        private List<Mesa> mesasZona = new List<Mesa>();
+        private List<Mesa> _mesasZona;
         public static List<Zona> allZonas = new List<Zona>();
         public static Zona zonaBuscada;
-        public static Zona zonaCreada;
-        public static Zona zonaActualizada;
-        public static Zona zonaTemp;
+        //public static Zona zonaCreada;
+        //public static Zona zonaActualizada;
+        //public static Zona zonaTemp;
 
         public string id
         {
@@ -84,39 +83,26 @@ namespace intermodular
             }
         }
 
-        public string[] tables
+        public List<Mesa> mesasZona
         {
             get
             {
-                return _tables;
+                return _mesasZona;
             }
             set
             {
-                _tables = value;
-            }
-        }
-
-        public List<Mesa> MesasZona
-        {
-            get
-            {
-                return mesasZona;
-            }
-            set
-            {
-                mesasZona = value;
+                _mesasZona = value;
             }
         }
 
 
 
-        public Zona(string id_client,string zone_name, int num_tables,bool zone_status,List<Mesa> mesas)
+        public Zona(string id_client,string zone_name, int num_tables,bool zone_status)
         {
             _id_client = id_client;
             _zone_name = zone_name;
             _num_tables = num_tables;
             _zone_status = zone_status;
-            _tables = tables;
         }
         
         public static async Task getAllZones()
@@ -174,7 +160,7 @@ namespace intermodular
             values.Add("zone_name", zona.zone_name);
             values.Add("num_tables", zona.num_tables);
             values.Add("zone_status", zona.zone_status);
-            values.Add("tables", zona.tables.ToString());
+            //values.Add("tables", zona.mesasZona.ToString());
            
 
             //Creamos la peticion
@@ -208,7 +194,7 @@ namespace intermodular
             values.Add("zone_name", zona.zone_name);
             values.Add("num_tables", zona.num_tables);
             values.Add("zone_status", zona.zone_status);
-            values.Add("tables", zona.tables.ToString());
+            values.Add("tables", zona.mesasZona.ToString());
 
 
             //Creamos la peticion

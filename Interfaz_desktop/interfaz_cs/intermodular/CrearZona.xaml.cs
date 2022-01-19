@@ -43,7 +43,7 @@ namespace intermodular
         {
             if(checkZoneName(txtZona.Text) && checkZoneNumber(txtNumMesas.Text))
             {
-                Zona zona = new Zona(Staticresources.id_client,txtZona.Text,int.Parse(txtNumMesas.Text),true,null);
+                Zona zona = new Zona(Staticresources.id_client, txtZona.Text, int.Parse(txtNumMesas.Text), true);
                 zona = await Zona.createZone(zona);
                 if(zona == null)
                 {
