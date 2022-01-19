@@ -106,6 +106,9 @@
     <Compile Include="Admin.xaml.cs">
       <DependentUpon>Admin.xaml</DependentUpon>
     </Compile>
+    <Compile Include="CrearZona.xaml.cs">
+      <DependentUpon>CrearZona.xaml</DependentUpon>
+    </Compile>
     <Compile Include="empl.xaml.cs">
       <DependentUpon>empl.xaml</DependentUpon>
     </Compile>
@@ -138,6 +141,10 @@
     <Page Include="Login.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="CrearZona.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -258,6 +265,18 @@
   <ItemGroup>
     <Resource Include="eliminar.png" />
     <Resource Include="eliminar_blanco.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="cancel.png" />
+    <Resource Include="next.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="cancel_blanco.png" />
+    <Resource Include="next_blanco.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="error.png" />
+    <Resource Include="verify.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\System.Text.Json.6.0.1\build\System.Text.Json.targets" Condition="Exists('..\packages\System.Text.Json.6.0.1\build\System.Text.Json.targets')" />
