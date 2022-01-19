@@ -103,50 +103,49 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Admin.xaml.cs">
+    <Compile Include="views\Admin.xaml.cs">
       <DependentUpon>Admin.xaml</DependentUpon>
     </Compile>
-    <Compile Include="CrearZona.xaml.cs">
+    <Compile Include="views\CrearZona.xaml.cs">
       <DependentUpon>CrearZona.xaml</DependentUpon>
     </Compile>
-    <Compile Include="empl.xaml.cs">
-      <DependentUpon>empl.xaml</DependentUpon>
+    <Compile Include="views\FicharEmpleado.xaml.cs">
+      <DependentUpon>FicharEmpleado.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Empleado.cs" />
-    <Compile Include="Login.xaml.cs">
+    <Compile Include="views\Login.xaml.cs">
       <DependentUpon>Login.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Mesa.cs" />
-    <Compile Include="Mesas.xaml.cs">
+    <Compile Include="api_models\Mesa.cs" />
+    <Compile Include="views\Mesas.xaml.cs">
       <DependentUpon>Mesas.xaml</DependentUpon>
     </Compile>
-    <Compile Include="PopUp_Opciones.xaml.cs">
+    <Compile Include="views\PopUp_Opciones.xaml.cs">
       <DependentUpon>PopUp_Opciones.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Producto.cs" />
-    <Compile Include="Staticresources.cs" />
-    <Compile Include="User.cs" />
-    <Compile Include="Zona.cs" />
-    <Compile Include="Zonas.xaml.cs">
+    <Compile Include="api_models\Producto.cs" />
+    <Compile Include="support\Staticresources.cs" />
+    <Compile Include="api_models\User.cs" />
+    <Compile Include="api_models\Zona.cs" />
+    <Compile Include="views\Zonas.xaml.cs">
       <DependentUpon>Zonas.xaml</DependentUpon>
     </Compile>
-    <Page Include="Admin.xaml">
+    <Page Include="views\Admin.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="empl.xaml">
+    <Page Include="views\FicharEmpleado.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Login.xaml">
+    <Page Include="views\Login.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="CrearZona.xaml">
+    <Page Include="views\CrearZona.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="MainWindow.xaml">
+    <Page Include="views\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -154,19 +153,19 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="MainWindow.xaml.cs">
+    <Compile Include="views\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="Mesas.xaml">
+    <Page Include="views\Mesas.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="PopUp_Opciones.xaml">
+    <Page Include="views\PopUp_Opciones.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Zonas.xaml">
+    <Page Include="views\Zonas.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -199,34 +198,34 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="settings.png" />
+    <Resource Include="images\settings.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="cerrar.png" />
+    <Resource Include="images\cerrar.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="maximizar.png" />
+    <Resource Include="images\maximizar.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="minimizar.png" />
+    <Resource Include="images\minimizar.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="card.png" />
+    <Resource Include="images\card.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="ticket.png" />
+    <Resource Include="images\ticket.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="admin.png" />
+    <Resource Include="images\admin.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="manos.png" />
+    <Resource Include="images\manos.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="admin_blanco.png" />
-    <Resource Include="card_blanco.png" />
-    <Resource Include="manos_blanco.png" />
-    <Resource Include="ticket_blanco.png" />
+    <Resource Include="images\admin_blanco.png" />
+    <Resource Include="images\card_blanco.png" />
+    <Resource Include="images\manos_blanco.png" />
+    <Resource Include="images\ticket_blanco.png" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.7.2">
@@ -241,42 +240,42 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="abrir_caja.png" />
-    <Resource Include="abrir_caja_blanco.png" />
-    <Resource Include="cerrar_caja.png" />
-    <Resource Include="cerrar_caja_blanco.png" />
-    <Resource Include="empleado.png" />
-    <Resource Include="empleado_blanco.png" />
-    <Resource Include="exit.png" />
-    <Resource Include="exit_blanco.png" />
-    <Resource Include="mesas.png" />
-    <Resource Include="mesas_blanco.png" />
-    <Resource Include="producto.png" />
-    <Resource Include="producto_blanco.png" />
-    <Resource Include="totales.png" />
-    <Resource Include="totales_blanco.png" />
-    <Resource Include="zonas.png" />
-    <Resource Include="zonas_blanco.png" />
+    <Resource Include="images\abrir_caja.png" />
+    <Resource Include="images\abrir_caja_blanco.png" />
+    <Resource Include="images\cerrar_caja.png" />
+    <Resource Include="images\cerrar_caja_blanco.png" />
+    <Resource Include="images\empleado.png" />
+    <Resource Include="images\empleado_blanco.png" />
+    <Resource Include="images\exit.png" />
+    <Resource Include="images\exit_blanco.png" />
+    <Resource Include="images\mesas.png" />
+    <Resource Include="images\mesas_blanco.png" />
+    <Resource Include="images\producto.png" />
+    <Resource Include="images\producto_blanco.png" />
+    <Resource Include="images\totales.png" />
+    <Resource Include="images\totales_blanco.png" />
+    <Resource Include="images\zonas.png" />
+    <Resource Include="images\zonas_blanco.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="agregar.png" />
-    <Resource Include="agregar_blanco.png" />
+    <Resource Include="images\agregar.png" />
+    <Resource Include="images\agregar_blanco.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="eliminar.png" />
-    <Resource Include="eliminar_blanco.png" />
+    <Resource Include="images\eliminar.png" />
+    <Resource Include="images\eliminar_blanco.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="cancel.png" />
-    <Resource Include="next.png" />
+    <Resource Include="images\cancel.png" />
+    <Resource Include="images\next.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="cancel_blanco.png" />
-    <Resource Include="next_blanco.png" />
+    <Resource Include="images\cancel_blanco.png" />
+    <Resource Include="images\next_blanco.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="error.png" />
-    <Resource Include="verify.png" />
+    <Resource Include="images\error.png" />
+    <Resource Include="images\verify.png" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="pencil.png" />

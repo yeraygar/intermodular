@@ -51,7 +51,7 @@ namespace intermodular
         private void Button_MouseEnter(object sender, MouseEventArgs e)
         {
             btn_firmarEntrada.Background = btn_enter_color;
-            img_ficharEntrada.Source = (ImageSource)new ImageSourceConverter().ConvertFrom("..\\..\\card_blanco.png");
+            img_ficharEntrada.Source = (ImageSource)new ImageSourceConverter().ConvertFrom("..\\..\\images\\card_blanco.png");
             txt_ficharEntrada.Foreground = text_enter_color;
         }
 
@@ -59,7 +59,7 @@ namespace intermodular
         private void btn_firmarEntrada_MouseLeave(object sender, MouseEventArgs e)
         {
             btn_firmarEntrada.Background = btn_leave_color;
-            img_ficharEntrada.Source = (ImageSource)new ImageSourceConverter().ConvertFrom("..\\..\\card.png");
+            img_ficharEntrada.Source = (ImageSource)new ImageSourceConverter().ConvertFrom("..\\..\\images\\card.png");
             txt_ficharEntrada.Foreground = text_leave_color;
         }
 
@@ -67,7 +67,7 @@ namespace intermodular
         private void btn_ficharSalida_MouseEnter(object sender, MouseEventArgs e)
         {
             btn_ficharSalida.Background = btn_enter_color;
-            img_ficharSalida.Source = (ImageSource)new ImageSourceConverter().ConvertFrom("..\\..\\manos_blanco.png");
+            img_ficharSalida.Source = (ImageSource)new ImageSourceConverter().ConvertFrom("..\\..\\images\\manos_blanco.png");
             txt_ficharSalida.Foreground = text_enter_color;
         }
 
@@ -75,7 +75,7 @@ namespace intermodular
         private void btn_ficharSalida_MouseLeave(object sender, MouseEventArgs e)
         {
             btn_ficharSalida.Background = btn_leave_color;
-            img_ficharSalida.Source = (ImageSource)new ImageSourceConverter().ConvertFrom("..\\..\\manos.png");
+            img_ficharSalida.Source = (ImageSource)new ImageSourceConverter().ConvertFrom("..\\..\\images\\manos.png");
             txt_ficharSalida.Foreground = text_leave_color;
         }
 
@@ -83,7 +83,7 @@ namespace intermodular
         private void btn_tickets_MouseEnter(object sender, MouseEventArgs e)
         {
             btn_tickets.Background = btn_enter_color;
-            img_tickets.Source = (ImageSource)new ImageSourceConverter().ConvertFrom("..\\..\\ticket_blanco.png");
+            img_tickets.Source = (ImageSource)new ImageSourceConverter().ConvertFrom("..\\..\\images\\ticket_blanco.png");
             txt_tickets.Foreground = text_enter_color;
         }
 
@@ -91,7 +91,7 @@ namespace intermodular
         private void btn_tickets_MouseLeave(object sender, MouseEventArgs e)
         {
             btn_tickets.Background = btn_leave_color;
-            img_tickets.Source = (ImageSource)new ImageSourceConverter().ConvertFrom("..\\..\\ticket.png");
+            img_tickets.Source = (ImageSource)new ImageSourceConverter().ConvertFrom("..\\..\\images\\ticket.png");
             txt_tickets.Foreground = text_leave_color;
         }
 
@@ -99,7 +99,7 @@ namespace intermodular
         private void btn_admin_MouseEnter(object sender, MouseEventArgs e)
         {
             btn_admin.Background = btn_enter_color;
-            img_admin.Source = (ImageSource)new ImageSourceConverter().ConvertFrom("..\\..\\admin_blanco.png");
+            img_admin.Source = (ImageSource)new ImageSourceConverter().ConvertFrom("..\\..\\images\\admin_blanco.png");
             txt_admin.Foreground = text_enter_color;
         }
 
@@ -107,7 +107,7 @@ namespace intermodular
         private void btn_admin_MouseLeave(object sender, MouseEventArgs e)
         {
             btn_admin.Background = btn_leave_color;
-            img_admin.Source = (ImageSource)new ImageSourceConverter().ConvertFrom("..\\..\\admin.png");
+            img_admin.Source = (ImageSource)new ImageSourceConverter().ConvertFrom("..\\..\\images\\admin.png");
             txt_admin.Foreground = text_leave_color;
         }
 

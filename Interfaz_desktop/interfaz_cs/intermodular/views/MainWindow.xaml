@@ -10,10 +10,12 @@
         Background="White"
         Width="{x:Static SystemParameters.PrimaryScreenWidth}"
         Height="{x:Static SystemParameters.PrimaryScreenHeight}"
+       
         WindowStyle="None"
         ResizeMode="NoResize"
         Top="0"
-        Left="0">
+        Left="0"
+      >
     <Grid x:Name="grid" Background="Transparent">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="250"/>
@@ -51,7 +53,7 @@
                 <RowDefinition Height="auto"/>
                 <RowDefinition Height="auto"/>
             </Grid.RowDefinitions>
-            <Image x:Name="imgOpciones" Source="settings.png" Height="60" Width="60" HorizontalAlignment="Center" VerticalAlignment="Center" RenderOptions.BitmapScalingMode="HighQuality"/>
+            <Image x:Name="imgOpciones" Source="..\images\settings.png" Height="60" Width="60" HorizontalAlignment="Center" VerticalAlignment="Center" RenderOptions.BitmapScalingMode="HighQuality"/>
             <TextBlock Grid.Row="1" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center">Opciones</TextBlock>
         </Grid>
     </Grid>
