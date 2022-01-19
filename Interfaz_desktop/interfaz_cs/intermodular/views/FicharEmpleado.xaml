@@ -10,6 +10,7 @@
         Width="600"
         WindowStyle="None"
         Background="Transparent"
+        AllowsTransparency="True"
         WindowStartupLocation="CenterScreen"
         ResizeMode="NoResize">
     <Border CornerRadius="10,10,10,10" Background="WhiteSmoke">
@@ -18,7 +19,7 @@
                 <RowDefinition Height="40"></RowDefinition>
                 <RowDefinition Height="Auto"></RowDefinition>
             </Grid.RowDefinitions>
-            <Border CornerRadius="10,10,0,0" Background ="#FFEB3B">
+            <Border CornerRadius="10,10,0,0" Background ="#48C9B0">
                 <Grid Background="Transparent">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition/>
@@ -26,7 +27,7 @@
                     </Grid.ColumnDefinitions>
                     <TextBlock FontSize="25" Foreground="WhiteSmoke" VerticalAlignment="Center" Margin="10,0,0,0">Empleados</TextBlock>
                     <Button x:Name="btn_cerrar" Style="{StaticResource btnRedondo}" Grid.Column="1" Height="25" Width="25" Cursor="Hand" Click="Btn_cerrar_Click">
-                        <Image Source="..\images\cerrar.png" Width="20" Height="20" />
+                        <Image Source="cerrar.png" Width="20" Height="20" />
                     </Button>
                 </Grid>
             </Border>
