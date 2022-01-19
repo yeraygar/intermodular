@@ -22,13 +22,13 @@
                 <RowDefinition Height="50"/>
                 <RowDefinition/>
             </Grid.RowDefinitions>
-            <Border  Background="#26b7fb" CornerRadius="10,10,0,0">
+            <Border  Background="#48C9B0" CornerRadius="10,10,0,0">
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition/>
                         <ColumnDefinition Width="60"/>
                     </Grid.ColumnDefinitions>
-                    <TextBlock FontSize="25" Foreground="White" VerticalAlignment="Center" Margin="10,0,0,0">Administrador</TextBlock>
+                    <TextBlock FontSize="25" Foreground="WhiteSmoke" VerticalAlignment="Center" Margin="10,0,0,0">Administrador</TextBlock>
                     <Button x:Name="btn_cerrar" Style="{StaticResource btnRedondo}" Grid.Column="1" Height="40" Width="40" Cursor="Hand" MouseEnter="btn_cerrar_MouseEnter" MouseLeave="btn_cerrar_MouseLeave" Click="btn_cerrar_Click">
                         <Image Source="cerrar.png" Width="20" Height="20" RenderOptions.BitmapScalingMode="HighQuality"/>
                     </Button>

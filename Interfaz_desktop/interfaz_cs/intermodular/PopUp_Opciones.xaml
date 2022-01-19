@@ -19,7 +19,7 @@
             <RowDefinition Height="50"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
-            <Border  Background="#26b7fb" CornerRadius="10,10,0,0">
+            <Border  Background="#48C9B0" CornerRadius="10,10,0,0">
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition/>
