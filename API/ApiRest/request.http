@@ -5,7 +5,8 @@ Content-Type: application/json
 {
     "name":"John Rambo",
     "email":"nosientolaspiernas@email.com",
-    "id_client": "Ecosistema1"
+    "id_client": "Ecosistema1",
+    "passw" : "pass1234"
 }
 
 ###
