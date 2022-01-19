@@ -13,13 +13,13 @@
         Background="Transparent"
         WindowStartupLocation="CenterScreen"
         ResizeMode="NoResize">
-    <Border CornerRadius="10" Background="WhiteSmoke">
+    <Border CornerRadius="10" Background="#26b7fb">
         <Grid Background="Transparent">
         <Grid.RowDefinitions>
-            <RowDefinition Height="50"/>
+            <RowDefinition Height="47"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
-            <Border  Background="#26b7fb" CornerRadius="10,10,0,0">
+            <Border>
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition/>
@@ -31,7 +31,8 @@
                     </Button>
                 </Grid>
             </Border>
-            <Grid Grid.Row="1">
+            <Border Grid.Row="1" Background="WhiteSmoke" BorderThickness="3" CornerRadius="0,0,10,10">
+                <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition/>
                     <ColumnDefinition/>
@@ -81,6 +82,7 @@
                     </Grid>
                 </Button>
             </Grid>
+            </Border>
         </Grid>
     </Border>
 </Window>

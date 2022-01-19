@@ -13,42 +13,41 @@
         Background="Transparent"
         AllowsTransparency="True"
         WindowStartupLocation="CenterScreen">
-    <Border Background="WhiteSmoke" CornerRadius="10">
+    <Border  Background="#26b7fb" CornerRadius="10">
         <Grid>
             <Grid.RowDefinitions>
-                <RowDefinition Height="50"/>
+                <RowDefinition Height="47"/>
                 <RowDefinition/>
             </Grid.RowDefinitions>
-            <Border  Background="#26b7fb" CornerRadius="10,10,0,0">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="60"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock FontSize="25" Foreground="White" VerticalAlignment="Center" Margin="10,0,0,0">Zonas</TextBlock>
+                <Button x:Name="btn_cerrar" Style="{StaticResource btnRedondo}" Grid.Column="1" Height="40" Width="40" Cursor="Hand" Click="btn_cerrar_Click" MouseEnter="btn_cerrar_MouseEnter" MouseLeave="btn_cerrar_MouseLeave">
+                    <Image Source="cerrar.png" Width="20" Height="20" RenderOptions.BitmapScalingMode="HighQuality"/>
+                </Button>
+            </Grid>
+            <Border Grid.Row="1" BorderThickness="3">
                 <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition/>
-                        <ColumnDefinition Width="60"/>
-                    </Grid.ColumnDefinitions>
-                    <TextBlock FontSize="25" Foreground="White" VerticalAlignment="Center" Margin="10,0,0,0">Zonas</TextBlock>
-                    <Button x:Name="btn_cerrar" Style="{StaticResource btnRedondo}" Grid.Column="1" Height="40" Width="40" Cursor="Hand" Click="btn_cerrar_Click" MouseEnter="btn_cerrar_MouseEnter" MouseLeave="btn_cerrar_MouseLeave">
-                        <Image Source="cerrar.png" Width="20" Height="20" RenderOptions.BitmapScalingMode="HighQuality"/>
-                    </Button>
-                </Grid>
-            </Border>
-            <Grid Grid.Row="1">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="400"/>
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
-                <Border Padding="10">
+                <Border Padding="10" Background="WhiteSmoke" CornerRadius="0,0,0,10">
                     <Border CornerRadius="10">
                         <Grid>
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="100"/>
-                                <RowDefinition/>
-                                <RowDefinition Height="150"/>
+                                    <RowDefinition/>
+                                    <RowDefinition Height="150"/>
                             </Grid.RowDefinitions>
                             <Border CornerRadius="10,10,0,0" Background="Gray">
                                 <TextBlock Foreground="white" FontSize="30" HorizontalAlignment="Center" VerticalAlignment="Center">Zonas</TextBlock>
                             </Border>
-                            <Border Grid.Row="1" BorderBrush="Gray" BorderThickness="4,0,4,0" Padding="5">
-                                <StackPanel>
+                            <Border Grid.Row="1" BorderBrush="Gray" BorderThickness="4,0,4,0" Padding="5" Background="WhiteSmoke">
+                                <StackPanel x:Name="stackZonas">
                                     
                                 </StackPanel>
                             </Border>
@@ -58,7 +57,7 @@
                                         <ColumnDefinition/>
                                         <ColumnDefinition/>
                                     </Grid.ColumnDefinitions>
-                                    <Button Style="{StaticResource btnRedondo80}" Height="130" Width="130" Margin="0,0,10,0" Cursor="Hand">
+                                    <Button Style="{StaticResource btnRedondo80}" Height="130" Width="130" Margin="0,0,10,0" Cursor="Hand" Click="Button_Click">
                                         <Grid VerticalAlignment="Center" HorizontalAlignment="Center">
                                             <Grid.RowDefinitions>
                                                 <RowDefinition/>
@@ -83,12 +82,13 @@
                         </Grid>  
                     </Border>
                 </Border>
-                <Border Padding="10" Grid.Column="1">
+                <Border Padding="10" Grid.Column="1" Background="WhiteSmoke" CornerRadius="0,0,10,0">
                     <Border CornerRadius="10" Background="LawnGreen">
                         
                     </Border>
                 </Border>
             </Grid>
+            </Border>
         </Grid>
     </Border>
 </Window>

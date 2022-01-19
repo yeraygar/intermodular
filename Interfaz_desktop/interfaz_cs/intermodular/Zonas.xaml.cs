@@ -38,5 +38,12 @@ namespace intermodular
         {
             btn_cerrar.Background = Brushes.White;
         }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            CrearZona crearzona = new CrearZona(this);
+            crearzona.ShowDialog();
+        }
+
     }
 }

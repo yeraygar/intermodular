@@ -155,7 +155,7 @@ namespace intermodular
                 //Leemos resultado del Body(Contenido) pero tambien podemos ver los Headers o las Cookies
                 var postResult = JsonSerializer.Deserialize<User>(result);
 
-                Console.WriteLine($"Usuario creado correctamente\n\tname: {postResult.name},\n\temail: {postResult.email}");
+                Console.WriteLine($"Usuario creado correctamente\n\tname: {postResult.name},\n\temail: {postResult.email} _id: {postResult._id}");
 
             }
         }

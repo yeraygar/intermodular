@@ -49,9 +49,9 @@ router.get("/zones/:id", (req, res) => {
 //Update Zone, si algun campo no se pone no se elimina
 router.put("/zones/:id", (req, res) => {
     const {id} = req.params;
-    const {num_tables, zone_status} = req.body;
+    const {zone_name,num_tables,zone_status,tables} = req.body;
     zoneSchema
-        .updateOne({_id: id}, {$set:{num_tables, zone_status}})
+        .updateOne({_id: id}, {$set:{zone_name,num_tables,zone_status,tables}})
         .then((data) =>{
             res.json(data);
             console.log(`\nUpdate succesful: \n ${data}`);

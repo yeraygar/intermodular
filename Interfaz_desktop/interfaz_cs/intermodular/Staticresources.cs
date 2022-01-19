@@ -8,6 +8,7 @@ namespace intermodular
 {
     class Staticresources
     {
-        public static String caja = "cerrada";
+        public static string caja = "cerrada";
+        public static string id_client = "eco_prueba";
     }
 }
