@@ -101,9 +101,9 @@
                                             <ComboBoxItem>Abierta</ComboBoxItem>
                                             <ComboBoxItem>Cerrada</ComboBoxItem>
                                         </ComboBox>
-                                        <Image x:Name="imgEditNombreZona" Height="30" Width="30"  HorizontalAlignment="Left" VerticalAlignment="Top" Margin="720,210,0,0" RenderOptions.BitmapScalingMode="HighQuality" Cursor="Hand" Source="/intermodular;component/pencil.png"/>
-                                        <Image x:Name="imgEditTableNum" Height="30" Width="30" Source="/intermodular;component/pencil.png" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="400,329,0,0" RenderOptions.BitmapScalingMode="HighQuality" Cursor="Hand"/>
-                                        <Image x:Name="imgEditZoneStatus" Height="30" Width="30" Source="/intermodular;component/pencil.png" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="563,450,0,0" RenderOptions.BitmapScalingMode="HighQuality" Cursor="Hand"/>
+                                        <Image x:Name="imgEditNombreZona" Height="30" Width="30" Source="../images/pencil.png" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="720,210,0,0" RenderOptions.BitmapScalingMode="HighQuality" Cursor="Hand"/>
+                                        <Image x:Name="imgEditTableNum" Height="30" Width="30" Source="../images/pencil.png" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="400,329,0,0" RenderOptions.BitmapScalingMode="HighQuality" Cursor="Hand"/>
+                                        <Image x:Name="imgEditZoneStatus" Height="30" Width="30" Source="../images/pencil.png" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="563,450,0,0" RenderOptions.BitmapScalingMode="HighQuality" Cursor="Hand"/>
                                     </Grid>
                                 </Grid>
                             </Grid>

@@ -279,13 +279,10 @@
     <Resource Include="images\verify.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="pencil.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="cerrar_blanco.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="images\cerrar_blanco.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="images\pencil.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\System.Text.Json.6.0.1\build\System.Text.Json.targets" Condition="Exists('..\packages\System.Text.Json.6.0.1\build\System.Text.Json.targets')" />
