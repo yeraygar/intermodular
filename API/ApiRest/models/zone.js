@@ -22,7 +22,7 @@ const zoneSchemma = mongoose.Schema({
 
     tables : {
         type:Array,
-        required: true
+        required: false
     }
 });
 module.exports = mongoose.model('Zone',zoneSchemma);

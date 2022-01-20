@@ -43,20 +43,29 @@ namespace intermodular
         {
             if(checkZoneName(txtZona.Text) && checkZoneNumber(txtNumMesas.Text))
             {
-                Zona zona = new Zona(Staticresources.id_client, txtZona.Text, int.Parse(txtNumMesas.Text), true);
-                zona = await Zona.createZone(zona);
-                if(zona == null)
+                Zona zonaP = new Zona(Staticresources.id_client, txtZona.Text, int.Parse(txtNumMesas.Text), true);
+                Zona zona = await Zona.createZone(zonaP);
+                if (zona == null)
                 {
                     //error
-                }else
+                } else
                 {
                     Zonas ventanaZona = (Zonas)win;
-                    Button btn = new Button();
-                    btn.Height = 50;
-                    btn.Width = 150;
-                    btn.Content = zona.zone_name;
-                    //btn.Click += MessageBox.Show("asdf")
+                    Button btn = new Button {
+                       Height = 50,
+                       Width = 150,
+                       Content = zona.zone_name
+                };
+
+
+                    btn.Click += (object send, RoutedEventArgs a) =>
+                    {
+                        MessageBox.Show(zona.id);
+                    };
+
                     ventanaZona.stackZonas.Children.Add(btn);
+                    this.Close();
+                   
                 }
             }
             else

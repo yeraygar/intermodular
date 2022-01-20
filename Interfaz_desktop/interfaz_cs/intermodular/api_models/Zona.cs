@@ -16,6 +16,7 @@ namespace intermodular
         private string _zone_name;
         private int _num_tables;
         private bool _zone_status;
+        private int __v;
         private List<Mesa> _mesasZona;
         public static List<Zona> allZonas = new List<Zona>();
         public static Zona zonaBuscada;
@@ -104,6 +105,17 @@ namespace intermodular
             _num_tables = num_tables;
             _zone_status = zone_status;
         }
+
+        /*public Zona(string id_client, string zone_name, int num_tables, bool zone_status, Mesa[] tables, string _id, int __v)
+        {
+            _id_client = id_client;
+            _zone_name = zone_name;
+            _num_tables = num_tables;
+            _zone_status = zone_status;
+            _mesasZona = tables.ToList();
+            this._id = _id;
+            this.__v = __v;
+        }*/
         
         public static async Task getAllZones()
         {
