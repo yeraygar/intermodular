@@ -19,24 +19,68 @@ namespace intermodular
     /// </summary>
     public partial class Login : Window
     {
+        //public Login(List<User> listaUsuarios)
         public Login()
         {
             InitializeComponent();
             LabelNombre.Content = User.usuarioElegido.name;
            // User.usuarioElegido.passw = "loquemedelagana";
         }
+
         
 
         private void btnAceptar_Click(object sender, System.EventArgs e)
         {
-            if (User.usuarioElegido.passw == passwordBox.Password)
+            String passwordElegido = Encrypt.GetSHA256(User.usuarioElegido.passw);
+            String passwordIntroducido = Encrypt.GetSHA256(passwordBox.Password);
+
+            //if (User.usuarioElegido.passw == passwordBox.Password)
+            if (passwordElegido.Equals(passwordIntroducido))
             {
+                
                 MessageBox.Show("Contraseña correcta");
+                User.usuariosFichados.Add(User.usuarioElegido);
+                this.Close();
             }
             else
             {
                 MessageBox.Show("Contraseña incorrecta");               
             }
+        }
+
+        private void btn_0(object sender, System.EventArgs e)
+        {
+            passwordBox.Password += boton0.Content.ToString();
+        }
+
+        private void btn_1(object sender, System.EventArgs e)
+        {
+            passwordBox.Password += boton1.Content.ToString();
+        }
+
+        private void btn_2(object sender, System.EventArgs e)
+        {
+            passwordBox.Password += boton2.Content.ToString();
+        }
+
+        private void btn_3(object sender, System.EventArgs e)
+        {
+            passwordBox.Password += boton3.Content.ToString();
+        }
+
+        private void btn_4(object sender, System.EventArgs e)
+        {
+            passwordBox.Password += boton4.Content.ToString();
+        }
+
+        private void btn_5(object sender, System.EventArgs e)
+        {
+            passwordBox.Password += boton5.Content.ToString();
+        }
+
+        private void btn_6(object sender, System.EventArgs e)
+        {
+            passwordBox.Password += boton6.Content.ToString();
         }
 
         private void btn_7(object sender, System.EventArgs e)
@@ -46,10 +90,12 @@ namespace intermodular
 
         private void btn_8(object sender, System.EventArgs e)
         {
-
-
             passwordBox.Password += boton8.Content.ToString();
+        }
 
+        private void btn_9(object sender, System.EventArgs e)
+        {
+            passwordBox.Password += boton9.Content.ToString();
         }
 
         //cierra esta ventana al hacer click en el botón de cerrar    
@@ -85,6 +131,14 @@ namespace intermodular
         private void Button_Aceptar_enter(object sender, MouseEventArgs e)
         {
             aceptar.Background = Brushes.DarkSlateGray;
+        }
+
+        private void btn_borrar(object sender, RoutedEventArgs e)
+        {
+            if (passwordBox.Password.Length != 0)
+            {
+               passwordBox.Password = passwordBox.Password.Substring(0, passwordBox.Password.Length - 1);
+            }
         }
     }
 }

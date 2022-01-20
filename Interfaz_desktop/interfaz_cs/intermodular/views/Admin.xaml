@@ -16,13 +16,13 @@
         AllowsTransparency="True"
         Background="Transparent"
         WindowStartupLocation="CenterScreen">
-    <Border CornerRadius="10" Background="#26b7fb">
+    <Border CornerRadius="10" Background="#48C9B0">
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="47"/>
                 <RowDefinition/>
             </Grid.RowDefinitions>
-            <Border  Background="#26b7fb" CornerRadius="10,10,0,0">
+            <Border  Background="#48C9B0" CornerRadius="10,10,0,0">
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition/>

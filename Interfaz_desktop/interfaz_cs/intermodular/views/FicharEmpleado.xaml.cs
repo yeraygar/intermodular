@@ -59,7 +59,8 @@ namespace intermodular
                     boton.Click += (object sender, RoutedEventArgs e) =>
                     {
                         this.Close();
-                        User.usuarioElegido = user; 
+                        User.usuarioElegido = user;
+                        //Login empl = new Login(User.allUsers);
                         Login empl = new Login();
                         empl.ShowDialog();
                     };

@@ -31,6 +31,8 @@ namespace intermodular
 
         public static List<User> allUsers;
 
+        public static List<User> usuariosFichados;
+
         public static User currentUser;
 
         public static User usuarioElegido; 

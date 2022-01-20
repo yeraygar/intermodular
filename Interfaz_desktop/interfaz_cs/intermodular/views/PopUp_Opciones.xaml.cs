@@ -20,10 +20,10 @@ namespace intermodular
     public partial class PopUp_Opciones : Window
     {
         //Definimos los colores que vamos a usar al hacer hover sobre los botones y el texto
-        private Brush btn_enter_color = (Brush)(new BrushConverter().ConvertFrom("#444444"));
-        private Brush text_enter_color = Brushes.White;
-        private Brush btn_leave_color = Brushes.White;
-        private Brush text_leave_color = Brushes.Black;
+        //private Brush btn_enter_color = (Brush)(new BrushConverter().ConvertFrom("#444444"));
+        //private Brush text_enter_color = Brushes.White;
+        //private Brush btn_leave_color = Brushes.White;
+        //private Brush text_leave_color = Brushes.Black;
         public PopUp_Opciones()
         {
             InitializeComponent();
@@ -50,65 +50,65 @@ namespace intermodular
         //cambia el color al situarse encima del boton de fichar entrada
         private void Button_MouseEnter(object sender, MouseEventArgs e)
         {
-            btn_firmarEntrada.Background = btn_enter_color;
+            btn_firmarEntrada.Background = Colores.oscuro;            
             img_ficharEntrada.Source = (ImageSource)new ImageSourceConverter().ConvertFrom("..\\..\\images\\card_blanco.png");
-            txt_ficharEntrada.Foreground = text_enter_color;
+            txt_ficharEntrada.Foreground = Colores.blanco;
         }
 
         //cambia el color al salir del botón de fichar entrada
         private void btn_firmarEntrada_MouseLeave(object sender, MouseEventArgs e)
         {
-            btn_firmarEntrada.Background = btn_leave_color;
+            btn_firmarEntrada.Background = Colores.blanco;
             img_ficharEntrada.Source = (ImageSource)new ImageSourceConverter().ConvertFrom("..\\..\\images\\card.png");
-            txt_ficharEntrada.Foreground = text_leave_color;
+            txt_ficharEntrada.Foreground = Colores.oscuro;
         }
 
         //cambia el color al situarse encima del boton de fichar salida
         private void btn_ficharSalida_MouseEnter(object sender, MouseEventArgs e)
         {
-            btn_ficharSalida.Background = btn_enter_color;
+            btn_ficharSalida.Background = Colores.oscuro;
             img_ficharSalida.Source = (ImageSource)new ImageSourceConverter().ConvertFrom("..\\..\\images\\manos_blanco.png");
-            txt_ficharSalida.Foreground = text_enter_color;
+            txt_ficharSalida.Foreground = Colores.blanco;
         }
 
         //cambia el color al salir del botón de fichar salida
         private void btn_ficharSalida_MouseLeave(object sender, MouseEventArgs e)
         {
-            btn_ficharSalida.Background = btn_leave_color;
+            btn_ficharSalida.Background = Colores.blanco;
             img_ficharSalida.Source = (ImageSource)new ImageSourceConverter().ConvertFrom("..\\..\\images\\manos.png");
-            txt_ficharSalida.Foreground = text_leave_color;
+            txt_ficharSalida.Foreground = Colores.oscuro;
         }
 
         //cambia el color al situarse encima del botón de tickets
         private void btn_tickets_MouseEnter(object sender, MouseEventArgs e)
         {
-            btn_tickets.Background = btn_enter_color;
+            btn_tickets.Background = Colores.oscuro;
             img_tickets.Source = (ImageSource)new ImageSourceConverter().ConvertFrom("..\\..\\images\\ticket_blanco.png");
-            txt_tickets.Foreground = text_enter_color;
+            txt_tickets.Foreground = Colores.blanco;
         }
 
         //cambia el color al salir del botón de tickets
         private void btn_tickets_MouseLeave(object sender, MouseEventArgs e)
         {
-            btn_tickets.Background = btn_leave_color;
+            btn_tickets.Background = Colores.blanco;
             img_tickets.Source = (ImageSource)new ImageSourceConverter().ConvertFrom("..\\..\\images\\ticket.png");
-            txt_tickets.Foreground = text_leave_color;
+            txt_tickets.Foreground = Colores.oscuro;
         }
 
         //cambia el color al situarse encima del boton de admin
         private void btn_admin_MouseEnter(object sender, MouseEventArgs e)
         {
-            btn_admin.Background = btn_enter_color;
+            btn_admin.Background = Colores.oscuro;
             img_admin.Source = (ImageSource)new ImageSourceConverter().ConvertFrom("..\\..\\images\\admin_blanco.png");
-            txt_admin.Foreground = text_enter_color;
+            txt_admin.Foreground = Colores.blanco;
         }
 
         //cambia el color al salir del botón de admin
         private void btn_admin_MouseLeave(object sender, MouseEventArgs e)
         {
-            btn_admin.Background = btn_leave_color;
+            btn_admin.Background = Colores.blanco;
             img_admin.Source = (ImageSource)new ImageSourceConverter().ConvertFrom("..\\..\\images\\admin.png");
-            txt_admin.Foreground = text_leave_color;
+            txt_admin.Foreground = Colores.oscuro;
         }
 
         //abre la ventana de fichar entrada

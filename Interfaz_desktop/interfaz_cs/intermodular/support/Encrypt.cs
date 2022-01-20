@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Security.Cryptography;
 using System.Text;
 
-namespace UserConnection
+namespace intermodular
 {
-    class Encrypt
+    public static class Encrypt
     {
         /// <summary>
         /// Static Method. Recibe un string y lo devuelve cifrado
