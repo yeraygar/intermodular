@@ -25,8 +25,32 @@ namespace intermodular
             LabelNombre.Content = User.usuarioElegido.name;
            // User.usuarioElegido.passw = "loquemedelagana";
         }
-
         
+
+        private void btnAceptar_Click(object sender, System.EventArgs e)
+        {
+            if (User.usuarioElegido.passw == passwordBox.Password)
+            {
+                MessageBox.Show("Contraseña correcta");
+            }
+            else
+            {
+                MessageBox.Show("Contraseña incorrecta");               
+            }
+        }
+
+        private void btn_7(object sender, System.EventArgs e)
+        {
+            passwordBox.Password += boton7.Content.ToString();            
+        }
+
+        private void btn_8(object sender, System.EventArgs e)
+        {
+
+
+            passwordBox.Password += boton8.Content.ToString();
+
+        }
 
         //cierra esta ventana al hacer click en el botón de cerrar    
 
