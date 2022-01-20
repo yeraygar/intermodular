@@ -31,63 +31,85 @@
             </Grid>
             <Border Grid.Row="1" BorderThickness="3">
                 <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="400"/>
-                    <ColumnDefinition/>
-                </Grid.ColumnDefinitions>
-                <Border Padding="10" Background="WhiteSmoke" CornerRadius="0,0,0,10">
-                    <Border CornerRadius="10">
-                        <Grid>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="100"/>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="400"/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Border Padding="10" Background="WhiteSmoke" CornerRadius="0,0,0,10">
+                        <Border CornerRadius="10">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="100"/>
                                     <RowDefinition/>
                                     <RowDefinition Height="150"/>
-                            </Grid.RowDefinitions>
-                            <Border CornerRadius="10,10,0,0" Background="Gray">
-                                <TextBlock Foreground="white" FontSize="30" HorizontalAlignment="Center" VerticalAlignment="Center">Zonas</TextBlock>
-                            </Border>
-                            <Border Grid.Row="1" BorderBrush="Gray" BorderThickness="4,0,4,0" Padding="5" Background="WhiteSmoke">
-                                <StackPanel x:Name="stackZonas">
-                                    
-                                </StackPanel>
-                            </Border>
-                            <Border Grid.Row="2" Background="Gray" CornerRadius="0,0,10,10">
-                                <Grid HorizontalAlignment="Center">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition/>
-                                        <ColumnDefinition/>
-                                    </Grid.ColumnDefinitions>
-                                    <Button Style="{StaticResource btnRedondo80}" Height="130" Width="130" Margin="0,0,10,0" Cursor="Hand" Click="Button_Click">
-                                        <Grid VerticalAlignment="Center" HorizontalAlignment="Center">
-                                            <Grid.RowDefinitions>
-                                                <RowDefinition/>
-                                                <RowDefinition/>
-                                            </Grid.RowDefinitions>
-                                                <Image Source="..\images\agregar.png" Width="50" Height="50" HorizontalAlignment="Center" VerticalAlignment="Center" RenderOptions.BitmapScalingMode="Fant"/>
-                                            <TextBlock Grid.Row="1" FontSize="20" VerticalAlignment="Top" HorizontalAlignment="Center">Agregar</TextBlock>
-                                        </Grid>
-                                    </Button>
-                                    <Button Style="{StaticResource btnRedondo80}" Height="130" Width="130" Grid.Column="1" Margin="10,0,0,0" Cursor="Hand">
-                                        <Grid VerticalAlignment="Center" HorizontalAlignment="Center">
-                                            <Grid.RowDefinitions>
-                                                <RowDefinition/>
-                                                <RowDefinition/>
-                                            </Grid.RowDefinitions>
-                                                <Image Source="..\images\eliminar.png" Width="50" Height="50" HorizontalAlignment="Center" VerticalAlignment="Center" RenderOptions.BitmapScalingMode="Fant"/>
-                                            <TextBlock Grid.Row="1" FontSize="20" VerticalAlignment="Top" HorizontalAlignment="Center">Eliminar</TextBlock>
-                                        </Grid>
-                                    </Button>
+                                </Grid.RowDefinitions>
+                                <Border CornerRadius="10,10,0,0" Background="Gray">
+                                    <TextBlock Foreground="white" FontSize="30" HorizontalAlignment="Center" VerticalAlignment="Center">Zonas</TextBlock>
+                                </Border>
+                                <Border Grid.Row="1" BorderBrush="Gray" BorderThickness="4,0,4,0" Padding="5" Background="WhiteSmoke">
+                                    <StackPanel x:Name="stackZonas">
+
+                                    </StackPanel>
+                                </Border>
+                                <Border Grid.Row="2" Background="Gray" CornerRadius="0,0,10,10">
+                                    <Grid HorizontalAlignment="Center">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition/>
+                                            <ColumnDefinition/>
+                                        </Grid.ColumnDefinitions>
+                                        <Button Style="{StaticResource btnRedondo80}" Height="130" Width="130" Margin="0,0,10,0" Cursor="Hand" Click="Button_Click">
+                                            <Grid VerticalAlignment="Center" HorizontalAlignment="Center">
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition/>
+                                                    <RowDefinition/>
+                                                </Grid.RowDefinitions>
+                                                <Image Width="50" Height="50" HorizontalAlignment="Center" VerticalAlignment="Top" RenderOptions.BitmapScalingMode="HighQuality" Margin="10,0,11,0" Source="/intermodular;component/images/agregar.png"/>
+                                                <TextBlock Grid.Row="1" FontSize="20" VerticalAlignment="Top" HorizontalAlignment="Center">Agregar</TextBlock>
+                                            </Grid>
+                                        </Button>
+                                        <Button Style="{StaticResource btnRedondo80}" Height="130" Width="130" Grid.Column="1" Margin="10,0,0,0" Cursor="Hand">
+                                            <Grid VerticalAlignment="Center" HorizontalAlignment="Center">
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition/>
+                                                    <RowDefinition/>
+                                                </Grid.RowDefinitions>
+                                                <Image  Width="50" Height="50" HorizontalAlignment="Center" VerticalAlignment="Center" RenderOptions.BitmapScalingMode="HighQuality" Source="/intermodular;component/images/eliminar.png"/>
+                                                <TextBlock Grid.Row="1" FontSize="20" VerticalAlignment="Top" HorizontalAlignment="Center">Eliminar</TextBlock>
+                                            </Grid>
+                                        </Button>
+                                    </Grid>
+                                </Border>
+                            </Grid>
+                        </Border>
+                    </Border>
+                    <Border Padding="10" Grid.Column="1" Background="WhiteSmoke" CornerRadius="0,0,10,0">
+                        <Border CornerRadius="10" Background="Silver">
+                            <Grid>
+                                <Grid x:Name="gridEditarZona">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition/>
+                                        <RowDefinition Height="150"/>
+                                    </Grid.RowDefinitions>
+                                    <Grid>
+                                        <TextBlock HorizontalAlignment="Left" Margin="50,50,0,0" TextWrapping="Wrap" Text="Información de la zona" VerticalAlignment="Top" FontSize="40" FontWeight="Bold"/>
+                                        <TextBlock HorizontalAlignment="Left" Margin="50,200,0,0" TextWrapping="Wrap" Text="Nombre de la zona" VerticalAlignment="Top" FontSize="30"/>
+                                        <TextBlock HorizontalAlignment="Left" Margin="50,320,0,0" TextWrapping="Wrap" Text="Número de mesas" VerticalAlignment="Top" FontSize="30"/>
+                                        <TextBlock HorizontalAlignment="Left" Margin="50,440,0,0" TextWrapping="Wrap" Text="Estado de la zona" VerticalAlignment="Top" FontSize="30"/>
+                                        <TextBox HorizontalAlignment="Left" Margin="340,202,0,0" TextWrapping="NoWrap" VerticalAlignment="Top" Width="360" FontSize="30" IsEnabled="False"/>
+                                        <TextBox HorizontalAlignment="Left" Margin="340,322,0,0" TextWrapping="NoWrap" VerticalAlignment="Top" Width="40" FontSize="30" IsEnabled="False"/>
+                                        <ComboBox HorizontalAlignment="Left" VerticalAlignment="Top" Margin="340,440,0,0" FontSize="30" Width="200" IsEnabled="False">
+                                            <ComboBoxItem>Abierta</ComboBoxItem>
+                                            <ComboBoxItem>Cerrada</ComboBoxItem>
+                                        </ComboBox>
+                                        <Image x:Name="imgEditNombreZona" Height="30" Width="30" Source="../images/pencil.png" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="720,210,0,0" RenderOptions.BitmapScalingMode="HighQuality" Cursor="Hand"/>
+                                        <Image x:Name="imgEditTableNum" Height="30" Width="30" Source="../images/pencil.png" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="400,329,0,0" RenderOptions.BitmapScalingMode="HighQuality" Cursor="Hand"/>
+                                        <Image x:Name="imgEditZoneStatus" Height="30" Width="30" Source="../images/pencil.png" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="563,450,0,0" RenderOptions.BitmapScalingMode="HighQuality" Cursor="Hand"/>
+                                    </Grid>
                                 </Grid>
-                            </Border>
-                        </Grid>  
+                            </Grid>
+                        </Border>
                     </Border>
-                </Border>
-                <Border Padding="10" Grid.Column="1" Background="WhiteSmoke" CornerRadius="0,0,10,0">
-                    <Border CornerRadius="10" Background="LawnGreen">
-                        
-                    </Border>
-                </Border>
-            </Grid>
+                </Grid>
             </Border>
         </Grid>
     </Border>

@@ -10,13 +10,13 @@
         Width="600"
         WindowStyle="None"
         Background="Transparent"
-        AllowsTransparency="True"
         WindowStartupLocation="CenterScreen"
+        AllowsTransparency="True"
         ResizeMode="NoResize">
     <Border CornerRadius="10,10,10,10" Background="WhiteSmoke">
         <Grid Background="Transparent">
             <Grid.RowDefinitions>
-                <RowDefinition Height="40"></RowDefinition>
+                <RowDefinition Height="47"></RowDefinition>
                 <RowDefinition Height="Auto"></RowDefinition>
             </Grid.RowDefinitions>
             <Border CornerRadius="10,10,0,0" Background ="#48C9B0">
@@ -26,8 +26,8 @@
                         <ColumnDefinition Width="60"/>
                     </Grid.ColumnDefinitions>
                     <TextBlock FontSize="25" Foreground="WhiteSmoke" VerticalAlignment="Center" Margin="10,0,0,0">Empleados</TextBlock>
-                    <Button x:Name="btn_cerrar" Style="{StaticResource btnRedondo}" Grid.Column="1" Height="25" Width="25" Cursor="Hand" Click="Btn_cerrar_Click">
-                        <Image Source="cerrar.png" Width="20" Height="20" />
+                    <Button x:Name="btn_cerrar" Style="{StaticResource btnRedondo}" Grid.Column="1" Height="40" Width="40" Cursor="Hand" Click="Btn_cerrar_Click" MouseEnter="btn_cerrar_MouseEnter" MouseLeave="btn_cerrar_MouseLeave">
+                        <Image x:Name="imgCerrar"  Width="20" Height="20" RenderOptions.BitmapScalingMode="HighQuality" Source="/intermodular;component/images/cerrar.png" />
                     </Button>
                 </Grid>
             </Border>
