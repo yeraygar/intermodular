@@ -26,51 +26,53 @@ namespace intermodular
 
             User.getAllUsers().ContinueWith(task =>
             {
-
-                
-                foreach(User user in User.allUsers)
+                if(User.allUsers != null)
                 {
-
-                    Button boton = new Button
+                    foreach (User user in User.allUsers)
                     {
-                        Content = user.name,
-                        Height = 70,
-                        MinHeight = 40,
-                        FontSize = 20,
-                        Style = (Style)Application.Current.Resources["btnRedondo"]
 
-                    };
+                        Button boton = new Button
+                        {
+                            Content = user.name,
+                            Height = 70,
+                            MinHeight = 40,
+                            FontSize = 20,
+                            Style = (Style)Application.Current.Resources["btnRedondo"]
 
-                    //Margin = new Thickness(2)
-                    StackPanel2.Children.Add(boton);
+                        };
 
-                    boton.MouseEnter += (object sender, MouseEventArgs e) =>
-                    {
-                        boton.Background = Brushes.DarkSlateGray;
-                        boton.Foreground = Brushes.White;
+                        //Margin = new Thickness(2)
+                        StackPanel2.Children.Add(boton);
 
-                    };
-                    boton.MouseLeave += (object sender, MouseEventArgs e) =>
-                    {
-                        boton.Background = Brushes.White;
-                        boton.Foreground = Brushes.DarkSlateGray;
+                        boton.MouseEnter += (object sender, MouseEventArgs e) =>
+                        {
+                            boton.Background = Brushes.DarkSlateGray;
+                            boton.Foreground = Brushes.White;
 
-                    };
-                    boton.Click += (object sender, RoutedEventArgs e) =>
-                    {
-                        this.Close();
-                        User.usuarioElegido = user;
-                        //Login empl = new Login(User.allUsers);
-                        Login empl = new Login();
-                        empl.ShowDialog();
-                    };
+                        };
+                        boton.MouseLeave += (object sender, MouseEventArgs e) =>
+                        {
+                            boton.Background = Brushes.White;
+                            boton.Foreground = Brushes.DarkSlateGray;
 
-
+                        };
+                        boton.Click += (object sender, RoutedEventArgs e) =>
+                        {
+                            this.Close();
+                            User.usuarioElegido = user;
+                            Login empl = new Login();
+                            empl.ShowDialog();
+                        };
+                    }
+                }else
+                {
+                    MessageBox.Show("No se ha podido cargar los usuarios");
                 }
+
+                Loading.Visibility = Visibility.Collapsed;
+
              }, TaskScheduler.FromCurrentSynchronizationContext());
         }
-
-
 
 
         //cierra esta ventana al hacer click en el botón de cerrar    
