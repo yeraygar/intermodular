@@ -3,10 +3,10 @@ POST http://localhost:8081/api/users HTTP/1.1
 Content-Type: application/json
 
 {
-    "name":"John Rambo",
+    "name":"MariaPruebas123456",
     "email":"nosientolaspiernas@email.com",
     "id_client": "Ecosistema1",
-    "passw" : "pass1234"
+    "passw" : "123456"
 }
 
 ###
