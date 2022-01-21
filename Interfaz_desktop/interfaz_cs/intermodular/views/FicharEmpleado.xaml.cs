@@ -21,8 +21,6 @@ namespace intermodular
 
         public Empleados() {
             InitializeComponent();
-            //Comentario Maria para probar
-            //Comentario desde Master
 
             User.getAllUsers().ContinueWith(task =>
             {
@@ -66,7 +64,7 @@ namespace intermodular
                     }
                 }else
                 {
-                    MessageBox.Show("No se ha podido cargar los usuarios");
+                    MessageBox.Show("No se ha podido cargar los usuarios", "Error de Conexion", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
 
                 Loading.Visibility = Visibility.Collapsed;
