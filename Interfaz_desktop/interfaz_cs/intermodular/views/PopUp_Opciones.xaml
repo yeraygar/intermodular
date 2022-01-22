@@ -13,7 +13,7 @@
         Background="Transparent"
         WindowStartupLocation="CenterScreen"
         ResizeMode="NoResize">
-    <Border CornerRadius="10" Background="#26b7fb">
+    <Border CornerRadius="10" Background="#48C9B0">
         <Grid Background="Transparent">
         <Grid.RowDefinitions>
             <RowDefinition Height="47"/>
