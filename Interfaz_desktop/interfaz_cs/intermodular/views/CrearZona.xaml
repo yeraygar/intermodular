@@ -38,10 +38,10 @@
                     <Grid>
                         <TextBlock Margin="60,70,0,0" TextWrapping="Wrap" Text="Nombre de la zona" VerticalAlignment="Top" HorizontalAlignment="Left" FontSize="19"/>
                         <TextBox x:Name="txtZona" HorizontalAlignment="Left" Margin="250,70,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="260" FontSize="19" LostFocus="txtZona_LostFocus"/>
-                        <Image x:Name="imgValidZoneName" Width="30" Height="30" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="520,69,0,0" Source="verify.png" RenderOptions.BitmapScalingMode="HighQuality" Visibility="Hidden"/>
+                        <Image x:Name="imgValidZoneName" Width="30" Height="30" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="520,69,0,0" Source="/intermodular;component/images/verify.png" RenderOptions.BitmapScalingMode="HighQuality" Visibility="Hidden"/>
                         <TextBlock Margin="60,160,0,0" TextWrapping="Wrap" Text="Número de mesas" VerticalAlignment="Top" HorizontalAlignment="Left" FontSize="19" />
                         <TextBox x:Name="txtNumMesas" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="250,160,0,0" Width="50" FontSize="19" PreviewTextInput="txtNumMesas_PreviewTextInput" LostFocus="txtNumMesas_LostFocus"/>
-                        <Image x:Name="imgValidNumTables" Width="30" Height="30" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="310,159,0,0" RenderOptions.BitmapScalingMode="HighQuality" Source="verify.png" Visibility="Hidden"/>
+                        <Image x:Name="imgValidNumTables" Width="30" Height="30" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="310,159,0,0" RenderOptions.BitmapScalingMode="HighQuality" Source="/intermodular;component/images/verify.png" Visibility="Hidden"/>
                     </Grid>
                     <Grid Grid.Row="1">
                         <Grid.ColumnDefinitions>

@@ -24,6 +24,8 @@ namespace intermodular
         {
 
             InitializeComponent();
+            Staticresources.height = this.Height;
+            Staticresources.width = this.Width;
         }
 
         //Configuramos el click listener para abrir la ventana de opciones y comprobamos que el click se realice con el botón izquierdo del ratón

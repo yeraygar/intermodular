@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace intermodular
 {
-    class Mesa
+    public class Mesa
     {
     }
 }

@@ -27,6 +27,8 @@ namespace intermodular
         public Admin()
         {
             InitializeComponent();
+            //this.Width = Staticresources.width * 0.4;
+            //this.Height = Staticresources.height * 0.7;
             if(Staticresources.caja.Equals("cerrada"))
             {
                 btn_cerrarCaja.IsEnabled = false;
