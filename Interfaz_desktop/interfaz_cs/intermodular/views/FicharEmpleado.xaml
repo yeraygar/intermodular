@@ -1,4 +1,4 @@
-﻿<Window x:Class="intermodular.Empleados"
+﻿<Window x:Class="intermodular.FicharEmpleado"
         xmlns:fa="http://schemas.fontawesome.io/icons/"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"

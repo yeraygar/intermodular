@@ -118,7 +118,7 @@ namespace intermodular
         {
             //abrir Activity de entradas
             this.Close();
-            Empleados empl = new Empleados();
+            FicharEmpleado empl = new FicharEmpleado(false, true); 
             empl.ShowDialog();
 
         }
