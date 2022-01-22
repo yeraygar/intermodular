@@ -18,8 +18,8 @@ namespace intermodular
 
     public partial class Empleados : Window
     {
-
         public Empleados() {
+
             InitializeComponent();
 
             User.getAllUsers().ContinueWith(task =>
@@ -28,7 +28,6 @@ namespace intermodular
                 {
                     foreach (User user in User.allUsers)
                     {
-
                         Button boton = new Button
                         {
                             Content = user.name,
@@ -62,19 +61,14 @@ namespace intermodular
                             empl.ShowDialog();
                         };
                     }
-                }else
-                {
-                    MessageBox.Show("No se ha podido cargar los usuarios", "Error de Conexion", MessageBoxButton.OK, MessageBoxImage.Error);
-                }
-
+                }else MessageBox.Show("No se ha podido cargar los usuarios", "Error de Conexion", MessageBoxButton.OK, MessageBoxImage.Error);
+                
                 Loading.Visibility = Visibility.Collapsed;
 
              }, TaskScheduler.FromCurrentSynchronizationContext());
         }
 
-
         //cierra esta ventana al hacer click en el botón de cerrar    
-
         private void Btn_cerrar_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
@@ -92,5 +86,4 @@ namespace intermodular
             imgCerrar.Source = (ImageSource)new ImageSourceConverter().ConvertFrom("..\\..\\images\\cerrar.png");
         }
     }
-
 }
