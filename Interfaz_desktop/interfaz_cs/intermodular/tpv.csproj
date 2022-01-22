@@ -286,9 +286,6 @@
     <Resource Include="images\pencil.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="cerrar_blanco.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="images\cerrar_blanco.png" />
   </ItemGroup>
   <ItemGroup>
