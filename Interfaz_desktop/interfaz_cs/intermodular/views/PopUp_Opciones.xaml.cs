@@ -27,6 +27,8 @@ namespace intermodular
         public PopUp_Opciones()
         {
             InitializeComponent();
+            //this.Height = Staticresources.height * 0.5;
+            //this.Width = Staticresources.width * 0.5;
         }
 
         //Cambia el color al situarse sobre el botón de cerrar

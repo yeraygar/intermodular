@@ -9,32 +9,16 @@ using System.Threading.Tasks;
 
 namespace intermodular
 {
-    class Zona
+    public class Zona
     {
-        private string _id;
         private string _id_client;
         private string _zone_name;
         private int _num_tables;
         private bool _zone_status;
-        private int __v;
-        private List<Mesa> _mesasZona;
+        private Mesa[] _tables;
+        private string id;
         public static List<Zona> allZonas = new List<Zona>();
         public static Zona zonaBuscada;
-        //public static Zona zonaCreada;
-        //public static Zona zonaActualizada;
-        //public static Zona zonaTemp;
-
-        public string id
-        {
-            get
-            {
-                return _id;
-            }
-            set
-            {
-                _id = value;
-            }
-        }
 
         public string id_client
         {
@@ -47,7 +31,6 @@ namespace intermodular
                 _id_client = value;
             }
         }
-
         public string zone_name
         {
             get
@@ -59,7 +42,6 @@ namespace intermodular
                 _zone_name = value;
             }
         }
-
         public int num_tables
         {
             get
@@ -71,7 +53,6 @@ namespace intermodular
                 _num_tables = value;
             }
         }
-
         public bool zone_status
         {
             get
@@ -83,16 +64,30 @@ namespace intermodular
                 _zone_status = value;
             }
         }
-
-        public List<Mesa> mesasZona
+        public Mesa[] tables
         {
             get
             {
-                return _mesasZona;
+                return _tables;
             }
             set
             {
-                _mesasZona = value;
+                _tables = value;
+            }
+        }
+
+        public string _id
+        {
+            get
+            {
+                return id;
+            }
+            set
+            {
+                if(id == null)
+                {
+                    id = value;
+                }
             }
         }
 
@@ -100,22 +95,11 @@ namespace intermodular
 
         public Zona(string id_client,string zone_name, int num_tables,bool zone_status)
         {
-            _id_client = id_client;
-            _zone_name = zone_name;
-            _num_tables = num_tables;
-            _zone_status = zone_status;
+            this._id_client = id_client;
+            this._zone_name = zone_name;
+            this._num_tables = num_tables;
+            this._zone_status = zone_status;
         }
-
-        /*public Zona(string id_client, string zone_name, int num_tables, bool zone_status, Mesa[] tables, string _id, int __v)
-        {
-            _id_client = id_client;
-            _zone_name = zone_name;
-            _num_tables = num_tables;
-            _zone_status = zone_status;
-            _mesasZona = tables.ToList();
-            this._id = _id;
-            this.__v = __v;
-        }*/
         
         public static async Task getAllZones()
         {
@@ -194,7 +178,7 @@ namespace intermodular
             return null;
         }
 
-        public static async Task updateZona(string id, Zona zona)
+        public static async Task<bool> updateZona(string id, Zona zona)
         {
             HttpClient client = new HttpClient();
             string url = "http://localhost:8081/api/zones";
@@ -206,7 +190,7 @@ namespace intermodular
             values.Add("zone_name", zona.zone_name);
             values.Add("num_tables", zona.num_tables);
             values.Add("zone_status", zona.zone_status);
-            values.Add("tables", zona.mesasZona.ToString());
+            values.Add("tables", zona.tables.ToString());
 
 
             //Creamos la peticion
@@ -219,10 +203,15 @@ namespace intermodular
             {
                 //Guardamos la respuesta
                 var result = await httpResponse.Content.ReadAsStringAsync();
+                return true;
+            }
+            else
+            {
+                return false;
             }
         }
 
-        public static async Task deleteZone(string id)
+        public static async Task<bool> deleteZone(string id)
         {
             HttpClient client = new HttpClient();
             string url = "http://localhost:8081/api/zones";
@@ -235,7 +224,10 @@ namespace intermodular
             {
                 //Guardamos la respuesta
                 var result = await httpResponse.Content.ReadAsStringAsync();
-
+                return true;
+            }else
+            {
+                return false;
             }
         }
 

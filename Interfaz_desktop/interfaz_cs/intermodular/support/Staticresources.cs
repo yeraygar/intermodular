@@ -10,5 +10,7 @@ namespace intermodular
     {
         public static string caja = "cerrada";
         public static string id_client = "eco_prueba";
+        public static double width;
+        public static double height;
     }
 }

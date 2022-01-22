@@ -10,7 +10,6 @@
         Background="White"
         Width="{x:Static SystemParameters.PrimaryScreenWidth}"
         Height="{x:Static SystemParameters.PrimaryScreenHeight}"
-       
         WindowStyle="None"
         ResizeMode="NoResize"
         Top="0"

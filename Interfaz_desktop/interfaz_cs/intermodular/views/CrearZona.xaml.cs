@@ -20,13 +20,11 @@ namespace intermodular
     /// </summary>
     public partial class CrearZona : Window
     {
-        Window win;
-        public CrearZona(Window window)
+        public Zona zona;
+        public CrearZona()
         {
             InitializeComponent();
-            win = window;
         }
-
 
         private void btn_cerrar_Click(object sender, RoutedEventArgs e)
         {
@@ -43,30 +41,8 @@ namespace intermodular
         {
             if(checkZoneName(txtZona.Text) && checkZoneNumber(txtNumMesas.Text))
             {
-                Zona zonaP = new Zona(Staticresources.id_client, txtZona.Text, int.Parse(txtNumMesas.Text), true);
-                Zona zona = await Zona.createZone(zonaP);
-                if (zona == null)
-                {
-                    //error
-                } else
-                {
-                    Zonas ventanaZona = (Zonas)win;
-                    Button btn = new Button {
-                       Height = 50,
-                       Width = 150,
-                       Content = zona.zone_name
-                };
-
-
-                    btn.Click += (object send, RoutedEventArgs a) =>
-                    {
-                        MessageBox.Show(zona.id);
-                    };
-
-                    ventanaZona.stackZonas.Children.Add(btn);
-                    this.Close();
-                   
-                }
+                zona = await Zona.createZone(new Zona(Staticresources.id_client, txtZona.Text, int.Parse(txtNumMesas.Text), true));
+                this.Close();
             }
             else
             {

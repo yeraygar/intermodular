@@ -14,7 +14,7 @@ namespace intermodular
     /// Metodos: <b>getAllUsers, getUserById, createUser, updateUser, deleteUser,
     /// checkPass, checkUser</b>
     /// </summary>
-    class User
+    public class User
     {
         /**IMPORTANTE
          *  Los atributos deben llamarse exactamente igual

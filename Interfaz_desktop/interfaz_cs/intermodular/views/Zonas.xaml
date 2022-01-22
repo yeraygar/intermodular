@@ -47,9 +47,11 @@
                                     <TextBlock Foreground="white" FontSize="30" HorizontalAlignment="Center" VerticalAlignment="Center">Zonas</TextBlock>
                                 </Border>
                                 <Border Grid.Row="1" BorderBrush="Gray" BorderThickness="4,0,4,0" Padding="5" Background="WhiteSmoke">
-                                    <StackPanel x:Name="stackZonas">
+                                    <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" CanContentScroll="True" Height="650">
+                                        <StackPanel x:Name="stackZonas">
 
-                                    </StackPanel>
+                                        </StackPanel>
+                                    </ScrollViewer>
                                 </Border>
                                 <Border Grid.Row="2" Background="Gray" CornerRadius="0,0,10,10">
                                     <Grid HorizontalAlignment="Center">
@@ -67,7 +69,7 @@
                                                 <TextBlock Grid.Row="1" FontSize="20" VerticalAlignment="Top" HorizontalAlignment="Center">Agregar</TextBlock>
                                             </Grid>
                                         </Button>
-                                        <Button Style="{StaticResource btnRedondo80}" Height="130" Width="130" Grid.Column="1" Margin="10,0,0,0" Cursor="Hand">
+                                        <Button x:Name="btnEliminarZona" Style="{StaticResource btnRedondo80}" Height="130" Width="130" Grid.Column="1" Margin="10,0,0,0" Cursor="Hand" Click="btnEliminarZona_Click" Visibility="Collapsed">
                                             <Grid VerticalAlignment="Center" HorizontalAlignment="Center">
                                                 <Grid.RowDefinitions>
                                                     <RowDefinition/>
@@ -91,22 +93,51 @@
                                         <RowDefinition Height="150"/>
                                     </Grid.RowDefinitions>
                                     <Grid>
-                                        <TextBlock HorizontalAlignment="Left" Margin="50,50,0,0" TextWrapping="Wrap" Text="Información de la zona" VerticalAlignment="Top" FontSize="40" FontWeight="Bold"/>
-                                        <TextBlock HorizontalAlignment="Left" Margin="50,200,0,0" TextWrapping="Wrap" Text="Nombre de la zona" VerticalAlignment="Top" FontSize="30"/>
-                                        <TextBlock HorizontalAlignment="Left" Margin="50,320,0,0" TextWrapping="Wrap" Text="Número de mesas" VerticalAlignment="Top" FontSize="30"/>
-                                        <TextBlock HorizontalAlignment="Left" Margin="50,440,0,0" TextWrapping="Wrap" Text="Estado de la zona" VerticalAlignment="Top" FontSize="30"/>
-                                        <TextBox HorizontalAlignment="Left" Margin="340,202,0,0" TextWrapping="NoWrap" VerticalAlignment="Top" Width="360" FontSize="30" IsEnabled="False"/>
-                                        <TextBox HorizontalAlignment="Left" Margin="340,322,0,0" TextWrapping="NoWrap" VerticalAlignment="Top" Width="40" FontSize="30" IsEnabled="False"/>
-                                        <ComboBox HorizontalAlignment="Left" VerticalAlignment="Top" Margin="340,440,0,0" FontSize="30" Width="200" IsEnabled="False">
+                                        <TextBlock HorizontalAlignment="Left" Margin="50,100,0,0" TextWrapping="Wrap" Text="Información de la zona" VerticalAlignment="Top" FontSize="40" FontWeight="Bold"/>
+                                        <TextBlock x:Name="txtAyuda" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="500,110,0,0" Text="(Seleccione una zona)" FontSize="30"/>
+                                        <TextBlock HorizontalAlignment="Left" Margin="50,250,0,0" TextWrapping="Wrap" Text="Nombre de la zona" VerticalAlignment="Top" FontSize="30"/>
+                                        <TextBlock HorizontalAlignment="Left" Margin="50,380,0,0" TextWrapping="Wrap" Text="Número de mesas" VerticalAlignment="Top" FontSize="30"/>
+                                        <TextBlock HorizontalAlignment="Left" Margin="50,510,0,0" TextWrapping="Wrap" Text="Estado de la zona" VerticalAlignment="Top" FontSize="30"/>
+                                        <TextBox x:Name="txtEditarNombreZona" HorizontalAlignment="Left" Margin="340,252,0,0" TextWrapping="NoWrap" VerticalAlignment="Top" Width="360" FontSize="30" IsEnabled="False" TextChanged="txtEditarNombreZona_TextChanged" LostFocus="txtEditarNombreZona_LostFocus" />
+                                        <TextBox x:Name="txtEditarNumMesas" HorizontalAlignment="Left" Margin="340,382,0,0" TextWrapping="NoWrap" VerticalAlignment="Top" Width="40" FontSize="30" IsEnabled="False" TextChanged="txtEditarNumMesas_TextChanged" PreviewTextInput="txtEditarNumMesas_PreviewTextInput" LostFocus="txtEditarNumMesas_LostFocus" />
+                                        <ComboBox Name="comboBoxEditarEstadoZona" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="340,510,0,0" FontSize="30" Width="200" IsEnabled="False" SelectionChanged="comboBoxEditarEstadoZona_SelectionChanged" >
                                             <ComboBoxItem>Abierta</ComboBoxItem>
                                             <ComboBoxItem>Cerrada</ComboBoxItem>
                                         </ComboBox>
-                                        <Image x:Name="imgEditNombreZona" Height="30" Width="30"  HorizontalAlignment="Left" VerticalAlignment="Top" Margin="720,210,0,0" RenderOptions.BitmapScalingMode="HighQuality" Cursor="Hand" Source="/intermodular;component/pencil.png"/>
-                                        <Image x:Name="imgEditTableNum" Height="30" Width="30" Source="/intermodular;component/pencil.png" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="400,329,0,0" RenderOptions.BitmapScalingMode="HighQuality" Cursor="Hand"/>
-                                        <Image x:Name="imgEditZoneStatus" Height="30" Width="30" Source="/intermodular;component/pencil.png" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="563,450,0,0" RenderOptions.BitmapScalingMode="HighQuality" Cursor="Hand"/>
+                                        
+                                        <Image x:Name="imgEditNombreZona" Height="30" Width="30"  HorizontalAlignment="Left" VerticalAlignment="Top" Margin="720,256,0,0" RenderOptions.BitmapScalingMode="HighQuality" Cursor="Hand"  Visibility="Hidden" MouseDown="imgEditNombreZona_MouseDown" Source="/intermodular;component/images/pencil.png"/>
+                                        <Image x:Name="imgEditTableNum" Height="30" Width="30" Source="/intermodular;component/images/pencil.png" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="400,385,0,0" RenderOptions.BitmapScalingMode="HighQuality" Cursor="Hand" Visibility="Hidden" MouseDown="imgEditTableNum_MouseDown"/>
+                                        <Image x:Name="imgEditZoneStatus" Height="30" Width="30" Source="/intermodular;component/images/pencil.png" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="563,520,0,0" RenderOptions.BitmapScalingMode="HighQuality" Cursor="Hand" Visibility="Hidden" MouseDown="imgEditZoneStatus_MouseDown"/>
+                                    </Grid>
+                                    <Grid Grid.Row="1">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition/>
+                                            <ColumnDefinition/>
+                                        </Grid.ColumnDefinitions>
+                                        <Button x:Name="btnEditarZona" Grid.Column="1" Style="{StaticResource btnRedondo}" HorizontalAlignment="Center" VerticalAlignment="Center" Height="120" Cursor="Hand" Click="btnEditarZona_Click" MouseEnter="btnEditarZona_MouseEnter" MouseLeave="btnEditarZona_MouseLeave" Visibility="Hidden" IsEnabled="False">
+                                            <Grid Width="400">
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition/>
+                                                    <ColumnDefinition Width="2*"/>
+                                                </Grid.ColumnDefinitions>
+                                                <Image x:Name="imgGuardarCambios" Width="70" Height="70" Source="/intermodular;component/images/save.png" RenderOptions.BitmapScalingMode="HighQuality"/>
+                                                <TextBlock x:Name="txtGuardarCambios" FontSize="30" Grid.Column="1" Text="Guardar cambios" VerticalAlignment="Center" HorizontalAlignment="Left" />
+                                            </Grid>
+                                        </Button>
+                                        <Button x:Name="btnCancelar" Style="{StaticResource btnRedondo}" HorizontalAlignment="Center" VerticalAlignment="Center" Height="120" Cursor="Hand" Click="btnCancelar_Click" MouseEnter="btnCancelar_MouseEnter" MouseLeave="btnCancelar_MouseLeave" Visibility="Hidden" IsEnabled="False">
+                                            <Grid Width="400">
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition/>
+                                                    <ColumnDefinition Width="2*"/>
+                                                </Grid.ColumnDefinitions>
+                                                <Image x:Name="imgEliminarCambios" Width="70" Height="70" Source="/intermodular;component/images/cancel.png" RenderOptions.BitmapScalingMode="HighQuality"/>
+                                                <TextBlock x:Name="txtEliminarCambios" FontSize="30" Grid.Column="1" Text="Eliminar cambios" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+                                            </Grid>
+                                        </Button>
                                     </Grid>
                                 </Grid>
-                            </Grid>
+                               
+                                </Grid>
                         </Border>
                     </Border>
                 </Grid>

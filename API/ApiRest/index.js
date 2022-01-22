@@ -29,6 +29,7 @@ app.use("/api", zoneRoutes);
 //CONNECTION WITH MONGODB
 mongoose
 .connect(process.env.MONGODB_URI)
+//.connect("mongodb://127.0.0.1:27017/myFirstDatabase")
 .then(() => console.log("Connected to MongoDB Atlas"))
 .catch((err) => console.log(`Error al conectar con MongoDB: ${err}`));
 
