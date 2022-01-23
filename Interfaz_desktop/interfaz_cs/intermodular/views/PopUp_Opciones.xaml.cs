@@ -135,8 +135,8 @@ namespace intermodular
         {
             //abrir actividad de NumInt
             this.Close();
-            Admin admin = new Admin();
-            admin.ShowDialog();
+            Login login = new Login(false, false, true);
+            login.ShowDialog();
         }
 
        

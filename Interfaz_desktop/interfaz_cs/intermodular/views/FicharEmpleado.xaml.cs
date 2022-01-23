@@ -75,7 +75,7 @@ namespace intermodular
             {
                 this.Close();
                 User.usuarioElegido = user;
-                Login empl = new Login(paraFichar, modificar);
+                Login empl = new Login(paraFichar, modificar, false);
                 empl.ShowDialog();
             };
         }
