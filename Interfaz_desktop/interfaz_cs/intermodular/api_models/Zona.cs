@@ -15,9 +15,9 @@ namespace intermodular
         private string _zone_name;
         private int _num_tables;
         private bool _zone_status;
-        private Mesa[] _tables;
+        private List<Mesa> _tables;
         private string id;
-        public static List<Zona> allZonas = new List<Zona>();
+        public static List<Zona> allZones;
         public static Zona zonaBuscada;
 
         public string id_client
@@ -64,7 +64,7 @@ namespace intermodular
                 _zone_status = value;
             }
         }
-        public Mesa[] tables
+        public List<Mesa> tables
         {
             get
             {
@@ -100,15 +100,26 @@ namespace intermodular
             this._num_tables = num_tables;
             this._zone_status = zone_status;
         }
-        
+
         public static async Task getAllZones()
         {
             HttpClient client = new HttpClient();
             string url = "http://localhost:8081/api/zones";
 
-            //Hacemos la petición
+            //Hacemos la peticion
             var httpResponse = client.GetAsync(url);
+
+            //Tareas que podemos hacer mientras se hace la peticion,
+            // Si no necesitamos hacer nada mientras se puede hacer del tiron
+            // deteniendo el hilo principal:
+            // var httpResponse = await client.GetAsync(url);
+            Console.WriteLine("peticion en curso");
+
+            //Detenemos el hilo principal hasta que recibamos la respuesta
             await httpResponse;
+
+            //ambos Return true si la peticion se ha realizado correctamente.
+            Console.WriteLine($"Peticion realizada con exito? : {httpResponse.Result.IsSuccessStatusCode}");
 
             if (httpResponse.Result.IsSuccessStatusCode)
             {
@@ -116,7 +127,9 @@ namespace intermodular
                 var content = await httpResponse.Result.Content.ReadAsStringAsync();
 
                 //Deserializamos el Json y guardamos en una lista de User
-                allZonas = JsonSerializer.Deserialize<List<Zona>>(content);
+                List<Zona> todasZonas = JsonSerializer.Deserialize<List<Zona>>(content);
+                //allZones = JsonSerializer.Deserialize<List<Zona>>(content);
+                allZones = todasZonas;
             }
         }
 
@@ -156,7 +169,7 @@ namespace intermodular
             values.Add("zone_name", zona.zone_name);
             values.Add("num_tables", zona.num_tables);
             values.Add("zone_status", zona.zone_status);
-            //values.Add("tables", zona.mesasZona.ToString());
+            //values.Add("tables", zona.tables.ToString());
            
 
             //Creamos la peticion
@@ -172,7 +185,7 @@ namespace intermodular
 
                 //Leemos resultado del Body(Contenido) pero tambien podemos ver los Headers o las Cookies
                 var postResult = JsonSerializer.Deserialize<Zona>(result);
-                allZonas.Add(postResult);
+                allZones.Add(postResult);
                 return postResult;
             }
             return null;

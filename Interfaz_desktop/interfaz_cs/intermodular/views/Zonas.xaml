@@ -47,7 +47,7 @@
                                     <TextBlock Foreground="white" FontSize="30" HorizontalAlignment="Center" VerticalAlignment="Center">Zonas</TextBlock>
                                 </Border>
                                 <Border Grid.Row="1" BorderBrush="Gray" BorderThickness="4,0,4,0" Padding="5" Background="WhiteSmoke">
-                                    <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" CanContentScroll="True" Height="650">
+                                    <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" CanContentScroll="True">
                                         <StackPanel x:Name="stackZonas">
 
                                         </StackPanel>

@@ -49,11 +49,11 @@ namespace intermodular
             InitializeComponent();
             { 
             //Obtenemos todas las Zonas que hay en la BD y creamos un botón por cada Zona encontrada
-                Zona.getAllZones().ContinueWith(task =>
+               Zona.getAllZones().ContinueWith(task =>
                 {
-                    if (Zona.allZonas.Count > 0)
+                    if (Zona.allZones != null)
                     {
-                        foreach (Zona z in Zona.allZonas)
+                        foreach (Zona z in Zona.allZones)
                         {
                             Button btn = new Button
                             {
@@ -119,6 +119,10 @@ namespace intermodular
 
                             stackZonas.Children.Add(btn);
                         }
+                    }
+                    else
+                    {
+                        MessageBox.Show("Error al cargar la BD");
                     }
                 }, TaskScheduler.FromCurrentSynchronizationContext());
             }
@@ -458,7 +462,7 @@ namespace intermodular
                     stackZonas.Children.Remove(btnPressed);
 
                     //Eliminar la zona del ArrayList
-                    Zona.allZonas.RemoveAt(Zona.allZonas.IndexOf(zonaSelect));
+                    Zona.allZones.RemoveAt(Zona.allZones.IndexOf(zonaSelect));
 
                     //Resetear todos los campos al estado principal
                     if (btnPressed != null)

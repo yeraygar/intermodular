@@ -26,6 +26,30 @@ namespace intermodular
             InitializeComponent();
             Staticresources.height = this.Height;
             Staticresources.width = this.Width;
+
+            Zona.getAllZones().ContinueWith(task =>
+            {
+                if(Zona.allZones != null)
+                {
+                    foreach(Zona z in Zona.allZones)
+                    {
+                        Button btn = new Button
+                        {
+                            Content = z.zone_name,
+                            Tag = z._id,
+                            Height = 70,
+                            Margin = new Thickness(10),
+                            FontSize = 19
+                        };
+                        stackZonas.Children.Add(btn);
+                        
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Error al cargar la BD");
+                }
+            }, TaskScheduler.FromCurrentSynchronizationContext());
         }
 
         //Configuramos el click listener para abrir la ventana de opciones y comprobamos que el click se realice con el botón izquierdo del ratón
