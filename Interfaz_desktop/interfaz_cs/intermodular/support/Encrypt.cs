@@ -6,11 +6,8 @@ using System.Text;
 namespace intermodular
 {
     public static class Encrypt
-    {
-        /// <summary>
-        /// Static Method. Recibe un string y lo devuelve cifrado
-        /// </summary>
-        /// <param name="input"></param>
+    { 
+        /// <summary> Static Method. Recibe un string y lo devuelve cifrado </summary>
         /// <returns>Input cifrado</returns>
         public static string GetSHA256(string input)
         {

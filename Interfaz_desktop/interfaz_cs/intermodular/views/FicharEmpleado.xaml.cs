@@ -22,8 +22,6 @@ namespace intermodular
         /// <b>paraFichar: </b> True: muestra todos los empleados disponibles del cliente, False: muestra solo los que hayan fichado
         /// <b>modificar: </b> True: modifica el status de cliente (true = ha fichado entrada), False: no modifica, solo valida pass 
         /// </summary>
-        /// <param name="paraFichar"></param>
-        /// <param name="modificar"></param>
         public FicharEmpleado(bool paraFichar, bool modificar) {
 
             InitializeComponent();

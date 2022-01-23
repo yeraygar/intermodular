@@ -14,9 +14,6 @@ using System.Windows.Shapes;
 
 namespace intermodular
 {
-    /// <summary>
-    /// Lógica de interacción para Login.xaml
-    /// </summary>
     public partial class Login : Window
     {
         bool paraFichar;
@@ -38,7 +35,7 @@ namespace intermodular
             this.paraFichar = paraFichar;
             this.modificar = modificar;
 
-            //Si se va a hacer una validacion del passw de cualquier Admin cargamos todos los admin de manera asincrona;
+            //Si se va a hacer una validacion del passw de cualquier Admin cargamos todos los admin del client de manera asincrona;
             if (admin) User.getAdmins(Staticresources.id_client).ContinueWith(task => { }, TaskScheduler.FromCurrentSynchronizationContext());
 
         }
@@ -53,7 +50,7 @@ namespace intermodular
         }
 
         /// <summary>
-        /// Validar la contraseña de cualquier Usuario del Cliente <br></br>
+        /// Valida la contraseña de cualquier Usuario del Cliente <br></br>
         /// Permite cambiar el status fichado/sinFichar de cualquier usuario si modifcar == true;
         /// </summary>
         private async Task comportamientoUsuario(string passwordIntroducido)
@@ -79,9 +76,8 @@ namespace intermodular
             }
         }
 
-        /// <summary>
-        /// Permite introducir cualquier contraseña que coincida con un User del Cliente con rol de Admin;
-        /// </summary>
+      
+        /// <summary> Permite introducir cualquier contraseña que coincida con un User del Cliente con rol de Admin; </summary>
         private void comportamientoAdministrador(string passwordIntroducido)
         {
             bool passOk = false;
