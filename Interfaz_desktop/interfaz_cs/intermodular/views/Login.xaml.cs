@@ -21,25 +21,44 @@ namespace intermodular
     {
         bool paraFichar;
         bool modificar;
+        bool admin;
 
         /// <summary>
-        /// <b>paraFichar: </b> modificamos el campo active del empleado 
-        /// <b>modificar: </b> indica si modificamos o solo validamos
+        /// <b>paraFichar: </b> modificamos el campo active del empleado <br></br>
+        /// <b>modificar: </b> indica si modificamos o solo validamos <br></br>
+        /// <b>admin: </b> indica si estamos validando una contraseña de Administrador
         /// </summary>
-        /// <param name="paraFichar"></param>
-        /// <param name="modificar"></param>
-        public Login(bool paraFichar, bool modificar)
+        public Login(bool paraFichar, bool modificar, bool admin)
         {
             InitializeComponent();
-            LabelNombre.Content = User.usuarioElegido.name;
+            if (admin) LabelNombre.Content = "Administrador";
+            else LabelNombre.Content = User.usuarioElegido.name;
+
+            this.admin = admin;
             this.paraFichar = paraFichar;
             this.modificar = modificar;
+
+            //Si se va a hacer una validacion del passw de cualquier Admin cargamos todos los admin de manera asincrona;
+            if (admin) User.getAdmins(Staticresources.id_client).ContinueWith(task => { }, TaskScheduler.FromCurrentSynchronizationContext());
+
         }
 
         private async void btnAceptar_Click(object sender, System.EventArgs e)
         {
-            String passwordElegido = Encrypt.GetSHA256(User.usuarioElegido.passw); //esta ya vendra cifrada en la version final
             String passwordIntroducido = Encrypt.GetSHA256(passwordBox.Password);
+
+            if (admin) comportamientoAdministrador(passwordIntroducido);
+            else await comportamientoUsuario(passwordIntroducido);
+            
+        }
+
+        /// <summary>
+        /// Validar la contraseña de cualquier Usuario del Cliente <br></br>
+        /// Permite cambiar el status fichado/sinFichar de cualquier usuario si modifcar == true;
+        /// </summary>
+        private async Task comportamientoUsuario(string passwordIntroducido)
+        {
+            String passwordElegido = Encrypt.GetSHA256(User.usuarioElegido.passw); //TODO esta ya vendra cifrada en la version final
 
             //if (User.usuarioElegido.passw == passwordBox.Password)
             if (passwordElegido.Equals(passwordIntroducido))
@@ -56,9 +75,42 @@ namespace intermodular
             }
             else
             {
-                MessageBox.Show("Contraseña incorrecta");               
+                MessageBox.Show("Contraseña incorrecta");
             }
         }
+
+        /// <summary>
+        /// Permite introducir cualquier contraseña que coincida con un User del Cliente con rol de Admin;
+        /// </summary>
+        private void comportamientoAdministrador(string passwordIntroducido)
+        {
+            bool passOk = false;
+            String nombreOk = "";
+
+            foreach (User admin in User.usuariosAdmin)
+            {
+                String passwordElegido = Encrypt.GetSHA256(admin.passw); // TODO: en la version final vendra cifrado desde la api
+                if (passwordElegido.Equals(passwordIntroducido))
+                {
+                    nombreOk = admin.name;
+                    passOk = true;
+                }
+            }
+
+            if (passOk)
+            {
+                MessageBox.Show($"Admin: {nombreOk}", "Contraseña Correcta!", MessageBoxButton.OK, MessageBoxImage.Information);
+
+                Admin admin = new Admin();
+                this.Close();
+                admin.ShowDialog();
+
+            }
+            else MessageBox.Show($"Ningun Administrador coincide", "Contraseña Incorrecta!", MessageBoxButton.OK, MessageBoxImage.Information);
+        }
+
+
+    /************************* BOTONERA *************************/
 
         private void btn_0(object sender, System.EventArgs e)
         {

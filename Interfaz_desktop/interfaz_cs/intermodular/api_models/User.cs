@@ -29,6 +29,7 @@ namespace intermodular
         public string _id { get; set; }
         public string id_client { get; set; }
         public bool active { get; set; }
+        public string rol { get; set; }
 
         public static List<User> allUsers;
 
@@ -38,16 +39,20 @@ namespace intermodular
 
         public static List<User> usuariosDeCliente;
 
+        public static List<User> usuariosAdmin;
+
         public static User currentUser;
 
         public static User usuarioElegido;
 
-        public User(string name, string email, string passw, string id_client)
+        public User(string name, string email, string passw, string id_client, bool active, string rol)
         {
             this.name = name;
             this.email = email;
             this.passw = passw;
             this.id_client = id_client;
+            this.active = active;
+            this.rol = rol;
 
         }
 
@@ -150,6 +155,7 @@ namespace intermodular
             values.Add("email", user.email);
             values.Add("passw", user.passw);
             values.Add("id_client", user.id_client);
+            values.Add("rol", user.rol);
 
             //Creamos la peticion
             HttpContent content = new StringContent(values.ToString(), System.Text.Encoding.UTF8, "application/json");
@@ -190,6 +196,8 @@ namespace intermodular
             values.Add("passw", user.passw);
             values.Add("active", user.active);
             values.Add("id_client", user.id_client);
+            values.Add("rol", user.rol);
+
 
             //Creamos la peticion
             HttpContent content = new StringContent(values.ToString(), System.Text.Encoding.UTF8, "application/json");
@@ -342,6 +350,44 @@ namespace intermodular
                 //usuariosFichados.AddRange(listaRes);
                 if (fichados) usuariosFichados = listaRes;
                 else usuariosNoFichados = listaRes;
+            }
+        }
+
+        /// <summary>
+        /// Async Static Method, carga todos los usuarios de <b>CLIENTE</b>
+        /// que hayan <b>FICHADO ENTRADA o NO</b> desde la Api y los guarda en
+        /// <b>User.usuariosFichados</b> --   
+        /// <return>Void</return>
+        /// </summary>
+        public static async Task getAdmins(String id_client)
+        {
+            HttpClient client = new HttpClient();
+            string url = "http://localhost:8081/api/users/client";
+            url = url + "/" + id_client + "/admin";
+
+            //Hacemos la peticion
+            var httpResponse = client.GetAsync(url);
+
+            //Tareas que podemos hacer mientras se hace la peticion,
+            // Si no necesitamos hacer nada mientras se puede hacer del tiron
+            // deteniendo el hilo principal:
+            // var httpResponse = await client.GetAsync(url);
+            Console.WriteLine("peticion en curso");
+
+            //Detenemos el hilo principal hasta que recibamos la respuesta
+            await httpResponse;
+
+            if (httpResponse.Result.IsSuccessStatusCode)
+            {
+                //Esto tambien asincrono por si el contenido es muy grande (leer respuesta), detiene hilo principal
+                var content = await httpResponse.Result.Content.ReadAsStringAsync();
+
+                //Deserializamos el Json y guardamos en una lista de User
+                List<User> listaRes = JsonSerializer.Deserialize<List<User>>(content);
+
+                //No se puede retornar un valor, asi que lo guardamos en variable statica de clase User
+                usuariosAdmin = listaRes;
+                                
             }
         }
     }

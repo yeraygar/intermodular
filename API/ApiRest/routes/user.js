@@ -122,5 +122,19 @@ router.get("/users/client/:id_client/inactive", (req, res) => {
         })
 })
 
+//Get all Admins from a client
+router.get("/users/client/:id_client/admin", (req, res) => {
+    const {id_client} = req.params;
+    userSchema
+        .find({id_client: id_client, rol: "Admin"})
+        .then((data) =>{
+            res.json(data);
+            console.log(`\nAdmins: \n ${data}`);
+        })
+        .catch((err) => {
+            res.json({message:err});
+            console.log(`Error get /api/users/client/${id}/ : ${err}`);
+        })
+})
 
 module.exports = router;

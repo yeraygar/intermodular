@@ -16,6 +16,11 @@ const userSchema = mongoose.Schema({
         type:String,
         required: true
     },
+    rol:{
+        type:String,
+        required: false,
+        default: "Empleado"
+    },
     active:{
         type:Boolean,
         required:false,
