@@ -45,7 +45,6 @@ namespace intermodular
             if (passwordElegido.Equals(passwordIntroducido))
             {
                 if (modificar) //actualizamos su estado a activo en la bbdd, cuando fichemos salida haremos lo contrario;
-
                 {
                     User.usuarioElegido.active = paraFichar;
                     await User.updateUser(User.usuarioElegido._id, User.usuarioElegido);

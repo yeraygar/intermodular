@@ -51,7 +51,7 @@
                         <TextBlock x:Name="txt_ficharEntrada" Grid.Column="1" VerticalAlignment="Center" >Fichar entrada</TextBlock>
                     </Grid>
                 </Button>
-                <Button x:Name="btn_ficharSalida" Style="{StaticResource btnRedondo}" Width="260" Height="150" Grid.Column="1" FontSize="20" Cursor="Hand" MouseEnter="btn_ficharSalida_MouseEnter" MouseLeave="btn_ficharSalida_MouseLeave">
+                <Button x:Name="btn_ficharSalida" Style="{StaticResource btnRedondo}" Width="260" Height="150" Grid.Column="1" FontSize="20" Cursor="Hand" MouseEnter="btn_ficharSalida_MouseEnter" MouseLeave="btn_ficharSalida_MouseLeave" Click="btn_firmarSalida_Click">
                     <Grid Width="260">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition/>
