@@ -16,65 +16,71 @@ using System.Windows.Shapes;
 namespace intermodular
 {
 
-    public partial class Empleados : Window
+    public partial class FicharEmpleado : Window
     {
+        /// <summary>
+        /// <b>paraFichar: </b> True: muestra todos los empleados disponibles del cliente, False: muestra solo los que hayan fichado
+        /// <b>modificar: </b> True: modifica el status de cliente (true = ha fichado entrada), False: no modifica, solo valida pass 
+        /// </summary>
+        /// <param name="paraFichar"></param>
+        /// <param name="modificar"></param>
+        public FicharEmpleado(bool paraFichar, bool modificar) {
 
-        public Empleados() {
             InitializeComponent();
-
-            User.getAllUsers().ContinueWith(task =>
-            {
-                if(User.allUsers != null)
+           
+                User.getUsersFichados(Staticresources.id_client, !paraFichar).ContinueWith(task =>
                 {
-                    foreach (User user in User.allUsers)
-                    {
+                    List<User> listaElegida = paraFichar ? User.usuariosNoFichados : User.usuariosFichados;
 
-                        Button boton = new Button
-                        {
-                            Content = user.name,
-                            Height = 70,
-                            MinHeight = 40,
-                            FontSize = 20,
-                            Style = (Style)Application.Current.Resources["btnRedondo"]
+                    if (listaElegida != null)
 
-                        };
+                        if (listaElegida.Count == 0) MessageBox.Show("No hay empleados disponibles", "Lista Vacia", MessageBoxButton.OK, MessageBoxImage.Error);
+                        else foreach (User user in listaElegida) addButton(user, paraFichar, modificar);
+                    
+                    else MessageBox.Show("No se ha podido cargar los usuarios", "Error de Conexion", MessageBoxButton.OK, MessageBoxImage.Error);
 
-                        //Margin = new Thickness(2)
-                        StackPanel2.Children.Add(boton);
+                    Loading.Visibility = Visibility.Collapsed;
 
-                        boton.MouseEnter += (object sender, MouseEventArgs e) =>
-                        {
-                            boton.Background = Brushes.DarkSlateGray;
-                            boton.Foreground = Brushes.White;
-
-                        };
-                        boton.MouseLeave += (object sender, MouseEventArgs e) =>
-                        {
-                            boton.Background = Brushes.White;
-                            boton.Foreground = Brushes.DarkSlateGray;
-
-                        };
-                        boton.Click += (object sender, RoutedEventArgs e) =>
-                        {
-                            this.Close();
-                            User.usuarioElegido = user;
-                            Login empl = new Login();
-                            empl.ShowDialog();
-                        };
-                    }
-                }else
-                {
-                    MessageBox.Show("No se ha podido cargar los usuarios", "Error de Conexion", MessageBoxButton.OK, MessageBoxImage.Error);
-                }
-
-                Loading.Visibility = Visibility.Collapsed;
-
-             }, TaskScheduler.FromCurrentSynchronizationContext());
+                }, TaskScheduler.FromCurrentSynchronizationContext());
         }
 
+        private void addButton(User user, bool paraFichar, bool modificar)
+        {
+            Button boton = new Button
+            {
+                Content = user.name,
+                Height = 70,
+                MinHeight = 40,
+                FontSize = 20,
+                Style = (Style)Application.Current.Resources["btnRedondo"]
+
+            };
+
+            //Margin = new Thickness(2)
+            StackPanel2.Children.Add(boton);
+
+            boton.MouseEnter += (object sender, MouseEventArgs e) =>
+            {
+                boton.Background = Brushes.DarkSlateGray;
+                boton.Foreground = Brushes.White;
+
+            };
+            boton.MouseLeave += (object sender, MouseEventArgs e) =>
+            {
+                boton.Background = Brushes.White;
+                boton.Foreground = Brushes.DarkSlateGray;
+
+            };
+            boton.Click += (object sender, RoutedEventArgs e) =>
+            {
+                this.Close();
+                User.usuarioElegido = user;
+                Login empl = new Login(paraFichar, modificar);
+                empl.ShowDialog();
+            };
+        }
 
         //cierra esta ventana al hacer click en el botón de cerrar    
-
         private void Btn_cerrar_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
@@ -92,5 +98,4 @@ namespace intermodular
             imgCerrar.Source = (ImageSource)new ImageSourceConverter().ConvertFrom("..\\..\\images\\cerrar.png");
         }
     }
-
 }

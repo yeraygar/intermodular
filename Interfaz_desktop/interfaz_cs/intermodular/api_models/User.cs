@@ -26,16 +26,21 @@ namespace intermodular
         public string name { get; set; }
         public string email { get; set; }
         public string passw { get; set; }
-        public string _id { get; set; } 
+        public string _id { get; set; }
         public string id_client { get; set; }
+        public bool active { get; set; }
 
         public static List<User> allUsers;
 
         public static List<User> usuariosFichados;
 
+        public static List<User> usuariosNoFichados;
+
+        public static List<User> usuariosDeCliente;
+
         public static User currentUser;
 
-        public static User usuarioElegido; 
+        public static User usuarioElegido;
 
         public User(string name, string email, string passw, string id_client)
         {
@@ -47,6 +52,8 @@ namespace intermodular
         }
 
         public User() { }
+
+
 
         /// <summary>
         /// Async Static Method, carga todos los usuarios 
@@ -181,6 +188,7 @@ namespace intermodular
             values.Add("name", user.name);
             values.Add("email", user.email);
             values.Add("passw", user.passw);
+            values.Add("active", user.active);
             values.Add("id_client", user.id_client);
 
             //Creamos la peticion
@@ -234,7 +242,7 @@ namespace intermodular
         /// <param name="id"></param>
         /// <param name="pass"></param>
         /// <returns>True si los pass coinciden, False si no</returns>
-        public static async Task<bool> checkPass (string id, string pass)
+        public static async Task<bool> checkPass(string id, string pass)
         {
             await getUserById(id);
             if (User.currentUser.passw.Equals(pass)) return true;
@@ -248,11 +256,93 @@ namespace intermodular
         /// <param name="id"></param>
         /// <param name="pass"></param>
         /// <returns>True si id existe en MongoDB, False si no</returns>
-        public static async Task<bool> checkUser (string id)
+        public static async Task<bool> checkUser(string id)
         {
             await getUserById(id);
             if (User.currentUser._id != null) return true;
             else return false;
+        }
+
+
+    /********** Funciones relacionadas con el cliente *************/
+
+        /// <summary>
+        /// Async Static Method, carga todos los usuarios de <b>CLIENTE</b>
+        /// desde la Api y los guarda en <b>User.usuariosDeCliente</b> --   
+        /// <return>Void</return>
+        /// </summary>
+        public static async Task getClientUsers(String id_client)
+        {
+            HttpClient client = new HttpClient();
+            string url = "http://localhost:8081/api/users/client";
+            url = url + "/" + id_client;
+
+            //Hacemos la peticion
+            var httpResponse = client.GetAsync(url);
+
+            //Tareas que podemos hacer mientras se hace la peticion,
+            // Si no necesitamos hacer nada mientras se puede hacer del tiron
+            // deteniendo el hilo principal:
+            // var httpResponse = await client.GetAsync(url);
+            Console.WriteLine("peticion en curso");
+
+            //Detenemos el hilo principal hasta que recibamos la respuesta
+            await httpResponse;
+
+            //ambos Return true si la peticion se ha realizado correctamente.
+            Console.WriteLine($"Peticion realizada con exito? : {httpResponse.Result.IsSuccessStatusCode}");
+
+            if (httpResponse.Result.IsSuccessStatusCode)
+            {
+                //Esto tambien asincrono por si el contenido es muy grande (leer respuesta), detiene hilo principal
+                var content = await httpResponse.Result.Content.ReadAsStringAsync();
+
+                //Deserializamos el Json y guardamos en una lista de User
+                List<User> listaRes = JsonSerializer.Deserialize<List<User>>(content);
+
+                //No se puede retornar un valor, asi que lo guardamos en variable statica de clase User
+                //usuariosFichados.AddRange(listaRes);
+                usuariosDeCliente = listaRes;
+            }
+        }
+
+        /// <summary>
+        /// Async Static Method, carga todos los usuarios de <b>CLIENTE</b>
+        /// que hayan <b>FICHADO ENTRADA o NO</b> desde la Api y los guarda en
+        /// <b>User.usuariosFichados</b> --   
+        /// <return>Void</return>
+        /// </summary>
+        public static async Task getUsersFichados(String id_client, bool fichados)
+        {
+            HttpClient client = new HttpClient();
+            string url = "http://localhost:8081/api/users/client";
+            url = url + "/" + id_client + (fichados ? "/active" : "/inactive");
+
+            //Hacemos la peticion
+            var httpResponse = client.GetAsync(url);
+
+            //Tareas que podemos hacer mientras se hace la peticion,
+            // Si no necesitamos hacer nada mientras se puede hacer del tiron
+            // deteniendo el hilo principal:
+            // var httpResponse = await client.GetAsync(url);
+            Console.WriteLine("peticion en curso");
+
+            //Detenemos el hilo principal hasta que recibamos la respuesta
+            await httpResponse;
+
+            if (httpResponse.Result.IsSuccessStatusCode)
+            {
+                //Esto tambien asincrono por si el contenido es muy grande (leer respuesta), detiene hilo principal
+                var content = await httpResponse.Result.Content.ReadAsStringAsync();
+
+                //Deserializamos el Json y guardamos en una lista de User
+                List<User> listaRes = JsonSerializer.Deserialize<List<User>>(content);
+
+                //No se puede retornar un valor, asi que lo guardamos en variable statica de clase User
+                //usuariosFichados.AddRange(listaRes);
+                if (fichados) usuariosFichados = listaRes;
+                else usuariosNoFichados = listaRes;
+            }
         }
     }
 

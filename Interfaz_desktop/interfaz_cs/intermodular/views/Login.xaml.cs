@@ -19,27 +19,39 @@ namespace intermodular
     /// </summary>
     public partial class Login : Window
     {
-        //public Login(List<User> listaUsuarios)
-        public Login()
+        bool paraFichar;
+        bool modificar;
+
+        /// <summary>
+        /// <b>paraFichar: </b> modificamos el campo active del empleado 
+        /// <b>modificar: </b> indica si modificamos o solo validamos
+        /// </summary>
+        /// <param name="paraFichar"></param>
+        /// <param name="modificar"></param>
+        public Login(bool paraFichar, bool modificar)
         {
             InitializeComponent();
             LabelNombre.Content = User.usuarioElegido.name;
-           // User.usuarioElegido.passw = "loquemedelagana";
+            this.paraFichar = paraFichar;
+            this.modificar = modificar;
         }
 
-        
-
-        private void btnAceptar_Click(object sender, System.EventArgs e)
+        private async void btnAceptar_Click(object sender, System.EventArgs e)
         {
-            String passwordElegido = Encrypt.GetSHA256(User.usuarioElegido.passw);
+            String passwordElegido = Encrypt.GetSHA256(User.usuarioElegido.passw); //esta ya vendra cifrada en la version final
             String passwordIntroducido = Encrypt.GetSHA256(passwordBox.Password);
 
             //if (User.usuarioElegido.passw == passwordBox.Password)
             if (passwordElegido.Equals(passwordIntroducido))
             {
-                
-                MessageBox.Show("Contraseña correcta");
-                User.usuariosFichados.Add(User.usuarioElegido);
+                if (modificar) //actualizamos su estado a activo en la bbdd, cuando fichemos salida haremos lo contrario;
+                {
+                    User.usuarioElegido.active = paraFichar;
+                    await User.updateUser(User.usuarioElegido._id, User.usuarioElegido);
+                    MessageBox.Show($"Usuario {User.usuarioElegido.name} ha fichado {(paraFichar ? "Entrada" : "Salida")}", "Contraseña Correcta!", MessageBoxButton.OK, MessageBoxImage.Information);
+                }
+                else MessageBox.Show($"Usuario {User.usuarioElegido.name}", "Contraseña Correcta!", MessageBoxButton.OK, MessageBoxImage.Information);
+
                 this.Close();
             }
             else

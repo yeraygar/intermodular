@@ -3,7 +3,7 @@ POST http://localhost:8081/api/users HTTP/1.1
 Content-Type: application/json
 
 {
-    "name":"MariaPruebas123456",
+    "name":"pruebapablofalseAuto",
     "email":"nosientolaspiernas@email.com",
     "id_client": "Ecosistema1",
     "passw" : "123456"
@@ -83,3 +83,7 @@ DELETE http://localhost:8081/api/zones/61e16a32103ef9d9322ac1af HTTP/1.1
 
 ###
 GET http://localhost:8081/api/tables HTTP/1.1  
+
+###
+GET http://localhost:8081/api/users/client/Ecosistema1/inactive HTTP/1.1
+

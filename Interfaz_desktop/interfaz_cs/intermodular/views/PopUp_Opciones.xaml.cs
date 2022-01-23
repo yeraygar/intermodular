@@ -118,9 +118,16 @@ namespace intermodular
         {
             //abrir Activity de entradas
             this.Close();
-            Empleados empl = new Empleados();
+            FicharEmpleado empl = new FicharEmpleado(true, true); 
             empl.ShowDialog();
 
+        }
+
+        private void btn_firmarSalida_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+            FicharEmpleado empl = new FicharEmpleado(false, true);
+            empl.ShowDialog();
         }
 
         //abre la ventana de introducir la clave del admin y si la clave es correcta entonces abre el menú de admin.
@@ -131,5 +138,7 @@ namespace intermodular
             Admin admin = new Admin();
             admin.ShowDialog();
         }
+
+       
     }
 }
