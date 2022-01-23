@@ -330,9 +330,6 @@ namespace intermodular
             //Detenemos el hilo principal hasta que recibamos la respuesta
             await httpResponse;
 
-            //ambos Return true si la peticion se ha realizado correctamente.
-            Console.WriteLine($"Peticion realizada con exito? : {httpResponse.Result.IsSuccessStatusCode}");
-
             if (httpResponse.Result.IsSuccessStatusCode)
             {
                 //Esto tambien asincrono por si el contenido es muy grande (leer respuesta), detiene hilo principal

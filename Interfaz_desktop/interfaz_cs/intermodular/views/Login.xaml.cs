@@ -34,7 +34,6 @@ namespace intermodular
             LabelNombre.Content = User.usuarioElegido.name;
             this.paraFichar = paraFichar;
             this.modificar = modificar;
-           // User.usuarioElegido.passw = "loquemedelagana";
         }
 
         private async void btnAceptar_Click(object sender, System.EventArgs e)
@@ -45,17 +44,14 @@ namespace intermodular
             //if (User.usuarioElegido.passw == passwordBox.Password)
             if (passwordElegido.Equals(passwordIntroducido))
             {
-                
-                MessageBox.Show("Contraseña correcta");
+                if (modificar) //actualizamos su estado a activo en la bbdd, cuando fichemos salida haremos lo contrario;
 
-                //actualizamos su estado a activo en la bbdd, cuando fichemos salida haremos lo contrario;
-
-                if (modificar)
                 {
                     User.usuarioElegido.active = paraFichar;
                     await User.updateUser(User.usuarioElegido._id, User.usuarioElegido);
+                    MessageBox.Show($"Usuario {User.usuarioElegido.name} ha fichado {(paraFichar ? "Entrada" : "Salida")}", "Contraseña Correcta!", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
-               // User.usuariosFichados.Add(User.usuarioElegido); //Esto creo no haria falta porque cargaremos los usarios elegidos de
+                else MessageBox.Show($"Usuario {User.usuarioElegido.name}", "Contraseña Correcta!", MessageBoxButton.OK, MessageBoxImage.Information);
 
                 this.Close();
             }
