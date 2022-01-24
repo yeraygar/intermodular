@@ -12,5 +12,6 @@ namespace intermodular
         public static string id_client = "Ecosistema1";
         public static double width;
         public static double height;
+        public static MainWindow mainWindow;
     }
 }

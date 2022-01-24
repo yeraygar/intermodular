@@ -200,5 +200,34 @@ namespace intermodular
                passwordBox.Password = passwordBox.Password.Substring(0, passwordBox.Password.Length - 1);
             }
         }
+
+        //Metodo para cambiar el color de todos los botones cuando se pasa por encima
+        private void btns_MouseEnter(object sender, MouseEventArgs e)
+        {
+            Button btn = sender as Button;
+            btn.Cursor = Cursors.Hand; //Cambiamos el cursor
+            btn.Foreground = Brushes.White;
+            btn.Background = Brushes.Black;
+        }
+
+        //Método para cambiar el color de todos los botones cuando se deja de hacer focus
+        private void btns_MouseLeave(object sender, MouseEventArgs e)
+        {
+            Button btn = sender as Button;
+            btn.Foreground = Brushes.Black;
+            btn.Background = Brushes.White;
+        }
+
+        private void btn_cerrar_MouseEnter(object sender, MouseEventArgs e)
+        {
+            btn_cerrar.Background = (Brush)(new BrushConverter().ConvertFrom("#ff3232"));
+            imgCerrar.Source = (ImageSource)new ImageSourceConverter().ConvertFrom("..\\..\\images\\cerrar_blanco.png");
+        }
+
+        private void btn_cerrar_MouseLeave(object sender, MouseEventArgs e)
+        {
+            btn_cerrar.Background = Brushes.White;
+            imgCerrar.Source = (ImageSource)new ImageSourceConverter().ConvertFrom("..\\..\\images\\cerrar.png");
+        }
     }
 }

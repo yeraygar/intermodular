@@ -235,6 +235,7 @@ namespace intermodular
                 };
                 
                 stackZonas.Children.Add(btn);
+                Staticresources.mainWindow.addBtnZona(crearzona.zona);
                 btnPressed = btn;
                 zonaSelect = crearzona.zona;
                 btn.Background = (Brush)(new BrushConverter().ConvertFrom("#444444"));
@@ -280,6 +281,7 @@ namespace intermodular
                     if(await Zona.updateZona(zonaSelect._id,zonaSelect))
                     {
                         //Reseteamos todos los campos con la información actualizada
+                        Staticresources.mainWindow.updateZona(zonaSelect);
                         btnPressed.Content = zonaSelect.zone_name;
                         txtAyuda.Visibility = Visibility.Hidden;
                         txtEditarNombreZona.Text = zonaSelect.zone_name;
@@ -463,6 +465,7 @@ namespace intermodular
 
                     //Eliminar la zona del ArrayList
                     Zona.allZones.RemoveAt(Zona.allZones.IndexOf(zonaSelect));
+                    Staticresources.mainWindow.eliminarZona(zonaSelect._id);
 
                     //Resetear todos los campos al estado principal
                     if (btnPressed != null)
