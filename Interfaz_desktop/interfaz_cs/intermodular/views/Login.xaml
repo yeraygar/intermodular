@@ -79,10 +79,9 @@
 
                             </Grid>
                         </Border>
-                        <Border Grid.Column="1" >
-                            <Label x:Name="LabelNombre" Content="Label" Foreground="WhiteSmoke" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="80,50,0,0" FontSize="20" />
-                        </Border>
-                        <PasswordBox x:Name="passwordBox" HorizontalAlignment="Center" VerticalAlignment="center" Grid.Column="1" Height="40" Width="230" FontSize="25" BorderBrush="#48C9B0" Margin="0,10,0,0"/>
+                        
+                            <Label x:Name="LabelNombre" Content="Label" Foreground="WhiteSmoke" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="0,50,0,0" FontSize="20" Grid.Column="1"/>
+                            <PasswordBox x:Name="passwordBox" HorizontalAlignment="Center" VerticalAlignment="center" Grid.Column="1" Height="40" Width="230" FontSize="25" BorderBrush="#48C9B0" Margin="0,10,0,0"/>
                         <TextBlock HorizontalAlignment="Center" VerticalAlignment="Top" Grid.Column="1" FontSize="35"  Height="100" Width="230" TextWrapping="Wrap" Text="Introduzca contraseña" Margin="0,135,0,0" Foreground="WhiteSmoke"/>
                         <Button x:Name="aceptar" Content="Aceptar" HorizontalAlignment="Right" VerticalAlignment="Bottom" Grid.Column="1" Width="120" Height="70" Style="{StaticResource btnRedondo}" Background="#48C9B0" FontSize="20" Foreground="WhiteSmoke" Margin="0,0,39,35" MouseLeave="Button_Aceptar_leave" MouseEnter="Button_Aceptar_enter" Click="btnAceptar_Click"/>
 
