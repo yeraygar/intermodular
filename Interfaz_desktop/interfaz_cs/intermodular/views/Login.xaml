@@ -19,11 +19,11 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
-                <RowDefinition Height="40"></RowDefinition>
-                <RowDefinition Height="Auto"></RowDefinition>
-            </Grid.RowDefinitions>
+                    <RowDefinition Height="40"/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
 
-                <Border Grid.Row="0" CornerRadius="10,10,0,0" HorizontalAlignment="Left"  Width="800">
+                <Border CornerRadius="10,10,0,0">
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition/>
@@ -35,20 +35,20 @@
                         </Button>
                     </Grid>
                 </Border>
-                <Border Grid.Row="1">
+                <Border Grid.Row="1" BorderThickness="3" CornerRadius="0,0,10,10">
                     <Border.Background>
                         <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                             <GradientStop Color="DarkSlateGray" Offset="0"/>
                             <GradientStop Color="DimGray" Offset="1"/>
                         </LinearGradientBrush>
                     </Border.Background>
-                    <Grid>
+                    <Grid Height="600" Width="950">
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="500"/>
+                            <ColumnDefinition/>
                             <ColumnDefinition/>
                         </Grid.ColumnDefinitions>
                         <Border >
-                            <Grid Width="400" Height="500">
+                            <Grid>
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition />
                                     <ColumnDefinition />
