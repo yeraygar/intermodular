@@ -16,10 +16,10 @@
         Left="0"
       >
     <Viewbox>
-        <Grid x:Name="grid" Background="Transparent" Height="{x:Static SystemParameters.PrimaryScreenHeight}" Width="{x:Static SystemParameters.PrimaryScreenWidth}">
+        <Grid x:Name="grid" Background="Transparent" Width="{x:Static SystemParameters.PrimaryScreenWidth}" Height="{x:Static SystemParameters.PrimaryScreenHeight}">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition x:Name="columnaZonas" Width="400"/>
-                <ColumnDefinition/>
+                <ColumnDefinition x:Name="columnaZonas" Width="200"/>
+                <ColumnDefinition x:Name="columnaResto"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="0" x:Name="row_header"/>

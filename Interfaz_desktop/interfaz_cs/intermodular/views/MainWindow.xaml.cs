@@ -26,7 +26,6 @@ namespace intermodular
             InitializeComponent();
             Staticresources.height = this.Height;
             Staticresources.width = this.Width;
-            columnaZonas.Width = new GridLength(Staticresources.width * 0.1 + Staticresources.width * 0.04);
 
             Zona.getAllZones().ContinueWith(task =>
             {
