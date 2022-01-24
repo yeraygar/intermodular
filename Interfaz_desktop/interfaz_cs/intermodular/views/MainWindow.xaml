@@ -15,14 +15,15 @@
         Top="0"
         Left="0"
       >
-    <Grid x:Name="grid" Background="Transparent">
+    <Viewbox>
+        <Grid x:Name="grid" Background="Transparent" Height="{x:Static SystemParameters.PrimaryScreenHeight}" Width="{x:Static SystemParameters.PrimaryScreenWidth}">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="250"/>
-            <ColumnDefinition Width="9*"/>
+            <ColumnDefinition x:Name="columnaZonas" Width="400"/>
+                <ColumnDefinition/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="0" x:Name="row_header"/>
-            <RowDefinition Height="8*"/>
+            <RowDefinition/>
             <RowDefinition Height="100"/>
         </Grid.RowDefinitions>
         <Border Grid.Row="1" CornerRadius="0,0,0,10" Padding="10,10,0,10">
@@ -58,4 +59,5 @@
             <TextBlock Grid.Row="1" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center">Opciones</TextBlock>
         </Grid>
     </Grid>
+    </Viewbox>
 </Window>

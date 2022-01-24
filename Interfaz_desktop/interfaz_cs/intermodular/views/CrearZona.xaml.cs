@@ -24,6 +24,8 @@ namespace intermodular
         public CrearZona()
         {
             InitializeComponent();
+            this.Width = Staticresources.width * 0.6;
+            this.Height = Staticresources.height * 0.4;
         }
 
         private void btn_cerrar_Click(object sender, RoutedEventArgs e)

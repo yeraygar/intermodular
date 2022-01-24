@@ -28,6 +28,8 @@ namespace intermodular
         public Login(bool paraFichar, bool modificar, bool admin)
         {
             InitializeComponent();
+            this.Width = Staticresources.width * 0.8;
+            this.Height = Staticresources.height * 0.6;
             if (admin) LabelNombre.Content = "Administrador";
             else LabelNombre.Content = User.usuarioElegido.name;
 

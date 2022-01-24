@@ -5,15 +5,14 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:intermodular"
         mc:Ignorable="d"
-        Title="PopUp_Opciones" 
-        Height="400" 
-        Width="600"
+        Title="PopUp_Opciones"
         WindowStyle="None"
         AllowsTransparency="True"
         Background="Transparent"
         WindowStartupLocation="CenterScreen"
         ResizeMode="NoResize">
-    <Border CornerRadius="10" Background="#48C9B0">
+    <Viewbox>
+        <Border CornerRadius="10" Background="#48C9B0">
         <Grid Background="Transparent">
         <Grid.RowDefinitions>
             <RowDefinition Height="47"/>
@@ -41,7 +40,7 @@
                     <RowDefinition/>
                     <RowDefinition/>
                 </Grid.RowDefinitions>
-                <Button x:Name="btn_firmarEntrada" Style="{StaticResource btnRedondo}" Width="260" Height="150" FontSize="20" Cursor="Hand" MouseEnter="Button_MouseEnter" MouseLeave="btn_firmarEntrada_MouseLeave" Click="btn_firmarEntrada_Click">
+                <Button x:Name="btn_firmarEntrada" Style="{StaticResource btnRedondo}" Width="260" Height="150" FontSize="20" Cursor="Hand" MouseEnter="Button_MouseEnter" MouseLeave="btn_firmarEntrada_MouseLeave" Click="btn_firmarEntrada_Click" Margin="10">
                     <Grid Width="260">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition/>
@@ -51,7 +50,7 @@
                         <TextBlock x:Name="txt_ficharEntrada" Grid.Column="1" VerticalAlignment="Center" >Fichar entrada</TextBlock>
                     </Grid>
                 </Button>
-                <Button x:Name="btn_ficharSalida" Style="{StaticResource btnRedondo}" Width="260" Height="150" Grid.Column="1" FontSize="20" Cursor="Hand" MouseEnter="btn_ficharSalida_MouseEnter" MouseLeave="btn_ficharSalida_MouseLeave" Click="btn_firmarSalida_Click">
+                <Button x:Name="btn_ficharSalida" Style="{StaticResource btnRedondo}" Width="260" Height="150" Grid.Column="1" FontSize="20" Cursor="Hand" MouseEnter="btn_ficharSalida_MouseEnter" MouseLeave="btn_ficharSalida_MouseLeave" Click="btn_firmarSalida_Click" Margin="10">
                     <Grid Width="260">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition/>
@@ -61,7 +60,7 @@
                         <TextBlock x:Name="txt_ficharSalida" Grid.Column="1" VerticalAlignment="Center">Fichar salida</TextBlock>
                     </Grid>
                 </Button>
-                <Button x:Name="btn_tickets" Style="{StaticResource btnRedondo}" Width="260" Height="150" Grid.Row="1" FontSize="20" Cursor="Hand" MouseEnter="btn_tickets_MouseEnter" MouseLeave="btn_tickets_MouseLeave">
+                <Button x:Name="btn_tickets" Style="{StaticResource btnRedondo}" Width="260" Height="150" Grid.Row="1" FontSize="20" Cursor="Hand" MouseEnter="btn_tickets_MouseEnter" MouseLeave="btn_tickets_MouseLeave" Margin="10">
                     <Grid Width="260">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition/>
@@ -71,7 +70,7 @@
                         <TextBlock x:Name="txt_tickets" Grid.Column="1" VerticalAlignment="Center" >Tickets</TextBlock>
                     </Grid>
                 </Button>
-                <Button x:Name="btn_admin" Style="{StaticResource btnRedondo}" Width="260" Height="150" Grid.Row="1" Grid.Column="1" FontSize="20" Cursor="Hand" MouseEnter="btn_admin_MouseEnter" MouseLeave="btn_admin_MouseLeave" Click="btn_admin_Click">
+                <Button x:Name="btn_admin" Style="{StaticResource btnRedondo}" Width="260" Height="150" Grid.Row="1" Grid.Column="1" FontSize="20" Cursor="Hand" MouseEnter="btn_admin_MouseEnter" MouseLeave="btn_admin_MouseLeave" Click="btn_admin_Click" Margin="10">
                     <Grid Width="260">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition/>
@@ -85,4 +84,5 @@
             </Border>
         </Grid>
     </Border>
+    </Viewbox>
 </Window>

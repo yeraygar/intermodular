@@ -6,14 +6,13 @@
         xmlns:local="clr-namespace:intermodular"
         mc:Ignorable="d"
         Title="Login" 
-        Height="600"
-        Width="800"
         WindowStyle="None"
         Background="Transparent"
         AllowsTransparency="True"
         WindowStartupLocation="CenterScreen"
         ResizeMode="NoResize">
-    <Border CornerRadius="10" Background="Transparent">
+    <Viewbox>
+        <Border CornerRadius="10" Background="Transparent">
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
@@ -93,4 +92,5 @@
             
         </Grid>
     </Border>
+    </Viewbox>
 </Window>

@@ -26,6 +26,7 @@ namespace intermodular
             InitializeComponent();
             Staticresources.height = this.Height;
             Staticresources.width = this.Width;
+            columnaZonas.Width = new GridLength(Staticresources.width * 0.1 + Staticresources.width * 0.04);
 
             Zona.getAllZones().ContinueWith(task =>
             {
@@ -38,6 +39,7 @@ namespace intermodular
                             Content = z.zone_name,
                             Tag = z._id,
                             Height = 70,
+                            Style = Application.Current.TryFindResource("btnRedondo") as Style,
                             Margin = new Thickness(10),
                             FontSize = 19
                         };

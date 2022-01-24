@@ -25,6 +25,8 @@ namespace intermodular
         public FicharEmpleado(bool paraFichar, bool modificar) {
 
             InitializeComponent();
+            this.Width = Staticresources.width * 0.6;
+            this.Height = Staticresources.height * 0.6;
            
                 User.getUsersFichados(Staticresources.id_client, !paraFichar).ContinueWith(task =>
                 {

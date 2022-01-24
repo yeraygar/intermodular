@@ -10,14 +10,13 @@
         Background="Transparent"
         WindowStartupLocation="CenterScreen"
         Title="CrearZona" 
-        Height="450" 
-        Width="600"
         ResizeMode="NoResize">
-    <Border Background="#48C9B0" CornerRadius="10">
+    <Viewbox>
+        <Border Background="#48C9B0" CornerRadius="10">
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="47"/>
-                <RowDefinition/>
+                <RowDefinition Height="380"/>
             </Grid.RowDefinitions>
             <Grid>
                 <Grid.ColumnDefinitions>
@@ -29,7 +28,7 @@
                     <Image Source="..\images\cerrar.png" Width="20" Height="20" RenderOptions.BitmapScalingMode="HighQuality"/>
                 </Button>
             </Grid>
-            <Border Grid.Row="1" Background="WhiteSmoke" CornerRadius="0,0,10,10" BorderThickness="3">
+            <Border Grid.Row="1" Background="WhiteSmoke" CornerRadius="0,0,10,10" BorderThickness="3" Width="600">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="2*"/>
@@ -73,4 +72,5 @@
             </Border>
         </Grid>
     </Border>
+    </Viewbox>
 </Window>
