@@ -12,7 +12,7 @@
         WindowStartupLocation="CenterScreen"
         ResizeMode="NoResize">
     <Viewbox>
-        <Border CornerRadius="10" Background="Transparent">
+        <Border CornerRadius="10" Background="#48C9B0">
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
@@ -23,74 +23,73 @@
                 <RowDefinition Height="Auto"></RowDefinition>
             </Grid.RowDefinitions>
 
-            <Border Grid.Row="0" Background="#48C9B0" CornerRadius="10,10,0,0" HorizontalAlignment="Left"  Width="800" Grid.ColumnSpan="2">
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition/>
-                        <ColumnDefinition Width="60"/>
-                    </Grid.ColumnDefinitions>
-                    <TextBlock FontSize="25" Foreground="WhiteSmoke" VerticalAlignment="Center" Margin="10,0,0,0">Opciones</TextBlock>
-                    <Button x:Name="btn_cerrar" Style="{StaticResource btnRedondo}" Grid.Column="1" Height="40" Width="40"  Click="Btn_cerrar_Click" Cursor="Hand">
-                        <Image Source="..\images\cerrar.png" Width="20" Height="20"/>
-                    </Button>
-                </Grid>
-            </Border>
+                <Border Grid.Row="0" CornerRadius="10,10,0,0" HorizontalAlignment="Left"  Width="800">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition Width="60"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock FontSize="25" Foreground="WhiteSmoke" VerticalAlignment="Center" Margin="10,0,0,0">Opciones</TextBlock>
+                        <Button x:Name="btn_cerrar" Style="{StaticResource btnRedondo}" Grid.Column="1" Height="40" Width="40"  Click="Btn_cerrar_Click" Cursor="Hand">
+                            <Image Source="..\images\cerrar.png" Width="20" Height="20"/>
+                        </Button>
+                    </Grid>
+                </Border>
+                <Border Grid.Row="1">
+                    <Border.Background>
+                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                            <GradientStop Color="DarkSlateGray" Offset="0"/>
+                            <GradientStop Color="DimGray" Offset="1"/>
+                        </LinearGradientBrush>
+                    </Border.Background>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="500"/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <Border >
+                            <Grid Width="400" Height="500">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition />
+                                    <ColumnDefinition />
+                                    <ColumnDefinition />
+                                </Grid.ColumnDefinitions>
 
-            <Border Grid.Row="1" CornerRadius="0,0,0,20" VerticalAlignment="Bottom" Height="560">
-                <Border.Background>
-                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                        <GradientStop Color="DarkSlateGray" Offset="0"/>
-                        <GradientStop Color="DimGray" Offset="1"/>
-                    </LinearGradientBrush>
-                </Border.Background>
-                
-                <Grid Width="300" Height="500">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition />
-                        <ColumnDefinition />
-                        <ColumnDefinition />
-                    </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition />
+                                    <RowDefinition />
+                                    <RowDefinition />
+                                    <RowDefinition />
+                                </Grid.RowDefinitions>
 
-                    <Grid.RowDefinitions>
-                        <RowDefinition />
-                        <RowDefinition />
-                        <RowDefinition />
-                        <RowDefinition />
-                    </Grid.RowDefinitions>
+                                <Button x:Name="boton7" Content="7" Grid.Column="0" Grid.Row="0" Style="{StaticResource btnRedondo}" FontSize="20" Click="btn_7" Margin="5"/>
+                                <Button x:Name="boton4" Content="4" Grid.Column="0" Grid.Row="1" Style="{StaticResource btnRedondo}" FontSize="20" Click="btn_4" Margin="5"/>
+                                <Button x:Name="boton1" Content="1" Grid.Column="0" Grid.Row="2" Style="{StaticResource btnRedondo}" FontSize="20" Click="btn_1" Margin="5"/>
+                                <Button x:Name="boton0" Content="0" Grid.Column="0" Grid.Row="3" Style="{StaticResource btnRedondo}" FontSize="20" Click="btn_0" Margin="5"/>
 
-                    <Button x:Name="boton7" Content="7" Grid.Column="0" Grid.Row="0" Style="{StaticResource btnRedondo}" HorizontalAlignment="Center" VerticalAlignment="Center" Width="95" Height="120" FontSize="20" Click="btn_7"/>
-                    <Button x:Name="boton4" Content="4" Grid.Column="0" Grid.Row="1" Style="{StaticResource btnRedondo}" HorizontalAlignment="center" VerticalAlignment="Center" Width="95" Height="120" FontSize="20" Click="btn_4"/>
-                    <Button x:Name="boton1" Content="1" Grid.Column="0" Grid.Row="2" Style="{StaticResource btnRedondo}" HorizontalAlignment="center" VerticalAlignment="Center" Width="95" Height="120" FontSize="20" Click="btn_1"/>
-                    <Button x:Name="boton0" Content="0" Grid.Column="0" Grid.Row="3" Style="{StaticResource btnRedondo}" HorizontalAlignment="center" VerticalAlignment="Center" Width="95" Height="120" FontSize="20" Click="btn_0"/>
+                                <Button Content="8" x:Name="boton8" Grid.Column="1" Grid.Row="0" Style="{StaticResource btnRedondo}" FontSize="20" Click="btn_8" Margin="5"/>
+                                <Button Content="5" x:Name="boton5" Grid.Column="1" Grid.Row="1" Style="{StaticResource btnRedondo}" FontSize="20" Click="btn_5" Margin="5"/>
+                                <Button Content="2" x:Name="boton2" Grid.Column="1" Grid.Row="2" Style="{StaticResource btnRedondo}" FontSize="20" Click="btn_2" Margin="5"/>
 
-                    <Button Content="8" x:Name="boton8" Grid.Column="1" Grid.Row="0" Style="{StaticResource btnRedondo}" HorizontalAlignment="center" VerticalAlignment="Center" Width="95" Height="120" FontSize="20" Click="btn_8"/>
-                    <Button Content="5" x:Name="boton5" Grid.Column="1" Grid.Row="1" Style="{StaticResource btnRedondo}" HorizontalAlignment="center" VerticalAlignment="Center" Width="95" Height="120" FontSize="20" Click="btn_5"/>
-                    <Button Content="2" x:Name="boton2" Grid.Column="1" Grid.Row="2" Style="{StaticResource btnRedondo}" HorizontalAlignment="center" VerticalAlignment="Center" Width="95" Height="120" FontSize="20" Click="btn_2"/>
+                                <Button Content="9" x:Name="boton9" Grid.Column="2" Grid.Row="0" Style="{StaticResource btnRedondo}" FontSize="20" Click="btn_9" Margin="5"/>
+                                <Button Content="6" x:Name="boton6" Grid.Column="2" Grid.Row="1" Style="{StaticResource btnRedondo}" FontSize="20" Click="btn_6" Margin="5"/>
+                                <Button Content="3" x:Name="boton3" Grid.Column="2" Grid.Row="2" Style="{StaticResource btnRedondo}" FontSize="20" Click="btn_3" Margin="5"/>
 
-                    <Button Content="9" x:Name="boton9" Grid.Column="2" Grid.Row="0" Style="{StaticResource btnRedondo}" HorizontalAlignment="center" VerticalAlignment="Center" Width="95" Height="120" FontSize="20" Click="btn_9"/>
-                    <Button Content="6" x:Name="boton6" Grid.Column="2" Grid.Row="1" Style="{StaticResource btnRedondo}" HorizontalAlignment="center" VerticalAlignment="Center" Width="95" Height="120" FontSize="20" Click="btn_6"/>
-                    <Button Content="3" x:Name="boton3" Grid.Column="2" Grid.Row="2" Style="{StaticResource btnRedondo}" HorizontalAlignment="center" VerticalAlignment="Center" Width="95" Height="120" FontSize="20" Click="btn_3"/>
+                                <Button Content="Borrar" Name="boton_teclado" Grid.Column="1" Grid.Row ="3" Style="{StaticResource btnRedondo}" Grid.ColumnSpan="2" FontSize="20" MouseEnter="Button_MouseEnter" MouseLeave="Button_MouseLeave" Click="btn_borrar" Margin="5" />
 
-                    <Button Content="Borrar" Name="boton_teclado" Grid.Column="1" Grid.Row ="3" Style="{StaticResource btnRedondo}" HorizontalAlignment="Center" VerticalAlignment="Center" Width="195" Height="120" Grid.ColumnSpan="2" FontSize="20" MouseEnter="Button_MouseEnter" MouseLeave="Button_MouseLeave" Click="btn_borrar" />
+                            </Grid>
+                        </Border>
+                        <Border Grid.Column="1" >
+                            <Label x:Name="LabelNombre" Content="Label" Foreground="WhiteSmoke" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="80,50,0,0" FontSize="20" />
+                        </Border>
+                        <PasswordBox x:Name="passwordBox" HorizontalAlignment="Center" VerticalAlignment="center" Grid.Column="1" Height="40" Width="230" FontSize="25" BorderBrush="#48C9B0" Margin="0,10,0,0"/>
+                        <TextBlock HorizontalAlignment="Center" VerticalAlignment="Top" Grid.Column="1" FontSize="35"  Height="100" Width="230" TextWrapping="Wrap" Text="Introduzca contraseña" Margin="0,135,0,0" Foreground="WhiteSmoke"/>
+                        <Button x:Name="aceptar" Content="Aceptar" HorizontalAlignment="Right" VerticalAlignment="Bottom" Grid.Column="1" Width="120" Height="70" Style="{StaticResource btnRedondo}" Background="#48C9B0" FontSize="20" Foreground="WhiteSmoke" Margin="0,0,39,35" MouseLeave="Button_Aceptar_leave" MouseEnter="Button_Aceptar_enter" Click="btnAceptar_Click"/>
 
-                    
-                </Grid>
-            </Border>
-            <Border Grid.Row="1" CornerRadius="0,0,20,0" Grid.Column="1" VerticalAlignment="Bottom" Height="560">
-                <Border.Background>
-                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                        <GradientStop Color="DarkSlateGray" Offset="0"/>
-                        <GradientStop Color="DimGray" Offset="1"/>
-                    </LinearGradientBrush>
-                </Border.Background>
-                <Label x:Name="LabelNombre" Content="Label" Foreground="WhiteSmoke" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="80,50,0,0" FontSize="20" />
-            </Border>
-            <PasswordBox x:Name="passwordBox" HorizontalAlignment="Center" VerticalAlignment="center" Grid.Column="1" Grid.Row="1" Height="40" Width="230" FontSize="25" BorderBrush="#48C9B0" Margin="0,10,0,0"/>
-            <TextBlock HorizontalAlignment="Center" VerticalAlignment="Top" Grid.Column="1" Grid.Row="1" FontSize="35"  Height="100" Width="230" TextWrapping="Wrap" Text="Introduzca contraseña" Margin="0,135,0,0" Foreground="WhiteSmoke"/>
-            <Button x:Name="aceptar" Content="Aceptar" HorizontalAlignment="Right" VerticalAlignment="Bottom" Grid.Column="1" Grid.Row="1" Width="120" Height="70" Style="{StaticResource btnRedondo}" Background="#48C9B0" FontSize="20" Foreground="WhiteSmoke" Margin="0,0,39,35" MouseLeave="Button_Aceptar_leave" MouseEnter="Button_Aceptar_enter" Click="btnAceptar_Click"/>
+                    </Grid>
+                </Border>
 
-            
-        </Grid>
+            </Grid>
     </Border>
     </Viewbox>
 </Window>
