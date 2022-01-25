@@ -8,7 +8,7 @@ const mongoose = require("mongoose");
     -> id_zona (_id de zona en la que va, cambiar cuenta de la mesa con una mesa de otra zona?)
     -> comensales (no requerido, default 1)
     -> cuenta (deberia ser una especie de hashMap de
-        nombre_producto : array con valores tipo: cantidad, id_producto, precio)
+        nombre_producto(o int dependiendo numero fila) : array con valores tipo: cantidad, id_producto, precio)
 */
 
 const tableSchema = mongoose.Schema({
