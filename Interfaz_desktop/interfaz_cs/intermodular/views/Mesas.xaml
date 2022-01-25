@@ -5,13 +5,59 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:intermodular"
         mc:Ignorable="d"
-        Title="Mesas" 
-        Height="450"
-        Width="800"
-        WindowStyle="None"
+        Title="Zonas"
+        Height="1000" 
+        Width="1300"
         ResizeMode="NoResize"
-        >
-    <Grid>
-        
-    </Grid>
+        WindowStyle="None"
+        Background="Transparent"
+        AllowsTransparency="True"
+        WindowStartupLocation="CenterScreen">
+    <Border  Background="#48C9B0" CornerRadius="10">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="47"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="60"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock FontSize="25" Foreground="White" VerticalAlignment="Center" Margin="10,0,0,0">Mesas</TextBlock>
+                <Button x:Name="btn_cerrar" Style="{StaticResource btnRedondo}" Grid.Column="1" Height="40" Width="40" Cursor="Hand">
+                    <Image x:Name="imgCerrar" Source="..\images\cerrar.png" Width="20" Height="20" RenderOptions.BitmapScalingMode="HighQuality"/>
+                </Button>
+            </Grid>
+            <Border Grid.Row="1" BorderThickness="3">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="30*"/>
+                        <ColumnDefinition Width="70*"/>
+                    </Grid.ColumnDefinitions>
+                    <Border Padding="10" Background="WhiteSmoke" CornerRadius="0,0,0,10">
+                        <Border CornerRadius="10">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="90*"/>
+                                    <RowDefinition Height="10*"/>
+                                </Grid.RowDefinitions>
+                                <Border Background="DarkSlateGray" CornerRadius="10">
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="10*"/>
+                                            <RowDefinition Height="90*"/>
+                                        </Grid.RowDefinitions>
+                                        <TextBlock Text="Zonas" FontSize="30" Foreground="White" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                        <Border Grid.Row="1" BorderThickness="6" CornerRadius="10" Background="White"/>
+                                    </Grid>
+                                </Border>
+                            </Grid>
+                        </Border>
+                    </Border>
+                   
+                </Grid>
+            </Border>
+        </Grid>
+    </Border>
 </Window>

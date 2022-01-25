@@ -90,3 +90,25 @@ GET http://localhost:8081/api/tables HTTP/1.1
 ###
 GET http://localhost:8081/api/users/client/Ecosistema1/inactive HTTP/1.1
 
+###
+POST http://localhost:8081/api/users HTTP/1.1
+Content-Type: application/json
+
+{
+    "name": "asdljasdkasjdnaksjdnaksjdnaksjdnaskjdnaksjdnaksjndkasjdnaksjdnaksdjn",
+    "email": "asdff@gmail.com",
+    "passw": "1234",
+    "id_client" : "Ecosistema1"
+}
+
+###
+POST http://localhost:8081/api/users HTTP/1.1
+Content-Type: application/json
+
+{
+    "name": "yeraygar",
+    "email": "asdff@gmail.com",
+    "passw": "1234",
+    "id_client" : "Ecosistema1",
+    "rol" : "Admin"
+}

@@ -45,7 +45,7 @@
         </Border>
         <Border Grid.Column="1" Grid.Row="1" Padding="10" Grid.RowSpan="2">
             <Border CornerRadius="10" Background="#E0E0E0">
-                <Grid x:Name="body" ShowGridLines="True">
+                <Grid x:Name="mapaMesas" ShowGridLines="True">
                 </Grid>
             </Border>
         </Border>
