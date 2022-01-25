@@ -157,5 +157,33 @@ namespace intermodular
             }
         }
 
+        public void addEditableTableBtns(bool isEditableTablesOn)
+        {
+            if (isEditableTablesOn)
+            {
+                gridBtnsTable.RowDefinitions[0].Height = gridBtnsTable.RowDefinitions[1].Height;
+                gridBtnsTable.RowDefinitions[1].Height = new GridLength(0);
+                
+            }else
+            {
+                gridBtnsTable.RowDefinitions[1].Height = gridBtnsTable.RowDefinitions[0].Height;
+                gridBtnsTable.RowDefinitions[0].Height = new GridLength(0);
+                btnAddTable.IsEnabled = false;
+                
+            }
+        }
+
+        private void btnSalir_Click(object sender, RoutedEventArgs e)
+        {
+            Staticresources.isEditableTables = false;
+            addEditableTableBtns(Staticresources.isEditableTables);
+        }
+
+        private void btnGuardarCambios_Click(object sender, RoutedEventArgs e)
+        {
+            //Guardar los cambios en la base de datos
+            Staticresources.isEditableTables = false;
+            addEditableTableBtns(Staticresources.isEditableTables);
+        }
     }
 }
