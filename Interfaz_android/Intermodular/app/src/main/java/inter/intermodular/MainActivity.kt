@@ -14,6 +14,9 @@ import androidx.compose.ui.tooling.preview.Preview
 import inter.intermodular.models.UserModel
 import inter.intermodular.ui.theme.IntermodularTheme
 import inter.intermodular.view_models.UserViewModel
+import com.orhanobut.logger.AndroidLogAdapter
+import com.orhanobut.logger.Logger
+
 
 class MainActivity : ComponentActivity() {
 
@@ -40,13 +43,15 @@ class MainActivity : ComponentActivity() {
 fun Greeting(userViewModel : UserViewModel) {
     userViewModel.getClientUsersList()
     var lista : List<UserModel> = userViewModel.userModelListResponse
+    Logger.addLogAdapter(AndroidLogAdapter())
+
 
     Column(
 
     ){
         var usuarioMostrar : String = "Error";
         for(u: UserModel in lista){
-            Log.i("****************************************", u.name)
+            Logger.wtf(u.name)
             usuarioMostrar = u.name
             Text(text = "Hello $usuarioMostrar!")
 
