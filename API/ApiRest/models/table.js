@@ -1,16 +1,5 @@
 const mongoose = require("mongoose");
 
-/*
-    -> name
-    -> status (ocupada o libre)
-    -> numero_mesa (posicion en el grid, valor auto)
-    -> id_cliente (empresa, no haria falta porque la zona ya lo lleva)
-    -> id_zona (_id de zona en la que va, cambiar cuenta de la mesa con una mesa de otra zona?)
-    -> comensales (no requerido, default 1)
-    -> cuenta (deberia ser una especie de hashMap de
-        nombre_producto(o int dependiendo numero fila) : array con valores tipo: cantidad, id_producto, precio)
-*/
-
 const tableSchema = mongoose.Schema({
     name:{
         type:String,
@@ -18,21 +7,14 @@ const tableSchema = mongoose.Schema({
     },
     status:{
         type:Boolean,
-        required:true
-    },
-    id_client:{
-        type:String,
-        required: true
+        required:false,
+        default: false
     },
     id_zone:{
-        type:Number,
+        type:String,
         required:true
     },
-    id_row:{
-        type:Number,
-        required:true
-    },
-    id_column:{
+    numero_mesa:{
         type:Number,
         required:true
     },
@@ -42,8 +24,9 @@ const tableSchema = mongoose.Schema({
     },
     id_user:{
         type:String,
-        required:true
+        required:false
     }
+    //falta cuenta [array de productos]
    
 })
 module.exports = mongoose.model('Table', tableSchema);

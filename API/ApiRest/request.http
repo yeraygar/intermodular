@@ -71,14 +71,14 @@ GET http://localhost:8081/api/zones HTTP/1.1
 GET http://localhost:8081/api/zones/61e168915f84f0d055c3b9d7 HTTP/1.1
 
 ###
-PUT http://localhost:8081/api/zones/61e40b0c9dca774993ddec20 HTTP/1.1
+POST  http://localhost:8081/api/zones HTTP/1.1
 Content-Type: application/json
 
 {
+    "id_client" : "Ecosistema1",
     "zone_name" : "prueba",
     "num_tables" : 20,
-    "zone_status" : false,
-    "tables" : ["mesa2","mesa3"]
+    "zone_status" : false
 }
 
 ###
@@ -89,4 +89,30 @@ GET http://localhost:8081/api/tables HTTP/1.1
 
 ###
 GET http://localhost:8081/api/users/client/Ecosistema1/inactive HTTP/1.1
+
+### Crear zona y mesas;
+POST  http://localhost:8081/api/zones HTTP/1.1
+Content-Type: application/json
+
+{
+    "id_client" : "Ecosistema1",
+    "zone_name" : "prueba",
+    "num_tables" : 20,
+    "zone_status" : false
+}
+###
+POST http://localhost:8081/api/tables HTTP/1.1
+Content-Type: application/json
+
+{
+    "name": "mesaPrueba",
+    "id_zone": "61f04cae845c676dc77cb5df",
+    "numero_mesa": "7"
+}
+
+###
+GET http://localhost:8081/api/tables/zone/61f04cae845c676dc77cb5df HTTP/1.1
+
+
+
 
