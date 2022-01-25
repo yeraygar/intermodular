@@ -26,7 +26,7 @@
                 </Grid.ColumnDefinitions>
                 <TextBlock FontSize="25" Foreground="White" VerticalAlignment="Center" Margin="10,0,0,0">Crear zona</TextBlock>
                 <Button x:Name="btn_cerrar" Style="{StaticResource btnRedondo}" Grid.Column="1" Height="40" Width="40" Cursor="Hand" Click="btn_cerrar_Click" MouseEnter="btn_cerrar_MouseEnter" MouseLeave="btn_cerrar_MouseLeave">
-                    <Image Source="..\images\cerrar.png" Width="20" Height="20" RenderOptions.BitmapScalingMode="HighQuality"/>
+                    <Image x:Name="imgCerrar" Source="..\images\cerrar.png" Width="20" Height="20" RenderOptions.BitmapScalingMode="HighQuality"/>
                 </Button>
             </Grid>
             <Border Grid.Row="1" Background="WhiteSmoke" CornerRadius="0,0,10,10" BorderThickness="3">
@@ -37,7 +37,7 @@
                     </Grid.RowDefinitions>
                     <Grid>
                         <TextBlock Margin="60,70,0,0" TextWrapping="Wrap" Text="Nombre de la zona" VerticalAlignment="Top" HorizontalAlignment="Left" FontSize="19"/>
-                        <TextBox x:Name="txtZona" HorizontalAlignment="Left" Margin="250,70,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="260" FontSize="19" LostFocus="txtZona_LostFocus"/>
+                        <TextBox x:Name="txtZona" HorizontalAlignment="Left" Margin="250,70,0,0" TextWrapping="NoWrap" VerticalAlignment="Top" Width="260" FontSize="19" LostFocus="txtZona_LostFocus"/>
                         <Image x:Name="imgValidZoneName" Width="30" Height="30" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="520,69,0,0" Source="/intermodular;component/images/verify.png" RenderOptions.BitmapScalingMode="HighQuality" Visibility="Hidden"/>
                         <TextBlock Margin="60,160,0,0" TextWrapping="Wrap" Text="Número de mesas" VerticalAlignment="Top" HorizontalAlignment="Left" FontSize="19" />
                         <TextBox x:Name="txtNumMesas" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="250,160,0,0" Width="50" FontSize="19" PreviewTextInput="txtNumMesas_PreviewTextInput" LostFocus="txtNumMesas_LostFocus"/>

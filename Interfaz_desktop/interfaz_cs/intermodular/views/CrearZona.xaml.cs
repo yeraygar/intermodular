@@ -55,12 +55,14 @@ namespace intermodular
         private void btn_cerrar_MouseEnter(object sender, MouseEventArgs e)
         {
             btn_cerrar.Background = (Brush)(new BrushConverter().ConvertFrom("#ff3232"));
+            imgCerrar.Source = (ImageSource)new ImageSourceConverter().ConvertFrom("..\\..\\images\\cerrar_blanco.png");
         }
 
         //Cambia el color del botón de cerrar, al dejar de estar situado encima.
         private void btn_cerrar_MouseLeave(object sender, MouseEventArgs e)
         {
             btn_cerrar.Background = Brushes.White;
+            imgCerrar.Source = (ImageSource)new ImageSourceConverter().ConvertFrom("..\\..\\images\\cerrar.png");
         }
 
         private void btnCancelar_MouseEnter(object sender, MouseEventArgs e)

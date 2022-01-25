@@ -102,13 +102,13 @@ namespace intermodular
                                     btnPressed.Foreground = Brushes.Black;
                                 }
                                 btnPressed = btn;
-                                btn.Background = (Brush)(new BrushConverter().ConvertFrom("#444444"));
+                                btn.Background = (Brush)(new BrushConverter().ConvertFrom("#3b7a7a"));
                                 btn.Foreground = Brushes.White;
                             };
 
                             btn.MouseEnter += (object senderMouseEnter, MouseEventArgs mouseEventArg) => {
                                 if(btnPressed == null || btnPressed.Tag != btn.Tag) 
-                                    btn.Background = (Brush)(new BrushConverter().ConvertFrom("#bcbcbc"));
+                                    btn.Background = (Brush)(new BrushConverter().ConvertFrom("#93d5d5"));
                             };
 
                             btn.MouseLeave += (object senderMouseLeave, MouseEventArgs mouseLeaveArgs) =>
@@ -136,11 +136,13 @@ namespace intermodular
         private void btn_cerrar_MouseEnter(object sender, MouseEventArgs e)
         {
             btn_cerrar.Background = (Brush)(new BrushConverter().ConvertFrom("#ff3232"));
+            imgCerrar.Source = (ImageSource)new ImageSourceConverter().ConvertFrom("..\\..\\images\\cerrar_blanco.png");
         }
 
         private void btn_cerrar_MouseLeave(object sender, MouseEventArgs e)
         {
             btn_cerrar.Background = Brushes.White;
+            imgCerrar.Source = (ImageSource)new ImageSourceConverter().ConvertFrom("..\\..\\images\\cerrar.png");
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -219,13 +221,13 @@ namespace intermodular
                         btnPressed.Foreground = Brushes.Black;
                     }
                     btnPressed = btn;
-                    btn.Background = (Brush)(new BrushConverter().ConvertFrom("#444444"));
+                    btn.Background = (Brush)(new BrushConverter().ConvertFrom("#3b7a7a"));
                     btn.Foreground = Brushes.White;
                 };
 
                 btn.MouseEnter += (object senderMouseEnter, MouseEventArgs mouseEventArg) => {
                     if (btnPressed == null || btnPressed.Tag != btn.Tag)
-                        btn.Background = (Brush)(new BrushConverter().ConvertFrom("#bcbcbc"));
+                        btn.Background = (Brush)(new BrushConverter().ConvertFrom("#93d5d5"));
                 };
 
                 btn.MouseLeave += (object senderMouseLeave, MouseEventArgs mouseLeaveArgs) =>
@@ -238,7 +240,7 @@ namespace intermodular
                 Staticresources.mainWindow.addBtnZona(crearzona.zona);
                 btnPressed = btn;
                 zonaSelect = crearzona.zona;
-                btn.Background = (Brush)(new BrushConverter().ConvertFrom("#444444"));
+                btn.Background = (Brush)(new BrushConverter().ConvertFrom("#3b7a7a"));
                 btn.Foreground = Brushes.White;
                 txtAyuda.Visibility = Visibility.Hidden;
                 txtEditarNombreZona.Text = zonaSelect.zone_name;
@@ -554,6 +556,35 @@ namespace intermodular
                 imgEditTableNum.Source = (ImageSource)new ImageSourceConverter().ConvertFrom("..\\..\\images\\error.png");
                 imgEditTableNum.Visibility = Visibility.Visible;
                 imgEditTableNum.ToolTip = "Debe introducir un número de mesas.";
+            }
+        }
+
+        private void btns_MouseEnter(object sender, MouseEventArgs e)
+        {
+            Button btn = sender as Button;
+            btn.Background = (Brush)(new BrushConverter().ConvertFrom("#46b2b2"));
+            btn.Foreground = Brushes.White;
+            if(btn.Name.Equals("btnAgregar"))
+            {
+                imgAgregarZona.Source = (ImageSource)new ImageSourceConverter().ConvertFrom("..\\..\\images\\agregar_blanco.png");
+            }else
+            {
+                imgEliminarZona.Source = (ImageSource)new ImageSourceConverter().ConvertFrom("..\\..\\images\\eliminar_blanco.png");
+            }
+        }
+
+        private void btns_MouseLeave(object sender, MouseEventArgs e)
+        {
+            Button btn = sender as Button;
+            btn.Background = Brushes.White;
+            btn.Foreground = Brushes.Black;
+            if (btn.Name.Equals("btnAgregar"))
+            {
+                imgAgregarZona.Source = (ImageSource)new ImageSourceConverter().ConvertFrom("..\\..\\images\\agregar.png");
+            }
+            else
+            {
+                imgEliminarZona.Source = (ImageSource)new ImageSourceConverter().ConvertFrom("..\\..\\images\\eliminar.png");
             }
         }
     }

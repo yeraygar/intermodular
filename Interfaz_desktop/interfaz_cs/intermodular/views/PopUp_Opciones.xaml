@@ -27,7 +27,7 @@
                     </Grid.ColumnDefinitions>
                     <TextBlock FontSize="25" Foreground="White" VerticalAlignment="Center" Margin="10,0,0,0">Opciones</TextBlock>
                     <Button x:Name="btn_cerrar" Style="{StaticResource btnRedondo}" Grid.Column="1" Height="40" Width="40" MouseEnter="btn_cerrar_MouseEnter" MouseLeave="btn_cerrar_MouseLeave" Click="btn_cerrar_Click" Cursor="Hand">
-                        <Image Source="..\images\cerrar.png" Width="20" Height="20" RenderOptions.BitmapScalingMode="HighQuality"/>
+                        <Image x:Name="imgCerrar" Source="..\images\cerrar.png" Width="20" Height="20" RenderOptions.BitmapScalingMode="HighQuality"/>
                     </Button>
                 </Grid>
             </Border>
