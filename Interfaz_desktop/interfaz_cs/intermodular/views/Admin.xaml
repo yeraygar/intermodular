@@ -64,7 +64,7 @@
                         <TextBlock x:Name="txt_cerrarCaja" Grid.Row="1" HorizontalAlignment="Center" Padding="5" FontSize="20">Cerrar caja</TextBlock>
                     </Grid>
                 </Button>
-                <Button x:Name="btn_mesas" Width="260" Height="150" Style="{StaticResource btnRedondo}" Grid.Row="1" MouseEnter="btn_mesas_MouseEnter" MouseLeave="btn_mesas_MouseLeave" Cursor="Hand">
+                <Button x:Name="btn_mesas" Width="260" Height="150" Style="{StaticResource btnRedondo}" Grid.Row="1" MouseEnter="btn_mesas_MouseEnter" MouseLeave="btn_mesas_MouseLeave" Cursor="Hand" Click="btn_mesas_Click">
                     <Grid>
                         <Grid.RowDefinitions>
                             <RowDefinition Height="2*"/>

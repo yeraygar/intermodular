@@ -29,13 +29,13 @@
                     <Image x:Name="imgCerrar" Source="..\images\cerrar.png" Width="20" Height="20" RenderOptions.BitmapScalingMode="HighQuality"/>
                 </Button>
             </Grid>
-            <Border Grid.Row="1" BorderThickness="3">
+            <Border Grid.Row="1" BorderThickness="3" Background="WhiteSmoke" CornerRadius="0,0,10,10">
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="30*"/>
                         <ColumnDefinition Width="70*"/>
                     </Grid.ColumnDefinitions>
-                    <Border Padding="10" Background="WhiteSmoke" CornerRadius="0,0,0,10">
+                    <Border Padding="10" Background="WhiteSmoke" CornerRadius="0,0,10,10">
                         <Border CornerRadius="10">
                             <Grid>
                                 <Grid.RowDefinitions>
@@ -52,10 +52,17 @@
                                         <Border Grid.Row="1" BorderThickness="6" CornerRadius="10" Background="White"/>
                                     </Grid>
                                 </Border>
+
                             </Grid>
                         </Border>
                     </Border>
-                   
+                    <Border Padding="10" Grid.Row="1" Grid.Column="1">
+                        <Border CornerRadius="10" Background="Green">
+                            <Grid x:Name="mapaZonas" >
+                                
+                            </Grid>
+                        </Border>
+                    </Border>
                 </Grid>
             </Border>
         </Grid>

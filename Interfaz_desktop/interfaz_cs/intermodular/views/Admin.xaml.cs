@@ -205,5 +205,12 @@ namespace intermodular
             this.Close();
             zonas.ShowDialog();
         }
+
+        private void btn_mesas_Click(object sender, RoutedEventArgs e)
+        {
+            Staticresources.isEditableTables = true;
+            Staticresources.mainWindow.addEditableTableBtns(Staticresources.isEditableTables);
+            this.Close();
+        }
     }
 }

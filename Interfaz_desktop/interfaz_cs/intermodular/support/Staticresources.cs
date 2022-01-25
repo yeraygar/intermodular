@@ -13,5 +13,6 @@ namespace intermodular
         public static double width;
         public static double height;
         public static MainWindow mainWindow;
+        public static bool isEditableTables = false;
     }
 }

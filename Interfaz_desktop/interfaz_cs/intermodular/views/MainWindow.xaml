@@ -43,7 +43,7 @@
                 </Grid>
             </Border>
         </Border>
-        <Border Grid.Column="1" Grid.Row="1" Padding="10" Grid.RowSpan="2">
+        <Border x:Name="mapaZonas" Grid.Column="1" Grid.Row="1" Padding="10">
             <Border CornerRadius="10" Background="#E0E0E0">
                 <Grid x:Name="mapaMesas" ShowGridLines="True">
                 </Grid>
@@ -57,5 +57,51 @@
             <Image x:Name="imgOpciones" Source="..\images\settings.png" Height="60" Width="60" HorizontalAlignment="Center" VerticalAlignment="Center" RenderOptions.BitmapScalingMode="HighQuality"/>
             <TextBlock Grid.Row="1" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center">Opciones</TextBlock>
         </Grid>
+        <Border Padding="10,0,10,0" Grid.Row="3" Grid.Column="1">
+            <Grid x:Name="gridBtnsTable" Background="Red">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="0"/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Button x:Name="btnAddTable" Style="{StaticResource btnRedondo}" Margin="3" Cursor="Hand">
+                    <StackPanel Orientation="Horizontal">
+                        <Image Width="50" Height="50" Source="/intermodular;component/images/agregar.png" RenderOptions.BitmapScalingMode="HighQuality"/>
+                        <TextBlock FontSize="19" Text="Añadir mesa" VerticalAlignment="Center" Margin="10,0,0,0"/>
+                    </StackPanel>
+                </Button>
+                <Button x:Name="btnEditarMesa" Style="{StaticResource btnRedondo}" Margin="3" Grid.Column="1" Cursor="Hand">
+                    <StackPanel Orientation="Horizontal">
+                        <Image Width="40" Height="40" Source="/intermodular;component/images/pencil.png" RenderOptions.BitmapScalingMode="HighQuality"/>
+                        <TextBlock FontSize="19" Text="Editar mesa" VerticalAlignment="Center" Margin="10,0,0,0"/>
+                    </StackPanel>
+                </Button>
+                <Button x:Name="btnEliminarMesa" Style="{StaticResource btnRedondo}" Margin="3" Grid.Column="2" Cursor="Hand">
+                    <StackPanel Orientation="Horizontal">
+                        <Image Width="40" Height="40" Source="/intermodular;component/images/eliminar.png" RenderOptions.BitmapScalingMode="HighQuality"/>
+                        <TextBlock FontSize="19" Text="Eliminar mesa" VerticalAlignment="Center" Margin="10,0,0,0"/>
+                    </StackPanel>
+                </Button>
+                <Button x:Name="btnGuardarCambios" Style="{StaticResource btnRedondo}" Margin="3" Grid.Column="3" Cursor="Hand" Click="btnGuardarCambios_Click">
+                    <StackPanel Orientation="Horizontal">
+                        <Image Width="40" Height="40" Source="/intermodular;component/images/save.png" RenderOptions.BitmapScalingMode="HighQuality"/>
+                        <TextBlock FontSize="19" Text="Guardar los cambios" VerticalAlignment="Center" Margin="10,0,0,0"/>
+                    </StackPanel>
+                </Button>
+                <Button x:Name="btnSalir" Style="{StaticResource btnRedondo}" Margin="3" Grid.Column="4" Cursor="Hand" Click="btnSalir_Click">
+                    <StackPanel Orientation="Horizontal">
+                        <Image Width="40" Height="40" Source="/intermodular;component/images/cancel.png" RenderOptions.BitmapScalingMode="HighQuality"/>
+                        <TextBlock FontSize="19" Text="Salir" VerticalAlignment="Center" Margin="10,0,0,0"/>
+                    </StackPanel>
+                </Button>
+                <TextBlock x:Name="textBlockPie" Grid.ColumnSpan="5" Grid.Row="1" FontSize="30" Text="Bienvenido al TPV" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+            </Grid>
+        </Border>
     </Grid>
 </Window>
