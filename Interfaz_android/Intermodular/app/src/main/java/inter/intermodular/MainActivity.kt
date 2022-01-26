@@ -3,19 +3,19 @@ package inter.intermodular
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
 import android.os.Bundle
-import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.compose.foundation.layout.Column
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.tooling.preview.Preview
 import inter.intermodular.models.UserModel
 import inter.intermodular.ui.theme.IntermodularTheme
 import inter.intermodular.view_models.UserViewModel
 import com.orhanobut.logger.AndroidLogAdapter
+import com.orhanobut.logger.FormatStrategy
 import com.orhanobut.logger.Logger
+import com.orhanobut.logger.PrettyFormatStrategy
 
 
 class MainActivity : ComponentActivity() {
@@ -24,6 +24,9 @@ class MainActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        Logger.addLogAdapter(AndroidLogAdapter())
+
         setContent {
             IntermodularTheme {
 
@@ -42,8 +45,7 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun Greeting(userViewModel : UserViewModel) {
     userViewModel.getClientUsersList()
-    var lista : List<UserModel> = userViewModel.userModelListResponse
-    Logger.addLogAdapter(AndroidLogAdapter())
+    var lista : List<UserModel> = userViewModel.allUsersClientResponse
 
 
     Column(
@@ -51,7 +53,6 @@ fun Greeting(userViewModel : UserViewModel) {
     ){
         var usuarioMostrar : String = "Error";
         for(u: UserModel in lista){
-            Logger.wtf(u.name)
             usuarioMostrar = u.name
             Text(text = "Hello $usuarioMostrar!")
 
