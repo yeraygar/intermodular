@@ -211,7 +211,7 @@ namespace intermodular
             Staticresources.isEditableTables = true;
             Staticresources.mainWindow.addEditableTableBtns(Staticresources.isEditableTables);
             Staticresources.mainWindow.resetGridMesas();
-            Staticresources.mainWindow.cargarGridAdminMesas(Staticresources.mainWindow.zonaSelect);
+            Staticresources.mainWindow.cargarGridMesas(Staticresources.mainWindow.zonaSelect);
             this.Close();
         }
     }

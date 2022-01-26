@@ -36,6 +36,10 @@ namespace intermodular
                 if(Zona.allZones != null)
                 {
                     cargarZonas(Zona.allZones);
+                    Mesa.getZoneTables(Zona.allZones[0]._id).ContinueWith(tasks =>
+                    {
+                        cargarGridMesas(Zona.allZones[0]);
+                    }, TaskScheduler.FromCurrentSynchronizationContext());
                 }
                 else
                 {
@@ -91,17 +95,9 @@ namespace intermodular
                 btnPressed = btn;
                 resetGridMesas();
                 await Mesa.getZoneTables(zona._id);
-
-                if(Staticresources.isEditableTables)
-                {
-                    resetGridMesas();
-                    cargarGridAdminMesas(zonaSelect);
-                }else
-                {
-                    resetGridMesas();
-                    //TODO mostrar las mesas que tiene esa zona
-                }
-                
+                resetGridMesas();
+                cargarGridMesas(zonaSelect);
+               
             };
 
             zonaSelect = zona;
@@ -148,16 +144,9 @@ namespace intermodular
                     zonaSelect = z;
                     resetGridMesas();
                     await Mesa.getZoneTables(zonaSelect._id);
-                    if (Staticresources.isEditableTables)
-                    {
-                        resetGridMesas();
-                        cargarGridAdminMesas(zonaSelect);
-                    }
-                    else
-                    {
-                        resetGridMesas();
-                        //TODO mostrar las mesas que tiene esa zona
-                    }
+                    resetGridMesas();
+                    cargarGridMesas(zonaSelect);
+                   
                 };
 
                 stackZonas.Children.Add(btn);
@@ -245,25 +234,22 @@ namespace intermodular
             addEditableTableBtns(Staticresources.isEditableTables);
         }
 
-        public void cargarGridAdminMesas(Zona zona)
+        public void cargarGridMesas(Zona zona)
         {
             int numCol = 6;
             int numRow = 0;
             int numColact = 0;
-            for(int x = 0; x < zona.num_tables; x++)
-            {
+            for(int x = 0; x < Mesa.currentZoneTables.Count; x++) {
                 Button btn = new Button
                 {
-                    Background = Brushes.Green,
+                    Background = Mesa.currentZoneTables[x].status ? Brushes.Green : Brushes.Red,
                     Margin = new Thickness(20),
                     Width = 200,
                     Height = 200,
-                    Content = "Libre",
+                    Content = Mesa.currentZoneTables[x].name,
                     FontSize = 50
                 };
-
-                //if()
-
+                
                 Grid.SetRow(btn, numRow);
                 Grid.SetColumn(btn, numColact);
                 mapaMesas.Children.Add(btn);

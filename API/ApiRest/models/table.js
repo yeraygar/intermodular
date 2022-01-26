@@ -8,7 +8,7 @@ const tableSchema = mongoose.Schema({
     status:{
         type:Boolean,
         required:false,
-        default: false
+        default: true
     },
     id_zone:{
         type:String,
@@ -16,7 +16,7 @@ const tableSchema = mongoose.Schema({
     },
     numero_mesa:{
         type:Number,
-        required:true
+        required:false
     },
     comensales:{
         type:Number,

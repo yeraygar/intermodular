@@ -13,9 +13,6 @@ namespace intermodular
     {
         private string _id_client;
         private string _zone_name;
-        private int _num_tables;
-        private bool _zone_status;
-        private List<Mesa> _tables;
         private string id;
         public static List<Zona> allZones;
         public static Zona zonaBuscada;
@@ -42,39 +39,6 @@ namespace intermodular
                 _zone_name = value;
             }
         }
-        public int num_tables
-        {
-            get
-            {
-                return _num_tables;
-            }
-            set
-            {
-                _num_tables = value;
-            }
-        }
-        public bool zone_status
-        {
-            get
-            {
-                return _zone_status;
-            }
-            set
-            {
-                _zone_status = value;
-            }
-        }
-        public List<Mesa> tables
-        {
-            get
-            {
-                return _tables;
-            }
-            set
-            {
-                _tables = value;
-            }
-        }
 
         public string _id
         {
@@ -93,12 +57,10 @@ namespace intermodular
 
 
 
-        public Zona(string id_client,string zone_name, int num_tables,bool zone_status)
+        public Zona(string id_client,string zone_name)
         {
             this._id_client = id_client;
             this._zone_name = zone_name;
-            this._num_tables = num_tables;
-            this._zone_status = zone_status;
         }
 
         public static async Task getAllZones()
@@ -167,8 +129,6 @@ namespace intermodular
             var values = new JObject();
             values.Add("id_client", zona.id_client);
             values.Add("zone_name", zona.zone_name);
-            values.Add("num_tables", zona.num_tables);
-            values.Add("zone_status", zona.zone_status);
             //values.Add("tables", zona.tables.ToString());
            
 
@@ -201,9 +161,6 @@ namespace intermodular
             var values = new JObject();
             values.Add("id_client", zona.id_client);
             values.Add("zone_name", zona.zone_name);
-            values.Add("num_tables", zona.num_tables);
-            values.Add("zone_status", zona.zone_status);
-            values.Add("tables", zona.tables.ToString());
 
 
             //Creamos la peticion

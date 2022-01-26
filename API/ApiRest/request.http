@@ -96,9 +96,7 @@ Content-Type: application/json
 
 {
     "id_client" : "Ecosistema1",
-    "zone_name" : "prueba",
-    "num_tables" : 20,
-    "zone_status" : false
+    "zone_name" : "prueba"
 }
 ###
 POST http://localhost:8081/api/tables HTTP/1.1
