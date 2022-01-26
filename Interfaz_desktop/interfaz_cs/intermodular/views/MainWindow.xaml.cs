@@ -21,7 +21,7 @@ namespace intermodular
     public partial class MainWindow : Window
     {
         private Button btnPressed;
-        private Zona zonaSelect;
+        public Zona zonaSelect;
         public MainWindow()
         {
 
@@ -36,6 +36,10 @@ namespace intermodular
                 if(Zona.allZones != null)
                 {
                     cargarZonas(Zona.allZones);
+                    Mesa.getZoneTables(Zona.allZones[0]._id).ContinueWith(tasks =>
+                    {
+                        cargarGridMesas(Zona.allZones[0]);
+                    }, TaskScheduler.FromCurrentSynchronizationContext());
                 }
                 else
                 {
@@ -54,7 +58,7 @@ namespace intermodular
             }
         }
 
-        public void addBtnZona(Zona zona)
+        public async void addBtnZona(Zona zona)
         {
             //stackZonas.Children.Add(btn);
             Button btn = new Button
@@ -80,10 +84,20 @@ namespace intermodular
                     btn.Background = Brushes.White;
             };
 
-            btn.Click += (object senderMouseClick, RoutedEventArgs routedEventArg) =>
+            btn.Click +=  async (object senderMouseClick, RoutedEventArgs routedEventArg) =>
             {
+                if (btnPressed != null)
+                {
+                    btnPressed.Background = Brushes.White;
+                    btnPressed.Foreground = Brushes.Black;
+                }
                 zonaSelect = zona;
-                //Mostrar el grid dependiendo del tamaño de cada zona
+                btnPressed = btn;
+                resetGridMesas();
+                await Mesa.getZoneTables(zona._id);
+                resetGridMesas();
+                cargarGridMesas(zonaSelect);
+               
             };
 
             zonaSelect = zona;
@@ -117,14 +131,37 @@ namespace intermodular
                         btn.Background = Brushes.White;
                 };
 
-                btn.Click += (object senderMouseClick, RoutedEventArgs routedEventArg) =>
+                btn.Click += async (object senderMouseClick, RoutedEventArgs routedEventArg) =>
                 {
+                    if(btnPressed != null)
+                    {
+                        btnPressed.Background = Brushes.White;
+                        btnPressed.Foreground = Brushes.Black;
+                    }
+                    btnPressed = btn;
+                    btnPressed.Background = (Brush)(new BrushConverter().ConvertFrom("#434343"));
+                    btnPressed.Foreground = Brushes.White;
                     zonaSelect = z;
-                    //Mostrar el grid dependiendo del tamaño de cada zona
+                    resetGridMesas();
+                    await Mesa.getZoneTables(zonaSelect._id);
+                    resetGridMesas();
+                    cargarGridMesas(zonaSelect);
+                   
                 };
 
                 stackZonas.Children.Add(btn);
             }
+            if (stackZonas.Children.Count > 0)
+            {
+                Button btnPre = stackZonas.Children[0] as Button;
+                btnPre.Background = (Brush)(new BrushConverter().ConvertFrom("#434343"));
+                btnPre.Foreground = Brushes.White;
+                btnPressed = btnPre;
+                zonaSelect = Zona.allZones[0];
+                //cargarGridAdminMesas(zonaSelect);
+                //TODO cargar grid con las mesas que tiene la zona
+            }
+         
         }
 
         //Buscamos entre todos los elementos del stackPanel y eliminamos el que tenga el id que le pasamos como atributo
@@ -140,6 +177,7 @@ namespace intermodular
                     found = true;
                 }
             }
+            resetGridMesas();
         }
 
         //Actualiza la zona, como el tag no se cambia, solamente actualizamos el nombre de la zona ya que sí que puede variar, el resto de atributos se actualizan en la ventana de Zonas
@@ -163,12 +201,22 @@ namespace intermodular
             {
                 gridBtnsTable.RowDefinitions[0].Height = gridBtnsTable.RowDefinitions[1].Height;
                 gridBtnsTable.RowDefinitions[1].Height = new GridLength(0);
-                
-            }else
+                btnAddTable.IsEnabled = true;
+                btnEliminarMesa.IsEnabled = true;
+                btnEditarMesa.IsEnabled = true;
+                btnGuardarCambios.IsEnabled = true;
+                btnSalir.IsEnabled = true;
+
+            }
+            else
             {
                 gridBtnsTable.RowDefinitions[1].Height = gridBtnsTable.RowDefinitions[0].Height;
                 gridBtnsTable.RowDefinitions[0].Height = new GridLength(0);
                 btnAddTable.IsEnabled = false;
+                btnEliminarMesa.IsEnabled = false;
+                btnEditarMesa.IsEnabled = false;
+                btnGuardarCambios.IsEnabled = false;
+                btnSalir.IsEnabled = false;
                 
             }
         }
@@ -184,6 +232,55 @@ namespace intermodular
             //Guardar los cambios en la base de datos
             Staticresources.isEditableTables = false;
             addEditableTableBtns(Staticresources.isEditableTables);
+        }
+
+        public void cargarGridMesas(Zona zona)
+        {
+            int numCol = 6;
+            int numRow = 0;
+            int numColact = 0;
+            for(int x = 0; x < Mesa.currentZoneTables.Count; x++) {
+                Button btn = new Button
+                {
+                    Background = Mesa.currentZoneTables[x].status ? Brushes.Green : Brushes.Red,
+                    Margin = new Thickness(20),
+                    Width = 200,
+                    Height = 200,
+                    Content = Mesa.currentZoneTables[x].name,
+                    FontSize = 50
+                };
+                
+                Grid.SetRow(btn, numRow);
+                Grid.SetColumn(btn, numColact);
+                mapaMesas.Children.Add(btn);
+                numColact++;
+
+                if (numColact == 6)
+                {
+                    numColact = 0;
+                    mapaMesas.RowDefinitions.Add(new RowDefinition());
+                    numRow++;
+                }
+            }
+        }
+
+        public void resetGridMesas()
+        {
+            Border border = new Border();
+            border.CornerRadius = new CornerRadius(10);
+            border.Background = (Brush)(new BrushConverter().ConvertFrom("#E0E0E0")); 
+            mapaMesas = new Grid();
+            mapaMesas.RowDefinitions.Add(new RowDefinition());
+            for(int x = 0; x < 6; x++)
+            {
+                mapaMesas.ColumnDefinitions.Add(new ColumnDefinition());
+            }
+            ScrollViewer scroll = new ScrollViewer();
+            scroll.VerticalScrollBarVisibility = ScrollBarVisibility.Auto;
+            scroll.CanContentScroll = true;
+            scroll.Content = mapaMesas;
+            border.Child = scroll;
+            mapaZonas.Child = border;
         }
     }
 }

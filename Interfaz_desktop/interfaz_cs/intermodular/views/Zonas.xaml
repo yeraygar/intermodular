@@ -96,18 +96,9 @@
                                         <TextBlock HorizontalAlignment="Left" Margin="50,100,0,0" TextWrapping="Wrap" Text="Información de la zona" VerticalAlignment="Top" FontSize="40" FontWeight="Bold"/>
                                         <TextBlock x:Name="txtAyuda" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="500,110,0,0" Text="(Seleccione una zona)" FontSize="30"/>
                                         <TextBlock HorizontalAlignment="Left" Margin="50,250,0,0" TextWrapping="Wrap" Text="Nombre de la zona" VerticalAlignment="Top" FontSize="30"/>
-                                        <TextBlock HorizontalAlignment="Left" Margin="50,380,0,0" TextWrapping="Wrap" Text="Número de mesas" VerticalAlignment="Top" FontSize="30"/>
-                                        <TextBlock HorizontalAlignment="Left" Margin="50,510,0,0" TextWrapping="Wrap" Text="Estado de la zona" VerticalAlignment="Top" FontSize="30"/>
                                         <TextBox x:Name="txtEditarNombreZona" HorizontalAlignment="Left" Margin="340,252,0,0" TextWrapping="NoWrap" VerticalAlignment="Top" Width="360" FontSize="30" IsEnabled="False" TextChanged="txtEditarNombreZona_TextChanged" LostFocus="txtEditarNombreZona_LostFocus" />
-                                        <TextBox x:Name="txtEditarNumMesas" HorizontalAlignment="Left" Margin="340,382,0,0" TextWrapping="NoWrap" VerticalAlignment="Top" Width="40" FontSize="30" IsEnabled="False" TextChanged="txtEditarNumMesas_TextChanged" PreviewTextInput="txtEditarNumMesas_PreviewTextInput" LostFocus="txtEditarNumMesas_LostFocus" />
-                                        <ComboBox Name="comboBoxEditarEstadoZona" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="340,510,0,0" FontSize="30" Width="200" IsEnabled="False" SelectionChanged="comboBoxEditarEstadoZona_SelectionChanged" >
-                                            <ComboBoxItem>Abierta</ComboBoxItem>
-                                            <ComboBoxItem>Cerrada</ComboBoxItem>
-                                        </ComboBox>
-                                        
+
                                         <Image x:Name="imgEditNombreZona" Height="30" Width="30"  HorizontalAlignment="Left" VerticalAlignment="Top" Margin="720,256,0,0" RenderOptions.BitmapScalingMode="HighQuality" Cursor="Hand"  Visibility="Hidden" MouseDown="imgEditNombreZona_MouseDown" Source="/intermodular;component/images/pencil.png"/>
-                                        <Image x:Name="imgEditTableNum" Height="30" Width="30" Source="/intermodular;component/images/pencil.png" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="400,385,0,0" RenderOptions.BitmapScalingMode="HighQuality" Cursor="Hand" Visibility="Hidden" MouseDown="imgEditTableNum_MouseDown"/>
-                                        <Image x:Name="imgEditZoneStatus" Height="30" Width="30" Source="/intermodular;component/images/pencil.png" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="563,520,0,0" RenderOptions.BitmapScalingMode="HighQuality" Cursor="Hand" Visibility="Hidden" MouseDown="imgEditZoneStatus_MouseDown"/>
                                     </Grid>
                                     <Grid Grid.Row="1">
                                         <Grid.ColumnDefinitions>

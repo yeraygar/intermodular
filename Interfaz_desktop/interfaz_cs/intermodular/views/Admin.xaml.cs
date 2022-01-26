@@ -210,6 +210,8 @@ namespace intermodular
         {
             Staticresources.isEditableTables = true;
             Staticresources.mainWindow.addEditableTableBtns(Staticresources.isEditableTables);
+            Staticresources.mainWindow.resetGridMesas();
+            Staticresources.mainWindow.cargarGridMesas(Staticresources.mainWindow.zonaSelect);
             this.Close();
         }
     }

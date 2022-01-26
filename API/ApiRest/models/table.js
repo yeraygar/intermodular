@@ -16,7 +16,7 @@ const tableSchema = mongoose.Schema({
     },
     numero_mesa:{
         type:Number,
-        required:true
+        required:false
     },
     comensales:{
         type:Number,
