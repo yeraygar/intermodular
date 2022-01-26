@@ -106,12 +106,12 @@ Content-Type: application/json
 
 {
     "name": "mesaPrueba",
-    "id_zone": "61f04cae845c676dc77cb5df",
+    "id_zone": "61f162489001cf677795fe09",
     "numero_mesa": "7"
 }
 
 ###
-GET http://localhost:8081/api/tables/zone/61f04cae845c676dc77cb5df HTTP/1.1
+GET http://localhost:8081/api/tables/zone/61f162489001cf677795fe09 HTTP/1.1
 
 
 
