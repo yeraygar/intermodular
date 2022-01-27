@@ -121,6 +121,9 @@
       <DependentUpon>Login.xaml</DependentUpon>
     </Compile>
     <Compile Include="api_models\Mesa.cs" />
+    <Compile Include="views\LoginCliente.xaml.cs">
+      <DependentUpon>LoginCliente.xaml</DependentUpon>
+    </Compile>
     <Compile Include="views\LoginPrincipal.xaml.cs">
       <DependentUpon>LoginPrincipal.xaml</DependentUpon>
     </Compile>
@@ -150,6 +153,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="views\CrearZona.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="views\LoginCliente.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
