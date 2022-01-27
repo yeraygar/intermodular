@@ -3,19 +3,21 @@ package inter.intermodular
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.ComponentActivity
-import androidx.compose.foundation.layout.Column
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Surface
-import androidx.compose.material.Text
-import androidx.compose.runtime.Composable
-import inter.intermodular.models.UserModel
-import inter.intermodular.ui.theme.IntermodularTheme
+import androidx.activity.compose.BackHandler
+import androidx.navigation.NavType
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
 import inter.intermodular.view_models.UserViewModel
 import com.orhanobut.logger.AndroidLogAdapter
-import com.orhanobut.logger.FormatStrategy
 import com.orhanobut.logger.Logger
-import com.orhanobut.logger.PrettyFormatStrategy
+import inter.intermodular.screens.Login
+import inter.intermodular.screens.MainScreen
+import inter.intermodular.screens.Register
+import inter.intermodular.ui.theme.IntermodularTheme
 
 
 class MainActivity : ComponentActivity() {
@@ -28,38 +30,49 @@ class MainActivity : ComponentActivity() {
         Logger.addLogAdapter(AndroidLogAdapter())
 
         setContent {
+
             IntermodularTheme {
 
-                Surface(color = MaterialTheme.colors.background) {
+                userViewModel.getClientAdmins()
+                val navController = rememberNavController()
 
-                    //TODO implementar navigation bar
-
-
-                    Greeting(userViewModel)
+                NavHost(navController = navController, startDestination = ScreenNav.LoginScreen.route){
+                    composable(
+                        route = ScreenNav.LoginScreen.route
+                    ){
+                        Login(navController = navController)
+                        BackHandler(true) {
+                            Toast.makeText(applicationContext, "BackButton Deshabilitado en el LOGIN", Toast.LENGTH_SHORT).show()
+                        }
+                    }
+                    composable(
+                        route = ScreenNav.MainScreen.route + "/?name={name}", //optional arguments ?name={name}, +args /{name}/{age}
+                        arguments = listOf(
+                            navArgument("name") {
+                                type = NavType.StringType
+                                defaultValue = "DEFAULT"
+                                nullable = true
+                            }
+                        )
+                    ){ entry ->
+                        MainScreen(name = entry.arguments?.getString("name"), userViewModel = userViewModel)
+                        BackHandler(true) {
+                            Toast.makeText(applicationContext, "BackButton Deshabilitado en el MAIN", Toast.LENGTH_SHORT).show()
+                        }
+                    }
+                    composable(
+                        route = ScreenNav.RegisterScreen.route
+                    ){
+                        BackHandler(false) {
+                            Toast.makeText(applicationContext, "BackButton Habilitado en Register", Toast.LENGTH_SHORT).show() // TODO NO SE MUESTRA!
+                        }
+                        Register(navController = navController)
+                    }
                 }
             }
         }
     }
 }
 
-@Composable
-fun Greeting(userViewModel : UserViewModel) {
-    userViewModel.getClientUsersList()
-    var lista : List<UserModel> = userViewModel.allUsersClientResponse
 
-
-    Column(
-
-    ){
-        var usuarioMostrar : String = "Error";
-        for(u: UserModel in lista){
-            usuarioMostrar = u.name
-            Text(text = "Hello $usuarioMostrar!")
-
-        }
-
-    }
-
-
-}
 
