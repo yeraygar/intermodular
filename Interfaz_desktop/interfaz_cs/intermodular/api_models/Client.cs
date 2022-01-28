@@ -30,7 +30,7 @@ namespace intermodular
         public static async Task<bool> checkEmailExists(string email)
         {
             string url = $"{Staticresources.urlHead}client/email/{email}";
-            HttpResponseMessage httpResponse = await Staticresources.client.GetAsync(url);
+            HttpResponseMessage httpResponse = await Staticresources.httpClient.GetAsync(url);
 
             if (httpResponse.IsSuccessStatusCode)
             {
@@ -49,7 +49,7 @@ namespace intermodular
             string passwCifrado = Encrypt.GetSHA256(passw);
             string url = $"{Staticresources.urlHead}client/validate/{email}/{passwCifrado}";
 
-            HttpResponseMessage httpResponse = await Staticresources.client.GetAsync(url);
+            HttpResponseMessage httpResponse = await Staticresources.httpClient.GetAsync(url);
 
             if (httpResponse.IsSuccessStatusCode)
             {
@@ -61,6 +61,74 @@ namespace intermodular
             }
             else return false;
 
+        }
+
+        /// <summary> Crea Cliente y lo asigna a Client.currentClient </summary>
+        /// <returns><b>TRUE</b> si creacion correcta<br></br>
+        /// <b>FALSE</b> si se produce un fallo al crear</returns>
+        public static async Task<bool> createClient(Client client)
+        {
+            string url = $"{Staticresources.urlHead}client";
+
+            JObject values = new JObject
+            {
+                { "email", client.email },
+                { "passw", client.passw }
+            };
+
+            HttpContent content = new StringContent(values.ToString(), System.Text.Encoding.UTF8, "application/json");
+
+            HttpResponseMessage httpResponse = await Staticresources.httpClient.PostAsync(url, content);
+
+            if (httpResponse.IsSuccessStatusCode)
+            {
+                string result = await httpResponse.Content.ReadAsStringAsync();
+                currentClient = JsonSerializer.Deserialize<Client>(result);
+                return true;
+            }
+            else return false;
+        }
+
+        /// <summary> Actualiza el <b>currentClient</b> </summary>
+        /// <returns><b>TRUE</b> si actualizacion correcta<br></br>
+        /// <b>FALSE</b> si se produce un fallo al actualizar</returns>
+        public static async Task<bool> updateClient(Client client)
+        {
+            string url = $"{Staticresources.urlHead}client/{currentClient._id}";
+
+            JObject values = new JObject
+            {
+                { "email", client.email },
+                { "passw", client.passw }
+            };
+
+            HttpContent content = new StringContent(values.ToString(), System.Text.Encoding.UTF8, "application/json");
+
+            HttpResponseMessage httpResponse = await Staticresources.httpClient.PostAsync(url, content);
+
+            if (httpResponse.IsSuccessStatusCode)
+            {
+                string result = await httpResponse.Content.ReadAsStringAsync();
+                currentClient.email = client.email;
+                currentClient.passw = client.passw;
+                return true;
+            }
+            else return false;
+
+
+        }
+
+        /// <summary> Elimina <b>currentClient</b> </summary>
+        /// <returns><b>TRUE</b> si borrado correcta<br></br>
+        /// <b>FALSE</b> si se produce un fallo al borrar</returns>
+        public static async Task<bool> deleteClient()
+        {
+            string url = $"{Staticresources.urlHead}client/{currentClient._id}";
+
+            HttpResponseMessage httpResponse = await Staticresources.httpClient.DeleteAsync(url);
+
+            if (httpResponse.IsSuccessStatusCode) return true;
+            else return false;
         }
     }
 }

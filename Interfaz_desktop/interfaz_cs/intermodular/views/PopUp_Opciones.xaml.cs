@@ -116,12 +116,8 @@ namespace intermodular
         }
 
         //abre la ventana de fichar entrada
-        private async void btn_firmarEntrada_Click(object sender, RoutedEventArgs e)
+        private void btn_firmarEntrada_Click(object sender, RoutedEventArgs e)
         {
-
-            bool emailExists = await Client.validateClient("uncorreocualquiera", "1234");
-            MessageBox.Show(emailExists.ToString());
-
             //abrir Activity de entradas
             this.Close();
             FicharEmpleado empl = new FicharEmpleado(true, true); 

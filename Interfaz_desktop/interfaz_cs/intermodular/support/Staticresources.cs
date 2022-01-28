@@ -18,7 +18,7 @@ namespace intermodular
 
         /// <summary>http://localhost:8081/api/</summary>
         public static string urlHead = "http://localhost:8081/api/";
-        public static HttpClient client = new HttpClient();
+        public static HttpClient httpClient = new HttpClient();
 
     }
 }
