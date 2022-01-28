@@ -9,6 +9,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import com.orhanobut.logger.Logger
 import inter.intermodular.ScreenNav
 
 @Composable
@@ -33,8 +34,11 @@ fun Register(navController: NavController){
         Spacer(modifier = Modifier.height(8.dp))
         Button(
             onClick = {
-                navController.navigate(ScreenNav.MainScreen.withArgs(text)){
-                    //Nav options
+                if(text.isNullOrEmpty()){
+                    //TODO nombre no valido
+                    Logger.e("Text input Register is null or empty")
+                }else{
+                    navController.navigate(ScreenNav.MainScreen.withArgs(text))
                 }
             },
             modifier = Modifier.align(Alignment.End)
@@ -43,9 +47,7 @@ fun Register(navController: NavController){
         }
         Button(
             onClick = {
-                navController.navigate(ScreenNav.LoginScreen.route){
-                    //Nav options
-                }
+                navController.navigate(ScreenNav.LoginScreen.route)
             },
             modifier = Modifier.align(Alignment.End)
         ){

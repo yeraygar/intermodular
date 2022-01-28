@@ -46,16 +46,16 @@ class MainActivity : ComponentActivity() {
                         }
                     }
                     composable(
-                        route = ScreenNav.MainScreen.route + "/?name={name}", //optional arguments ?name={name}, +args /{name}/{age}
+                        route = "${ScreenNav.MainScreen.route}/{email}", //optional arguments ?name={name}, +args /{name}/{age}
                         arguments = listOf(
-                            navArgument("name") {
+                            navArgument("email") {
                                 type = NavType.StringType
-                                defaultValue = "DEFAULT"
+                                defaultValue = "Email" //aqui no hace falta, nullable tampoco
                                 nullable = true
                             }
                         )
                     ){ entry ->
-                        MainScreen(name = entry.arguments?.getString("name"), userViewModel = userViewModel)
+                        MainScreen(name = entry.arguments?.getString("email"), userViewModel = userViewModel)
                         BackHandler(true) {
                             Toast.makeText(applicationContext, "BackButton Deshabilitado en el MAIN", Toast.LENGTH_SHORT).show()
                         }
