@@ -25,10 +25,10 @@ class UserViewModel : ViewModel() {
             val apiServices = ApiServices.getInstance()
             try{
                 allUsersClientResponse = apiServices.getClientUsers()
-                Logger.i("getClientUsersList ")
+                Logger.i("CORRECT getClientUsersList ")
             }catch (e : Exception){
                 errorMessage = e.message.toString()
-                Logger.e("getClientUsersList ")
+                Logger.e("FAILURE getClientUsersList ")
             }
         }
     }
@@ -39,10 +39,10 @@ class UserViewModel : ViewModel() {
             try{
                 if(buscarFichados) usersFichadosResponse = apiServices.getUsersFichados()
                 else usersNoFichadosResponse = apiServices.getUsersNoFichados()
-                Logger.i("getUsersFichados ${buscarFichados}")
+                Logger.i("CORRECT getUsersFichados ${buscarFichados}")
             }catch (e : Exception){
                 errorMessage = e.message.toString()
-                Logger.e("getUsersFichados ${buscarFichados}")
+                Logger.e("FAILURE getUsersFichados ${buscarFichados}")
 
             }
         }
@@ -53,10 +53,10 @@ class UserViewModel : ViewModel() {
             val apiServices = ApiServices.getInstance()
             try{
                 adminsClientResponse = apiServices.getClientAdmin()
-                Logger.i("getClientAdmins ")
+                Logger.i("CORRECT getClientAdmins ")
             }catch (e: Exception){
                 errorMessage = e.message.toString()
-                Logger.e("getClientAdmins ")
+                Logger.e("FAILURE getClientAdmins ")
             }
         }
     }

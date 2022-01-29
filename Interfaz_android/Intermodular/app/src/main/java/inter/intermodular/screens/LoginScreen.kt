@@ -1,7 +1,5 @@
 package inter.intermodular.screens
 
-import android.widget.Toast
-import androidx.compose.animation.expandHorizontally
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Button
 import androidx.compose.material.Text
@@ -13,16 +11,16 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.orhanobut.logger.Logger
 import inter.intermodular.ScreenNav
-import inter.intermodular.models.UserModel
-import inter.intermodular.view_models.UserViewModel
-import kotlinx.coroutines.currentCoroutineContext
+import inter.intermodular.view_models.ClientViewModel
+import kotlinx.coroutines.*
 
 
 @Composable
-fun Login(navController: NavController){
-    var text by remember {
-        mutableStateOf("")
-    }
+fun Login(navController: NavController, clientViewModel: ClientViewModel){
+
+    var text by remember { mutableStateOf("")}
+    val scope = rememberCoroutineScope()
+
     Column(
         verticalArrangement = Arrangement.Center,
         modifier = Modifier
@@ -38,20 +36,26 @@ fun Login(navController: NavController){
             modifier = Modifier.fillMaxWidth()
         )
         Spacer(modifier = Modifier.height(58.dp))
+
         Button(
             onClick = {
                 if(text.isNullOrEmpty()){
                     //TODO nombre no valido
                     Logger.e("Text input login is null or empty")
                 }else{
-                    navController.navigate(ScreenNav.MainScreen.withArgs(text)){
-                        //Nav options
-                    }
+                    //clientViewModel.viewModelScope.launch {
+                       scope.launch {
+                        //clientViewModel.checkEmail(text)
+                       // checkEmail(clientViewModel = clientViewModel, text = text, navController = navController, scope = scope)
+                        clientViewModel.checkEmail(text)
+                        navController.navigate(ScreenNav.ValidateLoginScreen.withArgs(text))
+
+                       }
                 }
             },
             modifier = Modifier.align(Alignment.End)
         ){
-            Text(text = "to Main")
+            Text(text = "LOGIN")
         }
         Button(
             onClick = {
@@ -61,7 +65,27 @@ fun Login(navController: NavController){
             },
             modifier = Modifier.align(Alignment.End)
         ){
-            Text(text = "to Register")
+            Text(text = "Register NOW")
+        }
+    }
+}
+
+
+private suspend fun checkEmail(
+    clientViewModel: ClientViewModel,
+    text: String,
+    navController: NavController,
+    scope: CoroutineScope
+) {
+    //GlobalScope.launch(Dispatchers.IO) {
+    scope.launch {
+
+       clientViewModel.checkEmail(text)
+        if (clientViewModel.emailExistsResponse) {
+            Logger.e("Email already exists: $text, ${clientViewModel.emailExistsResponse}")
+        } else {
+            navController.navigate(ScreenNav.MainScreen.withArgs(text))
+            Logger.i("Unique email: $text, ${clientViewModel.emailExistsResponse}")
         }
     }
 }

@@ -8,10 +8,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import inter.intermodular.models.UserModel
+import inter.intermodular.view_models.ClientViewModel
 import inter.intermodular.view_models.UserViewModel
 
 @Composable
-fun MainScreen(name: String?, userViewModel: UserViewModel){
+fun MainScreen(email: String?, clientViewModel: ClientViewModel){
 
     Surface(color = MaterialTheme.colors.background) {
 
@@ -22,16 +23,17 @@ fun MainScreen(name: String?, userViewModel: UserViewModel){
         ){
             Column() {
                 Spacer(modifier = Modifier.height(18.dp))
-                Text(text = name ?: "No se ha cargado bien")
+                Text(text = email ?: "No se ha cargado bien")
                 Spacer(modifier = Modifier.height(18.dp))
-                AllUsersClient(userViewModel)
+                //AllUsersClient(clientViewModel)
             }
         }
     }
 }
 
+/*
 @Composable
-fun AllUsersClient(userViewModel : UserViewModel) {
+fun AllUsersClient(clientViewModel: ClientViewModel : UserViewModel) {
     userViewModel.getClientUsersList()
     var lista : List<UserModel> = userViewModel.allUsersClientResponse
 
@@ -44,4 +46,4 @@ fun AllUsersClient(userViewModel : UserViewModel) {
             Text(text = "Hello $usuarioMostrar!")
         }
     }
-}
+}*/

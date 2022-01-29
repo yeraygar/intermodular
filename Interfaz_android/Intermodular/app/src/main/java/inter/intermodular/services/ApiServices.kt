@@ -6,6 +6,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
 import retrofit2.http.Headers
+import retrofit2.http.Path
 
 interface ApiServices {
 
@@ -18,9 +19,9 @@ interface ApiServices {
                 /**TODO CADA UNO TIENE QUE PONER SU IP LOCAL DONDE CORRE LA API*/
                                 /**cmd -> ipconfig -> IPv4Adress*/
 
-                val adress : Array<String> = arrayOf("http://192.168.56.1:8081/", "Pablo")
-                //val adress : Array<String> = arrayOf("http://xxxxxxxxxx:8081/", "Yeray")
-                //val adress : Array<String> = arrayOf("http://xxxxxxxxxx:8081/", "Maria")
+                val adress : Array<String> = arrayOf("http://192.168.56.1:8081/api/", "Pablo")
+                //val adress : Array<String> = arrayOf("http://xxxxxxxxxx:8081/api/", "Yeray")
+                //val adress : Array<String> = arrayOf("http://xxxxxxxxxx:8081/api/", "Maria")
 
                 apiServices = Retrofit.Builder()
                     .baseUrl(adress[0])
@@ -42,21 +43,23 @@ interface ApiServices {
 
     /********************USERS**********************/
 
-    @GET("api/users/client/Ecosistema1")
+    @GET("users/client/Ecosistema1")
     suspend fun getClientUsers() : List<UserModel>
 
-    @GET("api/users/client/Ecosistema1/active")
+    @GET("users/client/Ecosistema1/active")
     suspend fun getUsersFichados() : List<UserModel>
 
-    @GET("api/users/client/Ecosistema1/inactive")
+    @GET("users/client/Ecosistema1/inactive")
     suspend fun getUsersNoFichados() : List<UserModel>
 
-    @GET("api/users/client/Ecosistema1/admin")
+    @GET("users/client/Ecosistema1/admin")
     suspend fun getClientAdmin() : List<UserModel>
 
 
     /********************CLIENT**********************/
 
+    @GET("client/email/{email}")
+    suspend fun checkEmail(@Path("email") email : String) : Boolean
 
 
 }

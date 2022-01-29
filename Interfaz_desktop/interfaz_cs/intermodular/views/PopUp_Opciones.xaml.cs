@@ -122,7 +122,6 @@ namespace intermodular
             this.Close();
             FicharEmpleado empl = new FicharEmpleado(true, true); 
             empl.ShowDialog();
-
         }
 
         private void btn_firmarSalida_Click(object sender, RoutedEventArgs e)
