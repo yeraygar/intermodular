@@ -10,9 +10,9 @@
         Width="600"
         MaxHeight="800"
         MaxWidth="600"
-        WindowStyle="None"
         AllowsTransparency="True"
         Background="Transparent"
+        WindowStyle="None"
         WindowStartupLocation="CenterScreen">
     <Border CornerRadius="10" Background="#48C9B0">
         <Grid>

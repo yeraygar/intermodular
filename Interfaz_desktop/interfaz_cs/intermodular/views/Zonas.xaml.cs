@@ -332,6 +332,7 @@ namespace intermodular
 
                 if( await Zona.deleteZone(zonaSelect._id))
                 {
+                    await Mesa.removeZoneTables(zonaSelect._id);
                     //Eliminar el botón que hace referencia a esa zona, de la ventana principal del tpv
                     //Eliminar el botón que hace referencia a esa zona del panel
                     stackZonas.Children.Remove(btnPressed);
@@ -352,7 +353,7 @@ namespace intermodular
                     txtEditarNombreZona.IsEnabled = false;
                     txtEditarNombreZona.Text = "";
                     imgEditNombreZona.Source = (ImageSource)new ImageSourceConverter().ConvertFrom("..\\..\\images\\pencil.png");
-                    imgEditNombreZona.Visibility = Visibility.Visible;
+                    imgEditNombreZona.Visibility = Visibility.Hidden;
                     btnEditarZona.IsEnabled = false;
                     btnCancelar.IsEnabled = false;
                     btnEditarZona.Visibility = Visibility.Hidden;
