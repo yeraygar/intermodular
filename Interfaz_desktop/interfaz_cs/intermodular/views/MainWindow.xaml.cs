@@ -100,6 +100,13 @@ namespace intermodular
                
             };
 
+            if(btnPressed == null)
+            {
+                btnPressed = btn;
+                btnPressed.Background = (Brush)(new BrushConverter().ConvertFrom("#434343"));
+                btnPressed.Foreground = Brushes.White;
+            }
+
             zonaSelect = zona;
             stackZonas.Children.Add(btn);
         }
@@ -177,7 +184,13 @@ namespace intermodular
                     found = true;
                 }
             }
-            resetGridMesas();
+            if (btnPressed.Tag.Equals(id))
+            {
+                resetGridMesas();
+                btnPressed = null;
+                zonaSelect = null;
+            }
+               
         }
 
         //Actualiza la zona, como el tag no se cambia, solamente actualizamos el nombre de la zona ya que sí que puede variar, el resto de atributos se actualizan en la ventana de Zonas
@@ -236,30 +249,34 @@ namespace intermodular
 
         public void cargarGridMesas(Zona zona)
         {
-            int numCol = 6;
-            int numRow = 0;
-            int numColact = 0;
-            for(int x = 0; x < Mesa.currentZoneTables.Count; x++) {
-                Button btn = new Button
+            //int numCol = 6;
+            if (Mesa.currentZoneTables != null)
+            {
+                if (Mesa.currentZoneTables.Count != 0)
                 {
-                    Background = Mesa.currentZoneTables[x].status ? Brushes.Green : Brushes.Red,
-                    Margin = new Thickness(20),
-                    Width = 200,
-                    Height = 200,
-                    Content = Mesa.currentZoneTables[x].name,
-                    FontSize = 50
-                };
-                
-                Grid.SetRow(btn, numRow);
-                Grid.SetColumn(btn, numColact);
-                mapaMesas.Children.Add(btn);
-                numColact++;
-
-                if (numColact == 6)
-                {
-                    numColact = 0;
-                    mapaMesas.RowDefinitions.Add(new RowDefinition());
-                    numRow++;
+                    int numRows = Mesa.currentZoneTables[Mesa.currentZoneTables.Count - 1].num_row + 1;
+                    for (int x = 0; x < numRows; x++)
+                    {
+                        mapaMesas.RowDefinitions.Add(new RowDefinition());
+                    }
+                    foreach (Mesa mesa in Mesa.currentZoneTables)
+                    {
+                        Button btn = new Button
+                        {
+                            Background = mesa.status ? Brushes.Green : Brushes.Red,
+                            Tag = mesa._id,
+                            Margin = new Thickness(20),
+                            Width = 200,
+                            Height = 200,
+                            Content = mesa.name,
+                            Style = Application.Current.TryFindResource("btnRedondo") as Style,
+                            FontSize = 50,
+                            Cursor = Cursors.Hand
+                        };
+                        Grid.SetRow(btn, mesa.num_row);
+                        Grid.SetColumn(btn, mesa.num_column);
+                        mapaMesas.Children.Add(btn);
+                    }
                 }
             }
         }
@@ -270,7 +287,6 @@ namespace intermodular
             border.CornerRadius = new CornerRadius(10);
             border.Background = (Brush)(new BrushConverter().ConvertFrom("#E0E0E0")); 
             mapaMesas = new Grid();
-            mapaMesas.RowDefinitions.Add(new RowDefinition());
             for(int x = 0; x < 6; x++)
             {
                 mapaMesas.ColumnDefinitions.Add(new ColumnDefinition());
