@@ -106,6 +106,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="api_models\Client.cs" />
     <Compile Include="support\Colores.cs" />
     <Compile Include="support\Encrypt.cs" />
     <Compile Include="support\RatioConverter.cs" />
