@@ -16,14 +16,17 @@ using System.Windows.Shapes;
 namespace intermodular
 {
     /// <summary>
-    /// Lógica de interacción para CrearZona.xaml
+    /// Lógica de interacción para CrearMesa.xaml
     /// </summary>
-    public partial class CrearZona : Window
+    public partial class CrearMesa : Window
     {
-        public Zona zona;
-        public CrearZona()
+        string idZonaSelect;
+        public Mesa mesa;
+        public CrearMesa(string id)
         {
             InitializeComponent();
+            //this.Width = Static
+            idZonaSelect = id;
         }
 
         private void btn_cerrar_Click(object sender, RoutedEventArgs e)
@@ -31,27 +34,6 @@ namespace intermodular
             this.Close();
         }
 
-        private void btnCancelar_Click(object sender, RoutedEventArgs e)
-        {
-            this.Close();
-        }
-        
-        //Comprobamos que el nombre de la zona y el numero de mesas son valores válidos, de ser así creamos la mesa.
-        private async void btnSiguiente_Click(object sender, RoutedEventArgs e)
-        {
-            if(checkZoneName(txtZona.Text))
-            {
-                zona = await Zona.createZone(new Zona(Staticresources.id_client, txtZona.Text));
-                this.Close();
-            }
-            else
-            {
-                MessageBox.Show("Error al crear la zona");
-            }
-
-        }
-
-        //Cambia el color del botón de cerrar, al pasar por encima.
         private void btn_cerrar_MouseEnter(object sender, MouseEventArgs e)
         {
             btn_cerrar.Background = (Brush)(new BrushConverter().ConvertFrom("#ff3232"));
@@ -93,10 +75,18 @@ namespace intermodular
             imgNext.Source = (ImageSource)new ImageSourceConverter().ConvertFrom("..\\..\\images\\next.png");
         }
 
+        private void txtNumMesas_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            txtNumMesas.Text = txtNumMesas.Text.Replace(" ", "");
+            Regex regex = new Regex("[^0-9]+");
+            e.Handled = regex.IsMatch(e.Text);
+
+        }
+
         //Este método comprueba que el nombre de la zona no este vacío, etc, comprueba que sea válido.
         private bool checkZoneName(string txtZona)
         {
-            if(!String.IsNullOrEmpty(txtZona) && !String.IsNullOrWhiteSpace(txtZona))
+            if (!String.IsNullOrEmpty(txtZona) && !String.IsNullOrWhiteSpace(txtZona))
             {
                 return true;
             }
@@ -109,10 +99,11 @@ namespace intermodular
         //Este método comprueba que el valor introducido en el textbox del número de mesas sea un valor válido.
         private bool checkZoneNumber(string txtNumZona)
         {
-            if(!String.IsNullOrEmpty(txtNumZona) && !String.IsNullOrWhiteSpace(txtNumZona) && isInteger(txtNumZona))
+            if (!String.IsNullOrEmpty(txtNumZona) && !String.IsNullOrWhiteSpace(txtNumZona) && isInteger(txtNumZona))
             {
                 return true;
-            }else
+            }
+            else
             {
                 return false;
             }
@@ -126,31 +117,85 @@ namespace intermodular
             {
                 int.Parse(value);
                 return true;
-            }catch(Exception e)
+            }
+            catch (Exception e)
             {
                 return false;
             }
         }
 
-
         //Este evento saltará cuando salimos del focus del text box y pintara la imagen correspondiente segun si existe algun campo erroneo o no.
         private void txtZona_LostFocus(object sender, RoutedEventArgs e)
         {
-            imgValidZoneName.Visibility = Visibility.Visible;
-            if (checkZoneName(txtZona.Text))
+            imgValidTableName.Visibility = Visibility.Visible;
+            if (checkZoneName(txtMesa.Text))
             {
                 //MessageBox.Show("Nombre de zona válido");
-                imgValidZoneName.Source = (ImageSource)new ImageSourceConverter().ConvertFrom("..\\..\\images\\verify.png");
-                imgValidZoneName.ToolTip = null;
+                imgValidTableName.Source = (ImageSource)new ImageSourceConverter().ConvertFrom("..\\..\\images\\verify.png");
+                imgValidTableName.ToolTip = null;
             }
             else
             {
-                imgValidZoneName.Source = (ImageSource)new ImageSourceConverter().ConvertFrom("..\\..\\images\\error.png");
-                imgValidZoneName.ToolTip = "El nombre no puede estar vacío";
+                imgValidTableName.Source = (ImageSource)new ImageSourceConverter().ConvertFrom("..\\..\\images\\error.png");
+                imgValidTableName.ToolTip = "El nombre no puede estar vacío";
             }
         }
 
         //Este evento saltará cuando salimos del focus del text box y pintara la imagen correspondiente segun si existe algun campo erroneo o no.
+        private void txtNumMesas_LostFocus(object sender, RoutedEventArgs e)
+        {
+            txtNumMesas.Text = txtNumMesas.Text.Replace(" ", "");
+            imgValidNumComensales.Visibility = Visibility.Visible;
+            if (checkZoneNumber(txtNumMesas.Text))
+            {
+                imgValidNumComensales.Source = (ImageSource)new ImageSourceConverter().ConvertFrom("..\\..\\images\\verify.png");
+                imgValidNumComensales.ToolTip = null;
+            }
+            else
+            {
+                imgValidNumComensales.Source = (ImageSource)new ImageSourceConverter().ConvertFrom("..\\..\\images\\error.png");
+                imgValidNumComensales.ToolTip = "valor no válido, introduzca otro valor.";
+            }
+        }
 
+        private void btnCancelar_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
+
+        //Comprobamos que el nombre de la zona y el numero de mesas son valores válidos, de ser así creamos la mesa.
+        private async void btnSiguiente_Click(object sender, RoutedEventArgs e)
+        {
+            if (checkZoneName(txtMesa.Text) && checkZoneNumber(txtNumMesas.Text))
+            {
+                    Mesa mesa = new Mesa(txtMesa.Text, Mesa.currentZoneTables.Count + 1, true, idZonaSelect, int.Parse(txtNumMesas.Text));
+                if (Mesa.currentZoneTables.Count == 0)
+                {
+                    mesa.num_row = 0;
+                    mesa.num_column = 0;
+                }
+                else
+                {
+                    if (Mesa.currentZoneTables[Mesa.currentZoneTables.Count - 1].num_column == 5)
+                    {
+                        mesa.num_row = Mesa.currentZoneTables[Mesa.currentZoneTables.Count - 1].num_row + 1;
+                        mesa.num_column = 0;
+                    }
+                    else
+                    {
+                        mesa.num_row = Mesa.currentZoneTables[Mesa.currentZoneTables.Count - 1].num_row;
+                        mesa.num_column = Mesa.currentZoneTables[Mesa.currentZoneTables.Count - 1].num_column + 1;
+                    }
+                }
+                this.mesa = await Mesa.createTable(mesa);
+                Mesa.currentZoneTables.Add(this.mesa);
+                this.Close();
+            }
+            else
+            {
+                MessageBox.Show("Error al crear la zona");
+            }
+
+        }
     }
 }

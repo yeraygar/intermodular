@@ -106,10 +106,15 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="api_models\Client.cs" />
     <Compile Include="support\Colores.cs" />
     <Compile Include="support\Encrypt.cs" />
+    <Compile Include="support\RatioConverter.cs" />
     <Compile Include="views\Admin.xaml.cs">
       <DependentUpon>Admin.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="views\CrearMesa.xaml.cs">
+      <DependentUpon>CrearMesa.xaml</DependentUpon>
     </Compile>
     <Compile Include="views\CrearZona.xaml.cs">
       <DependentUpon>CrearZona.xaml</DependentUpon>
@@ -126,9 +131,6 @@
     <Compile Include="api_models\Mesa.cs" />
     <Compile Include="views\LoginPrincipal.xaml.cs">
       <DependentUpon>LoginPrincipal.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="views\Mesas.xaml.cs">
-      <DependentUpon>Mesas.xaml</DependentUpon>
     </Compile>
     <Compile Include="views\PopUp_Opciones.xaml.cs">
       <DependentUpon>PopUp_Opciones.xaml</DependentUpon>

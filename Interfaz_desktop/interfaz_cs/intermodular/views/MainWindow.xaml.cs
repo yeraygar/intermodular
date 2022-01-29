@@ -35,11 +35,15 @@ namespace intermodular
             {
                 if(Zona.allZones != null)
                 {
-                    cargarZonas(Zona.allZones);
-                    Mesa.getZoneTables(Zona.allZones[0]._id).ContinueWith(tasks =>
+                    if (Zona.allZones.Count > 0)
                     {
-                        cargarGridMesas(Zona.allZones[0]);
-                    }, TaskScheduler.FromCurrentSynchronizationContext());
+                        cargarZonas(Zona.allZones);
+                        Mesa.getZoneTables(Zona.allZones[0]._id).ContinueWith(tasks =>
+                        {
+
+                            cargarGridMesas(Zona.allZones[0]);
+                        }, TaskScheduler.FromCurrentSynchronizationContext());
+                    }
                 }
                 else
                 {
@@ -93,6 +97,8 @@ namespace intermodular
                 }
                 zonaSelect = zona;
                 btnPressed = btn;
+                btn.Background = (Brush)(new BrushConverter().ConvertFrom("#434343"));
+                btn.Foreground = Brushes.White;
                 resetGridMesas();
                 await Mesa.getZoneTables(zona._id);
                 resetGridMesas();
@@ -217,7 +223,6 @@ namespace intermodular
                 btnAddTable.IsEnabled = true;
                 btnEliminarMesa.IsEnabled = true;
                 btnEditarMesa.IsEnabled = true;
-                btnGuardarCambios.IsEnabled = true;
                 btnSalir.IsEnabled = true;
 
             }
@@ -228,7 +233,6 @@ namespace intermodular
                 btnAddTable.IsEnabled = false;
                 btnEliminarMesa.IsEnabled = false;
                 btnEditarMesa.IsEnabled = false;
-                btnGuardarCambios.IsEnabled = false;
                 btnSalir.IsEnabled = false;
                 
             }
@@ -297,6 +301,55 @@ namespace intermodular
             scroll.Content = mapaMesas;
             border.Child = scroll;
             mapaZonas.Child = border;
+        }
+
+        private void btnAddTable_Click(object sender, RoutedEventArgs e)
+        {
+            CrearMesa crearMesa = new CrearMesa(zonaSelect._id);
+            crearMesa.ShowDialog();
+            if(crearMesa.mesa != null)
+            {
+
+                //Mesa.currentZoneTables.Add(crearMesa.mesa);
+                crearBtnNuevaMesa(crearMesa.mesa);
+            }
+        }
+
+        private void crearBtnNuevaMesa(Mesa mesa)
+        {
+            Button btn = new Button
+            {
+                Tag = mesa._id,
+                Margin = new Thickness(20),
+                Width = 200,
+                Height = 200,
+                Style = Application.Current.TryFindResource("btnRedondo") as Style,
+                Background = mesa.status ? Brushes.Green : Brushes.Red,
+                Content = mesa.name,
+                FontSize = 50,
+                Cursor = Cursors.Hand
+            };
+            if (mapaMesas.RowDefinitions.Count < mesa.num_row + 1)
+                mapaMesas.RowDefinitions.Add(new RowDefinition());
+
+
+                Grid.SetRow(btn, mesa.num_row);
+                Grid.SetColumn(btn, mesa.num_column);
+                mapaMesas.Children.Add(btn);
+        }
+
+        private void btnsZonesClick(object sender, RoutedEventArgs e)
+        {
+            Button btn = sender as Button;
+            //btn.Background
+            if(Staticresources.isEditableTables)
+            {
+                //Selecciona la mesa dentro del modo Admin, visualizar btns de Editar Mesa, Eliminar Mesa y guardar cambios
+            }
+            else
+            {
+                //Abres una ventana cargando la mesa ---> Vista para realizar pedido, etc.
+            }
         }
     }
 }

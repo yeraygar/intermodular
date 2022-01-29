@@ -104,13 +104,38 @@ Content-Type: application/json
 
 {
     "name": "mesaPrueba",
-    "id_zone": "61f162489001cf677795fe09",
+    "id_zone": "61f2ad8dd8f20cae47bf0da8",
     "numero_mesa": "7"
 }
 
 ###
-GET http://localhost:8081/api/tables/zone/61f162489001cf677795fe09 HTTP/1.1
+GET http://localhost:8081/api/tables/zone/61f2e994cbdaae6c1f4f72e9 HTTP/1.1
 
+### Comprobaciones Clientes
+POST http://localhost:8081/api/client HTTP/1.1
+Content-Type: application/json
+
+{
+    "email": "uncorreocualquiera",
+    "passw": "1234"
+}
+
+###
+GET http://localhost:8081/api/client/email/uncorreocualquiera HTTP/1.1
+
+###
+GET http://localhost:8081/api/client HTTP/1.1
+GET http://localhost:8081/api/tables/zone/61f02956f0fb3f60da768907 HTTP/1.1
+
+###
+DELETE  http://localhost:8081/api/tables/zone/61f02956f0fb3f60da768907 HTTP/1.1
+
+
+
+
+
+###
+GET http://localhost:8081/api/client/validate/uncorreocualquiera/1234 HTTP/1.1
 
 
 

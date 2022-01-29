@@ -22,6 +22,18 @@ const tableSchema = mongoose.Schema({
         type:Number,
         required:false
     },
+    num_row:{
+        type:Number,
+        required:false
+    },
+    num_column:{
+        type:Number,
+        required:false
+    },
+    comensalesMax:{
+        type:Number,
+        required: true
+    },
     id_user:{
         type:String,
         required:false
