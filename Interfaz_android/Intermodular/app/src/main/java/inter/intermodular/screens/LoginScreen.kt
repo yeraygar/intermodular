@@ -14,13 +14,10 @@ import inter.intermodular.ScreenNav
 import inter.intermodular.view_models.ClientViewModel
 import kotlinx.coroutines.*
 
-
 @Composable
 fun Login(navController: NavController, clientViewModel: ClientViewModel){
-
-    var text by remember { mutableStateOf("")}
-    val scope = rememberCoroutineScope()
-
+    var email by remember { mutableStateOf("") }
+    var password by remember { mutableStateOf("") }
     Column(
         verticalArrangement = Arrangement.Center,
         modifier = Modifier
@@ -28,64 +25,43 @@ fun Login(navController: NavController, clientViewModel: ClientViewModel){
             .padding(horizontal = 50.dp)
     ){
         Spacer(modifier = Modifier.height(18.dp))
-        Text(text = "LOGIN SCREEN", modifier = Modifier.padding(50.dp)  )
+        Text("LOGIN SCREEN", modifier = Modifier.align(Alignment.CenterHorizontally))
         Spacer(modifier = Modifier.height(18.dp))
-        TextField(value = text, onValueChange = {
-            text = it
+        Text(text = "Email: ")
+        TextField(value = email, onValueChange = {
+            email = it
         },
             modifier = Modifier.fillMaxWidth()
         )
-        Spacer(modifier = Modifier.height(58.dp))
-
+        Spacer(modifier = Modifier.height(18.dp))
+        Text(text = "Password: ")
+        TextField(value = password, onValueChange = {
+            password = it
+        },
+            modifier = Modifier.fillMaxWidth()
+        )
+        Spacer(modifier = Modifier.height(50.dp))
         Button(
             onClick = {
-                if(text.isNullOrEmpty()){
+                if(email.isNullOrEmpty() || password.isNullOrEmpty()){
                     //TODO nombre no valido
-                    Logger.e("Text input login is null or empty")
+                    Logger.e("Email or Password input Login is null or empty")
                 }else{
-                    //clientViewModel.viewModelScope.launch {
-                       scope.launch {
-                        //clientViewModel.checkEmail(text)
-                       // checkEmail(clientViewModel = clientViewModel, text = text, navController = navController, scope = scope)
-                        clientViewModel.checkEmail(text)
-                        navController.navigate(ScreenNav.ValidateLoginScreen.withArgs(text))
-
-                       }
+                    navController.navigate(ScreenNav.ValidateLoginScreen.withArgs(email, password))
                 }
             },
-            modifier = Modifier.align(Alignment.End)
+            modifier = Modifier.fillMaxWidth().height(50.dp)
         ){
             Text(text = "LOGIN")
         }
+        Spacer(modifier = Modifier.height(20.dp))
         Button(
             onClick = {
-                navController.navigate(ScreenNav.RegisterScreen.route){
-                    //Nav options
-                }
+                navController.navigate(ScreenNav.RegisterScreen.route)
             },
-            modifier = Modifier.align(Alignment.End)
+            modifier = Modifier.fillMaxWidth().height(50.dp)
         ){
-            Text(text = "Register NOW")
-        }
-    }
-}
-
-
-private suspend fun checkEmail(
-    clientViewModel: ClientViewModel,
-    text: String,
-    navController: NavController,
-    scope: CoroutineScope
-) {
-    //GlobalScope.launch(Dispatchers.IO) {
-    scope.launch {
-
-       clientViewModel.checkEmail(text)
-        if (clientViewModel.emailExistsResponse) {
-            Logger.e("Email already exists: $text, ${clientViewModel.emailExistsResponse}")
-        } else {
-            navController.navigate(ScreenNav.MainScreen.withArgs(text))
-            Logger.i("Unique email: $text, ${clientViewModel.emailExistsResponse}")
+            Text(text = "to Register")
         }
     }
 }

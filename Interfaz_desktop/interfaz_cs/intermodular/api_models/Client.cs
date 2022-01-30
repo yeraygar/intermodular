@@ -12,14 +12,16 @@ namespace intermodular
     {
 
         public string _id { get; set; }
+        public string name { get; set; }
         public string email { get; set; }
         public string passw { get; set; }
 
         /// <summary>cliente que ha iniciado sesion</summary>
         public static Client currentClient;
 
-        public Client(string email, string passw)
+        public Client(string name, string email, string passw)
         {
+            this.name = name;
             this.email = email;
             this.passw = Encrypt.GetSHA256(passw);
         }
@@ -72,6 +74,7 @@ namespace intermodular
 
             JObject values = new JObject
             {
+                { "name", client.name },
                 { "email", client.email },
                 { "passw", client.passw }
             };
@@ -98,6 +101,7 @@ namespace intermodular
 
             JObject values = new JObject
             {
+                { "name", client.name },
                 { "email", client.email },
                 { "passw", client.passw }
             };

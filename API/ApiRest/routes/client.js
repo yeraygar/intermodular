@@ -82,7 +82,7 @@ router.get("/client/validate/:email/:passw", (req, res) => {
 //Update client si algun campo no se pone no se elimina
 router.put("/client/:id", (req, res) => {
     const {id} = req.params;
-    const {email, passw} = req.body;
+    const {name, email, passw} = req.body;
     clientSchema
         .updateOne({_id: id}, {$set:{name, email, passw}})
         .then((data) =>{

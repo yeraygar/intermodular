@@ -19,7 +19,12 @@ import inter.intermodular.ui.theme.Purple500
 import inter.intermodular.view_models.ClientViewModel
 
 @Composable
-fun ValidateLoginScreen(email: String?, clientViewModel: ClientViewModel, navController: NavController) {
+fun ValidateLoginScreen(
+    email: String?,
+    clientViewModel: ClientViewModel,
+    navController: NavController,
+    password: String?
+) {
     val isDialogOpen = remember { mutableStateOf(true) }
     ShowAlertDialog(isDialogOpen = isDialogOpen, email, clientViewModel, navController)
 
