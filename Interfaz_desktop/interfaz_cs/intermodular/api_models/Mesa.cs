@@ -18,7 +18,11 @@ namespace intermodular
         public bool status { get; set; }
         public string id_zone { get; set; }
         public int comensales { get; set; }
+        public int comensalesMax { get; set; }
         public string id_user { get; set; }
+        public int num_row { get; set; }
+        public int num_column { get; set; }
+
 
         //falta public string List<Producto> cuenta {get; set;}
 
@@ -27,14 +31,13 @@ namespace intermodular
 
         public Mesa() { }
 
-        public Mesa(string name, int numero_mesa, bool status, string id_zone, int comensales, string id_user)
+        public Mesa(string name, int numero_mesa, bool status, string id_zone, int comensalesMax)
         {
             this.name = name;
             this.numero_mesa = numero_mesa;
             this.status = status;
-            this.comensales = comensales;
+            this.comensalesMax = comensalesMax;
             this.id_zone = id_zone;
-            this.id_user = id_user;
         }
 
 
@@ -44,7 +47,7 @@ namespace intermodular
         /// MongoDB con <b>_id</b> autogenerado
         /// <return>Void</return>
         /// </summary>
-        public static async Task createTable (Mesa mesa)
+        public static async Task<Mesa> createTable (Mesa mesa)
         {
             HttpClient client = new HttpClient();
             string url = "http://localhost:8081/api/tables";
@@ -54,9 +57,10 @@ namespace intermodular
             values.Add("name", mesa.name);
             values.Add("numero_mesa", mesa.numero_mesa);
             values.Add("status", mesa.status);
-            values.Add("comensales", mesa.comensales);
+            values.Add("comensalesMax", mesa.comensalesMax);
             values.Add("id_zone", mesa.id_zone);
-            values.Add("id_user", mesa.id_user);
+            values.Add("num_row", mesa.num_row);
+            values.Add("num_column", mesa.num_column);
 
             //Creamos la peticion
             HttpContent content = new StringContent(values.ToString(), System.Text.Encoding.UTF8, "application/json");
@@ -72,7 +76,12 @@ namespace intermodular
 
                 //Leemos resultado del Body(Contenido) pero tambien podemos ver los Headers o las Cookies
                 var postResult = JsonSerializer.Deserialize<Mesa>(result);
+                return postResult;
 
+            }
+            else
+            {
+                return null;
             }
         }
 
@@ -94,7 +103,10 @@ namespace intermodular
             values.Add("numero_mesa", mesa.numero_mesa);
             values.Add("status", mesa.status);
             values.Add("comensales", mesa.comensales);
+            values.Add("comensalesMax", mesa.comensalesMax);
             values.Add("id_zone", mesa.id_zone);
+            values.Add("num_row", mesa.num_row);
+            values.Add("num_column", mesa.num_column);
             values.Add("id_user", mesa.id_user);
 
         //Creamos la peticion
@@ -175,6 +187,23 @@ namespace intermodular
                 List<Mesa> listaRes = JsonSerializer.Deserialize<List<Mesa>>(content);
 
                 currentZoneTables = listaRes;
+            }
+        }
+
+        public static async Task removeZoneTables(string id_zona)
+        {
+            HttpClient client = new HttpClient();
+            string url = "http://localhost:8081/api/tables/zone";
+            url = url + "/" + id_zona;
+
+            //Hacemos la peticion
+            var httpResponse = await client.DeleteAsync(url);
+
+
+            if (httpResponse.IsSuccessStatusCode)
+            {
+                //Esto tambien asincrono por si el contenido es muy grande (leer respuesta), detiene hilo principal
+                var result = await httpResponse.Content.ReadAsStringAsync();
             }
         }
 

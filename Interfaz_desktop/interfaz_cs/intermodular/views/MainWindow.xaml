@@ -55,9 +55,6 @@
                             <ColumnDefinition/>
                             <ColumnDefinition/>
                         </Grid.ColumnDefinitions>
-                        <Grid.RowDefinitions>
-                            <RowDefinition/>
-                        </Grid.RowDefinitions>
                     </Grid>
                 </ScrollViewer>
             </Border>
@@ -81,9 +78,8 @@
                     <ColumnDefinition/>
                     <ColumnDefinition/>
                     <ColumnDefinition/>
-                    <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
-                <Button x:Name="btnAddTable" Style="{StaticResource btnRedondo}" Margin="3" Cursor="Hand" Background="#E0E0E0">
+                <Button x:Name="btnAddTable" Style="{StaticResource btnRedondo}" Margin="3" Cursor="Hand" Background="#E0E0E0" Click="btnAddTable_Click">
                     <StackPanel Orientation="Horizontal">
                         <Image Width="50" Height="50" Source="/intermodular;component/images/agregar.png" RenderOptions.BitmapScalingMode="HighQuality"/>
                         <TextBlock FontSize="19" Text="Añadir mesa" VerticalAlignment="Center" Margin="10,0,0,0"/>
@@ -101,19 +97,13 @@
                         <TextBlock FontSize="19" Text="Eliminar mesa" VerticalAlignment="Center" Margin="10,0,0,0"/>
                     </StackPanel>
                 </Button>
-                <Button x:Name="btnGuardarCambios" Style="{StaticResource btnRedondo}" Margin="3" Grid.Column="3" Cursor="Hand" Click="btnGuardarCambios_Click" Background="#E0E0E0">
-                    <StackPanel Orientation="Horizontal">
-                        <Image Width="40" Height="40" Source="/intermodular;component/images/save.png" RenderOptions.BitmapScalingMode="HighQuality"/>
-                        <TextBlock FontSize="19" Text="Guardar los cambios" VerticalAlignment="Center" Margin="10,0,0,0"/>
-                    </StackPanel>
-                </Button>
-                <Button x:Name="btnSalir" Style="{StaticResource btnRedondo}" Margin="3" Grid.Column="4" Cursor="Hand" Click="btnSalir_Click" Background="#E0E0E0">
+                <Button x:Name="btnSalir" Style="{StaticResource btnRedondo}" Margin="3" Grid.Column="3" Cursor="Hand" Click="btnSalir_Click" Background="#E0E0E0">
                     <StackPanel Orientation="Horizontal">
                         <Image Width="40" Height="40" Source="/intermodular;component/images/cancel.png" RenderOptions.BitmapScalingMode="HighQuality"/>
                         <TextBlock FontSize="19" Text="Salir" VerticalAlignment="Center" Margin="10,0,0,0"/>
                     </StackPanel>
                 </Button>
-                <TextBlock x:Name="textBlockPie" Grid.ColumnSpan="5" Grid.Row="1" FontSize="30" Text="Bienvenido al TPV" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                <TextBlock x:Name="textBlockPie" Grid.ColumnSpan="4" Grid.Row="1" FontSize="30" Text="Bienvenido al TPV" VerticalAlignment="Center" HorizontalAlignment="Center"/>
             </Grid>
         </Border>
     </Grid>

@@ -92,4 +92,18 @@ router.get("/tables/zone/:id_zone", (req, res) => {
         })
 })
 
+//Delete all tables from a zone
+router.delete("/tables/zone/:id_zone" , (req,res) => {
+    const {id_zone} = req.params;
+    tableSchema
+    .deleteMany({id_zone: id_zone})
+    .then((data) => {
+        res.json(data);
+        console.log(`\nDelete succesful: \n ${data}`);
+    })
+    .catch((err) => {
+        res.json(data);
+        console.log(`Error delete : ${err}`);
+    })
+})
 module.exports = router;

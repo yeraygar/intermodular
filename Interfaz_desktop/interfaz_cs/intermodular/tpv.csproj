@@ -109,8 +109,12 @@
     <Compile Include="api_models\Client.cs" />
     <Compile Include="support\Colores.cs" />
     <Compile Include="support\Encrypt.cs" />
+    <Compile Include="support\RatioConverter.cs" />
     <Compile Include="views\Admin.xaml.cs">
       <DependentUpon>Admin.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="views\CrearMesa.xaml.cs">
+      <DependentUpon>CrearMesa.xaml</DependentUpon>
     </Compile>
     <Compile Include="views\CrearZona.xaml.cs">
       <DependentUpon>CrearZona.xaml</DependentUpon>
@@ -125,9 +129,6 @@
     <Compile Include="views\LoginPrincipal.xaml.cs">
       <DependentUpon>LoginPrincipal.xaml</DependentUpon>
     </Compile>
-    <Compile Include="views\Mesas.xaml.cs">
-      <DependentUpon>Mesas.xaml</DependentUpon>
-    </Compile>
     <Compile Include="views\PopUp_Opciones.xaml.cs">
       <DependentUpon>PopUp_Opciones.xaml</DependentUpon>
     </Compile>
@@ -139,6 +140,10 @@
       <DependentUpon>Zonas.xaml</DependentUpon>
     </Compile>
     <Page Include="views\Admin.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="views\CrearMesa.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -170,10 +175,6 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="views\Mesas.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="views\PopUp_Opciones.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
