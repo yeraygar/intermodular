@@ -7,6 +7,8 @@
         mc:Ignorable="d"
         Title="Registro" Height="450" Width="800">
     <Grid>
-        
+        <Button Content="Button" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75"/>
+
+
     </Grid>
 </Window>
