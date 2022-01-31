@@ -97,6 +97,9 @@
     <Reference Include="System.Xaml">
       <RequiredTargetFramework>4.0</RequiredTargetFramework>
     </Reference>
+    <Reference Include="TermControls, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\WPFTouchKeyboard.1.0.1\lib\TermControls.dll</HintPath>
+    </Reference>
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
@@ -111,6 +114,7 @@
     <Compile Include="views\Admin.xaml.cs">
       <DependentUpon>Admin.xaml</DependentUpon>
     </Compile>
+    <Compile Include="views\BoolToVisibilityConverter.cs" />
     <Compile Include="views\CrearZona.xaml.cs">
       <DependentUpon>CrearZona.xaml</DependentUpon>
     </Compile>
@@ -137,6 +141,9 @@
     <Compile Include="support\Staticresources.cs" />
     <Compile Include="api_models\User.cs" />
     <Compile Include="api_models\Zona.cs" />
+    <Compile Include="views\Registro.xaml.cs">
+      <DependentUpon>Registro.xaml</DependentUpon>
+    </Compile>
     <Compile Include="views\Zonas.xaml.cs">
       <DependentUpon>Zonas.xaml</DependentUpon>
     </Compile>
@@ -181,6 +188,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="views\PopUp_Opciones.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="views\Registro.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -305,6 +316,25 @@
   <ItemGroup>
     <Resource Include="images\save.png" />
     <Resource Include="images\save_blanco.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="images\fondo.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="images\fondo2.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="images\fondo3.jpg" />
+    <Resource Include="images\fondo4.jpg" />
+    <Resource Include="images\fondo5.jpg" />
+    <Resource Include="images\fondo6.jpg" />
+    <Resource Include="images\fondo7.jpeg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="images\fondo8.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="images\TECLADO.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\System.Text.Json.6.0.1\build\System.Text.Json.targets" Condition="Exists('..\packages\System.Text.Json.6.0.1\build\System.Text.Json.targets')" />

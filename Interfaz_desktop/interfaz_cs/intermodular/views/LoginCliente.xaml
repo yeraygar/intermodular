@@ -1,12 +1,65 @@
 ﻿<Window x:Class="intermodular.LoginCliente"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:intermodular.views"
-        mc:Ignorable="d"
-        Title="LoginCliente" Height="450" Width="800">
-    <Grid>
-        
-    </Grid>
+			 xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+			 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+			 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+			 xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+			 xmlns:converter="clr-namespace:intermodular.views"
+			  
+			 x:Name="Keyboard" 
+			 
+			 ShowInTaskbar="False" 
+			 Title="Virtual Keyboard"
+        Width="{x:Static SystemParameters.PrimaryScreenWidth}"
+        Height="{x:Static SystemParameters.PrimaryScreenHeight}"
+        WindowStyle="None"
+        Background="Transparent"
+        AllowsTransparency="True"
+        WindowStartupLocation="CenterScreen"
+        ResizeMode="NoResize"
+        >
+
+
+    <Border CornerRadius="20">
+        <Border.Background>
+            <ImageBrush ImageSource="..\images\fondo8.jpg"/>
+        </Border.Background>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="120"></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+
+            <Button x:Name="btn_cerrar" Style="{StaticResource btnRedondo}" Height="40" Width="40" Grid.Column="2" Grid.Row="0" HorizontalAlignment="Right" Click="Btn_cerrar_Click" Cursor="Hand" Margin="30">
+                <Image Source="..\images\cerrar.png" Width="20" Height="20"/>
+            </Button>
+
+            <Label Content="Usuario" Foreground="White" FontSize="70" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="1"  Grid.Column="1" />
+            <TextBox Grid.Row="1" Grid.Column="1" PreviewMouseDown="textBoxUsuario" Height="70" HorizontalAlignment="Center" Name="textBox" VerticalAlignment="Bottom" Width="400" Margin="20"/>
+
+            <Label Content="Contraseña" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center"  FontSize="70"  Grid.Row="2" Grid.Column="1"/>
+            <PasswordBox PreviewMouseDown="textBoxContraseña" Height="70" HorizontalAlignment="Center"  x:Name="passworbox" VerticalAlignment="Bottom" Width="400" Grid.Row="2" Grid.Column="1" Margin="20" />
+
+            <Button Content="Iniciar sesion" HorizontalAlignment="Left" VerticalAlignment="Top" Width="200" Height="70" Grid.Column="2" Grid.Row="3" Style="{StaticResource btnRedondo}" FontSize="20"/>
+            <Button Content="Registrarse" HorizontalAlignment="Left" VerticalAlignment="Center" Width="200" Height="70" Grid.Column="2" Grid.Row="3" Style="{StaticResource btnRedondo}" FontSize="20" Click="boton_registrar" />
+
+           <!-- <Button  HorizontalAlignment="Left" VerticalAlignment="Bottom" Grid.Column="1" Grid.Row="1" Margin="20">
+                <Image Source="..\images\TECLADO.png" Height="60" Width="60" />
+            </Button>
+            <Button HorizontalAlignment="Left" VerticalAlignment="Bottom" Grid.Column="1" Grid.Row="2" Margin="20" >
+                <Image Source="..\images\TECLADO.png" Height="60" Width="60"/>
+            </Button>-->
+
+
+
+
+        </Grid>
+    </Border>
 </Window>
+
