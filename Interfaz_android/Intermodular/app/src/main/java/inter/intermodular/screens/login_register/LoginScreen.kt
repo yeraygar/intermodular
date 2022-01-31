@@ -44,12 +44,9 @@ fun Login(navController: NavController, clientViewModel: ClientViewModel){
         Button(
             onClick = {
                 if(email.isNullOrEmpty() || password.isNullOrEmpty()){
-                    //TODO nombre no valido
                     Logger.e("Email or Password input Login is null or empty")
                 }else{
                     clientViewModel.validateClient(email = email, passw = password)
-                    //se rompe en el navigate
-                    //navController.navigate(ScreenNav.ValidateLoginScreen.withArgs(email, password))
                     navController.navigate(ScreenNav.ValidateLoginScreen.route)
                 }
             },

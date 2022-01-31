@@ -39,18 +39,13 @@ class ClientViewModel : ViewModel() {
             val apiServices = ApiServices.getInstance()
             try{
                 var passwEncrypt = getSHA256(passw)
-                   // var passwEncrypt = "03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4"
-                Logger.d("P_Pruebas Aqui llega ANTES")
                 var list : List<ClientModel> =  apiServices.validateClient(email, passwEncrypt)
-                Logger.d("P_Pruebas Aqui llega DESPUES")
 
                if(list.isNotEmpty()){
-                    currentClientResponse = list[0]
-                   Logger.d(currentClientResponse)
-                    if(currentClientResponse._id != "Error") currentClient = currentClientResponse
+                   currentClientResponse = list[0]
+                   if(currentClientResponse._id != "Error") currentClient = currentClientResponse
                 }
-                //TODO ESTO FALLA, CLIENT RESPONSE = ANTERIOR
-                Logger.i("Result: $currentClientResponse")
+                Logger.i("Result:\n$currentClientResponse \n$currentClient")
             }catch (e: Exception){
                 Logger.e("FAILURE validate client")
             }
