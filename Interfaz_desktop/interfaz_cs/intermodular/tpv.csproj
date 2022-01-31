@@ -128,8 +128,8 @@
     <Compile Include="views\LoginCliente.xaml.cs">
       <DependentUpon>LoginCliente.xaml</DependentUpon>
     </Compile>
-    <Compile Include="views\LoginPrincipal.xaml.cs">
-      <DependentUpon>LoginPrincipal.xaml</DependentUpon>
+    <Compile Include="views\Teclado.xaml.cs">
+      <DependentUpon>Teclado.xaml</DependentUpon>
     </Compile>
     <Compile Include="views\Mesas.xaml.cs">
       <DependentUpon>Mesas.xaml</DependentUpon>
@@ -167,7 +167,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="views\LoginPrincipal.xaml">
+    <Page Include="views\Teclado.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

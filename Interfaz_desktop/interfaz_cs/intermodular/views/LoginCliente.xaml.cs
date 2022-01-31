@@ -30,7 +30,7 @@ namespace intermodular
         private void textBoxUsuario(object sender, MouseButtonEventArgs e)
         {
             TextBox textbox = sender as TextBox;
-            LoginPrincipal keyboardWindow = new LoginPrincipal(textbox, this);
+            Teclado keyboardWindow = new Teclado(textbox, this);
             if (keyboardWindow.ShowDialog() == true)
                 textbox.Text = keyboardWindow.Result;
         }
@@ -38,7 +38,7 @@ namespace intermodular
         private void textBoxContraseña(object sender, MouseButtonEventArgs e)
         {
             PasswordBox pass = sender as PasswordBox;
-            LoginPrincipal keyboardWindow = new LoginPrincipal(pass, this);
+            Teclado keyboardWindow = new Teclado(pass, this);
             if (keyboardWindow.ShowDialog() == true)
                 pass.Password = keyboardWindow.Result;
         }
@@ -52,6 +52,14 @@ namespace intermodular
            
             Registro regis = new Registro();
             regis.ShowDialog();
+        }
+
+        private void boton_iniciarSesion(object sender, RoutedEventArgs e)
+        {
+
+
+            MainWindow inicio = new MainWindow();
+            inicio.ShowDialog();
         }
     }
 }

@@ -46,7 +46,7 @@
             <Label Content="Contraseña" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center"  FontSize="70"  Grid.Row="2" Grid.Column="1"/>
             <PasswordBox PreviewMouseDown="textBoxContraseña" Height="70" HorizontalAlignment="Center"  x:Name="passworbox" VerticalAlignment="Bottom" Width="400" Grid.Row="2" Grid.Column="1" Margin="20" />
 
-            <Button Content="Iniciar sesion" HorizontalAlignment="Left" VerticalAlignment="Top" Width="200" Height="70" Grid.Column="2" Grid.Row="3" Style="{StaticResource btnRedondo}" FontSize="20"/>
+            <Button Content="Iniciar sesion" HorizontalAlignment="Left" VerticalAlignment="Top" Width="200" Height="70" Grid.Column="2" Grid.Row="3" Style="{StaticResource btnRedondo}" FontSize="20" Click="boton_iniciarSesion" />
             <Button Content="Registrarse" HorizontalAlignment="Left" VerticalAlignment="Center" Width="200" Height="70" Grid.Column="2" Grid.Row="3" Style="{StaticResource btnRedondo}" FontSize="20" Click="boton_registrar" />
 
            <!-- <Button  HorizontalAlignment="Left" VerticalAlignment="Bottom" Grid.Column="1" Grid.Row="1" Margin="20">

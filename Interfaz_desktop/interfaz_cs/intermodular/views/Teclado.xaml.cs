@@ -47,7 +47,7 @@ namespace intermodular
 
         #region Constructor
 
-        public LoginPrincipal(PasswordBox owner, Window wndOwner)
+        public Teclado(PasswordBox owner, Window wndOwner)
         {
             InitializeComponent();
             this.Owner = wndOwner;
@@ -55,7 +55,7 @@ namespace intermodular
             Result = "";
         }
 
-        public LoginPrincipal(TextBox textbox, LoginCliente loginCliente)
+        public Teclado(TextBox textbox, LoginCliente loginCliente)
         {
             InitializeComponent();
             this.textbox = textbox;
