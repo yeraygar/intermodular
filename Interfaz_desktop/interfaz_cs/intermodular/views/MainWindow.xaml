@@ -71,35 +71,35 @@
             <Grid x:Name="gridBtnsTable">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="0"/>
-                    <RowDefinition/>
+                    <RowDefinition />
                 </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                    <ColumnDefinition/>
-                    <ColumnDefinition/>
-                    <ColumnDefinition/>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition x:Name="columnaAgregarMesa"/>
+                    <ColumnDefinition Width="0" x:Name="columnaEditarMesa"/>
+                    <ColumnDefinition Width="0" x:Name="columnaEliminarMesa"/>
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
-                <Button x:Name="btnAddTable" Style="{StaticResource btnRedondo}" Margin="3" Cursor="Hand" Background="#E0E0E0" Click="btnAddTable_Click">
+                <Button x:Name="btnAddTable" Style="{StaticResource btnRedondo}" Margin="3" Cursor="Hand" Click="btnAddTable_Click" Background="#0099a9" IsEnabled="False" Tag="add" MouseEnter="btnsMouseEnterMenuAdminMesas" MouseLeave="btnsMouseLeaveMenuAdminMesas">
                     <StackPanel Orientation="Horizontal">
-                        <Image Width="50" Height="50" Source="/intermodular;component/images/agregar.png" RenderOptions.BitmapScalingMode="HighQuality"/>
+                        <Image x:Name="imgAddMesa" Width="50" Height="50" Source="/intermodular;component/images/agregar.png" RenderOptions.BitmapScalingMode="HighQuality"/>
                         <TextBlock FontSize="19" Text="Añadir mesa" VerticalAlignment="Center" Margin="10,0,0,0"/>
                     </StackPanel>
                 </Button>
-                <Button x:Name="btnEditarMesa" Style="{StaticResource btnRedondo}" Margin="3" Grid.Column="1" Cursor="Hand" Background="#E0E0E0">
+                <Button x:Name="btnEditarMesa" Style="{StaticResource btnRedondo}" Margin="3" Grid.Column="1" Cursor="Hand" Background="#0099a9" IsEnabled="False" Tag="edit" MouseEnter="btnsMouseEnterMenuAdminMesas" MouseLeave="btnsMouseLeaveMenuAdminMesas" Click="btnEditarMesa_Click">
                     <StackPanel Orientation="Horizontal">
-                        <Image Width="40" Height="40" Source="/intermodular;component/images/pencil.png" RenderOptions.BitmapScalingMode="HighQuality"/>
+                        <Image x:Name="imgEditMesa" Width="40" Height="40" Source="/intermodular;component/images/pencil.png" RenderOptions.BitmapScalingMode="HighQuality"/>
                         <TextBlock FontSize="19" Text="Editar mesa" VerticalAlignment="Center" Margin="10,0,0,0"/>
                     </StackPanel>
                 </Button>
-                <Button x:Name="btnEliminarMesa" Style="{StaticResource btnRedondo}" Margin="3" Grid.Column="2" Cursor="Hand" Background="#E0E0E0">
+                <Button x:Name="btnEliminarMesa" Style="{StaticResource btnRedondo}" Margin="3" Grid.Column="2" Cursor="Hand" Background="#0099a9" IsEnabled="False" Tag="delete" MouseEnter="btnsMouseEnterMenuAdminMesas" MouseLeave="btnsMouseLeaveMenuAdminMesas" Click="btnEliminarMesa_Click">
                     <StackPanel Orientation="Horizontal">
-                        <Image Width="40" Height="40" Source="/intermodular;component/images/eliminar.png" RenderOptions.BitmapScalingMode="HighQuality"/>
+                        <Image x:Name="imgDeleteMesa" Width="40" Height="40" Source="/intermodular;component/images/eliminar.png" RenderOptions.BitmapScalingMode="HighQuality"/>
                         <TextBlock FontSize="19" Text="Eliminar mesa" VerticalAlignment="Center" Margin="10,0,0,0"/>
                     </StackPanel>
                 </Button>
-                <Button x:Name="btnSalir" Style="{StaticResource btnRedondo}" Margin="3" Grid.Column="3" Cursor="Hand" Click="btnSalir_Click" Background="#E0E0E0">
+                <Button x:Name="btnSalir" Style="{StaticResource btnRedondo}" Margin="3"  Grid.Column="3" Cursor="Hand" Click="btnSalir_Click" Background="#0099a9" IsEnabled="False" Tag="exit" MouseEnter="btnsMouseEnterMenuAdminMesas" MouseLeave="btnsMouseLeaveMenuAdminMesas"> 
                     <StackPanel Orientation="Horizontal">
-                        <Image Width="40" Height="40" Source="/intermodular;component/images/cancel.png" RenderOptions.BitmapScalingMode="HighQuality"/>
+                        <Image x:Name="imgExitMesasAdmin" Width="40" Height="40" Source="/intermodular;component/images/cancel.png" RenderOptions.BitmapScalingMode="HighQuality"/>
                         <TextBlock FontSize="19" Text="Salir" VerticalAlignment="Center" Margin="10,0,0,0"/>
                     </StackPanel>
                 </Button>
