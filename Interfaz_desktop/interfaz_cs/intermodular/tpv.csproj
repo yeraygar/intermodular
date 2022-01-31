@@ -97,6 +97,9 @@
     <Reference Include="System.Xaml">
       <RequiredTargetFramework>4.0</RequiredTargetFramework>
     </Reference>
+    <Reference Include="TermControls, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\WPFTouchKeyboard.1.0.1\lib\TermControls.dll</HintPath>
+    </Reference>
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
@@ -129,8 +132,8 @@
       <DependentUpon>Login.xaml</DependentUpon>
     </Compile>
     <Compile Include="api_models\Mesa.cs" />
-    <Compile Include="views\LoginPrincipal.xaml.cs">
-      <DependentUpon>LoginPrincipal.xaml</DependentUpon>
+    <Compile Include="views\LoginCliente.xaml.cs">
+      <DependentUpon>LoginCliente.xaml</DependentUpon>
     </Compile>
     <Compile Include="views\PopUp_Opciones.xaml.cs">
       <DependentUpon>PopUp_Opciones.xaml</DependentUpon>
@@ -139,6 +142,9 @@
     <Compile Include="support\Staticresources.cs" />
     <Compile Include="api_models\User.cs" />
     <Compile Include="api_models\Zona.cs" />
+    <Compile Include="views\Registro.xaml.cs">
+      <DependentUpon>Registro.xaml</DependentUpon>
+    </Compile>
     <Compile Include="views\Zonas.xaml.cs">
       <DependentUpon>Zonas.xaml</DependentUpon>
     </Compile>
@@ -166,7 +172,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="views\LoginPrincipal.xaml">
+    <Page Include="views\LoginCliente.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="views\Teclado.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -183,6 +193,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="views\PopUp_Opciones.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="views\Registro.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
