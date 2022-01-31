@@ -19,11 +19,10 @@ import inter.intermodular.ui.theme.Purple500
 import inter.intermodular.view_models.ClientViewModel
 
 @Composable
-fun ValidateLoginScreen(
+fun ValidateRegisterScreen(
     email: String?,
     clientViewModel: ClientViewModel,
     navController: NavController,
-    password: String?
 ) {
     val isDialogOpen = remember { mutableStateOf(true) }
     ShowAlertDialog(isDialogOpen = isDialogOpen, email, clientViewModel, navController)
@@ -54,21 +53,21 @@ fun ValidateLoginScreen(
 //}
 }
 
-    @Composable
-    fun response(clientViewModel: ClientViewModel, navController: NavController, email: String?) {
-        var res = clientViewModel.emailExistsResponse
-        if (res) {
-            Text(text = "Email ya en uso")
-            Text(text = email?: "Error de carga")
-            Logger.e("Email en uso")
+@Composable
+fun response(clientViewModel: ClientViewModel, navController: NavController, email: String?) {
+    var res = clientViewModel.emailExistsResponse
+    if (res) {
+        Text(text = "Email ya en uso")
+        Text(text = email?: "Error de carga")
+        Logger.e("Email en uso")
 
-        } else {
-            Text(text = "Email disponible")
-            Text(text = email?: "Error de carga")
-            Logger.i("Email disponible")
+    } else {
+        Text(text = "Email disponible")
+        Text(text = email?: "Error de carga")
+        Logger.i("Email disponible")
 
-        }
     }
+}
 
 
 
@@ -107,7 +106,7 @@ fun ShowAlertDialog(
                     Spacer(modifier = Modifier.padding(5.dp))
 
                     Text(
-                        text = "Login Popup",
+                        text = "Register Popup",
                         color = Color.Black,
                         fontWeight = FontWeight.Bold,
                         fontSize = 25.sp

@@ -117,7 +117,17 @@ Content-Type: application/json
 
 {
     "email": "uncorreocualquiera",
-    "passw": "1234"
+    "name": "Bar_Molon", 
+    "passw": "03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4"
+}
+
+###
+POST http://localhost:8081/api/client HTTP/1.1
+Content-Type: application/json
+
+{
+    "email": "correosinnombre",
+    "passw": "03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4"
 }
 
 ###
@@ -125,7 +135,14 @@ GET http://localhost:8081/api/client/email/uncorreocualquiera HTTP/1.1
 
 ###
 GET http://localhost:8081/api/client HTTP/1.1
-GET http://localhost:8081/api/tables/zone/61f02956f0fb3f60da768907 HTTP/1.1
+
+###
+DELETE http://localhost:8081/api/client/61f839f58c0a3181412c109e HTTP/1.1
+
+###
+GET http://localhost:8081/api/client/validate/uncorreocualquiera/03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4 HTTP/1.1
+
+
 
 ###
 DELETE  http://localhost:8081/api/tables/zone/61f02956f0fb3f60da768907 HTTP/1.1
@@ -134,8 +151,6 @@ DELETE  http://localhost:8081/api/tables/zone/61f02956f0fb3f60da768907 HTTP/1.1
 
 
 
-###
-GET http://localhost:8081/api/client/validate/uncorreocualquiera/1234 HTTP/1.1
 
 
 

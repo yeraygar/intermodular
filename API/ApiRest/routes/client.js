@@ -9,11 +9,11 @@ router.post("/client", (req, res) => {
         .save()
         .then((data) =>{
             res.json(data);
-            console.log(`\nNew User: \n ${data}`);
+            console.log(`\nNew Client: \n ${data}`);
         })
         .catch((err) => {
             res.json({message:err});
-            console.error(`Error get /api/users : ${err}`);
+            console.error(`Error get /api/client : ${err}`);
         })
 })
 
@@ -23,11 +23,11 @@ router.get("/client", (req, res) => {
         .find()
         .then((data) =>{
             res.json(data);
-            console.log(`\nAll Users: \n ${data}`);
+            console.log(`\nAll Clients: \n ${data}`);
         })
         .catch((err) => {
             res.json({message:err});
-            console.log(`Error get /api/users : ${err}`);
+            console.log(`Error get /api/client : ${err}`);
         })
 })
 
@@ -38,11 +38,11 @@ router.get("/client/:id", (req, res) => {
         .findById(id)
         .then((data) =>{
             res.json(data);
-            console.log(`\nUser: \n ${data}`);
+            console.log(`\nClient: \n ${data}`);
         })
         .catch((err) => {
             res.json({message:err});
-            console.log(`Error get /api/users/${id} : ${err}`);
+            console.log(`Error get /api/client/${id} : ${err}`);
         })
 })
 
@@ -70,8 +70,8 @@ router.get("/client/validate/:email/:passw", (req, res) => {
         .find({email:email, passw:passw})
         .then((data) =>{
             if(data.length != [])res.json(data);
-            else res.status(500).json(data)
-            console.log(`\nEmail: ${email} y Passw: ${passw} correctos? : ${(data.length != [] ? "SI" : "NO")}\n${data}`);
+            else res.status(500).json(data);
+            console.log(`\nEmail: ${email} y Passw: ${passw} correctos? : ${(data.length != [] ? "SI" : "NO")}\n${data}\n ${res.statusMessage}`);
         })
         .catch((err) => {
             res.json({message:err});

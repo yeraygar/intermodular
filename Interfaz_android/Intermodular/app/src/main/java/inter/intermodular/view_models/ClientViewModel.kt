@@ -7,12 +7,16 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.orhanobut.logger.Logger
+import inter.intermodular.models.ClientModel
 import inter.intermodular.services.ApiServices
+import inter.intermodular.support.currentClient
+import inter.intermodular.support.getSHA256
 import kotlinx.coroutines.launch
 
 class ClientViewModel : ViewModel() {
 
     var emailExistsResponse : Boolean by mutableStateOf(true)
+    var currentClientResponse : ClientModel by mutableStateOf(ClientModel("Error", "Error", "Error", "Error"))
 
     private var errorMessage : String by mutableStateOf("")
 
@@ -26,6 +30,29 @@ class ClientViewModel : ViewModel() {
             }catch (e: Exception){
                 errorMessage = e.message.toString()
                 Logger.e("FAILURE checkEmail $email, $emailExistsResponse")
+            }
+        }
+    }
+
+    fun validateClient(email: String, passw : String) {
+        viewModelScope.launch {
+            val apiServices = ApiServices.getInstance()
+            try{
+                var passwEncrypt = getSHA256(passw)
+                   // var passwEncrypt = "03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4"
+                Logger.d("P_Pruebas Aqui llega ANTES")
+                var list : List<ClientModel> =  apiServices.validateClient(email, passwEncrypt)
+                Logger.d("P_Pruebas Aqui llega DESPUES")
+
+               if(list.isNotEmpty()){
+                    currentClientResponse = list[0]
+                   Logger.d(currentClientResponse)
+                    if(currentClientResponse._id != "Error") currentClient = currentClientResponse
+                }
+                //TODO ESTO FALLA, CLIENT RESPONSE = ANTERIOR
+                Logger.i("Result: $currentClientResponse")
+            }catch (e: Exception){
+                Logger.e("FAILURE validate client")
             }
         }
     }

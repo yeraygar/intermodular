@@ -14,10 +14,7 @@ import androidx.navigation.navArgument
 import inter.intermodular.view_models.UserViewModel
 import com.orhanobut.logger.AndroidLogAdapter
 import com.orhanobut.logger.Logger
-import inter.intermodular.screens.Login
-import inter.intermodular.screens.MainScreen
-import inter.intermodular.screens.Register
-import inter.intermodular.screens.ValidateLoginScreen
+import inter.intermodular.screens.*
 import inter.intermodular.ui.theme.IntermodularTheme
 import inter.intermodular.view_models.ClientViewModel
 
@@ -53,7 +50,7 @@ class MainActivity : ComponentActivity() {
 
                                     /**VALIDATE LOGIN POPUP*/
                     composable(
-                        route = "${ScreenNav.ValidateLoginScreen.route}/{email}",
+                        route = "${ScreenNav.ValidateLoginScreen.route}",
                         arguments = listOf(
                             navArgument("email") {
                                 type = NavType.StringType
@@ -66,7 +63,7 @@ class MainActivity : ComponentActivity() {
                             }
                         )
                     ){ entry ->
-                        ValidateLoginScreen(email = entry.arguments?.getString("email"), password = entry.arguments?.getString("password"), clientViewModel = clientViewModel, navController = navController)
+                        entry.arguments?.getString("password")?.let { ValidateLoginScreen(email = entry.arguments?.getString("email")!!, password = it, clientViewModel = clientViewModel, navController = navController) }
                         BackHandler(true) {
                             Toast.makeText(applicationContext, "BackButton Deshabilitado en el MAIN", Toast.LENGTH_SHORT).show()
                         }
@@ -99,7 +96,22 @@ class MainActivity : ComponentActivity() {
                         Register(navController = navController, clientViewModel = clientViewModel)
                     }
 
-                    //TODO VALIDATE REGISTER SCREEN
+                                /** VALIDATE REGISTER SCREEN */
+                    composable(
+                        route = "${ScreenNav.ValidateRegisterScreen.route}/{email}",
+                        arguments = listOf(
+                            navArgument("email") {
+                                type = NavType.StringType
+                                defaultValue = "Email" //aqui no hace falta, nullable tampoco
+                                nullable = true
+                            }
+                        )
+                    ){ entry ->
+                        ValidateRegisterScreen(email = entry.arguments?.getString("email"), clientViewModel = clientViewModel, navController = navController)
+                        BackHandler(true) {
+                            Toast.makeText(applicationContext, "BackButton Deshabilitado en el MAIN", Toast.LENGTH_SHORT).show()
+                        }
+                    }
                 }
             }
         }
