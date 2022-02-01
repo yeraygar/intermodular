@@ -11,7 +11,9 @@ import inter.intermodular.models.ClientModel
 import inter.intermodular.services.ApiServices
 import inter.intermodular.support.currentClient
 import inter.intermodular.support.getSHA256
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class ClientViewModel : ViewModel() {
 
@@ -36,18 +38,20 @@ class ClientViewModel : ViewModel() {
 
     fun validateClient(email: String, passw : String) {
         viewModelScope.launch {
-            val apiServices = ApiServices.getInstance()
-            try{
-                var passwEncrypt = getSHA256(passw)
-                var list : List<ClientModel> =  apiServices.validateClient(email, passwEncrypt)
+            withContext(Dispatchers.IO){
+                val apiServices = ApiServices.getInstance()
+                try{
+                    var passwEncrypt = getSHA256(passw)
+                    var list : List<ClientModel> =  apiServices.validateClient(email, passwEncrypt)
 
-               if(list.isNotEmpty()){
-                   currentClientResponse = list[0]
-                   if(currentClientResponse._id != "Error") currentClient = currentClientResponse
+                    if(list.isNotEmpty()){
+                        currentClientResponse = list[0]
+                        if(currentClientResponse._id != "Error") currentClient = currentClientResponse
+                    }
+                    Logger.i("Result:\n$currentClientResponse \n$currentClient")
+                }catch (e: Exception){
+                    Logger.e("FAILURE validate client")
                 }
-                Logger.i("Result:\n$currentClientResponse \n$currentClient")
-            }catch (e: Exception){
-                Logger.e("FAILURE validate client")
             }
         }
     }

@@ -62,8 +62,10 @@ class MainActivity : ComponentActivity() {
                                 defaultValue = "Error"
                             }
                         )
-                    ){ entry ->
+                    ){ /*entry ->
                         entry.arguments?.getString("password")?.let { ValidateLoginScreen(email = entry.arguments?.getString("email")!!, password = it, clientViewModel = clientViewModel, navController = navController) }
+                        */
+                        ValidateLoginScreen(clientViewModel = clientViewModel, navController = navController)
                         BackHandler(true) {
                             Toast.makeText(applicationContext, "BackButton Deshabilitado en el MAIN", Toast.LENGTH_SHORT).show()
                         }
