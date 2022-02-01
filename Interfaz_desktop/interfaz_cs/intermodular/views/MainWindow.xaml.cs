@@ -19,6 +19,8 @@ namespace intermodular
     /// <summary>
     /// Lógica de interacción para MainWindow.xaml
     /// </summary>
+    /// 
+    //Prueba
     public partial class MainWindow : Window
     {
         private Button btnPressed;
