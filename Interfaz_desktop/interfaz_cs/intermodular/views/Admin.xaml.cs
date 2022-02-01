@@ -208,11 +208,18 @@ namespace intermodular
 
         private void btn_mesas_Click(object sender, RoutedEventArgs e)
         {
-            Staticresources.isEditableTables = true;
-            Staticresources.mainWindow.addEditableTableBtns(Staticresources.isEditableTables);
-            Staticresources.mainWindow.resetGridMesas();
-            Staticresources.mainWindow.cargarGridMesas(Staticresources.mainWindow.zonaSelect);
-            this.Close();
+            if(Staticresources.mainWindow.zonaSelect == null)
+            {
+                //Mostrar un error
+                MessageBox.Show("No hay ninguna zona creada");
+            }
+            else {
+                Staticresources.isEditableTables = true;
+                Staticresources.mainWindow.addEditableTableBtns(Staticresources.isEditableTables);
+                Staticresources.mainWindow.resetGridMesas();
+                Staticresources.mainWindow.cargarGridMesas(Staticresources.mainWindow.zonaSelect);
+                this.Close();
+            }
         }
     }
 }

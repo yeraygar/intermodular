@@ -9,6 +9,7 @@ using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Media.Effects;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
@@ -22,6 +23,8 @@ namespace intermodular
     {
         private Button btnPressed;
         public Zona zonaSelect;
+        public Button btnMesaPressed;
+        public Mesa mesaSelect;
         public MainWindow()
         {
 
@@ -57,8 +60,14 @@ namespace intermodular
         {
             if (e.ChangedButton == MouseButton.Left)
             {
-                PopUp_Opciones popup = new PopUp_Opciones();
-                popup.ShowDialog();
+                if(!Staticresources.isEditableTables) 
+                { 
+                    PopUp_Opciones popup = new PopUp_Opciones();
+                    popup.ShowDialog();
+                }else
+                {
+                    MessageBox.Show("Debes Salir del Menú de Edición de Mesas");
+                }
             }
         }
 
@@ -95,6 +104,12 @@ namespace intermodular
                     btnPressed.Background = Brushes.White;
                     btnPressed.Foreground = Brushes.Black;
                 }
+
+                if(Staticresources.isEditableTables)
+                {
+                    columnaEditarMesa.Width = new GridLength(0);
+                    columnaEliminarMesa.Width = new GridLength(0);
+                }
                 zonaSelect = zona;
                 btnPressed = btn;
                 btn.Background = (Brush)(new BrushConverter().ConvertFrom("#434343"));
@@ -105,6 +120,13 @@ namespace intermodular
                 cargarGridMesas(zonaSelect);
                
             };
+
+            if(btnPressed == null)
+            {
+                btnPressed = btn;
+                btnPressed.Background = (Brush)(new BrushConverter().ConvertFrom("#434343"));
+                btnPressed.Foreground = Brushes.White;
+            }
 
             zonaSelect = zona;
             stackZonas.Children.Add(btn);
@@ -143,6 +165,12 @@ namespace intermodular
                     {
                         btnPressed.Background = Brushes.White;
                         btnPressed.Foreground = Brushes.Black;
+                    }
+
+                    if(Staticresources.isEditableTables)
+                    {
+                        columnaEditarMesa.Width = new GridLength(0);
+                        columnaEliminarMesa.Width = new GridLength(0);
                     }
                     btnPressed = btn;
                     btnPressed.Background = (Brush)(new BrushConverter().ConvertFrom("#434343"));
@@ -183,8 +211,13 @@ namespace intermodular
                     found = true;
                 }
             }
-            if(btnPressed.Tag.Equals(id))
+            if (btnPressed.Tag.Equals(id))
+            {
                 resetGridMesas();
+                btnPressed = null;
+                zonaSelect = null;
+            }
+               
         }
 
         //Actualiza la zona, como el tag no se cambia, solamente actualizamos el nombre de la zona ya que sí que puede variar, el resto de atributos se actualizan en la ventana de Zonas
@@ -224,6 +257,11 @@ namespace intermodular
                 btnSalir.IsEnabled = false;
                 
             }
+            columnaEditarMesa.Width = new GridLength(0);
+            columnaEliminarMesa.Width = new GridLength(0);
+            btnMesaPressed = null;
+            resetGridMesas();
+            cargarGridMesas(zonaSelect);
         }
 
         private void btnSalir_Click(object sender, RoutedEventArgs e)
@@ -242,30 +280,65 @@ namespace intermodular
         public void cargarGridMesas(Zona zona)
         {
             //int numCol = 6;
-            if (Mesa.currentZoneTables.Count != 0)
+            if (Mesa.currentZoneTables != null)
             {
-                int numRows = Mesa.currentZoneTables[Mesa.currentZoneTables.Count - 1].num_row + 1;
-                for(int x = 0; x < numRows; x++)
+                if (Mesa.currentZoneTables.Count != 0)
                 {
-                    mapaMesas.RowDefinitions.Add(new RowDefinition());
-                }
-                foreach (Mesa mesa in Mesa.currentZoneTables)
-                {
-                    Button btn = new Button
+                    int numRows = Mesa.currentZoneTables[Mesa.currentZoneTables.Count - 1].num_row + 1;
+                    for (int x = 0; x < numRows; x++)
                     {
-                        Background = mesa.status ? Brushes.Green : Brushes.Red,
-                        Tag = mesa._id,
-                        Margin = new Thickness(20),
-                        Width = 200,
-                        Height = 200,
-                        Content = mesa.name,
-                        Style = Application.Current.TryFindResource("btnRedondo") as Style,
-                        FontSize = 50,
-                        Cursor = Cursors.Hand
-                    };
-                    Grid.SetRow(btn, mesa.num_row);
-                    Grid.SetColumn(btn, mesa.num_column);
-                    mapaMesas.Children.Add(btn);
+                        mapaMesas.RowDefinitions.Add(new RowDefinition());
+                        mapaMesas.RowDefinitions[x].Height = GridLength.Auto;
+                    }
+                    foreach (Mesa mesa in Mesa.currentZoneTables)
+                    {
+                        Button btn = new Button
+                        {
+                            Background = Staticresources.isEditableTables ? mesa.status ? (Brush)(new BrushConverter().ConvertFrom("#8dd56d")) : (Brush)(new BrushConverter().ConvertFrom("#cf6161")) : mesa.status && mesa.comensales == 0 ? (Brush)(new BrushConverter().ConvertFrom("#8dd56d")) : mesa.status && mesa.comensales > 0 ? (Brush)(new BrushConverter().ConvertFrom("#ebb558")) : (Brush)(new BrushConverter().ConvertFrom("#cf6161")),
+                            Tag = mesa._id,
+                            Margin = new Thickness(0, 100, 0, 0),
+                            Width = 200,
+                            Height = 200,
+                            Content = mesa.name,
+                            Style = Application.Current.TryFindResource("btnRedondo") as Style,
+                            FontSize = 50,
+                            Cursor = Cursors.Hand,
+                            VerticalAlignment = VerticalAlignment.Top,
+                            Effect = new DropShadowEffect
+                            {
+                                Color = new Color { R = 27, G = 27, B = 27 },
+                                Direction = 270,
+                                ShadowDepth = 5,
+                                Opacity = 0.3
+
+                            },
+                            Visibility = !mesa.status && !Staticresources.isEditableTables ? Visibility.Hidden : Visibility.Visible
+                        };
+
+                        btn.Click += btnsTablesClick;
+
+                        btn.MouseEnter += (object sender, MouseEventArgs MouseEnterevent) =>
+                        {
+                            if (btnMesaPressed == null || !btnMesaPressed.Tag.Equals(btn.Tag))
+                            {
+
+                                btn.Background = (Brush)(new BrushConverter().ConvertFrom("#51aaa7"));
+                                btn.Foreground = Brushes.White;
+                            }
+                        };
+
+                        btn.MouseLeave += (object sender, MouseEventArgs MouseLeaveEvent) =>
+                        {
+                            if (btnMesaPressed == null || !btnMesaPressed.Tag.Equals(btn.Tag))
+                            {
+                                btn.Background = Staticresources.isEditableTables ? mesa.status ? (Brush)(new BrushConverter().ConvertFrom("#8dd56d")) : (Brush)(new BrushConverter().ConvertFrom("#cf6161")) : mesa.status && mesa.comensales == 0 ? (Brush)(new BrushConverter().ConvertFrom("#8dd56d")) : mesa.status && mesa.comensales > 0 ? (Brush)(new BrushConverter().ConvertFrom("#ebb558")) : (Brush)(new BrushConverter().ConvertFrom("#cf6161"));
+                                btn.Foreground = Brushes.Black;
+                            }
+                        };
+                        Grid.SetRow(btn, mesa.num_row);
+                        Grid.SetColumn(btn, mesa.num_column);
+                        mapaMesas.Children.Add(btn);
+                    }
                 }
             }
         }
@@ -305,35 +378,203 @@ namespace intermodular
             Button btn = new Button
             {
                 Tag = mesa._id,
-                Margin = new Thickness(20),
+                Margin = new Thickness(0,100,0,0),
                 Width = 200,
                 Height = 200,
                 Style = Application.Current.TryFindResource("btnRedondo") as Style,
-                Background = mesa.status ? Brushes.Green : Brushes.Red,
+                Background = Staticresources.isEditableTables ? mesa.status ? (Brush)(new BrushConverter().ConvertFrom("#8dd56d")) : (Brush)(new BrushConverter().ConvertFrom("#cf6161")) : mesa.status && mesa.comensales == 0 ? (Brush)(new BrushConverter().ConvertFrom("#8dd56d")) : mesa.status && mesa.comensales > 0 ? (Brush)(new BrushConverter().ConvertFrom("#ebb558")) : (Brush)(new BrushConverter().ConvertFrom("#cf6161")),
                 Content = mesa.name,
                 FontSize = 50,
-                Cursor = Cursors.Hand
+                Cursor = Cursors.Hand,
+                VerticalAlignment = VerticalAlignment.Top,
+                Effect = new DropShadowEffect
+                {
+                    Color = new Color { R = 27, G = 27, B = 27 },
+                    Direction = 270,
+                    ShadowDepth = 5,
+                    Opacity = 0.3
+
+                },
+                Visibility = !mesa.status && !Staticresources.isEditableTables ? Visibility.Hidden : Visibility.Visible
             };
             if (mapaMesas.RowDefinitions.Count < mesa.num_row + 1)
+            {
                 mapaMesas.RowDefinitions.Add(new RowDefinition());
+                mapaMesas.RowDefinitions[mesa.num_row].Height = GridLength.Auto;
+            }
+               
+  
+            btn.Click += btnsTablesClick;
 
+            btn.MouseEnter += (object sender, MouseEventArgs MouseEnterevent) =>
+            {
+                if (btnMesaPressed == null || !btnMesaPressed.Tag.Equals(btn.Tag))
+                {
 
-                Grid.SetRow(btn, mesa.num_row);
+                    btn.Background = (Brush)(new BrushConverter().ConvertFrom("#51aaa7"));
+                    btn.Foreground = Brushes.White;
+                }
+            };
+
+            btn.MouseLeave += (object sender, MouseEventArgs MouseLeaveEvent) =>
+            {
+                if (btnMesaPressed == null || !btnMesaPressed.Tag.Equals(btn.Tag))
+                {
+                    btn.Background = Staticresources.isEditableTables ? mesa.status ? (Brush)(new BrushConverter().ConvertFrom("#8dd56d")) : (Brush)(new BrushConverter().ConvertFrom("#cf6161")) : mesa.status && mesa.comensales == 0 ? (Brush)(new BrushConverter().ConvertFrom("#8dd56d")) : mesa.status && mesa.comensales > 0 ? (Brush)(new BrushConverter().ConvertFrom("#ebb558")) : (Brush)(new BrushConverter().ConvertFrom("#cf6161"));
+                    btn.Foreground = Brushes.Black;
+                }
+            };
+            Grid.SetRow(btn, mesa.num_row);
                 Grid.SetColumn(btn, mesa.num_column);
                 mapaMesas.Children.Add(btn);
         }
 
-        private void btnsZonesClick(object sender, RoutedEventArgs e)
+        private void btnsTablesClick(object sender, RoutedEventArgs e)
         {
             Button btn = sender as Button;
-            //btn.Background
-            if(Staticresources.isEditableTables)
+            Mesa mesa = null;
+            bool found = false;
+            for (int x = 0; x < Mesa.currentZoneTables.Count && !found; x++)
+            {
+                if (btn.Tag.Equals(Mesa.currentZoneTables[x]._id))
+                {
+                    mesa = Mesa.currentZoneTables[x];
+                    mesaSelect = mesa;
+                    found = true;
+                }
+            }
+
+            if (Staticresources.isEditableTables)
             {
                 //Selecciona la mesa dentro del modo Admin, visualizar btns de Editar Mesa, Eliminar Mesa y guardar cambios
+                columnaEditarMesa.Width = new GridLength(1, GridUnitType.Star);
+                columnaEliminarMesa.Width = new GridLength(1,GridUnitType.Star);
+                if (btnMesaPressed != null)
+                {
+                    bool mesaPressedFound = false;
+                    for (int x = 0; x < Mesa.currentZoneTables.Count && !mesaPressedFound; x++)
+                    {
+                        if (btnMesaPressed.Tag.Equals(Mesa.currentZoneTables[x]._id))
+                        {
+                            btnMesaPressed.Background = Mesa.currentZoneTables[x].status ? (Brush)(new BrushConverter().ConvertFrom("#8dd56d")) : (Brush)(new BrushConverter().ConvertFrom("#cf6161"));
+                            btnMesaPressed.Foreground = Brushes.Black;
+                            mesaPressedFound = true;
+                        }
+                    }
+                }
+                btn.Background = (Brush)(new BrushConverter().ConvertFrom("#1e4644"));
+                btn.Foreground = Brushes.White;
+                btnMesaPressed = btn;
+                btnMesaPressed.Tag = mesa._id;
             }
             else
             {
                 //Abres una ventana cargando la mesa ---> Vista para realizar pedido, etc.
+                //PedidosMesa(mesa);  -----> Abrimos los pedidos de la mesa
+            }
+        }
+
+        private void btnsMouseEnterMenuAdminMesas(object sender, MouseEventArgs e)
+        {
+            Button btn = sender as Button;
+            switch (btn.Tag)
+            {
+                case "add":
+                    {
+                        imgAddMesa.Source = (ImageSource)new ImageSourceConverter().ConvertFrom("..\\..\\images\\agregar_blanco.png");
+                        break;
+                    }
+
+                case "edit":
+                    {
+                        imgEditMesa.Source = (ImageSource)new ImageSourceConverter().ConvertFrom("..\\..\\images\\pencil_blanco.png");
+                        break;
+                    }
+
+                case "delete":
+                    {
+                        imgDeleteMesa.Source = (ImageSource)new ImageSourceConverter().ConvertFrom("..\\..\\images\\eliminar_blanco.png");
+                        break;
+                    }
+
+                case "exit": 
+                    {
+                        imgExitMesasAdmin.Source = (ImageSource)new ImageSourceConverter().ConvertFrom("..\\..\\images\\cancel_blanco.png");
+                        break;
+                    }
+            }
+            //btn.Background = (Brush)(new BrushConverter().ConvertFrom("#00616a"));  #004a51
+
+            btn.Background = (Brush)(new BrushConverter().ConvertFrom("#004a51"));
+            btn.Foreground = Brushes.White;
+        }
+
+        private void btnsMouseLeaveMenuAdminMesas(object sender, MouseEventArgs e)
+        {
+            Button btn = sender as Button;
+            switch (btn.Tag)
+            {
+                case "add":
+                    {
+                        imgAddMesa.Source = (ImageSource)new ImageSourceConverter().ConvertFrom("..\\..\\images\\agregar.png");
+                        break;
+                    }
+
+                case "edit":
+                    {
+                        imgEditMesa.Source = (ImageSource)new ImageSourceConverter().ConvertFrom("..\\..\\images\\pencil.png");
+                        break;
+                    }
+
+                case "delete":
+                    {
+                        imgDeleteMesa.Source = (ImageSource)new ImageSourceConverter().ConvertFrom("..\\..\\images\\eliminar.png");
+                        break;
+                    }
+
+                case "exit":
+                    {
+                        imgExitMesasAdmin.Source = (ImageSource)new ImageSourceConverter().ConvertFrom("..\\..\\images\\cancel.png");
+                        break;
+                    }
+            }
+            btn.Background = (Brush)(new BrushConverter().ConvertFrom("#0099a9"));
+            btn.Foreground = Brushes.Black;
+        }
+
+        private  async void btnEliminarMesa_Click(object sender, RoutedEventArgs e)
+        {
+            await Mesa.deleteTable(mesaSelect._id);
+            bool found = false;
+            for(int x = 0; x < Mesa.currentZoneTables.Count && ! found; x++)
+            {
+                if (mesaSelect._id.Equals(Mesa.currentZoneTables[x]._id))
+                {
+                    Mesa.currentZoneTables.RemoveAt(x);
+                    found = true;
+                }
+            }
+            found = false;
+            mesaSelect = null;
+            btnMesaPressed = null;
+            resetGridMesas();
+            cargarGridMesas(zonaSelect);
+            columnaEditarMesa.Width = new GridLength(0);
+            columnaEliminarMesa.Width = new GridLength(0);
+        }
+
+        private void btnEditarMesa_Click(object sender, RoutedEventArgs e)
+        {
+            EditarMesa editarMesa = new EditarMesa(mesaSelect);
+            editarMesa.ShowDialog();
+            if(editarMesa.mesaUpdated)
+            {
+                resetGridMesas();
+                cargarGridMesas(zonaSelect);
+                mesaSelect = null;
+                btnMesaPressed = null;
+                columnaEditarMesa.Width = new GridLength(0);
+                columnaEliminarMesa.Width = new GridLength(0);
             }
         }
     }

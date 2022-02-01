@@ -14,13 +14,10 @@ const tableSchema = mongoose.Schema({
         type:String,
         required:true
     },
-    numero_mesa:{
-        type:Number,
-        required:false
-    },
     comensales:{
         type:Number,
-        required:false
+        required:false,
+        default: 0
     },
     num_row:{
         type:Number,

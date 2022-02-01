@@ -14,7 +14,6 @@ namespace intermodular
     {
         public string _id { get; set; }
         public string name { get; set; }
-        public int numero_mesa { get; set; }
         public bool status { get; set; }
         public string id_zone { get; set; }
         public int comensales { get; set; }
@@ -31,10 +30,9 @@ namespace intermodular
 
         public Mesa() { }
 
-        public Mesa(string name, int numero_mesa, bool status, string id_zone, int comensalesMax)
+        public Mesa(string name, bool status, string id_zone, int comensalesMax)
         {
             this.name = name;
-            this.numero_mesa = numero_mesa;
             this.status = status;
             this.comensalesMax = comensalesMax;
             this.id_zone = id_zone;
@@ -55,7 +53,6 @@ namespace intermodular
             //Creamos objeto tipo JSon
             var values = new JObject();
             values.Add("name", mesa.name);
-            values.Add("numero_mesa", mesa.numero_mesa);
             values.Add("status", mesa.status);
             values.Add("comensalesMax", mesa.comensalesMax);
             values.Add("id_zone", mesa.id_zone);
@@ -91,7 +88,7 @@ namespace intermodular
         ///  actualiza en MongoDB donde id = _id (unica)
         /// <return>Void</return>
         /// </summary>
-        public static async Task updateTable(string id, Mesa mesa) 
+        public static async Task<bool> updateTable(string id, Mesa mesa) 
         {
             HttpClient client = new HttpClient();
             string url = "http://localhost:8081/api/tables";
@@ -100,7 +97,6 @@ namespace intermodular
             //Creamos objeto tipo JSon con los nuevos parametros
             var values = new JObject();
             values.Add("name", mesa.name);
-            values.Add("numero_mesa", mesa.numero_mesa);
             values.Add("status", mesa.status);
             values.Add("comensales", mesa.comensales);
             values.Add("comensalesMax", mesa.comensalesMax);
@@ -119,9 +115,14 @@ namespace intermodular
             {
                 //Guardamos la respuesta
                 var result = await httpResponse.Content.ReadAsStringAsync();
+                return true;
 
                 Console.WriteLine($"Usuario actualizado correctamente {result}");
 
+            }
+            else
+            {
+                return false;
             }
         }
 

@@ -119,6 +119,9 @@
     <Compile Include="views\CrearZona.xaml.cs">
       <DependentUpon>CrearZona.xaml</DependentUpon>
     </Compile>
+    <Compile Include="views\EditarMesa.xaml.cs">
+      <DependentUpon>EditarMesa.xaml</DependentUpon>
+    </Compile>
     <Compile Include="views\FicharEmpleado.xaml.cs">
       <DependentUpon>FicharEmpleado.xaml</DependentUpon>
     </Compile>
@@ -144,6 +147,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="views\CrearMesa.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="views\EditarMesa.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -300,6 +307,9 @@
   <ItemGroup>
     <Resource Include="images\save.png" />
     <Resource Include="images\save_blanco.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="images\pencil_blanco.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\System.Text.Json.6.0.1\build\System.Text.Json.targets" Condition="Exists('..\packages\System.Text.Json.6.0.1\build\System.Text.Json.targets')" />
