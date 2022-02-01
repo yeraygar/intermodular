@@ -65,7 +65,7 @@ fun Register(navController: NavController, clientViewModel: ClientViewModel){
                         //clientViewModel.checkEmail(text)
                         // checkEmail(clientViewModel = clientViewModel, text = text, navController = navController, scope = scope)
                         clientViewModel.checkEmail(email)
-                        //navController.navigate(ScreenNav.ValidateLoginScreen.withArgs(email))
+                        navController.navigate(ScreenNav.ValidateRegisterScreen.withArgs(email))
 
                         //TODO VALIDATE REGISTER SCREEN
 

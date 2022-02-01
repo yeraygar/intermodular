@@ -1,6 +1,7 @@
 package inter.intermodular.services
 
 import com.orhanobut.logger.Logger
+import inter.intermodular.models.ClientModel
 import inter.intermodular.models.UserModel
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -60,6 +61,12 @@ interface ApiServices {
 
     @GET("client/email/{email}")
     suspend fun checkEmail(@Path("email") email : String) : Boolean
+
+    @GET("client/validate/{email}/{passwEncrypt}")
+    suspend fun validateClient (
+        @Path("email") email : String,
+        @Path("passwEncrypt") passwEncrypt: String
+    ) :List<ClientModel>
 
 
 }

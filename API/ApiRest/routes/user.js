@@ -63,7 +63,7 @@ router.put("/users/:id", (req, res) => {
 })
 
 //Delete User
-router.delete("/users/:id", (req, res) => {
+router.delete("/users/:id", (req, res) => { 
     const {id} = req.params;
     userSchema
         .remove({_id: id})

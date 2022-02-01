@@ -8,6 +8,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import inter.intermodular.models.UserModel
+import inter.intermodular.support.currentClient
 import inter.intermodular.view_models.ClientViewModel
 import inter.intermodular.view_models.UserViewModel
 
@@ -25,6 +26,7 @@ fun MainScreen(email: String?, clientViewModel: ClientViewModel){
                 Spacer(modifier = Modifier.height(18.dp))
                 Text(text = email ?: "No se ha cargado bien")
                 Spacer(modifier = Modifier.height(18.dp))
+                Text(text = currentClient.email)
                 //AllUsersClient(clientViewModel)
             }
         }

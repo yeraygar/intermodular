@@ -1,5 +1,10 @@
 package inter.intermodular.screens
 
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+
+
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
@@ -8,74 +13,48 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
 import androidx.navigation.NavController
 import com.orhanobut.logger.Logger
+import inter.intermodular.R
 import inter.intermodular.ScreenNav
+import inter.intermodular.support.currentClient
 import inter.intermodular.ui.theme.Purple500
 import inter.intermodular.view_models.ClientViewModel
 
 @Composable
 fun ValidateLoginScreen(
-    email: String?,
     clientViewModel: ClientViewModel,
     navController: NavController,
-    password: String?
 ) {
     val isDialogOpen = remember { mutableStateOf(true) }
-    ShowAlertDialog(isDialogOpen = isDialogOpen, email, clientViewModel, navController)
-
-
-    //Surface(color = MaterialTheme.colors.background){
-
-    /*   Box(
-            //modifier = Modifier.fillMaxWidth()
-        ){
-            Column {
-                Text(text = "Email: $email" )
-                response(clientViewModel = clientViewModel, navController = navController, email = email)
-                Button(
-                    onClick = {
-                    if(!clientViewModel.emailExistsResponse){
-                        navController.navigate(ScreenNav.MainScreen.withArgs(email?:"Error"))
-                    }else{
-                        navController.navigate(ScreenNav.LoginScreen.route)
-                    }
-                }) {
-                    Text(text= "Aceptar")
-
-                }
-            }
-        }
-    }*/
-//}
+    ShowAlertDialogLogin(isDialogOpen = isDialogOpen, clientViewModel, navController)
 }
 
-    @Composable
-    fun response(clientViewModel: ClientViewModel, navController: NavController, email: String?) {
-        var res = clientViewModel.emailExistsResponse
-        if (res) {
-            Text(text = "Email ya en uso")
-            Text(text = email?: "Error de carga")
-            Logger.e("Email en uso")
+@Composable
+fun responseLogin(clientViewModel: ClientViewModel) {
+        if (clientViewModel.currentClientResponse._id == "Error") {
 
-        } else {
-            Text(text = "Email disponible")
-            Text(text = email?: "Error de carga")
-            Logger.i("Email disponible")
+        Logger.e("Error, la respuesta no se ha cargado bien")
 
-        }
+    } else {
+       // Text(text = currentClient.name)
+        Text(text = currentClient.email)
+        Text(text = currentClient.name)
+        Logger.i("Respuesta correcta")
+
     }
+}
 
 
 
 @Composable
-fun ShowAlertDialog(
+fun ShowAlertDialogLogin(
     isDialogOpen: MutableState<Boolean>,
-    email: String?,
     clientViewModel: ClientViewModel,
     navController: NavController
 ) {
@@ -113,22 +92,9 @@ fun ShowAlertDialog(
                         fontSize = 25.sp
                     )
 
-                    /*               Image(
-                        painter = painterResource(id = R.drawable.ic_baseline_person_pin_24),
-                        contentDescription = "Logo",
-                        modifier = Modifier
-                            .width(120.dp)
-                            .height(120.dp)
-                    )
-
-*/
-
                     Spacer(modifier = Modifier.padding(10.dp))
-                    response(
-                        clientViewModel = clientViewModel,
-                        navController = navController,
-                        email = email
-                    )
+                    responseLogin(clientViewModel)
+                    
 
                     OutlinedTextField(
                         value = emailVal.value,
@@ -141,46 +107,23 @@ fun ShowAlertDialog(
 
                     Spacer(modifier = Modifier.padding(10.dp))
 
-                    /*    OutlinedTextField(
-                        value = passwordVal.value,
-                        onValueChange = { passwordVal.value = it },
-                        trailingIcon = {
-                            IconButton(
-                                onClick = {
-                                    passwordVisibility.value = !passwordVisibility.value
-                                }
-                            ) {
-                                //Icon(painter = painterResource(id = R.drawable.ic_baseline_remove_red_eye_24), contentDescription ="",
-                                //    tint = if (passwordVisibility.value) Purple500 else Color.Gray
-                                //)
-                            }
-                        },
-                        label = { Text(text = "Password") },
-                        placeholder = { Text(text = "Password") },
-                        singleLine = true,
-                        visualTransformation = if (passwordVisibility.value) VisualTransformation.None else
-                            PasswordVisualTransformation(),
-                        modifier = Modifier.fillMaxWidth(0.8f)
-                    )*/
-
-                    Spacer(modifier = Modifier.padding(15.dp))
-
                     Button(
                         onClick = {
                             isDialogOpen.value = false
-                            if(!clientViewModel.emailExistsResponse){
-                                navController.navigate(ScreenNav.MainScreen.withArgs(email?:"Error"))
+                            var current = clientViewModel.currentClientResponse
+                            if(current._id != "Error"){
+                                navController.navigate(ScreenNav.MainScreen.withArgs(current.name?:"Error"))
                             }else{
                                 navController.navigate(ScreenNav.LoginScreen.route)
 
                             }
                         },
+                        colors = ButtonDefaults.buttonColors(backgroundColor = colorResource(R.color.azul)),
                         modifier = Modifier
                             .fillMaxWidth(0.5f)
                             .height(60.dp)
                             .padding(10.dp),
                         shape = RoundedCornerShape(5.dp),
-                        colors = ButtonDefaults.buttonColors(Purple500)
                     ) {
                         Text(
                             text = "Close",
@@ -234,6 +177,8 @@ fun ShowAlertDialog(
 
 
  */
+
+
 
 
 
