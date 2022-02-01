@@ -72,29 +72,14 @@ namespace intermodular
                                 zonaSelect = z;
                                 txtAyuda.Visibility = Visibility.Hidden;
                                 imgEditNombreZona.Source = (ImageSource)new ImageSourceConverter().ConvertFrom("..\\..\\images\\pencil.png");
-                                imgEditTableNum.Source = (ImageSource)new ImageSourceConverter().ConvertFrom("..\\..\\images\\pencil.png");
-                                imgEditZoneStatus.Source = (ImageSource)new ImageSourceConverter().ConvertFrom("..\\..\\images\\pencil.png");
                                 imgEditNombreZona.Visibility = Visibility.Visible;
-                                imgEditTableNum.Visibility = Visibility.Visible;
-                                imgEditZoneStatus.Visibility = Visibility.Visible;
                                 txtEditarNombreZona.Text = z.zone_name;
-                                txtEditarNumMesas.Text = z.num_tables.ToString();
                                 txtEditarNombreZona.IsEnabled = false;
-                                txtEditarNumMesas.IsEnabled = false;
-                                comboBoxEditarEstadoZona.IsEnabled = false;
                                 btnCancelar.Visibility = Visibility.Hidden;
                                 btnEditarZona.Visibility = Visibility.Hidden;
                                 btnCancelar.IsEnabled = false;
                                 btnEditarZona.IsEnabled = false;
                                 btnEliminarZona.Visibility = Visibility.Visible;
-                                if (z.zone_status)
-                                {
-                                    comboBoxEditarEstadoZona.SelectedItem = comboBoxEditarEstadoZona.Items[0];
-                                }
-                                else
-                                {
-                                    comboBoxEditarEstadoZona.SelectedItem = comboBoxEditarEstadoZona.Items[1];
-                                }
                                 
                                 if(btnPressed != null)
                                 {
@@ -102,13 +87,13 @@ namespace intermodular
                                     btnPressed.Foreground = Brushes.Black;
                                 }
                                 btnPressed = btn;
-                                btn.Background = (Brush)(new BrushConverter().ConvertFrom("#444444"));
+                                btn.Background = (Brush)(new BrushConverter().ConvertFrom("#3b7a7a"));
                                 btn.Foreground = Brushes.White;
                             };
 
                             btn.MouseEnter += (object senderMouseEnter, MouseEventArgs mouseEventArg) => {
                                 if(btnPressed == null || btnPressed.Tag != btn.Tag) 
-                                    btn.Background = (Brush)(new BrushConverter().ConvertFrom("#bcbcbc"));
+                                    btn.Background = (Brush)(new BrushConverter().ConvertFrom("#93d5d5"));
                             };
 
                             btn.MouseLeave += (object senderMouseLeave, MouseEventArgs mouseLeaveArgs) =>
@@ -136,11 +121,13 @@ namespace intermodular
         private void btn_cerrar_MouseEnter(object sender, MouseEventArgs e)
         {
             btn_cerrar.Background = (Brush)(new BrushConverter().ConvertFrom("#ff3232"));
+            imgCerrar.Source = (ImageSource)new ImageSourceConverter().ConvertFrom("..\\..\\images\\cerrar_blanco.png");
         }
 
         private void btn_cerrar_MouseLeave(object sender, MouseEventArgs e)
         {
             btn_cerrar.Background = Brushes.White;
+            imgCerrar.Source = (ImageSource)new ImageSourceConverter().ConvertFrom("..\\..\\images\\cerrar.png");
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -160,14 +147,8 @@ namespace intermodular
             btnEditarZona.Visibility = Visibility.Hidden;
             txtAyuda.Visibility = Visibility.Visible;
             txtEditarNombreZona.Text = "";
-            txtEditarNumMesas.Text = "";
-            comboBoxEditarEstadoZona.Text = "";
             txtEditarNombreZona.IsEnabled = false;
-            txtEditarNumMesas.IsEnabled = false;
-            comboBoxEditarEstadoZona.IsEnabled = false;
             imgEditNombreZona.Visibility = Visibility.Hidden;
-            imgEditTableNum.Visibility = Visibility.Hidden;
-            imgEditZoneStatus.Visibility = Visibility.Hidden;
             CrearZona crearzona = new CrearZona();
             crearzona.ShowDialog(); 
             if (crearzona.zona != null)
@@ -189,29 +170,14 @@ namespace intermodular
                     zonaSelect = crearzona.zona;
                     txtAyuda.Visibility = Visibility.Hidden;
                     imgEditNombreZona.Source = (ImageSource)new ImageSourceConverter().ConvertFrom("..\\..\\images\\pencil.png");
-                    imgEditTableNum.Source = (ImageSource)new ImageSourceConverter().ConvertFrom("..\\..\\images\\pencil.png");
-                    imgEditZoneStatus.Source = (ImageSource)new ImageSourceConverter().ConvertFrom("..\\..\\images\\pencil.png");
                     imgEditNombreZona.Visibility = Visibility.Visible;
-                    imgEditTableNum.Visibility = Visibility.Visible;
-                    imgEditZoneStatus.Visibility = Visibility.Visible;
                     txtEditarNombreZona.Text = crearzona.zona.zone_name;
-                    txtEditarNumMesas.Text = crearzona.zona.num_tables.ToString();
                     txtEditarNombreZona.IsEnabled = false;
-                    txtEditarNumMesas.IsEnabled = false;
-                    comboBoxEditarEstadoZona.IsEnabled = false;
                     btnCancelar.Visibility = Visibility.Hidden;
                     btnEditarZona.Visibility = Visibility.Hidden;
                     btnCancelar.IsEnabled = false;
                     btnEditarZona.IsEnabled = false;
                     btnEliminarZona.Visibility = Visibility.Visible;
-                    if (crearzona.zona.zone_status)
-                    {
-                        comboBoxEditarEstadoZona.SelectedItem = comboBoxEditarEstadoZona.Items[0];
-                    }
-                    else
-                    {
-                        comboBoxEditarEstadoZona.SelectedItem = comboBoxEditarEstadoZona.Items[1];
-                    }
 
                     if (btnPressed != null)
                     {
@@ -219,13 +185,13 @@ namespace intermodular
                         btnPressed.Foreground = Brushes.Black;
                     }
                     btnPressed = btn;
-                    btn.Background = (Brush)(new BrushConverter().ConvertFrom("#444444"));
+                    btn.Background = (Brush)(new BrushConverter().ConvertFrom("#3b7a7a"));
                     btn.Foreground = Brushes.White;
                 };
 
                 btn.MouseEnter += (object senderMouseEnter, MouseEventArgs mouseEventArg) => {
                     if (btnPressed == null || btnPressed.Tag != btn.Tag)
-                        btn.Background = (Brush)(new BrushConverter().ConvertFrom("#bcbcbc"));
+                        btn.Background = (Brush)(new BrushConverter().ConvertFrom("#93d5d5"));
                 };
 
                 btn.MouseLeave += (object senderMouseLeave, MouseEventArgs mouseLeaveArgs) =>
@@ -235,28 +201,16 @@ namespace intermodular
                 };
                 
                 stackZonas.Children.Add(btn);
+                Staticresources.mainWindow.addBtnZona(crearzona.zona);
                 btnPressed = btn;
                 zonaSelect = crearzona.zona;
-                btn.Background = (Brush)(new BrushConverter().ConvertFrom("#444444"));
+                btn.Background = (Brush)(new BrushConverter().ConvertFrom("#3b7a7a"));
                 btn.Foreground = Brushes.White;
                 txtAyuda.Visibility = Visibility.Hidden;
                 txtEditarNombreZona.Text = zonaSelect.zone_name;
-                txtEditarNumMesas.Text = zonaSelect.num_tables.ToString();
 
-                if (crearzona.zona.zone_status)
-                {
-                    comboBoxEditarEstadoZona.SelectedItem = comboBoxEditarEstadoZona.Items[0];
-                }
-                else
-                {
-                    comboBoxEditarEstadoZona.SelectedItem = comboBoxEditarEstadoZona.Items[1];
-                }
                 imgEditNombreZona.Source = (ImageSource)new ImageSourceConverter().ConvertFrom("..\\..\\images\\pencil.png");
-                imgEditTableNum.Source = (ImageSource)new ImageSourceConverter().ConvertFrom("..\\..\\images\\pencil.png");
-                imgEditZoneStatus.Source = (ImageSource)new ImageSourceConverter().ConvertFrom("..\\..\\images\\pencil.png");
                 imgEditNombreZona.Visibility = Visibility.Visible;
-                imgEditTableNum.Visibility = Visibility.Visible;
-                imgEditZoneStatus.Visibility = Visibility.Visible;
                 btnEliminarZona.Visibility = Visibility.Visible;
             }
         }
@@ -270,36 +224,21 @@ namespace intermodular
             {
 
                     //Comprobamos que los datos introducidos son válidos
-                if(validZoneName(txtEditarNombreZona.Text) && validNumTables(txtEditarNumMesas.Text) && comboBoxEditarEstadoZona.Items.IndexOf(comboBoxEditarEstadoZona.SelectedItem) != -1)
+                if(validZoneName(txtEditarNombreZona.Text))
                 {
                     zonaSelect.zone_name = txtEditarNombreZona.Text;
-                    zonaSelect.num_tables = int.Parse(txtEditarNumMesas.Text);
-                    zonaSelect.zone_status = comboBoxEditarEstadoZona.SelectedItem == comboBoxEditarEstadoZona.Items[0];  //Compruebo el estado de la zona, como el estado es un booleano directamente compruebo si la zona está abierta y esa comprobación se la asigno como valor.
                     
                     //Realizamos el update y comprobamos que el update se hizo correctamente
                     if(await Zona.updateZona(zonaSelect._id,zonaSelect))
                     {
                         //Reseteamos todos los campos con la información actualizada
+                        Staticresources.mainWindow.updateZona(zonaSelect);
                         btnPressed.Content = zonaSelect.zone_name;
                         txtAyuda.Visibility = Visibility.Hidden;
                         txtEditarNombreZona.Text = zonaSelect.zone_name;
-                        txtEditarNumMesas.Text = zonaSelect.num_tables.ToString();
-                        if(zonaSelect.zone_status)
-                        {
-                            comboBoxEditarEstadoZona.SelectedItem = comboBoxEditarEstadoZona.Items[0];
-                        }else
-                        {
-                            comboBoxEditarEstadoZona.SelectedItem = comboBoxEditarEstadoZona.Items[1];
-                        }
                         txtEditarNombreZona.IsEnabled = false;
-                        txtEditarNumMesas.IsEnabled = false;
-                        comboBoxEditarEstadoZona.IsEnabled = false;
                         imgEditNombreZona.Source = (ImageSource)new ImageSourceConverter().ConvertFrom("..\\..\\images\\pencil.png");
-                        imgEditTableNum.Source = (ImageSource)new ImageSourceConverter().ConvertFrom("..\\..\\images\\pencil.png");
-                        imgEditZoneStatus.Source = (ImageSource)new ImageSourceConverter().ConvertFrom("..\\..\\images\\pencil.png");
                         imgEditNombreZona.Visibility = Visibility.Visible;
-                        imgEditTableNum.Visibility = Visibility.Visible;
-                        imgEditZoneStatus.Visibility = Visibility.Visible;
                         btnCancelar.Visibility = Visibility.Hidden;
                         btnEditarZona.Visibility = Visibility.Hidden;
                         btnEliminarZona.Visibility = Visibility.Visible;
@@ -323,23 +262,9 @@ namespace intermodular
         {
             //Resetear info de la zona
             txtEditarNombreZona.Text = zonaSelect.zone_name;
-            txtEditarNumMesas.Text = zonaSelect.num_tables.ToString();
-            if(zonaSelect.zone_status)
-            {
-                comboBoxEditarEstadoZona.SelectedItem = comboBoxEditarEstadoZona.Items[0];
-            }else
-            {
-                comboBoxEditarEstadoZona.SelectedItem = comboBoxEditarEstadoZona.Items[1];
-            }
             txtEditarNombreZona.IsEnabled = false;
-            txtEditarNumMesas.IsEnabled = false;
-            comboBoxEditarEstadoZona.IsEnabled = false;
             imgEditNombreZona.Source = (ImageSource)new ImageSourceConverter().ConvertFrom("..\\..\\images\\pencil.png");
-            imgEditTableNum.Source = (ImageSource)new ImageSourceConverter().ConvertFrom("..\\..\\images\\pencil.png");
-            imgEditZoneStatus.Source = (ImageSource)new ImageSourceConverter().ConvertFrom("..\\..\\images\\pencil.png");
             imgEditNombreZona.Visibility = Visibility.Visible;
-            imgEditTableNum.Visibility = Visibility.Visible;
-            imgEditZoneStatus.Visibility = Visibility.Visible;
             btnCancelar.IsEnabled = false;
             btnEditarZona.IsEnabled = false;
             btnCancelar.Visibility = Visibility.Hidden;
@@ -383,24 +308,6 @@ namespace intermodular
             }
         }
 
-        private void imgEditTableNum_MouseDown(object sender, MouseButtonEventArgs e)
-        {
-            if (e.ChangedButton == MouseButton.Left)
-            {
-                imgEditTableNum.Visibility = Visibility.Hidden;
-                txtEditarNumMesas.IsEnabled = true;
-            }
-        }
-
-        private void imgEditZoneStatus_MouseDown(object sender, MouseButtonEventArgs e)
-        {
-            if (e.ChangedButton == MouseButton.Left)
-            {
-                imgEditZoneStatus.Visibility = Visibility.Hidden;
-                comboBoxEditarEstadoZona.IsEnabled = true;
-            }
-        }
-
         private void txtEditarNombreZona_TextChanged(object sender, TextChangedEventArgs e)
         {
             if(zonaSelect != null && txtEditarNombreZona.Text != zonaSelect.zone_name)
@@ -412,39 +319,7 @@ namespace intermodular
             }
         }
 
-        private void txtEditarNumMesas_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            if(zonaSelect != null && txtEditarNumMesas.Text != zonaSelect.num_tables.ToString())
-            {
-                btnCancelar.Visibility = Visibility.Visible;
-                btnEditarZona.Visibility = Visibility.Visible;
-                btnCancelar.IsEnabled = true;
-                btnEditarZona.IsEnabled = true;
-            }
-        }
 
-        private void comboBoxEditarEstadoZona_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            string estado;
-            if (zonaSelect != null)
-            {
-                if (zonaSelect.zone_status)
-                {
-                    estado = comboBoxEditarEstadoZona.Items[0].ToString();
-                }
-                else
-                {
-                    estado = comboBoxEditarEstadoZona.Items[1].ToString();
-                }
-                if (comboBoxEditarEstadoZona.SelectedItem != null && comboBoxEditarEstadoZona.SelectedItem.ToString() != estado)
-                {
-                    btnCancelar.Visibility = Visibility.Visible;
-                    btnEditarZona.Visibility = Visibility.Visible;
-                    btnCancelar.IsEnabled = true;
-                    btnEditarZona.IsEnabled = true;
-                }
-            }
-        }
 
         private async void btnEliminarZona_Click(object sender, RoutedEventArgs e)
         {
@@ -457,12 +332,14 @@ namespace intermodular
 
                 if( await Zona.deleteZone(zonaSelect._id))
                 {
+                    await Mesa.removeZoneTables(zonaSelect._id);
                     //Eliminar el botón que hace referencia a esa zona, de la ventana principal del tpv
                     //Eliminar el botón que hace referencia a esa zona del panel
                     stackZonas.Children.Remove(btnPressed);
 
                     //Eliminar la zona del ArrayList
                     Zona.allZones.RemoveAt(Zona.allZones.IndexOf(zonaSelect));
+                    Staticresources.mainWindow.eliminarZona(zonaSelect._id);
 
                     //Resetear todos los campos al estado principal
                     if (btnPressed != null)
@@ -474,17 +351,9 @@ namespace intermodular
                     zonaSelect = null;
                     txtAyuda.Visibility = Visibility.Visible;
                     txtEditarNombreZona.IsEnabled = false;
-                    txtEditarNumMesas.IsEnabled = false;
-                    comboBoxEditarEstadoZona.IsEnabled = false;
                     txtEditarNombreZona.Text = "";
-                    txtEditarNumMesas.Text = "";
-                    comboBoxEditarEstadoZona.Text = ""; 
                     imgEditNombreZona.Source = (ImageSource)new ImageSourceConverter().ConvertFrom("..\\..\\images\\pencil.png");
-                    imgEditTableNum.Source = (ImageSource)new ImageSourceConverter().ConvertFrom("..\\..\\images\\pencil.png");
-                    imgEditZoneStatus.Source = (ImageSource)new ImageSourceConverter().ConvertFrom("..\\..\\images\\pencil.png");
-                    imgEditNombreZona.Visibility = Visibility.Visible;
-                    imgEditTableNum.Visibility = Visibility.Visible;
-                    imgEditZoneStatus.Visibility = Visibility.Visible;
+                    imgEditNombreZona.Visibility = Visibility.Hidden;
                     btnEditarZona.IsEnabled = false;
                     btnCancelar.IsEnabled = false;
                     btnEditarZona.Visibility = Visibility.Hidden;
@@ -502,13 +371,6 @@ namespace intermodular
            
         }
 
-        private void txtEditarNumMesas_PreviewTextInput(object sender, TextCompositionEventArgs e)
-        {
-            txtEditarNumMesas.Text = txtEditarNumMesas.Text.Replace(" ", "");
-            Regex regex = new Regex("[^0-9]+");
-            e.Handled = regex.IsMatch(e.Text);
-        }
-
         private bool isInteger(string value)
         {
             try
@@ -522,7 +384,7 @@ namespace intermodular
         }
 
         private bool validZoneName(string zoneName) => !String.IsNullOrEmpty(zoneName) && !String.IsNullOrWhiteSpace(zoneName);
-        private bool validNumTables(string numTables) => !String.IsNullOrEmpty(numTables) && !String.IsNullOrWhiteSpace(numTables) && isInteger(numTables);
+
 
         private void txtEditarNombreZona_LostFocus(object sender, RoutedEventArgs e)
         {
@@ -538,19 +400,33 @@ namespace intermodular
             }
         }
 
-        private void txtEditarNumMesas_LostFocus(object sender, RoutedEventArgs e)
+
+        private void btns_MouseEnter(object sender, MouseEventArgs e)
         {
-            if (validNumTables(txtEditarNumMesas.Text))
+            Button btn = sender as Button;
+            btn.Background = (Brush)(new BrushConverter().ConvertFrom("#46b2b2"));
+            btn.Foreground = Brushes.White;
+            if(btn.Name.Equals("btnAgregar"))
             {
-                imgEditTableNum.Source = (ImageSource)new ImageSourceConverter().ConvertFrom("..\\..\\images\\verify.png");
-                imgEditTableNum.Visibility = Visibility.Visible;
-                imgEditTableNum.ToolTip = null;
+                imgAgregarZona.Source = (ImageSource)new ImageSourceConverter().ConvertFrom("..\\..\\images\\agregar_blanco.png");
+            }else
+            {
+                imgEliminarZona.Source = (ImageSource)new ImageSourceConverter().ConvertFrom("..\\..\\images\\eliminar_blanco.png");
+            }
+        }
+
+        private void btns_MouseLeave(object sender, MouseEventArgs e)
+        {
+            Button btn = sender as Button;
+            btn.Background = Brushes.White;
+            btn.Foreground = Brushes.Black;
+            if (btn.Name.Equals("btnAgregar"))
+            {
+                imgAgregarZona.Source = (ImageSource)new ImageSourceConverter().ConvertFrom("..\\..\\images\\agregar.png");
             }
             else
             {
-                imgEditTableNum.Source = (ImageSource)new ImageSourceConverter().ConvertFrom("..\\..\\images\\error.png");
-                imgEditTableNum.Visibility = Visibility.Visible;
-                imgEditTableNum.ToolTip = "Debe introducir un número de mesas.";
+                imgEliminarZona.Source = (ImageSource)new ImageSourceConverter().ConvertFrom("..\\..\\images\\eliminar.png");
             }
         }
     }

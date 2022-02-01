@@ -43,14 +43,20 @@
                 </Grid>
             </Border>
         </Border>
-        <Border Grid.Column="1" Grid.Row="1" Padding="10" Grid.RowSpan="2">
-            
-            <Border CornerRadius="10" Opacity="20">
-                <Border.Background>
-                    <ImageBrush ImageSource="..\images\fondo8.jpg"/>
-                </Border.Background>
-                <Grid x:Name="body" ShowGridLines="True">
-                </Grid>
+        <Border x:Name="mapaZonas" Grid.Column="1" Grid.Row="1" Padding="10">
+            <Border CornerRadius="10" Background="#E0E0E0">
+                <ScrollViewer VerticalScrollBarVisibility="Auto" CanContentScroll="True">
+                    <Grid x:Name="mapaMesas">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                    </Grid>
+                </ScrollViewer>
             </Border>
         </Border>
         <Grid Grid.Row="3" VerticalAlignment="Center" HorizontalAlignment="Center" Cursor="Hand" MouseDown="Grid_MouseDown">
@@ -61,5 +67,44 @@
             <Image x:Name="imgOpciones" Source="..\images\settings.png" Height="60" Width="60" HorizontalAlignment="Center" VerticalAlignment="Center" RenderOptions.BitmapScalingMode="HighQuality"/>
             <TextBlock Grid.Row="1" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center">Opciones</TextBlock>
         </Grid>
+        <Border Padding="10" Grid.Row="3" Grid.Column="1">
+            <Grid x:Name="gridBtnsTable">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="0"/>
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition x:Name="columnaAgregarMesa"/>
+                    <ColumnDefinition Width="0" x:Name="columnaEditarMesa"/>
+                    <ColumnDefinition Width="0" x:Name="columnaEliminarMesa"/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Button x:Name="btnAddTable" Style="{StaticResource btnRedondo}" Margin="3" Cursor="Hand" Click="btnAddTable_Click" Background="#0099a9" IsEnabled="False" Tag="add" MouseEnter="btnsMouseEnterMenuAdminMesas" MouseLeave="btnsMouseLeaveMenuAdminMesas">
+                    <StackPanel Orientation="Horizontal">
+                        <Image x:Name="imgAddMesa" Width="50" Height="50" Source="/intermodular;component/images/agregar.png" RenderOptions.BitmapScalingMode="HighQuality"/>
+                        <TextBlock FontSize="19" Text="Añadir mesa" VerticalAlignment="Center" Margin="10,0,0,0"/>
+                    </StackPanel>
+                </Button>
+                <Button x:Name="btnEditarMesa" Style="{StaticResource btnRedondo}" Margin="3" Grid.Column="1" Cursor="Hand" Background="#0099a9" IsEnabled="False" Tag="edit" MouseEnter="btnsMouseEnterMenuAdminMesas" MouseLeave="btnsMouseLeaveMenuAdminMesas" Click="btnEditarMesa_Click">
+                    <StackPanel Orientation="Horizontal">
+                        <Image x:Name="imgEditMesa" Width="40" Height="40" Source="/intermodular;component/images/pencil.png" RenderOptions.BitmapScalingMode="HighQuality"/>
+                        <TextBlock FontSize="19" Text="Editar mesa" VerticalAlignment="Center" Margin="10,0,0,0"/>
+                    </StackPanel>
+                </Button>
+                <Button x:Name="btnEliminarMesa" Style="{StaticResource btnRedondo}" Margin="3" Grid.Column="2" Cursor="Hand" Background="#0099a9" IsEnabled="False" Tag="delete" MouseEnter="btnsMouseEnterMenuAdminMesas" MouseLeave="btnsMouseLeaveMenuAdminMesas" Click="btnEliminarMesa_Click">
+                    <StackPanel Orientation="Horizontal">
+                        <Image x:Name="imgDeleteMesa" Width="40" Height="40" Source="/intermodular;component/images/eliminar.png" RenderOptions.BitmapScalingMode="HighQuality"/>
+                        <TextBlock FontSize="19" Text="Eliminar mesa" VerticalAlignment="Center" Margin="10,0,0,0"/>
+                    </StackPanel>
+                </Button>
+                <Button x:Name="btnSalir" Style="{StaticResource btnRedondo}" Margin="3"  Grid.Column="3" Cursor="Hand" Click="btnSalir_Click" Background="#0099a9" IsEnabled="False" Tag="exit" MouseEnter="btnsMouseEnterMenuAdminMesas" MouseLeave="btnsMouseLeaveMenuAdminMesas"> 
+                    <StackPanel Orientation="Horizontal">
+                        <Image x:Name="imgExitMesasAdmin" Width="40" Height="40" Source="/intermodular;component/images/cancel.png" RenderOptions.BitmapScalingMode="HighQuality"/>
+                        <TextBlock FontSize="19" Text="Salir" VerticalAlignment="Center" Margin="10,0,0,0"/>
+                    </StackPanel>
+                </Button>
+                <TextBlock x:Name="textBlockPie" Grid.ColumnSpan="4" Grid.Row="1" FontSize="30" Text="Bienvenido al TPV" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+            </Grid>
+        </Border>
     </Grid>
 </Window>

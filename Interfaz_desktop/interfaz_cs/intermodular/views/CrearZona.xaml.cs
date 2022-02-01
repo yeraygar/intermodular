@@ -39,9 +39,9 @@ namespace intermodular
         //Comprobamos que el nombre de la zona y el numero de mesas son valores válidos, de ser así creamos la mesa.
         private async void btnSiguiente_Click(object sender, RoutedEventArgs e)
         {
-            if(checkZoneName(txtZona.Text) && checkZoneNumber(txtNumMesas.Text))
+            if(checkZoneName(txtZona.Text))
             {
-                zona = await Zona.createZone(new Zona(Staticresources.id_client, txtZona.Text, int.Parse(txtNumMesas.Text), true));
+                zona = await Zona.createZone(new Zona(Staticresources.id_client, txtZona.Text));
                 this.Close();
             }
             else
@@ -55,12 +55,14 @@ namespace intermodular
         private void btn_cerrar_MouseEnter(object sender, MouseEventArgs e)
         {
             btn_cerrar.Background = (Brush)(new BrushConverter().ConvertFrom("#ff3232"));
+            imgCerrar.Source = (ImageSource)new ImageSourceConverter().ConvertFrom("..\\..\\images\\cerrar_blanco.png");
         }
 
         //Cambia el color del botón de cerrar, al dejar de estar situado encima.
         private void btn_cerrar_MouseLeave(object sender, MouseEventArgs e)
         {
             btn_cerrar.Background = Brushes.White;
+            imgCerrar.Source = (ImageSource)new ImageSourceConverter().ConvertFrom("..\\..\\images\\cerrar.png");
         }
 
         private void btnCancelar_MouseEnter(object sender, MouseEventArgs e)
@@ -89,16 +91,6 @@ namespace intermodular
             btnSiguiente.Background = Brushes.White;
             btnSiguiente.Foreground = Brushes.Black;
             imgNext.Source = (ImageSource)new ImageSourceConverter().ConvertFrom("..\\..\\images\\next.png");
-        }
-
-
-        //Comprobamos que no se escribe ninguna tecla que no sea un número, (los espacios no los detecta).
-        private void txtNumMesas_PreviewTextInput(object sender, TextCompositionEventArgs e)
-        {
-            txtNumMesas.Text = txtNumMesas.Text.Replace(" ", "");
-            Regex regex = new Regex("[^0-9]+");
-            e.Handled = regex.IsMatch(e.Text);
-
         }
 
         //Este método comprueba que el nombre de la zona no este vacío, etc, comprueba que sea válido.
@@ -159,19 +151,6 @@ namespace intermodular
         }
 
         //Este evento saltará cuando salimos del focus del text box y pintara la imagen correspondiente segun si existe algun campo erroneo o no.
-        private void txtNumMesas_LostFocus(object sender, RoutedEventArgs e)
-        {
-            txtNumMesas.Text = txtNumMesas.Text.Replace(" ", "");
-            imgValidNumTables.Visibility = Visibility.Visible;
-            if(checkZoneNumber(txtNumMesas.Text))
-            {
-                imgValidNumTables.Source = (ImageSource)new ImageSourceConverter().ConvertFrom("..\\..\\images\\verify.png");
-                imgValidNumTables.ToolTip = null;
-            }else
-            {
-                imgValidNumTables.Source = (ImageSource)new ImageSourceConverter().ConvertFrom("..\\..\\images\\error.png");
-                imgValidNumTables.ToolTip = "valor no válido, introduzca otro valor.";
-            }
-        }
+
     }
 }

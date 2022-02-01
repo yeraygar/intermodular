@@ -62,7 +62,7 @@ router.put("/tables/:id", (req, res) => {
         })
 })
 
-//Delete User
+//Delete table
 router.delete("/tables/:id", (req, res) => {
     const {id} = req.params;
     tableSchema
@@ -77,4 +77,33 @@ router.delete("/tables/:id", (req, res) => {
         })
 })
 
+//Get all tables from a zone
+router.get("/tables/zone/:id_zone", (req, res) => {
+    const {id_zone} = req.params;
+    tableSchema
+        .find({id_zone: id_zone})
+        .then((data) =>{
+            res.json(data);
+            console.log(`\nACTIVES: \n ${data}`);
+        })
+        .catch((err) => {
+            res.json({message:err});
+            console.log(`Error get /api/users/clien`);
+        })
+})
+
+//Delete all tables from a zone
+router.delete("/tables/zone/:id_zone" , (req,res) => {
+    const {id_zone} = req.params;
+    tableSchema
+    .deleteMany({id_zone: id_zone})
+    .then((data) => {
+        res.json(data);
+        console.log(`\nDelete succesful: \n ${data}`);
+    })
+    .catch((err) => {
+        res.json(data);
+        console.log(`Error delete : ${err}`);
+    })
+})
 module.exports = router;

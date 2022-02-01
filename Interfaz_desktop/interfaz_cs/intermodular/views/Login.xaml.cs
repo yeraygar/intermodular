@@ -14,9 +14,6 @@ using System.Windows.Shapes;
 
 namespace intermodular
 {
-    /// <summary>
-    /// Lógica de interacción para Login.xaml
-    /// </summary>
     public partial class Login : Window
     {
         bool paraFichar;
@@ -38,7 +35,7 @@ namespace intermodular
             this.paraFichar = paraFichar;
             this.modificar = modificar;
 
-            //Si se va a hacer una validacion del passw de cualquier Admin cargamos todos los admin de manera asincrona;
+            //Si se va a hacer una validacion del passw de cualquier Admin cargamos todos los admin del client de manera asincrona;
             if (admin) User.getAdmins(Staticresources.id_client).ContinueWith(task => { }, TaskScheduler.FromCurrentSynchronizationContext());
 
         }
@@ -53,7 +50,7 @@ namespace intermodular
         }
 
         /// <summary>
-        /// Validar la contraseña de cualquier Usuario del Cliente <br></br>
+        /// Valida la contraseña de cualquier Usuario del Cliente <br></br>
         /// Permite cambiar el status fichado/sinFichar de cualquier usuario si modifcar == true;
         /// </summary>
         private async Task comportamientoUsuario(string passwordIntroducido)
@@ -79,9 +76,8 @@ namespace intermodular
             }
         }
 
-        /// <summary>
-        /// Permite introducir cualquier contraseña que coincida con un User del Cliente con rol de Admin;
-        /// </summary>
+      
+        /// <summary> Permite introducir cualquier contraseña que coincida con un User del Cliente con rol de Admin; </summary>
         private void comportamientoAdministrador(string passwordIntroducido)
         {
             bool passOk = false;
@@ -203,6 +199,35 @@ namespace intermodular
             {
                passwordBox.Password = passwordBox.Password.Substring(0, passwordBox.Password.Length - 1);
             }
+        }
+
+        //Metodo para cambiar el color de todos los botones cuando se pasa por encima
+        private void btns_MouseEnter(object sender, MouseEventArgs e)
+        {
+            Button btn = sender as Button;
+            btn.Cursor = Cursors.Hand; //Cambiamos el cursor
+            btn.Foreground = Brushes.White;
+            btn.Background = Brushes.Black;
+        }
+
+        //Método para cambiar el color de todos los botones cuando se deja de hacer focus
+        private void btns_MouseLeave(object sender, MouseEventArgs e)
+        {
+            Button btn = sender as Button;
+            btn.Foreground = Brushes.Black;
+            btn.Background = Brushes.White;
+        }
+
+        private void btn_cerrar_MouseEnter(object sender, MouseEventArgs e)
+        {
+            btn_cerrar.Background = (Brush)(new BrushConverter().ConvertFrom("#ff3232"));
+            imgCerrar.Source = (ImageSource)new ImageSourceConverter().ConvertFrom("..\\..\\images\\cerrar_blanco.png");
+        }
+
+        private void btn_cerrar_MouseLeave(object sender, MouseEventArgs e)
+        {
+            btn_cerrar.Background = Brushes.White;
+            imgCerrar.Source = (ImageSource)new ImageSourceConverter().ConvertFrom("..\\..\\images\\cerrar.png");
         }
     }
 }

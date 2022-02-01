@@ -20,7 +20,7 @@ namespace intermodular
     public partial class Admin : Window
     {
         //Definimos los colores que vamos a usar al hacer hover sobre los botones y el texto
-        private Brush btn_enter_color = (Brush)(new BrushConverter().ConvertFrom("#444444"));
+        private Brush btn_enter_color = Colores.oscuro;
         private Brush text_enter_color = Brushes.White;
         private Brush btn_leave_color = Brushes.White;
         private Brush text_leave_color = Brushes.Black;
@@ -43,11 +43,13 @@ namespace intermodular
         private void btn_cerrar_MouseEnter(object sender, MouseEventArgs e)
         {
             btn_cerrar.Background = (Brush)(new BrushConverter().ConvertFrom("#ff3232"));
+            imgCerrar.Source = (ImageSource)new ImageSourceConverter().ConvertFrom("..\\..\\images\\cerrar_blanco.png");
         }
 
         private void btn_cerrar_MouseLeave(object sender, MouseEventArgs e)
         {
             btn_cerrar.Background = Brushes.White;
+            imgCerrar.Source = (ImageSource)new ImageSourceConverter().ConvertFrom("..\\..\\images\\cerrar.png");
         }
 
         private void btn_cerrar_Click(object sender, RoutedEventArgs e)
@@ -202,6 +204,22 @@ namespace intermodular
             Zonas zonas = new Zonas();
             this.Close();
             zonas.ShowDialog();
+        }
+
+        private void btn_mesas_Click(object sender, RoutedEventArgs e)
+        {
+            if(Staticresources.mainWindow.zonaSelect == null)
+            {
+                //Mostrar un error
+                MessageBox.Show("No hay ninguna zona creada");
+            }
+            else {
+                Staticresources.isEditableTables = true;
+                Staticresources.mainWindow.addEditableTableBtns(Staticresources.isEditableTables);
+                Staticresources.mainWindow.resetGridMesas();
+                Staticresources.mainWindow.cargarGridMesas(Staticresources.mainWindow.zonaSelect);
+                this.Close();
+            }
         }
     }
 }

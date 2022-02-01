@@ -53,7 +53,7 @@ namespace intermodular
 
             HttpResponseMessage httpResponse = await Staticresources.httpClient.GetAsync(url);
 
-             if (httpResponse.IsSuccessStatusCode)
+            if (httpResponse.IsSuccessStatusCode)
             {
                 string content = await httpResponse.Content.ReadAsStringAsync();
 

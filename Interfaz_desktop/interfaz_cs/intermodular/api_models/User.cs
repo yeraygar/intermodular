@@ -8,25 +8,19 @@ using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 namespace intermodular
 {
-    /// <summary>
-    /// Clase con los atributos <b>name, email, _id</b> (strings los 3), 
-    /// static List de User <b>allUsers</b> y static User <b>currentUser</b>
-    /// Metodos: <b>getAllUsers, getUserById, createUser, updateUser, deleteUser,
-    /// checkPass, checkUser</b>
-    /// </summary>
     public class User
     {
         /**IMPORTANTE
          *  Los atributos deben llamarse exactamente igual
          *  que los de Models>User.js de la API, 
-         *  _id no aparece en el model porque dejaremos que
+         *  _id no aparece en el constructor porque dejaremos que
          *  se genere automaticamente en MongoDB, pero 
          *  necesitamos crear el atributo para recibirlo.
          */
+        public string _id { get; set; }
         public string name { get; set; }
         public string email { get; set; }
         public string passw { get; set; }
-        public string _id { get; set; }
         public string id_client { get; set; }
         public bool active { get; set; }
         public string rol { get; set; }
@@ -93,7 +87,6 @@ namespace intermodular
                 //Deserializamos el Json y guardamos en una lista de User
                 List<User> allUsers = JsonSerializer.Deserialize<List<User>>(content);
 
-                //No se puede retornar un valor, asi que lo guardamos en variable statica de clase User
                 User.allUsers = allUsers;
             }
         }
@@ -133,7 +126,6 @@ namespace intermodular
                 //Deserializamos el Json y guardamos en una lista de User
                 User user = JsonSerializer.Deserialize<User>(content);
 
-                //No se puede retornar un valor, asi que lo guardamos en variable statica de clase User
                 User.currentUser = user;
             }
         }
@@ -203,7 +195,6 @@ namespace intermodular
             HttpContent content = new StringContent(values.ToString(), System.Text.Encoding.UTF8, "application/json");
 
             //Mandamos el JSon
-            //var httpResponse = client.PostAsJsonAsync(url, values).Result; //Otra opcion sin await, no usar
             var httpResponse = await client.PutAsync(url, content);
 
             if (httpResponse.IsSuccessStatusCode)
@@ -247,8 +238,6 @@ namespace intermodular
         /// evalua la contrasenya cifrada (pass).
         /// Actualiza User.currentUser
         /// </summary>
-        /// <param name="id"></param>
-        /// <param name="pass"></param>
         /// <returns>True si los pass coinciden, False si no</returns>
         public static async Task<bool> checkPass(string id, string pass)
         {
@@ -261,8 +250,6 @@ namespace intermodular
         /// Busca al user en MongoDB donde _id = id,
         /// actualiza User.currentUser
         /// </summary>
-        /// <param name="id"></param>
-        /// <param name="pass"></param>
         /// <returns>True si id existe en MongoDB, False si no</returns>
         public static async Task<bool> checkUser(string id)
         {
@@ -308,8 +295,6 @@ namespace intermodular
                 //Deserializamos el Json y guardamos en una lista de User
                 List<User> listaRes = JsonSerializer.Deserialize<List<User>>(content);
 
-                //No se puede retornar un valor, asi que lo guardamos en variable statica de clase User
-                //usuariosFichados.AddRange(listaRes);
                 usuariosDeCliente = listaRes;
             }
         }
@@ -317,7 +302,7 @@ namespace intermodular
         /// <summary>
         /// Async Static Method, carga todos los usuarios de <b>CLIENTE</b>
         /// que hayan <b>FICHADO ENTRADA o NO</b> desde la Api y los guarda en
-        /// <b>User.usuariosFichados</b> --   
+        /// <b>User.usuariosFichados</b> o <b>User.usuariosNoFichados</b> --   
         /// <return>Void</return>
         /// </summary>
         public static async Task getUsersFichados(String id_client, bool fichados)
@@ -346,17 +331,15 @@ namespace intermodular
                 //Deserializamos el Json y guardamos en una lista de User
                 List<User> listaRes = JsonSerializer.Deserialize<List<User>>(content);
 
-                //No se puede retornar un valor, asi que lo guardamos en variable statica de clase User
-                //usuariosFichados.AddRange(listaRes);
                 if (fichados) usuariosFichados = listaRes;
                 else usuariosNoFichados = listaRes;
             }
         }
 
         /// <summary>
-        /// Async Static Method, carga todos los usuarios de <b>CLIENTE</b>
-        /// que hayan <b>FICHADO ENTRADA o NO</b> desde la Api y los guarda en
-        /// <b>User.usuariosFichados</b> --   
+        /// Async Static Method, carga todos los usuarios de <b>Cliente</b>
+        /// con rol <b>Admin</b> desde la Api y los guarda en
+        /// <b>User.usuariosAdmin</b> --   
         /// <return>Void</return>
         /// </summary>
         public static async Task getAdmins(String id_client)
@@ -391,6 +374,5 @@ namespace intermodular
             }
         }
     }
-
 }
 
