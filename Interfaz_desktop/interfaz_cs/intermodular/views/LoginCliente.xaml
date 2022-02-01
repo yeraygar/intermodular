@@ -36,15 +36,15 @@
                 <RowDefinition></RowDefinition>
             </Grid.RowDefinitions>
 
-            <Button x:Name="btn_cerrar" Style="{StaticResource btnRedondo}" Height="40" Width="40" Grid.Column="2" Grid.Row="0" HorizontalAlignment="Right" Click="Btn_cerrar_Click" Cursor="Hand" Margin="30">
+            <Button x:Name="btn_cerrar" Style="{StaticResource btnRedondo}" Height="40" Width="40" Grid.Column="2" Grid.Row="0" HorizontalAlignment="Right"  Cursor="Hand" Margin="30" Click="cerrar" MouseEnter="btn_cerrar_MouseEnter" MouseLeave="btn_cerrar_MouseLeave">
                 <Image Source="..\images\cerrar.png" Width="20" Height="20"/>
             </Button>
 
             <Label Content="Usuario" Foreground="White" FontSize="70" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="1"  Grid.Column="1" />
-            <TextBox Grid.Row="1" Grid.Column="1" PreviewMouseDown="textBoxUsuario" Height="70" HorizontalAlignment="Center" Name="textBox" VerticalAlignment="Bottom" Width="400" Margin="20"/>
+            <TextBox Grid.Row="1" Grid.Column="1" PreviewMouseDown="textBoxUsuario" Height="70" HorizontalAlignment="Center" Name="textBox" VerticalAlignment="Bottom" Width="400" FontSize="50" Margin="20"/>
 
             <Label Content="Contraseña" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center"  FontSize="70"  Grid.Row="2" Grid.Column="1"/>
-            <PasswordBox PreviewMouseDown="textBoxContraseña" Height="70" HorizontalAlignment="Center"  x:Name="passworbox" VerticalAlignment="Bottom" Width="400" Grid.Row="2" Grid.Column="1" Margin="20" />
+            <PasswordBox PreviewMouseDown="textBoxContraseña" Height="70" HorizontalAlignment="Center"  x:Name="passworbox" VerticalAlignment="Bottom" Width="400" FontSize="50" Grid.Row="2" Grid.Column="1" Margin="20" />
 
             <Button Content="Iniciar sesion" HorizontalAlignment="Left" VerticalAlignment="Top" Width="200" Height="70" Grid.Column="2" Grid.Row="3" Style="{StaticResource btnRedondo}" FontSize="20" Click="boton_iniciarSesion" />
             <Button Content="Registrarse" HorizontalAlignment="Left" VerticalAlignment="Center" Width="200" Height="70" Grid.Column="2" Grid.Row="3" Style="{StaticResource btnRedondo}" FontSize="20" Click="boton_registrar" />

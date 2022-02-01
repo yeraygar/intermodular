@@ -109,12 +109,13 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="api_models\Client.cs" />
     <Compile Include="support\Colores.cs" />
     <Compile Include="support\Encrypt.cs" />
     <Compile Include="views\Admin.xaml.cs">
       <DependentUpon>Admin.xaml</DependentUpon>
     </Compile>
-    <Compile Include="views\BoolToVisibilityConverter.cs" />
+    <Compile Include="support\BoolToVisibilityConverter.cs" />
     <Compile Include="views\CrearZona.xaml.cs">
       <DependentUpon>CrearZona.xaml</DependentUpon>
     </Compile>
@@ -218,6 +219,7 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="images\fondo11.webp" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -335,6 +337,10 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="images\TECLADO.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="images\fondo10.jpg" />
+    <Resource Include="images\fondo9.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\System.Text.Json.6.0.1\build\System.Text.Json.targets" Condition="Exists('..\packages\System.Text.Json.6.0.1\build\System.Text.Json.targets')" />

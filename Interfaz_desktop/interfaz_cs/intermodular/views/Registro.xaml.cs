@@ -23,5 +23,73 @@ namespace intermodular
         {
             InitializeComponent();
         }
-    }
-}
+        //cierra esta ventana al hacer click en el botón de cerrar    
+        private void btn_cerrar_MouseEnter(object sender, MouseEventArgs e)
+        {
+            btn_cerrar.Background = (Brush)(new BrushConverter().ConvertFrom("#ff3232"));
+        }
+
+        private void btn_cerrar_MouseLeave(object sender, MouseEventArgs e)
+        {
+            btn_cerrar.Background = Brushes.White;
+        }
+
+        private void btn_cerrar_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
+
+        private void Button_Aceptar_leave(object sender, MouseEventArgs e)
+        {
+
+            var bc = new BrushConverter();
+            aceptar.Background = (Brush)bc.ConvertFrom("#48C9B0");
+
+        }
+
+        private void Button_Aceptar_enter(object sender, MouseEventArgs e)
+        {
+            aceptar.Background = Brushes.DarkSlateGray;
+        }
+
+
+        private async void btnAceptar_Click(object sender, RoutedEventArgs e)
+        {
+                       
+                if (Contraseña.Password != Contraseña2.Password)
+                {
+                    MessageBox.Show("Las contraseñas introdicidas no coinciden.");
+                } 
+                else
+                {
+                    if(textBoxEmail.Text != null) 
+                    { 
+
+                        Boolean comprobarEmail = await Client.checkEmailExists(textBoxEmail.Text);
+
+                        if (comprobarEmail)
+                        {
+                            MessageBox.Show("El email ya existe. Indroduzca un email válido.");
+                        }
+                        else
+                        {
+                            Client clientprueba = new Client(textBoxNombre.Text, textBoxEmail.Text, Contraseña.Password);
+                            Boolean crearCliente = await Client.createClient(clientprueba);
+                            MessageBox.Show("Usuario creado correctamente");
+                            LoginCliente log = new LoginCliente();
+                            log.ShowDialog();                    
+                        }
+                    }
+                    else
+                    {
+                        MessageBox.Show("No puede haber campos vacios.");
+                    }
+
+                }
+            }
+        }
+
+    }  
+    
+
+

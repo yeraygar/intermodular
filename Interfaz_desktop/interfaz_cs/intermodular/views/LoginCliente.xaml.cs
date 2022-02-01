@@ -42,10 +42,7 @@ namespace intermodular
             if (keyboardWindow.ShowDialog() == true)
                 pass.Password = keyboardWindow.Result;
         }
-        private void Btn_cerrar_Click(object sender, RoutedEventArgs e)
-        {
-            this.Close();
-        }
+      
 
         private void boton_registrar(object sender, RoutedEventArgs e)
         {
@@ -54,12 +51,39 @@ namespace intermodular
             regis.ShowDialog();
         }
 
-        private void boton_iniciarSesion(object sender, RoutedEventArgs e)
+        private async void boton_iniciarSesion(object sender, RoutedEventArgs e)
         {
+            if (textBox.Text != null && passworbox.Password != null)
+            {
+                Boolean comprobar = await Client.validateClient(textBox.Text, passworbox.Password);
+                if (comprobar)
+                {
+                    MainWindow inicio = new MainWindow();
+                    inicio.ShowDialog();
+                }
+                else
+                {
+                    MessageBox.Show("Usuario o contraseña incorrectos");
+                }
+            }
+            else
+            {
+                MessageBox.Show("Los campos no pueden estar vacios");
+            }
+        }
 
+        private void cerrar(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
+        private void btn_cerrar_MouseEnter(object sender, MouseEventArgs e)
+        {
+            btn_cerrar.Background = (Brush)(new BrushConverter().ConvertFrom("#ff3232"));
+        }
 
-            MainWindow inicio = new MainWindow();
-            inicio.ShowDialog();
+        private void btn_cerrar_MouseLeave(object sender, MouseEventArgs e)
+        {
+            btn_cerrar.Background = Brushes.White;
         }
     }
 }
