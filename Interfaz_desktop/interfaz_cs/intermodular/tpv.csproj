@@ -146,6 +146,9 @@
     <Compile Include="views\Registro.xaml.cs">
       <DependentUpon>Registro.xaml</DependentUpon>
     </Compile>
+    <Compile Include="views\Teclado.xaml.cs">
+      <DependentUpon>Teclado.xaml</DependentUpon>
+    </Compile>
     <Compile Include="views\Zonas.xaml.cs">
       <DependentUpon>Zonas.xaml</DependentUpon>
     </Compile>

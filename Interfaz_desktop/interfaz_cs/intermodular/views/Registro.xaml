@@ -15,7 +15,7 @@
     
     <Border CornerRadius="10">
         <Border.Background>
-            <ImageBrush ImageSource="..\images\fondo8.jpg"/>
+            <ImageBrush ImageSource="..\images\fondo9.jpg"/>
         </Border.Background>
         <Grid>
             <Grid.RowDefinitions>

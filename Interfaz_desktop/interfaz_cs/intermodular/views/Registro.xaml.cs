@@ -62,7 +62,7 @@ namespace intermodular
                 } 
                 else
                 {
-                    if(textBoxEmail.Text != null) 
+                    if(textBoxEmail.Text.Length != 0 || textBoxNombre.Text.Length !=0 || Contraseña.Password.Length !=0 || Contraseña2.Password.Length !=0) 
                     { 
 
                         Boolean comprobarEmail = await Client.checkEmailExists(textBoxEmail.Text);
