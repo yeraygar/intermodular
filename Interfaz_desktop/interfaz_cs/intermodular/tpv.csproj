@@ -116,6 +116,12 @@
     <Compile Include="views\Admin.xaml.cs">
       <DependentUpon>Admin.xaml</DependentUpon>
     </Compile>
+    <Compile Include="views\Cobro.xaml.cs">
+      <DependentUpon>Cobro.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="views\Comensales.xaml.cs">
+      <DependentUpon>Comensales.xaml</DependentUpon>
+    </Compile>
     <Compile Include="views\CrearMesa.xaml.cs">
       <DependentUpon>CrearMesa.xaml</DependentUpon>
     </Compile>
@@ -153,6 +159,14 @@
       <DependentUpon>Zonas.xaml</DependentUpon>
     </Compile>
     <Page Include="views\Admin.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="views\Cobro.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="views\Comensales.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -227,7 +241,6 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <None Include="images\fondo11.webp" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -333,6 +346,9 @@
   <ItemGroup>
     <Resource Include="images\fondo10.jpg" />
     <Resource Include="images\fondo9.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="images\fondo8.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\System.Text.Json.6.0.1\build\System.Text.Json.targets" Condition="Exists('..\packages\System.Text.Json.6.0.1\build\System.Text.Json.targets')" />
