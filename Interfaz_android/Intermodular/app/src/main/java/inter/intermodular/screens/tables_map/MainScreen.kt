@@ -7,13 +7,11 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import inter.intermodular.models.UserModel
 import inter.intermodular.support.currentClient
-import inter.intermodular.view_models.ClientViewModel
-import inter.intermodular.view_models.UserViewModel
+import inter.intermodular.view_models.LoginRegisterViewModel
 
 @Composable
-fun MainScreen(email: String?, clientViewModel: ClientViewModel){
+fun MainScreen(email: String?, loginRegisterViewModel: LoginRegisterViewModel){
 
     Surface(color = MaterialTheme.colors.background) {
 

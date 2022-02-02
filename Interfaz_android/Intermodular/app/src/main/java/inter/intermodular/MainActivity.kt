@@ -17,14 +17,16 @@ import com.orhanobut.logger.Logger
 import inter.intermodular.screens.*
 import inter.intermodular.screens.login_register.Login
 import inter.intermodular.screens.login_register.Register
+import inter.intermodular.screens.login_register.ValidateLoginScreen
+import inter.intermodular.screens.login_register.ValidateRegisterScreen
 import inter.intermodular.ui.theme.IntermodularTheme
-import inter.intermodular.view_models.ClientViewModel
+import inter.intermodular.view_models.LoginRegisterViewModel
 
 
 class MainActivity : ComponentActivity() {
 
     private val userViewModel by viewModels<UserViewModel>()
-    private val clientViewModel by viewModels<ClientViewModel>()
+    private val loginRegisterViewModel by viewModels<LoginRegisterViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,28 +37,27 @@ class MainActivity : ComponentActivity() {
 
             IntermodularTheme {
 
-                //userViewModel.getClientAdmins()
                 val navController = rememberNavController()
 
                 NavHost(navController = navController, startDestination = ScreenNav.LoginScreen.route){
 
-                                    /**LOGIN SCREEN*/
+                                    /*** LOGIN SCREEN ***/
                     composable(
                         route = ScreenNav.LoginScreen.route
                     ){
-                        Login(navController = navController, clientViewModel = clientViewModel)
+                        Login(navController = navController, loginRegisterViewModel = loginRegisterViewModel)
                         BackHandler(true) {
                             Toast.makeText(applicationContext, "BackButton Deshabilitado en el LOGIN", Toast.LENGTH_SHORT).show()
                         }
                     }
 
-                                    /**VALIDATE LOGIN POPUP*/
+                                    /*** VALIDATE LOGIN SCREEN ***/
                     composable(
-                        route = "${ScreenNav.ValidateLoginScreen.route}",
+                        route = ScreenNav.ValidateLoginScreen.route,
                         arguments = listOf(
                             navArgument("email") {
                                 type = NavType.StringType
-                                defaultValue = "Email" //aqui no hace falta, nullable tampoco
+                                defaultValue = "Email" // no hace falta, nullable tampoco
                                 nullable = true
                             } ,
                             navArgument("password"){
@@ -64,54 +65,64 @@ class MainActivity : ComponentActivity() {
                                 defaultValue = "Error"
                             }
                         )
-                    ){ /*entry ->
-                        entry.arguments?.getString("password")?.let { ValidateLoginScreen(email = entry.arguments?.getString("email")!!, password = it, clientViewModel = clientViewModel, navController = navController) }
-                        */
-                        ValidateLoginScreen(clientViewModel = clientViewModel, navController = navController)
+                    ){
+                        ValidateLoginScreen(loginRegisterViewModel = loginRegisterViewModel, navController = navController)
                         BackHandler(true) {
                             Toast.makeText(applicationContext, "BackButton Deshabilitado en el MAIN", Toast.LENGTH_SHORT).show()
                         }
                     }
 
-                                    /** MAIN SCREEN */
+                                    /*** REGISTER SCREEN ***/
+                    composable(
+                        route = ScreenNav.RegisterScreen.route
+                    ){
+                        Register(navController = navController, loginRegisterViewModel = loginRegisterViewModel)
+                    }
+
+                                    /*** VALIDATE REGISTER SCREEN ***/
+                    composable(
+                        route = "${ScreenNav.ValidateRegisterScreen.route}/{name}/{email}/{password}",
+                        arguments = listOf(
+                            navArgument("name") {
+                                type = NavType.StringType
+                                defaultValue = "Name" // no hace falta, nullable tampoco
+                                nullable = true
+                            },
+                            navArgument("email") {
+                                type = NavType.StringType
+                                defaultValue = "Email" // no hace falta, nullable tampoco
+                                nullable = true
+                            },
+                            navArgument("password") {
+                                type = NavType.StringType
+                                defaultValue = "password" // no hace falta, nullable tampoco
+                                nullable = true
+                            }
+                        )
+                    ){ entry ->
+                        ValidateRegisterScreen(
+                            name = entry.arguments?.getString("name"),
+                            email = entry.arguments?.getString("email"),
+                            password = entry.arguments?.getString("password"),
+                            loginRegisterViewModel = loginRegisterViewModel,
+                            navController = navController)
+                        BackHandler(true) {
+                            Toast.makeText(applicationContext, "BackButton Deshabilitado en el MAIN", Toast.LENGTH_SHORT).show()
+                        }
+                    }
+
+                                    /*** MAIN SCREEN ***/
                     composable(
                         route = "${ScreenNav.MainScreen.route}/{email}",
                         arguments = listOf(
                             navArgument("email") {
                                 type = NavType.StringType
-                                defaultValue = "Email" //aqui no hace falta, nullable tampoco
+                                defaultValue = "Email" //no hace falta, nullable tampoco
                                 nullable = true
                             }
                         )
                     ){ entry ->
-                        MainScreen(email = entry.arguments?.getString("email"), clientViewModel = clientViewModel)
-                        BackHandler(true) {
-                            Toast.makeText(applicationContext, "BackButton Deshabilitado en el MAIN", Toast.LENGTH_SHORT).show()
-                        }
-                    }
-                                /** REGISTER SCREEN */
-                    composable(
-                        route = ScreenNav.RegisterScreen.route
-                    ){
-                        BackHandler(false) {
-                            // TODO NO SE MUESTRA! (hay que pasarle el contexto de Login)
-                            //Toast.makeText(applicationContext, "BackButton Habilitado en Register", Toast.LENGTH_SHORT).show()
-                        }
-                        Register(navController = navController, clientViewModel = clientViewModel)
-                    }
-
-                                /** VALIDATE REGISTER SCREEN */
-                    composable(
-                        route = "${ScreenNav.ValidateRegisterScreen.route}/{email}",
-                        arguments = listOf(
-                            navArgument("email") {
-                                type = NavType.StringType
-                                defaultValue = "Email" //aqui no hace falta, nullable tampoco
-                                nullable = true
-                            }
-                        )
-                    ){ entry ->
-                        ValidateRegisterScreen(email = entry.arguments?.getString("email"), clientViewModel = clientViewModel, navController = navController)
+                        MainScreen(email = entry.arguments?.getString("email"), loginRegisterViewModel = loginRegisterViewModel)
                         BackHandler(true) {
                             Toast.makeText(applicationContext, "BackButton Deshabilitado en el MAIN", Toast.LENGTH_SHORT).show()
                         }

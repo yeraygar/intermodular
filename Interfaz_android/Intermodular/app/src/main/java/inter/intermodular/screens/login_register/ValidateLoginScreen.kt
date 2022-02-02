@@ -1,4 +1,4 @@
-package inter.intermodular.screens
+package inter.intermodular.screens.login_register
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
@@ -11,7 +11,6 @@ import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.text.font.FontWeight
@@ -23,50 +22,32 @@ import com.orhanobut.logger.Logger
 import inter.intermodular.R
 import inter.intermodular.ScreenNav
 import inter.intermodular.support.currentClient
-import inter.intermodular.ui.theme.Purple500
-import inter.intermodular.view_models.ClientViewModel
+import inter.intermodular.view_models.LoginRegisterViewModel
 
 @Composable
 fun ValidateLoginScreen(
-    clientViewModel: ClientViewModel,
+    loginRegisterViewModel: LoginRegisterViewModel,
     navController: NavController,
 ) {
     val isDialogOpen = remember { mutableStateOf(true) }
-    ShowAlertDialogLogin(isDialogOpen = isDialogOpen, clientViewModel, navController)
+    val buttonText = remember { mutableStateOf("")}
+
+    ShowAlertDialogLogin(
+        isDialogOpen = isDialogOpen,
+        loginRegisterViewModel = loginRegisterViewModel,
+        navController = navController,
+        buttonText =  buttonText
+    )
 }
-
-@Composable
-fun responseLogin(clientViewModel: ClientViewModel) {
-        if (clientViewModel.currentClientResponse._id == "Error") {
-
-        Logger.e("Error, la respuesta no se ha cargado bien")
-
-    } else {
-       // Text(text = currentClient.name)
-        Text(text = currentClient.email)
-        Text(text = currentClient.name)
-        Logger.i("Respuesta correcta")
-
-    }
-}
-
 
 
 @Composable
 fun ShowAlertDialogLogin(
     isDialogOpen: MutableState<Boolean>,
-    clientViewModel: ClientViewModel,
-    navController: NavController
+    loginRegisterViewModel: LoginRegisterViewModel,
+    navController: NavController,
+    buttonText: MutableState<String>
 ) {
-    val emailVal = remember { mutableStateOf("") }
-    val passwordVal = remember { mutableStateOf("") }
-
-    val passwordVisibility = remember {
-        mutableStateOf(false)
-    }
-    val focusRequester = remember {
-        FocusRequester
-    }
 
     if(isDialogOpen.value) {
         Dialog(onDismissRequest = { isDialogOpen.value = false }) {
@@ -83,29 +64,21 @@ fun ShowAlertDialogLogin(
                     horizontalAlignment = Alignment.CenterHorizontally,
                     verticalArrangement = Arrangement.Center
                 ) {
-                    Spacer(modifier = Modifier.padding(5.dp))
 
-                    Text(
-                        text = "Login Popup",
-                        color = Color.Black,
-                        fontWeight = FontWeight.Bold,
-                        fontSize = 25.sp
-                    )
+                    Spacer(modifier = Modifier.padding(15.dp))
 
-                    Spacer(modifier = Modifier.padding(10.dp))
-                    responseLogin(clientViewModel)
+                    ResponseLogin(loginRegisterViewModel, buttonText)
 
                     Spacer(modifier = Modifier.padding(10.dp))
 
                     Button(
                         onClick = {
                             isDialogOpen.value = false
-                            var current = clientViewModel.currentClientResponse
+                            var current = loginRegisterViewModel.currentClientResponse
                             if(current._id != "Error"){
                                 navController.navigate(ScreenNav.MainScreen.withArgs(current.name?:"Error"))
                             }else{
                                 navController.navigate(ScreenNav.LoginScreen.route)
-
                             }
                         },
                         colors = ButtonDefaults.buttonColors(backgroundColor = colorResource(R.color.azul)),
@@ -127,46 +100,36 @@ fun ShowAlertDialogLogin(
     }
 }
 
+@Composable
+fun ResponseLogin(loginRegisterViewModel: LoginRegisterViewModel, buttonText: MutableState<String>) {
+    if (loginRegisterViewModel.currentClientResponse._id == "Error") {
 
+        Text(
+            text = "Login Incorrecto",
+            color = Color.Black,
+            fontWeight = FontWeight.Bold,
+            fontSize = 25.sp
+        )
+        buttonText.value = "BACK"
+        Logger.e("Error, la respuesta no se ha cargado bien / Login Incorrecto")
 
+    } else {
+        Text(
+            text = "Login Correcto",
+            color = Color.Black,
+            fontWeight = FontWeight.Bold,
+            fontSize = 25.sp
+        )
+        Spacer(modifier = Modifier.padding(5.dp))
+        Text(text = "Bienvenido")
+        Spacer(modifier = Modifier.padding(5.dp))
+        Text(text = currentClient.name, fontWeight = FontWeight.Bold)
+        buttonText.value = "NEXT"
+        Logger.i("Respuesta correcta")
 
-/*
-    @Composable
-    fun CallAlertDialog() {
-        val isDialogOpen = remember { mutableStateOf(false)}
-
-        Column(
-            horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.Center,
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(horizontal = 16.dp)
-        ) {
-             ShowAlertDialog(isDialogOpen)
-            //ValidateLoginScreen(email: String?, clientViewModel: ClientViewModel, navController: NavController, isDialogOpen)
-
-            Button(
-                onClick = {
-                    isDialogOpen.value = true
-                },
-                modifier = Modifier
-                    .padding(10.dp)
-                    .height(50.dp),
-                shape = RoundedCornerShape(5.dp),
-                colors = ButtonDefaults.buttonColors(Purple500)
-            ) {
-                Text(
-                    text = "Show Popup",
-                    color = Color.White
-                )
-            }
-        }
     }
+}
 
-
-
-
- */
 
 
 

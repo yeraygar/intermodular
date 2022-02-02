@@ -24,15 +24,17 @@ import androidx.navigation.NavController
 import com.orhanobut.logger.Logger
 import inter.intermodular.R
 import inter.intermodular.ScreenNav
-import inter.intermodular.view_models.ClientViewModel
+import inter.intermodular.support.clientCreated
+import inter.intermodular.view_models.LoginRegisterViewModel
+import androidx.compose.material.OutlinedTextField as OutlinedTextField1
 
 @Composable
-fun Register(navController: NavController, clientViewModel: ClientViewModel){
+fun Register(navController: NavController, loginRegisterViewModel: LoginRegisterViewModel){
 
-    var email = remember { mutableStateOf("")}
-    var password1 = remember { mutableStateOf("")}
-    var password2 = remember { mutableStateOf("")}
-    var name = remember { mutableStateOf("")}
+    val name = remember { mutableStateOf("")}
+    val email = remember { mutableStateOf("")}
+    val password1 = remember { mutableStateOf("")}
+    val password2 = remember { mutableStateOf("")}
 
     var passwordVisibility by remember { mutableStateOf(false) }
 
@@ -47,7 +49,7 @@ fun Register(navController: NavController, clientViewModel: ClientViewModel){
 
         Spacer(modifier = Modifier.height(5.dp))
 
-        Text(text = "REGISTER SCREEN",
+        Text(text = "REGISTER",
             fontSize = 20.sp,
             fontWeight = FontWeight.ExtraBold,
             modifier = Modifier.align(Alignment.CenterHorizontally)
@@ -55,7 +57,7 @@ fun Register(navController: NavController, clientViewModel: ClientViewModel){
 
         Spacer(modifier = Modifier.height(18.dp))
 
-        OutlinedTextField(
+        OutlinedTextField1(
             value = name.value,
             onValueChange = { name.value = it },
             label = { Text(text = "Name", style = TextStyle(
@@ -65,7 +67,7 @@ fun Register(navController: NavController, clientViewModel: ClientViewModel){
             singleLine = true,
             trailingIcon = {
                 val image = Icons.Filled.AccountCircle
-                Icon(imageVector = image, "")
+                Icon(imageVector = image, "Name")
             },
             colors = TextFieldDefaults.outlinedTextFieldColors(
                 focusedBorderColor = colorResource(id = R.color.azul_oscuro),
@@ -79,7 +81,7 @@ fun Register(navController: NavController, clientViewModel: ClientViewModel){
 
         Spacer(modifier = Modifier.height(18.dp))
 
-        OutlinedTextField(
+        OutlinedTextField1(
             value = email.value,
             onValueChange = { email.value = it },
             label = { Text(text = "Email", style = TextStyle(
@@ -89,7 +91,7 @@ fun Register(navController: NavController, clientViewModel: ClientViewModel){
             singleLine = true,
             trailingIcon = {
                 val image = Icons.Filled.Email
-                Icon(imageVector = image, "")
+                Icon(imageVector = image, "Email")
             },
             colors = TextFieldDefaults.outlinedTextFieldColors(
                 focusedBorderColor = colorResource(id = R.color.azul_oscuro),
@@ -103,7 +105,7 @@ fun Register(navController: NavController, clientViewModel: ClientViewModel){
 
         Spacer(modifier = Modifier.height(18.dp))
 
-        OutlinedTextField(
+        OutlinedTextField1(
             value = password1.value,
             onValueChange = { password1.value = it },
             label = { Text(text = "Password", style = TextStyle(
@@ -116,7 +118,7 @@ fun Register(navController: NavController, clientViewModel: ClientViewModel){
             trailingIcon = {
                 val image = if (passwordVisibility) Icons.Filled.Visibility else Icons.Filled.VisibilityOff
                 IconButton(onClick = { passwordVisibility = !passwordVisibility }
-                ) { Icon(imageVector  = image, "") }
+                ) { Icon(imageVector  = image, "Password") }
             },
             colors = TextFieldDefaults.outlinedTextFieldColors(
                 focusedBorderColor = colorResource(id = R.color.azul_oscuro),
@@ -130,7 +132,7 @@ fun Register(navController: NavController, clientViewModel: ClientViewModel){
 
         Spacer(modifier = Modifier.height(18.dp))
 
-        OutlinedTextField(
+        OutlinedTextField1(
             value = password2.value,
             onValueChange = { password2.value = it },
             label = { Text(text = "Repeat Password", style = TextStyle(
@@ -143,7 +145,7 @@ fun Register(navController: NavController, clientViewModel: ClientViewModel){
             trailingIcon = {
                 val image = if (passwordVisibility) Icons.Filled.Visibility else Icons.Filled.VisibilityOff
                 IconButton(onClick = { passwordVisibility = !passwordVisibility }
-                ) { Icon(imageVector  = image, "") }
+                ) { Icon(imageVector  = image, "Repeat Password") }
             },
             colors = TextFieldDefaults.outlinedTextFieldColors(
                 focusedBorderColor = colorResource(id = R.color.azul_oscuro),
@@ -159,13 +161,13 @@ fun Register(navController: NavController, clientViewModel: ClientViewModel){
 
         Button(
             onClick = {
-                if(email.value.isNullOrEmpty() || password1.value.isNullOrEmpty() || password2.value.isNullOrEmpty()){
-                    //TODO nombre o passwords vacios
+                if(email.value.isEmpty() || password1.value.isEmpty() || password2.value.isEmpty()){
                     Logger.e("Email or password Register is null or empty")
                 }else{
                     if(password1.value == password2.value){
-                        clientViewModel.checkEmail(email.value)
-                        navController.navigate(ScreenNav.ValidateRegisterScreen.withArgs(email.value))
+                        clientCreated = false
+                        loginRegisterViewModel.checkEmail(email.value)
+                        navController.navigate(ScreenNav.ValidateRegisterScreen.withArgs(name.value,email.value,password1.value))
                     }
                 }
             },
@@ -183,22 +185,5 @@ fun Register(navController: NavController, clientViewModel: ClientViewModel){
         }
     }
 }
-
-
-/*private suspend fun checkEmail(
-    clientViewModel: ClientViewModel,
-    text: String,
-    navController: NavController,
-    scope: CoroutineScope
-) {
-
-        clientViewModel.checkEmail(text)
-        if (clientViewModel.emailExistsResponse) {
-            Logger.e("Email already exists: $text, ${clientViewModel.emailExistsResponse}")
-        } else {
-            navController.navigate(ScreenNav.MainScreen.withArgs(text))
-            Logger.i("Unique email: $text, ${clientViewModel.emailExistsResponse}")
-        }
-    }*/
 
 

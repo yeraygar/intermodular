@@ -1,8 +1,7 @@
 package inter.intermodular.screens.login_register
 
-import androidx.compose.animation.expandHorizontally
+import androidx.activity.viewModels
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
@@ -25,13 +24,13 @@ import androidx.navigation.NavController
 import com.orhanobut.logger.Logger
 import inter.intermodular.R
 import inter.intermodular.ScreenNav
-import inter.intermodular.view_models.ClientViewModel
+import inter.intermodular.view_models.LoginRegisterViewModel
 
 @Composable
-fun Login(navController: NavController, clientViewModel: ClientViewModel){
+fun Login(navController: NavController, loginRegisterViewModel: LoginRegisterViewModel){
 
-    var email = remember { mutableStateOf("") }
-    var password = remember { mutableStateOf("") }
+    val email = remember { mutableStateOf("") }
+    val password = remember { mutableStateOf("") }
 
     var passwordVisibility by remember { mutableStateOf(false) }
 
@@ -47,7 +46,7 @@ fun Login(navController: NavController, clientViewModel: ClientViewModel){
         Spacer(modifier = Modifier.height(5.dp))
 
         Text(
-            text ="LOGIN SCREEN",
+            text ="LOGIN",
             fontSize = 20.sp,
             fontWeight = FontWeight.ExtraBold,
             modifier = Modifier.align(Alignment.CenterHorizontally)
@@ -57,7 +56,7 @@ fun Login(navController: NavController, clientViewModel: ClientViewModel){
 
         OutlinedTextField(
             value = email.value,
-            onValueChange = { email.value = it },
+            onValueChange = { it.also { email.value = it } },
             label = { Text(text = "Email", style = TextStyle(
                 color = colorResource(id = R.color.gris_claro)),) },
             placeholder = { Text(text = "Email",style = TextStyle(
@@ -65,7 +64,7 @@ fun Login(navController: NavController, clientViewModel: ClientViewModel){
             singleLine = true,
             trailingIcon = {
                 val image = Icons.Filled.Email
-                Icon(imageVector = image, "")
+                Icon(imageVector = image, "Email")
             },
             colors = TextFieldDefaults.outlinedTextFieldColors(
                 focusedBorderColor = colorResource(id = R.color.azul_oscuro),
@@ -81,7 +80,7 @@ fun Login(navController: NavController, clientViewModel: ClientViewModel){
 
         OutlinedTextField(
             value = password.value,
-            onValueChange = { password.value = it },
+            onValueChange = { it.also { password.value = it } },
             label = { Text(text = "Password", style = TextStyle(
                 color = colorResource(id = R.color.gris_claro)),) },
             placeholder = { Text(text = "Password",style = TextStyle(
@@ -92,7 +91,7 @@ fun Login(navController: NavController, clientViewModel: ClientViewModel){
             trailingIcon = {
                 val image = if (passwordVisibility) Icons.Filled.Visibility else Icons.Filled.VisibilityOff
                 IconButton(onClick = { passwordVisibility = !passwordVisibility }
-                ) { Icon(imageVector  = image, "") }
+                ) { Icon(imageVector  = image, "Password") }
             },
             colors = TextFieldDefaults.outlinedTextFieldColors(
                 focusedBorderColor = colorResource(id = R.color.azul_oscuro),
@@ -108,10 +107,10 @@ fun Login(navController: NavController, clientViewModel: ClientViewModel){
 
         Button(
             onClick = {
-                if(email.value.isNullOrEmpty() || password.value.isNullOrEmpty()){
+                if(email.value.isEmpty() || password.value.isEmpty()){
                     Logger.e("Email or Password input Login is null or empty")
                 }else{
-                    clientViewModel.validateClient(email = email.value, passw = password.value)
+                    loginRegisterViewModel.validateClient(email = email.value, passw = password.value)
                     navController.navigate(ScreenNav.ValidateLoginScreen.route)
                 }
             },
