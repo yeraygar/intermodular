@@ -22,12 +22,14 @@ import com.orhanobut.logger.Logger
 import inter.intermodular.R
 import inter.intermodular.ScreenNav
 import inter.intermodular.support.currentClient
+import inter.intermodular.support.loginIntents
 import inter.intermodular.view_models.LoginRegisterViewModel
 
 @Composable
 fun ValidateLoginScreen(
     loginRegisterViewModel: LoginRegisterViewModel,
     navController: NavController,
+    activityKiller: () -> Unit,
 ) {
     val isDialogOpen = remember { mutableStateOf(true) }
     val buttonText = remember { mutableStateOf("")}
@@ -36,7 +38,8 @@ fun ValidateLoginScreen(
         isDialogOpen = isDialogOpen,
         loginRegisterViewModel = loginRegisterViewModel,
         navController = navController,
-        buttonText =  buttonText
+        buttonText =  buttonText,
+        activityKiller = activityKiller
     )
 }
 
@@ -46,7 +49,8 @@ fun ShowAlertDialogLogin(
     isDialogOpen: MutableState<Boolean>,
     loginRegisterViewModel: LoginRegisterViewModel,
     navController: NavController,
-    buttonText: MutableState<String>
+    buttonText: MutableState<String>,
+    activityKiller: () -> Unit
 ) {
 
     if(isDialogOpen.value) {
@@ -67,7 +71,7 @@ fun ShowAlertDialogLogin(
 
                     Spacer(modifier = Modifier.padding(15.dp))
 
-                    ResponseLogin(loginRegisterViewModel, buttonText)
+                    ResponseLogin(loginRegisterViewModel, buttonText, activityKiller)
 
                     Spacer(modifier = Modifier.padding(10.dp))
 
@@ -101,17 +105,30 @@ fun ShowAlertDialogLogin(
 }
 
 @Composable
-fun ResponseLogin(loginRegisterViewModel: LoginRegisterViewModel, buttonText: MutableState<String>) {
+fun ResponseLogin(
+    loginRegisterViewModel: LoginRegisterViewModel,
+    buttonText: MutableState<String>,
+    activityKiller: () -> Unit
+) {
     if (loginRegisterViewModel.currentClientResponse._id == "Error") {
-
+        loginIntents--
         Text(
             text = "Login Incorrecto",
             color = Color.Black,
             fontWeight = FontWeight.Bold,
             fontSize = 25.sp
         )
+        Spacer(modifier = Modifier.padding(5.dp))
+        Text(
+            text = "Intentos Restantes: $loginIntents",
+            color = Color.Red,
+            fontWeight = FontWeight.Bold,
+            fontSize = 15.sp
+        )
         buttonText.value = "BACK"
         Logger.e("Error, la respuesta no se ha cargado bien / Login Incorrecto")
+
+        if(loginIntents == 0) { activityKiller() }
 
     } else {
         Text(

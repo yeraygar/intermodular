@@ -25,13 +25,15 @@ import inter.intermodular.view_models.LoginRegisterViewModel
 
 class MainActivity : ComponentActivity() {
 
-    private val userViewModel by viewModels<UserViewModel>()
+    private val userViewModel by viewModels<UserViewModel>() //renombrar a map view model
     private val loginRegisterViewModel by viewModels<LoginRegisterViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         Logger.addLogAdapter(AndroidLogAdapter())
+
+        val activityKiller : () -> Unit = {this.finish()}
 
         setContent {
 
@@ -66,7 +68,7 @@ class MainActivity : ComponentActivity() {
                             }
                         )
                     ){
-                        ValidateLoginScreen(loginRegisterViewModel = loginRegisterViewModel, navController = navController)
+                        ValidateLoginScreen(loginRegisterViewModel = loginRegisterViewModel, navController = navController, activityKiller = activityKiller)
                         BackHandler(true) {
                             Toast.makeText(applicationContext, "BackButton Deshabilitado en el MAIN", Toast.LENGTH_SHORT).show()
                         }
