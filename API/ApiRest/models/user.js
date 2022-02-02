@@ -16,10 +16,10 @@ const userSchema = mongoose.Schema({
         type:String,
         required: true
     },
-    rol:{
+    rol:{ //Standard o Admin
         type:String,
         required: false,
-        default: "Empleado"
+        default: "Standard"
     },
     active:{
         type:Boolean,

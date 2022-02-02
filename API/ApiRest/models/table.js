@@ -34,8 +34,6 @@ const tableSchema = mongoose.Schema({
     id_user:{
         type:String,
         required:false
-    }
-    //falta cuenta [array de productos]
-   
+    }   
 })
 module.exports = mongoose.model('Table', tableSchema);
