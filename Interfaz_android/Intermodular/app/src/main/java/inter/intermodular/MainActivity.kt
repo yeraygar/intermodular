@@ -95,7 +95,7 @@ class MainActivity : ComponentActivity() {
                     ){
                         BackHandler(false) {
                             // TODO NO SE MUESTRA! (hay que pasarle el contexto de Login)
-                            Toast.makeText(applicationContext, "BackButton Habilitado en Register", Toast.LENGTH_SHORT).show()
+                            //Toast.makeText(applicationContext, "BackButton Habilitado en Register", Toast.LENGTH_SHORT).show()
                         }
                         Register(navController = navController, clientViewModel = clientViewModel)
                     }

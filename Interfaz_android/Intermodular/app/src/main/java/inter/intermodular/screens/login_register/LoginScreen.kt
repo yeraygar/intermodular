@@ -3,13 +3,22 @@ package inter.intermodular.screens.login_register
 import androidx.compose.animation.expandHorizontally
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Email
+import androidx.compose.material.icons.filled.Visibility
+import androidx.compose.material.icons.filled.VisibilityOff
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.colorResource
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.text.input.PasswordVisualTransformation
+import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
@@ -23,6 +32,9 @@ fun Login(navController: NavController, clientViewModel: ClientViewModel){
 
     var email = remember { mutableStateOf("") }
     var password = remember { mutableStateOf("") }
+
+    var passwordVisibility by remember { mutableStateOf(false) }
+
     Column(
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -31,33 +43,69 @@ fun Login(navController: NavController, clientViewModel: ClientViewModel){
             .padding(horizontal = 50.dp)
 
     ){
-        Spacer(modifier = Modifier.height(18.dp))
+
+        Spacer(modifier = Modifier.height(5.dp))
+
         Text(
             text ="LOGIN SCREEN",
             fontSize = 20.sp,
             fontWeight = FontWeight.ExtraBold,
             modifier = Modifier.align(Alignment.CenterHorizontally)
         )
+
         Spacer(modifier = Modifier.height(30.dp))
+
         OutlinedTextField(
             value = email.value,
             onValueChange = { email.value = it },
-            label = { Text(text = "Email Address") },
-            placeholder = { Text(text = "Email Address") },
+            label = { Text(text = "Email", style = TextStyle(
+                color = colorResource(id = R.color.gris_claro)),) },
+            placeholder = { Text(text = "Email",style = TextStyle(
+                color = colorResource(id = R.color.gris_claro)),) },
             singleLine = true,
-            modifier = Modifier.fillMaxWidth()
+            trailingIcon = {
+                val image = Icons.Filled.Email
+                Icon(imageVector = image, "")
+            },
+            colors = TextFieldDefaults.outlinedTextFieldColors(
+                focusedBorderColor = colorResource(id = R.color.azul_oscuro),
+                unfocusedBorderColor = colorResource(id = R.color.gris_claro),
+                focusedLabelColor = colorResource(id = R.color.azul_oscuro),
+                unfocusedLabelColor = colorResource(id = R.color.gris_claro),
+                cursorColor = colorResource(id = R.color.azul)
+            ),
+            modifier = Modifier.fillMaxWidth(),
         )
+
         Spacer(modifier = Modifier.height(18.dp))
+
         OutlinedTextField(
             value = password.value,
             onValueChange = { password.value = it },
-            label = { Text(text = "Password") },
-            placeholder = { Text(text = "Password") },
+            label = { Text(text = "Password", style = TextStyle(
+                color = colorResource(id = R.color.gris_claro)),) },
+            placeholder = { Text(text = "Password",style = TextStyle(
+                color = colorResource(id = R.color.gris_claro)),) },
             singleLine = true,
-            modifier = Modifier.fillMaxWidth()
+            visualTransformation = if (passwordVisibility) VisualTransformation.None else PasswordVisualTransformation(),
+            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
+            trailingIcon = {
+                val image = if (passwordVisibility) Icons.Filled.Visibility else Icons.Filled.VisibilityOff
+                IconButton(onClick = { passwordVisibility = !passwordVisibility }
+                ) { Icon(imageVector  = image, "") }
+            },
+            colors = TextFieldDefaults.outlinedTextFieldColors(
+                focusedBorderColor = colorResource(id = R.color.azul_oscuro),
+                unfocusedBorderColor = colorResource(id = R.color.gris_claro),
+                focusedLabelColor = colorResource(id = R.color.azul_oscuro),
+                unfocusedLabelColor = colorResource(id = R.color.gris_claro),
+                cursorColor = colorResource(id = R.color.azul)
+            ),
+            modifier = Modifier.fillMaxWidth(),
         )
 
         Spacer(modifier = Modifier.height(40.dp))
+
         Button(
             onClick = {
                 if(email.value.isNullOrEmpty() || password.value.isNullOrEmpty()){
@@ -79,7 +127,9 @@ fun Login(navController: NavController, clientViewModel: ClientViewModel){
                 color = Color.White
             )
         }
-        Spacer(modifier = Modifier.height(20.dp))
+
+        Spacer(modifier = Modifier.height(30.dp))
+
         Button(
             onClick = {
                 navController.navigate(ScreenNav.RegisterScreen.route)
