@@ -93,7 +93,7 @@ fun ShowAlertDialogLogin(
                         shape = RoundedCornerShape(5.dp),
                     ) {
                         Text(
-                            text = "Close",
+                            text = buttonText.value,
                             color = Color.White,
                             fontSize = 12.sp
                         )
