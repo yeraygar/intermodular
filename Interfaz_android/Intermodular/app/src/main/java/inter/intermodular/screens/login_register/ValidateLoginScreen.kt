@@ -94,16 +94,6 @@ fun ShowAlertDialogLogin(
 
                     Spacer(modifier = Modifier.padding(10.dp))
                     responseLogin(clientViewModel)
-                    
-
-                    OutlinedTextField(
-                        value = emailVal.value,
-                        onValueChange = { emailVal.value = it },
-                        label = { Text(text = "Email Address") },
-                        placeholder = { Text(text = "Email Address") },
-                        singleLine = true,
-                        modifier = Modifier.fillMaxWidth(0.8f)
-                    )
 
                     Spacer(modifier = Modifier.padding(10.dp))
 

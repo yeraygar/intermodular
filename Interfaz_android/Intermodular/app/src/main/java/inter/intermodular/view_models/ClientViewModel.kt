@@ -24,14 +24,16 @@ class ClientViewModel : ViewModel() {
 
     fun checkEmail(email : String){
         viewModelScope.launch {
-            val apiServices = ApiServices.getInstance()
-            try{
-                emailExistsResponse = apiServices.checkEmail(email)
-                Logger.i("CORRECT checkEmail $email, $emailExistsResponse")
+            withContext(Dispatchers.IO){
+                val apiServices = ApiServices.getInstance()
+                try{
+                    emailExistsResponse = apiServices.checkEmail(email)
+                    Logger.i("CORRECT checkEmail $email, $emailExistsResponse")
 
-            }catch (e: Exception){
-                errorMessage = e.message.toString()
-                Logger.e("FAILURE checkEmail $email, $emailExistsResponse")
+                }catch (e: Exception){
+                    errorMessage = e.message.toString()
+                    Logger.e("FAILURE checkEmail $email, $emailExistsResponse")
+                }
             }
         }
     }

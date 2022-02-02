@@ -15,6 +15,8 @@ import inter.intermodular.view_models.UserViewModel
 import com.orhanobut.logger.AndroidLogAdapter
 import com.orhanobut.logger.Logger
 import inter.intermodular.screens.*
+import inter.intermodular.screens.login_register.Login
+import inter.intermodular.screens.login_register.Register
 import inter.intermodular.ui.theme.IntermodularTheme
 import inter.intermodular.view_models.ClientViewModel
 

@@ -1,79 +1,107 @@
-package inter.intermodular.screens
+package inter.intermodular.screens.login_register
 
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.Button
-import androidx.compose.material.Text
-import androidx.compose.material.TextField
+import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Visibility
+import androidx.compose.material.icons.filled.VisibilityOff
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.colorResource
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.text.input.PasswordVisualTransformation
+import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.orhanobut.logger.Logger
+import inter.intermodular.R
 import inter.intermodular.ScreenNav
 import inter.intermodular.view_models.ClientViewModel
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.launch
 
 @Composable
 fun Register(navController: NavController, clientViewModel: ClientViewModel){
 
-    var email by remember { mutableStateOf("")}
-    var password1 by remember { mutableStateOf("")}
-    var password2 by remember { mutableStateOf("")}
+    var email = remember { mutableStateOf("")}
+    var password1 = remember { mutableStateOf("")}
+    var password2 = remember { mutableStateOf("")}
+    var passwordVisibility by remember { mutableStateOf(false) }
 
-    val scope = rememberCoroutineScope() //CREO QUE INNECESARIO -> DEJAR COMO EL LOGIN
 
     Column(
         verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally,
         modifier = Modifier
-            .fillMaxWidth()
+            .fillMaxSize()
             .padding(horizontal = 50.dp)
     ){
         Spacer(modifier = Modifier.height(18.dp))
         Text(text = "REGISTER SCREEN", modifier = Modifier.align(Alignment.CenterHorizontally)  )
         Spacer(modifier = Modifier.height(18.dp))
-        Text(text = "Email: ")
-        TextField(value = email, onValueChange = {
-            email = it
-        },
+        OutlinedTextField(
+            value = email.value,
+            onValueChange = { email.value = it },
+            label = { Text(text = "Email Address") },
+            placeholder = { Text(text = "Email Address") },
+            singleLine = true,
             modifier = Modifier.fillMaxWidth()
         )
+
         Spacer(modifier = Modifier.height(18.dp))
-        Text(text = "Password: ")
-        TextField(value = password1, onValueChange = {
-            password1 = it
-        },
-            modifier = Modifier.fillMaxWidth()
+        OutlinedTextField(
+            value = password1.value,
+            onValueChange = { password1.value = it },
+            label = { Text(text = "Password", style = TextStyle(
+                color = colorResource(id = R.color.azul_oscuro)),) },
+            placeholder = { Text(text = "Password",style = TextStyle(
+                color = colorResource(id = R.color.gris_claro)),) },
+            singleLine = true,
+            visualTransformation = if (passwordVisibility) VisualTransformation.None else PasswordVisualTransformation(),
+            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
+            trailingIcon = {
+                val image = if (passwordVisibility) Icons.Filled.Visibility else Icons.Filled.VisibilityOff
+                IconButton(onClick = { passwordVisibility = !passwordVisibility }
+                ) {
+                    Icon(imageVector  = image, "")
+                }
+            },
+            colors = TextFieldDefaults.outlinedTextFieldColors(
+                focusedBorderColor = colorResource(id = R.color.azul_oscuro)),
+
+            modifier = Modifier.fillMaxWidth(),
+
         )
+
         Spacer(modifier = Modifier.height(18.dp))
-        Text(text = "Repeat Password: ")
-        TextField(value = password2, onValueChange = {
-            password2 = it
-        },
+        OutlinedTextField(
+            value = password2.value,
+            onValueChange = { password2.value = it },
+            label = { Text(text = "Repeat Password") },
+            placeholder = { Text(text = "Repeat Password") },
+            singleLine = true,
             modifier = Modifier.fillMaxWidth()
         )
-        Spacer(modifier = Modifier.height(58.dp))
+        Spacer(modifier = Modifier.height(40.dp))
         Button(
             onClick = {
-                if(email.isNullOrEmpty()){
-                    //TODO nombre no valido
+                if(email.value.isNullOrEmpty() || password1.value.isNullOrEmpty() || password2.value.isNullOrEmpty()){
+                    //TODO nombre o passwords vacios
                     Logger.e("Email or password Register is null or empty")
                 }else{
-                    //clientViewModel.viewModelScope.launch {  TODA LA MOVIDA ESTA PARA ARREGLAR, CREAR REGISTER VALIDATION SCRREN
-                    scope.launch {
-                        //clientViewModel.checkEmail(text)
-                        // checkEmail(clientViewModel = clientViewModel, text = text, navController = navController, scope = scope)
-                        clientViewModel.checkEmail(email)
-                        navController.navigate(ScreenNav.ValidateRegisterScreen.withArgs(email))
-
-                        //TODO VALIDATE REGISTER SCREEN
-
+                    if(password1.value == password2.value){
+                        clientViewModel.checkEmail(email.value)
+                        navController.navigate(ScreenNav.ValidateRegisterScreen.withArgs(email.value))
                     }
                 }
             },
-            modifier = Modifier.fillMaxWidth().height(50.dp)
-        ){
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(50.dp),
+            colors = ButtonDefaults.buttonColors(backgroundColor = colorResource(id = R.color.azul)),
+
+            ){
             Text(text = "REGISTER")
         }
         Spacer(modifier = Modifier.height(20.dp))
@@ -83,22 +111,23 @@ fun Register(navController: NavController, clientViewModel: ClientViewModel){
                     //Nav options
                 }
             },
-            modifier = Modifier.fillMaxWidth().height(50.dp)
-        ){
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(50.dp),
+            colors = ButtonDefaults.buttonColors(backgroundColor = colorResource(R.color.azul)),
+            ){
             Text(text = "To Login")
         }
     }
 }
 
 
-private suspend fun checkEmail(
+/*private suspend fun checkEmail(
     clientViewModel: ClientViewModel,
     text: String,
     navController: NavController,
     scope: CoroutineScope
 ) {
-    //GlobalScope.launch(Dispatchers.IO) {
-    scope.launch {
 
         clientViewModel.checkEmail(text)
         if (clientViewModel.emailExistsResponse) {
@@ -107,6 +136,6 @@ private suspend fun checkEmail(
             navController.navigate(ScreenNav.MainScreen.withArgs(text))
             Logger.i("Unique email: $text, ${clientViewModel.emailExistsResponse}")
         }
-    }
-}
+    }*/
+
 
