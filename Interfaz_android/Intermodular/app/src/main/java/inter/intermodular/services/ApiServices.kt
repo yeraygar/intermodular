@@ -2,12 +2,12 @@ package inter.intermodular.services
 
 import com.orhanobut.logger.Logger
 import inter.intermodular.models.ClientModel
+import inter.intermodular.models.ClientPost
 import inter.intermodular.models.UserModel
+import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import retrofit2.http.GET
-import retrofit2.http.Headers
-import retrofit2.http.Path
+import retrofit2.http.*
 
 interface ApiServices {
 
@@ -18,19 +18,20 @@ interface ApiServices {
             if(apiServices == null){
 
                 /**TODO CADA UNO TIENE QUE PONER SU IP LOCAL DONDE CORRE LA API*/
-                                /**cmd -> ipconfig -> IPv4Adress*/
+                                /**cmd -> ipconfig -> IPv4Address*/
 
-                val adress : Array<String> = arrayOf("http://192.168.56.1:8081/api/", "Pablo")
-                //val adress : Array<String> = arrayOf("http://xxxxxxxxxx:8081/api/", "Yeray")
-                //val adress : Array<String> = arrayOf("http://xxxxxxxxxx:8081/api/", "Maria")
+                val address : Array<String> = arrayOf("http://192.168.56.1:8081/api/", "Pablo")
+                //val address : Array<String> = arrayOf("http://xxxxxxxxxx:8081/api/", "Yeray")
+                //val address : Array<String> = arrayOf("http://xxxxxxxxxx:8081/api/", "Maria")
 
                 apiServices = Retrofit.Builder()
-                    .baseUrl(adress[0])
+                    .baseUrl(address[0])
+                   // .addConverterFactory(ScalarsConverterFactory.create)
                     .addConverterFactory(GsonConverterFactory.create())
                     .build()
                     .create(ApiServices::class.java)
 
-                Logger.w("Conectado a la API, ${adress[0]}; IP de ${adress[1]}")
+                Logger.w("Conectado a la API, ${address[0]}; IP de ${address[1]}")
             }
             return apiServices!!
         }
@@ -68,5 +69,9 @@ interface ApiServices {
         @Path("passwEncrypt") passwEncrypt: String
     ) :List<ClientModel>
 
+    @POST("client")
+    suspend fun createClient(
+        @Body client : ClientPost
+    ) : Response<ClientModel>
 
 }
