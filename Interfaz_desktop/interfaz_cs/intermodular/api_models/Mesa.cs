@@ -16,6 +16,7 @@ namespace intermodular
         public string name { get; set; }
         public bool status { get; set; }
         public string id_zone { get; set; }
+        public string id_client { get; set; }
         public int comensales { get; set; }
         public int comensalesMax { get; set; }
         public string id_user { get; set; }
@@ -23,8 +24,7 @@ namespace intermodular
         public int num_column { get; set; }
 
 
-        //falta public string List<Producto> cuenta {get; set;}
-
+        public static Mesa currentMesa;
         public static List<Mesa> currentZoneTables;
 
 
@@ -36,6 +36,7 @@ namespace intermodular
             this.status = status;
             this.comensalesMax = comensalesMax;
             this.id_zone = id_zone;
+            this.id_client = Client.currentClient._id;
         }
 
 
@@ -117,8 +118,6 @@ namespace intermodular
                 var result = await httpResponse.Content.ReadAsStringAsync();
                 return true;
 
-                Console.WriteLine($"Usuario actualizado correctamente {result}");
-
             }
             else
             {
@@ -171,13 +170,10 @@ namespace intermodular
             // Si no necesitamos hacer nada mientras se puede hacer del tiron
             // deteniendo el hilo principal:
             // var httpResponse = await client.GetAsync(url);
-            Console.WriteLine("peticion en curso");
 
             //Detenemos el hilo principal hasta que recibamos la respuesta
             await httpResponse;
 
-            //ambos Return true si la peticion se ha realizado correctamente.
-            Console.WriteLine($"Peticion realizada con exito? : {httpResponse.Result.IsSuccessStatusCode}");
 
             if (httpResponse.Result.IsSuccessStatusCode)
             {
@@ -207,6 +203,9 @@ namespace intermodular
                 var result = await httpResponse.Content.ReadAsStringAsync();
             }
         }
+
+
+        //TODO get all zones from client
 
 
     }

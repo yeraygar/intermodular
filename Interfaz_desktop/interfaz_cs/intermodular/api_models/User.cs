@@ -6,6 +6,7 @@ using System.Net.Http;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
+
 namespace intermodular
 {
     public class User
@@ -44,15 +45,10 @@ namespace intermodular
             this.name = name;
             this.email = email;
             this.passw = passw;
-            this.id_client = id_client;
+            this.id_client = Client.currentClient._id;
             this.active = active;
             this.rol = rol;
-
         }
-
-        public User() { }
-
-
 
         /// <summary>
         /// Async Static Method, carga todos los usuarios 
@@ -71,13 +67,9 @@ namespace intermodular
             // Si no necesitamos hacer nada mientras se puede hacer del tiron
             // deteniendo el hilo principal:
             // var httpResponse = await client.GetAsync(url);
-            Console.WriteLine("peticion en curso");
 
             //Detenemos el hilo principal hasta que recibamos la respuesta
             await httpResponse;
-
-            //ambos Return true si la peticion se ha realizado correctamente.
-            Console.WriteLine($"Peticion realizada con exito? : {httpResponse.Result.IsSuccessStatusCode}");
 
             if (httpResponse.Result.IsSuccessStatusCode)
             {
@@ -110,13 +102,9 @@ namespace intermodular
             // Si no necesitamos hacer nada mientras se puede hacer del tiron
             // deteniendo el hilo principal:
             // var httpResponse = await client.GetAsync(url);
-            Console.WriteLine("peticion en curso");
 
             //Detenemos el hilo principal hasta que recibamos la respuesta
             await httpResponse;
-
-            //ambos Return true si la peticion se ha realizado correctamente.
-            Console.WriteLine($"Peticion realizada con exito? : {httpResponse.Result.IsSuccessStatusCode}");
 
             if (httpResponse.Result.IsSuccessStatusCode)
             {
@@ -164,8 +152,6 @@ namespace intermodular
                 //Leemos resultado del Body(Contenido) pero tambien podemos ver los Headers o las Cookies
                 var postResult = JsonSerializer.Deserialize<User>(result);
 
-                Console.WriteLine($"Usuario creado correctamente\n\tname: {postResult.name},\n\temail: {postResult.email} _id: {postResult._id}");
-
             }
         }
 
@@ -202,8 +188,6 @@ namespace intermodular
                 //Guardamos la respuesta
                 var result = await httpResponse.Content.ReadAsStringAsync();
 
-                Console.WriteLine($"Usuario actualizado correctamente {result}");
-
             }
         }
 
@@ -227,8 +211,6 @@ namespace intermodular
             {
                 //Guardamos la respuesta
                 var result = await httpResponse.Content.ReadAsStringAsync();
-
-                Console.WriteLine($"Usuario eliminado correctamente {result}");
 
             }
         }
@@ -279,13 +261,9 @@ namespace intermodular
             // Si no necesitamos hacer nada mientras se puede hacer del tiron
             // deteniendo el hilo principal:
             // var httpResponse = await client.GetAsync(url);
-            Console.WriteLine("peticion en curso");
 
             //Detenemos el hilo principal hasta que recibamos la respuesta
             await httpResponse;
-
-            //ambos Return true si la peticion se ha realizado correctamente.
-            Console.WriteLine($"Peticion realizada con exito? : {httpResponse.Result.IsSuccessStatusCode}");
 
             if (httpResponse.Result.IsSuccessStatusCode)
             {
