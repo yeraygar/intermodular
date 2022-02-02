@@ -110,6 +110,8 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="api_models\Client.cs" />
+    <Compile Include="api_models\Familia.cs" />
+    <Compile Include="api_models\Ticket.cs" />
     <Compile Include="support\Colores.cs" />
     <Compile Include="support\Encrypt.cs" />
     <Compile Include="support\RatioConverter.cs" />

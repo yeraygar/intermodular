@@ -18,7 +18,7 @@ const productSchema = mongoose.Schema({
     total:{
         type: Number,
         required: false,
-        default: cantidad * precio
+        default: 0.0 // cantidad * precio
     },
     id_client:{
         type: String,
