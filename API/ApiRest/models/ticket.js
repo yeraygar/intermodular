@@ -8,13 +8,21 @@ const ticketSchema = mongoose.Schema({
     },
     tipo_ticket:{ //Efectivo o Tarjeta
         type:String,
-        required: true 
+        required: false
     },
-    id_user:{
+    id_user_que_abrio:{
         type: String,
         required: true,
     },
+    id_user_que_cerro:{
+        type: String,
+        required: false,
+    },
     id_client:{
+        type: String,
+        required: true
+    },
+    id_table:{
         type: String,
         required: true
     },

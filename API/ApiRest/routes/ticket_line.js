@@ -64,33 +64,18 @@ router.delete("/ticket_line/:id", (req, res) => {
         })
 })
 
-//Get all ticket_line from a client
-router.get("/ticket_line/client/:id_client", (req, res) => {
-    const {id_client} = req.params;
+//Get all ticket_line from a Ticket
+router.get("/ticket_line/ticket/:id_ticket", (req, res) => {
+    const {id_ticket} = req.params;
     ticketLineSchema
-        .find({id_client: id_client})
+        .find({id_ticket: id_ticket})
         .then((data) =>{
             res.json(data);
             console.log(`\nticket_line: \n ${data}`);
         })
         .catch((err) => {
             res.json({message:err});
-            console.log(`Error get /api/ticket_line/client/${id} : ${err}`);
-        })
-})
-
-//Get all ticket_line from a family
-router.get("/ticket_line/family/:id_familia", (req, res) => {
-    const {id_familia} = req.params;
-    ticketLineSchema
-        .find({id_familia: id_familia})
-        .then((data) =>{
-            res.json(data);
-            console.log(`\nticket_line: \n ${data}`);
-        })
-        .catch((err) => {
-            res.json({message:err});
-            console.log(`Error get /api/ticket_line/client/${id} : ${err}`);
+            console.log(`Error get /api/ticket_line/ticket/${id} : ${err}`);
         })
 })
 
