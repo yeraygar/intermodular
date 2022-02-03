@@ -71,6 +71,7 @@
                         <Image x:Name="imgNombre" Width="30" Height="30" HorizontalAlignment="Left" VerticalAlignment="top" Source="/intermodular;component/images/verify.png" Margin="495,45,0,0" Visibility="Hidden" RenderOptions.BitmapScalingMode="HighQuality"/>
                         <Image x:Name="imgEmail" Width="30" Height="30" HorizontalAlignment="Left" VerticalAlignment="top" Source="/intermodular;component/images/verify.png" Margin="495,104,0,0" Visibility="Hidden" RenderOptions.BitmapScalingMode="HighQuality"/>
                         <Image x:Name="imgPass" Width="30" Height="30" HorizontalAlignment="Left" VerticalAlignment="top" Source="/intermodular;component/images/verify.png" Margin="495,164,0,0" Visibility="Hidden" RenderOptions.BitmapScalingMode="HighQuality"/>
+                        <Image x:Name="imgRol" Width="30" Height="30" HorizontalAlignment="Left" VerticalAlignment="top" Source="/intermodular;component/images/verify.png" RenderOptions.BitmapScalingMode="HighQuality" Margin="325,222,0,0"/>
                     </Grid>
                     <Grid Grid.Row="1">
                         <Grid.ColumnDefinitions>
