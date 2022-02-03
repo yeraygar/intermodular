@@ -73,6 +73,7 @@ namespace intermodular
                                 txtAyuda.Visibility = Visibility.Hidden;
                                 imgEditNombreZona.Source = (ImageSource)new ImageSourceConverter().ConvertFrom("..\\..\\images\\pencil.png");
                                 imgEditNombreZona.Visibility = Visibility.Visible;
+                                txtEditarNombreZona.Tag = z.zone_name;
                                 txtEditarNombreZona.Text = z.zone_name;
                                 txtEditarNombreZona.IsEnabled = false;
                                 btnCancelar.Visibility = Visibility.Hidden;
@@ -146,6 +147,7 @@ namespace intermodular
             btnEditarZona.IsEnabled = false;
             btnEditarZona.Visibility = Visibility.Hidden;
             txtAyuda.Visibility = Visibility.Visible;
+            txtEditarNombreZona.Tag = "";
             txtEditarNombreZona.Text = "";
             txtEditarNombreZona.IsEnabled = false;
             imgEditNombreZona.Visibility = Visibility.Hidden;
@@ -171,6 +173,7 @@ namespace intermodular
                     txtAyuda.Visibility = Visibility.Hidden;
                     imgEditNombreZona.Source = (ImageSource)new ImageSourceConverter().ConvertFrom("..\\..\\images\\pencil.png");
                     imgEditNombreZona.Visibility = Visibility.Visible;
+                    txtEditarNombreZona.Tag = crearzona.zona.zone_name;
                     txtEditarNombreZona.Text = crearzona.zona.zone_name;
                     txtEditarNombreZona.IsEnabled = false;
                     btnCancelar.Visibility = Visibility.Hidden;
@@ -207,11 +210,15 @@ namespace intermodular
                 btn.Background = (Brush)(new BrushConverter().ConvertFrom("#3b7a7a"));
                 btn.Foreground = Brushes.White;
                 txtAyuda.Visibility = Visibility.Hidden;
+                txtEditarNombreZona.Tag = zonaSelect.zone_name;
                 txtEditarNombreZona.Text = zonaSelect.zone_name;
-
                 imgEditNombreZona.Source = (ImageSource)new ImageSourceConverter().ConvertFrom("..\\..\\images\\pencil.png");
                 imgEditNombreZona.Visibility = Visibility.Visible;
                 btnEliminarZona.Visibility = Visibility.Visible;
+                btnEditarZona.Visibility = Visibility.Hidden;
+                btnCancelar.Visibility = Visibility.Hidden;
+                btnEditarZona.IsEnabled = false;
+                btnCancelar.IsEnabled = false;
             }
         }
 
@@ -310,12 +317,17 @@ namespace intermodular
 
         private void txtEditarNombreZona_TextChanged(object sender, TextChangedEventArgs e)
         {
-            if(zonaSelect != null && txtEditarNombreZona.Text != zonaSelect.zone_name)
+            if(txtEditarNombreZona.Tag != null)
             {
-                btnCancelar.Visibility = Visibility.Visible;
-                btnEditarZona.Visibility = Visibility.Visible;
-                btnCancelar.IsEnabled = true;
-                btnEditarZona.IsEnabled = true;
+                if(!txtEditarNombreZona.Text.Equals(txtEditarNombreZona.Tag))
+                {
+                    btnCancelar.Visibility = Visibility.Visible;
+                    btnEditarZona.Visibility = Visibility.Visible;
+                    btnCancelar.IsEnabled = true;
+                    btnEditarZona.IsEnabled = true;
+                    imgEditNombreZona.Visibility = Visibility.Visible;
+                    imgEditNombreZona.Source = validZoneName(txtEditarNombreZona.Text) ? (ImageSource)new ImageSourceConverter().ConvertFrom("..\\..\\images\\verify.png") : (ImageSource)new ImageSourceConverter().ConvertFrom("..\\..\\images\\error.png");
+                }
             }
         }
 
@@ -371,34 +383,8 @@ namespace intermodular
            
         }
 
-        private bool isInteger(string value)
-        {
-            try
-            {
-                int.Parse(value);
-                return true;
-            }catch(Exception e)
-            {
-                return false;
-            }
-        }
-
         private bool validZoneName(string zoneName) => !String.IsNullOrEmpty(zoneName) && !String.IsNullOrWhiteSpace(zoneName);
 
-
-        private void txtEditarNombreZona_LostFocus(object sender, RoutedEventArgs e)
-        {
-            if(validZoneName(txtEditarNombreZona.Text)) {
-                imgEditNombreZona.Source = (ImageSource)new ImageSourceConverter().ConvertFrom("..\\..\\images\\verify.png");
-                imgEditNombreZona.Visibility = Visibility.Visible;
-                imgEditNombreZona.ToolTip = null;
-            }else
-            {
-                imgEditNombreZona.Source = (ImageSource)new ImageSourceConverter().ConvertFrom("..\\..\\images\\error.png");
-                imgEditNombreZona.Visibility = Visibility.Visible;
-                imgEditNombreZona.ToolTip = "Debe introducir un nombre de zona válido";
-            }
-        }
 
 
         private void btns_MouseEnter(object sender, MouseEventArgs e)

@@ -124,6 +124,9 @@
     <Compile Include="views\Comensales.xaml.cs">
       <DependentUpon>Comensales.xaml</DependentUpon>
     </Compile>
+    <Compile Include="views\CrearEmpleado.xaml.cs">
+      <DependentUpon>CrearEmpleado.xaml</DependentUpon>
+    </Compile>
     <Compile Include="views\CrearMesa.xaml.cs">
       <DependentUpon>CrearMesa.xaml</DependentUpon>
     </Compile>
@@ -157,6 +160,9 @@
     <Compile Include="views\Teclado.xaml.cs">
       <DependentUpon>Teclado.xaml</DependentUpon>
     </Compile>
+    <Compile Include="views\VistaEmpleados.xaml.cs">
+      <DependentUpon>VistaEmpleados.xaml</DependentUpon>
+    </Compile>
     <Compile Include="views\Zonas.xaml.cs">
       <DependentUpon>Zonas.xaml</DependentUpon>
     </Compile>
@@ -169,6 +175,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="views\Comensales.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="views\CrearEmpleado.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -217,6 +227,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="views\Registro.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="views\VistaEmpleados.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -362,6 +376,10 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="images\monedas.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="images\eye.png" />
+    <Resource Include="images\eye_closed.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\System.Text.Json.6.0.1\build\System.Text.Json.targets" Condition="Exists('..\packages\System.Text.Json.6.0.1\build\System.Text.Json.targets')" />

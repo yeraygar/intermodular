@@ -37,7 +37,7 @@
                     </Grid.RowDefinitions>
                     <Grid>
                         <TextBlock Margin="60,70,0,0" TextWrapping="Wrap" Text="Nombre de la zona" VerticalAlignment="Top" HorizontalAlignment="Left" FontSize="19"/>
-                        <TextBox x:Name="txtZona" HorizontalAlignment="Left" Margin="250,70,0,0" TextWrapping="NoWrap" VerticalAlignment="Top" Width="260" FontSize="19" LostFocus="txtZona_LostFocus"/>
+                        <TextBox x:Name="txtZona" HorizontalAlignment="Left" Margin="250,70,0,0" TextWrapping="NoWrap" VerticalAlignment="Top" Width="260" FontSize="19" TextChanged="txtZona_TextChanged"/>
                         <Image x:Name="imgValidZoneName" Width="30" Height="30" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="520,69,0,0" Source="/intermodular;component/images/verify.png" RenderOptions.BitmapScalingMode="HighQuality" Visibility="Hidden"/>
                     </Grid>
                     <Grid Grid.Row="1">

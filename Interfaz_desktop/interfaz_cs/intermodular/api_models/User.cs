@@ -124,7 +124,7 @@ namespace intermodular
         /// MongoDB con <b>_id</b> autogenerado
         /// <return>Void</return>
         /// </summary>
-        public static async Task createUser(User user)
+        public static async Task<User> createUser(User user)
         {
             HttpClient client = new HttpClient();
             string url = "http://localhost:8081/api/users";
@@ -151,7 +151,13 @@ namespace intermodular
 
                 //Leemos resultado del Body(Contenido) pero tambien podemos ver los Headers o las Cookies
                 var postResult = JsonSerializer.Deserialize<User>(result);
+                return postResult;
 
+                Console.WriteLine($"Usuario creado correctamente\n\tname: {postResult.name},\n\temail: {postResult.email} _id: {postResult._id}");
+
+            }else
+            {
+                return null;
             }
         }
 
@@ -161,7 +167,7 @@ namespace intermodular
         ///  actualiza en MongoDB donde id = _id (unica)
         /// <return>Void</return>
         /// </summary>
-        public static async Task updateUser(string id, User user)
+        public static async Task<bool> updateUser(string id, User user)
         {
             HttpClient client = new HttpClient();
             string url = "http://localhost:8081/api/users";
@@ -187,7 +193,12 @@ namespace intermodular
             {
                 //Guardamos la respuesta
                 var result = await httpResponse.Content.ReadAsStringAsync();
+                return true;
 
+            }
+            else
+            {
+                return false;
             }
         }
 
@@ -197,7 +208,7 @@ namespace intermodular
         ///  donde id = _id (unica)
         /// <returns>Void</returns>
         /// </summary>
-        public static async Task deleteUser(string id)
+        public static async Task<bool> deleteUser(string id)
         {
             HttpClient client = new HttpClient();
             string url = "http://localhost:8081/api/users";
@@ -212,6 +223,13 @@ namespace intermodular
                 //Guardamos la respuesta
                 var result = await httpResponse.Content.ReadAsStringAsync();
 
+                Console.WriteLine($"Usuario eliminado correctamente {result}");
+                return true;
+
+            }
+            else
+            {
+                return false;
             }
         }
 

@@ -84,7 +84,7 @@
                         <TextBlock x:Name="txt_zonas" Grid.Row="1" HorizontalAlignment="Center" Padding="5" FontSize="20">Zonas</TextBlock>
                     </Grid>
                 </Button>
-                <Button x:Name="btn_empleados" Width="260" Height="150" Style="{StaticResource btnRedondo}" Grid.Row="2" Grid.Column="2" MouseEnter="btn_empleados_MouseEnter" MouseLeave="btn_empleados_MouseLeave" Cursor="Hand">
+                <Button x:Name="btn_empleados" Width="260" Height="150" Style="{StaticResource btnRedondo}" Grid.Row="2" Grid.Column="2" MouseEnter="btn_empleados_MouseEnter" MouseLeave="btn_empleados_MouseLeave" Cursor="Hand" Click="btn_empleados_Click">
                     <Grid>
                         <Grid.RowDefinitions>
                             <RowDefinition Height="2*"/>

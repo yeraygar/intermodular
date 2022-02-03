@@ -39,10 +39,10 @@
                     </Grid.RowDefinitions>
                     <Grid>
                         <TextBlock Margin="60,70,0,0" TextWrapping="Wrap" Text="Nombre de la Mesa" VerticalAlignment="Top" HorizontalAlignment="Left" FontSize="19"/>
-                        <TextBox x:Name="txtMesa" HorizontalAlignment="Left" Margin="270,70,0,0" TextWrapping="NoWrap" VerticalAlignment="Top" Width="130" FontSize="19" LostFocus="txtZona_LostFocus" MaxLength="5"/>
+                        <TextBox x:Name="txtMesa" HorizontalAlignment="Left" Margin="270,70,0,0" TextWrapping="NoWrap" VerticalAlignment="Top" Width="130" FontSize="19" MaxLength="5" TextChanged="txtMesa_TextChanged"/>
                         <Image x:Name="imgValidTableName" Width="30" Height="30" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="410,69,0,0" Source="/intermodular;component/images/verify.png" RenderOptions.BitmapScalingMode="HighQuality" Visibility="Hidden"/>
                         <TextBlock Margin="60,160,0,0" TextWrapping="Wrap" Text="Número de comensales" VerticalAlignment="Top" HorizontalAlignment="Left" FontSize="19" />
-                        <TextBox x:Name="txtNumMesas" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="270,160,0,0" Width="50" FontSize="19" PreviewTextInput="txtNumMesas_PreviewTextInput" LostFocus="txtNumMesas_LostFocus"/>
+                        <TextBox x:Name="txtNumMesas" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="270,160,0,0" Width="50" FontSize="19" PreviewTextInput="txtNumMesas_PreviewTextInput" TextChanged="txtNumMesas_TextChanged"/>
                         <Image x:Name="imgValidNumComensales" Width="30" Height="30" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="330,159,0,0" RenderOptions.BitmapScalingMode="HighQuality" Source="/intermodular;component/images/verify.png" Visibility="Hidden"/>
                     </Grid>
                     <Grid Grid.Row="1">
