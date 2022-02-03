@@ -15,7 +15,7 @@
     
     <Border CornerRadius="10">
         <Border.Background>
-            <ImageBrush ImageSource="..\images\fondo9.jpg"/>
+            <ImageBrush ImageSource="..\images\fondo2.jpg"/>
         </Border.Background>
         <Grid>
             <Grid.RowDefinitions>
@@ -41,19 +41,19 @@
             
                 <StackPanel Grid.Row="1">
                  <Label Content="Nombre" Foreground="White" FontSize="30" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                <TextBox  Height="50" HorizontalAlignment="Center" Name="textBoxNombre" VerticalAlignment="Bottom" Width="300" FontSize="25"/>                
+                <TextBox  PreviewMouseDown="MouseDownContraseña" Height="50" HorizontalAlignment="Center" Name="textBoxNombre" VerticalAlignment="Bottom" Width="300" FontSize="25"/>                
             </StackPanel>
             <StackPanel Grid.Row="2">
                 <Label Content="Email" Foreground="White" FontSize="30" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                <TextBox  Height="50" HorizontalAlignment="Center" Name="textBoxEmail" VerticalAlignment="Bottom" Width="300" FontSize="25"/>
+                <TextBox  PreviewMouseDown="MouseDownContraseña" Height="50" HorizontalAlignment="Center" Name="textBoxEmail" VerticalAlignment="Bottom" Width="300" FontSize="25"/>
             </StackPanel>
             <StackPanel Grid.Row="3">
                 <Label Content="Contraseña" Foreground="White" FontSize="30" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                <PasswordBox  Height="50" HorizontalAlignment="Center" Name="Contraseña" VerticalAlignment="Bottom" Width="300" FontSize="25"/>
+                <PasswordBox PreviewMouseDown="MouseDownContraseña" Height="50" HorizontalAlignment="Center" Name="Contraseña" VerticalAlignment="Bottom" Width="300" FontSize="25"/>
             </StackPanel>
             <StackPanel Grid.Row="4">
                 <Label Content="Repita contraseña" Foreground="White" FontSize="30" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                <PasswordBox  Height="50" HorizontalAlignment="Center" Name="Contraseña2" VerticalAlignment="Bottom" Width="300" FontSize="25" />
+                <PasswordBox PreviewMouseDown="MouseDownContraseña" Height="50" HorizontalAlignment="Center" Name="Contraseña2" VerticalAlignment="Bottom" Width="300" FontSize="25" />
             </StackPanel>
 
             <Button x:Name="aceptar" Content="Aceptar" HorizontalAlignment="Right" VerticalAlignment="Bottom" Grid.Row="5" Width="120" Height="70" Style="{StaticResource btnRedondo}" Background="#5da9b7" FontSize="20" Foreground="WhiteSmoke" Margin="0,0,39,35" MouseLeave="Button_Aceptar_leave" MouseEnter="Button_Aceptar_enter" Click="btnAceptar_Click"/>

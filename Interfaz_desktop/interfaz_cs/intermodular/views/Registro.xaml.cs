@@ -52,6 +52,14 @@ namespace intermodular
             aceptar.Background = Brushes.DarkSlateGray;
         }
 
+        private void MouseDownContraseña(object sender, MouseButtonEventArgs e)
+        {
+            PasswordBox pass = sender as PasswordBox;
+            Teclado keyboardWindow = new Teclado(pass, this);
+            if (keyboardWindow.ShowDialog() == true)
+                pass.Password = keyboardWindow.Result;
+        }
+
 
         private async void btnAceptar_Click(object sender, RoutedEventArgs e)
         {

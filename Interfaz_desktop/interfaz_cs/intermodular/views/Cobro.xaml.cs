@@ -22,6 +22,8 @@ namespace intermodular
         public Cobro()
         {
             InitializeComponent();
+            //LabelNombre.Content = User.usuarioElegido;
+            
         }
 
         private void btn_cerrar_Click(object sender, RoutedEventArgs e)
@@ -40,23 +42,15 @@ namespace intermodular
             imgCerrar.Source = (ImageSource)new ImageSourceConverter().ConvertFrom("..\\..\\images\\cerrar.png");
         }
 
-        private void btnAceptar_Click(object sender, System.EventArgs e)
+        private void boton_efectivo(object sender, RoutedEventArgs e)
         {
-            // ir a ventana actividad mesa
             this.Close();
-
         }
-        private void Button_Aceptar_leave(object sender, MouseEventArgs e)
+
+        private void boton_tarjeta(object sender, RoutedEventArgs e)
         {
-
-            var bc = new BrushConverter();
-            boton_Cobro.Background = (Brush)bc.ConvertFrom("#48C9B0");
-
+            this.Close();
         }
 
-        private void Button_Aceptar_enter(object sender, MouseEventArgs e)
-        {
-            boton_Cobro.Background = Brushes.DarkSlateGray;
-        }
-    }
+    } 
 }
