@@ -60,7 +60,7 @@
                             <ColumnDefinition/>
                             <ColumnDefinition/>
                         </Grid.ColumnDefinitions>
-                        <Button x:Name="btnGuardarCambios" Grid.Column="1" Style="{StaticResource btnRedondo}" HorizontalAlignment="Center" VerticalAlignment="Top" Height="70" Cursor="Hand" Visibility="Hidden" Click="btnGuardarCambios_Click">
+                        <Button x:Name="btnGuardarCambios" Grid.Column="1" Style="{StaticResource btnRedondo}" HorizontalAlignment="Center" VerticalAlignment="Top" Height="70" Cursor="Hand" Visibility="Hidden" Click="btnGuardarCambios_Click" MouseEnter="btnGuardarCambios_MouseEnter" MouseLeave="btnGuardarCambios_MouseLeave">
                             <Grid Width="230">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition/>
@@ -70,7 +70,7 @@
                                 <TextBlock x:Name="txtGuardarCambios" FontSize="18" Grid.Column="1" Text="Guardar cambios" VerticalAlignment="Center" HorizontalAlignment="Left" />
                             </Grid>
                         </Button>
-                        <Button x:Name="btnEliminarCambios" Style="{StaticResource btnRedondo}" HorizontalAlignment="Center" VerticalAlignment="Top" Height="70" Cursor="Hand" Visibility="Hidden" Click="btnEliminarCambios_Click">
+                        <Button x:Name="btnEliminarCambios" Style="{StaticResource btnRedondo}" HorizontalAlignment="Center" VerticalAlignment="Top" Height="70" Cursor="Hand" Visibility="Hidden" Click="btnEliminarCambios_Click" MouseEnter="btnEliminarCambios_MouseEnter" MouseLeave="btnEliminarCambios_MouseLeave">
                             <Grid Width="230">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition/>

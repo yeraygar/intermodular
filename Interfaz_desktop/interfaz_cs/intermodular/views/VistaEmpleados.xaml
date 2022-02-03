@@ -117,7 +117,7 @@
                                             <ColumnDefinition/>
                                         </Grid.ColumnDefinitions>
                                         <Border Grid.Column="1" Padding="10">
-                                            <Button x:Name="btnEditarZona" Grid.Column="1" Style="{StaticResource btnRedondo}" HorizontalAlignment="Center" VerticalAlignment="Center" Height="90" Cursor="Hand" Visibility="Hidden" Click="btnEditarZona_Click">
+                                            <Button x:Name="btnEditarZona" Grid.Column="1" Style="{StaticResource btnRedondo}" HorizontalAlignment="Center" VerticalAlignment="Center" Height="90" Cursor="Hand" Visibility="Hidden" Click="btnEditarZona_Click" MouseEnter="btnEditarZona_MouseEnter" MouseLeave="btnEditarZona_MouseLeave">
                                                 <Grid Width="230">
                                                     <Grid.ColumnDefinitions>
                                                         <ColumnDefinition/>
@@ -128,7 +128,7 @@
                                                 </Grid>
                                             </Button>
                                         </Border>
-                                        <Button x:Name="btnCancelar" Style="{StaticResource btnRedondo}" HorizontalAlignment="Center" VerticalAlignment="Center" Height="90" Cursor="Hand"  Visibility="Hidden" Click="btnCancelar_Click">
+                                        <Button x:Name="btnCancelar" Style="{StaticResource btnRedondo}" HorizontalAlignment="Center" VerticalAlignment="Center" Height="90" Cursor="Hand"  Visibility="Hidden" Click="btnCancelar_Click" MouseEnter="btnCancelar_MouseEnter" MouseLeave="btnCancelar_MouseLeave">
                                             <Grid Width="230">
                                                 <Grid.ColumnDefinitions>
                                                     <ColumnDefinition/>

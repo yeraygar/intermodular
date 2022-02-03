@@ -532,5 +532,32 @@ namespace intermodular
         {
             this.Close();
         }
+        private void btnEditarZona_MouseEnter(object sender, MouseEventArgs e)
+        {
+            btnEditarZona.Background = (Brush)(new BrushConverter().ConvertFrom("#63c554"));
+            btnEditarZona.Foreground = Brushes.White;
+            imgGuardarCambios.Source = (ImageSource)new ImageSourceConverter().ConvertFrom("..\\..\\images\\save_blanco.png");
+        }
+
+        private void btnCancelar_MouseEnter(object sender, MouseEventArgs e)
+        {
+            btnCancelar.Background = (Brush)(new BrushConverter().ConvertFrom("#ff3232"));
+            btnCancelar.Foreground = Brushes.White;
+            imgEliminarCambios.Source = (ImageSource)new ImageSourceConverter().ConvertFrom("..\\..\\images\\cancel_blanco.png");
+        }
+
+        private void btnCancelar_MouseLeave(object sender, MouseEventArgs e)
+        {
+            btnCancelar.Background = Brushes.White;
+            btnCancelar.Foreground = Brushes.Black;
+            imgEliminarCambios.Source = (ImageSource)new ImageSourceConverter().ConvertFrom("..\\..\\images\\cancel.png");
+        }
+
+        private void btnEditarZona_MouseLeave(object sender, MouseEventArgs e)
+        {
+            btnEditarZona.Background = Brushes.White;
+            btnEditarZona.Foreground = Brushes.Black;
+            imgGuardarCambios.Source = (ImageSource)new ImageSourceConverter().ConvertFrom("..\\..\\images\\save.png");
+        }
     }
 }

@@ -157,5 +157,32 @@ namespace intermodular
                 MessageBox.Show("Error al actualizar, hay campos incorrectos.", "Error", MessageBoxButton.OK,MessageBoxImage.Error);
             }
         }
+        private void btnGuardarCambios_MouseEnter(object sender, MouseEventArgs e)
+        {
+            btnGuardarCambios.Background = (Brush)(new BrushConverter().ConvertFrom("#63c554"));
+            btnGuardarCambios.Foreground = Brushes.White;
+            imgGuardarCambios.Source = (ImageSource)new ImageSourceConverter().ConvertFrom("..\\..\\images\\save_blanco.png");
+        }
+
+        private void btnEliminarCambios_MouseEnter(object sender, MouseEventArgs e)
+        {
+            btnEliminarCambios.Background = (Brush)(new BrushConverter().ConvertFrom("#ff3232"));
+            btnEliminarCambios.Foreground = Brushes.White;
+            imgEliminarCambios.Source = (ImageSource)new ImageSourceConverter().ConvertFrom("..\\..\\images\\cancel_blanco.png");
+        }
+
+        private void btnEliminarCambios_MouseLeave(object sender, MouseEventArgs e)
+        {
+            btnEliminarCambios.Background = Brushes.White;
+            btnEliminarCambios.Foreground = Brushes.Black;
+            imgEliminarCambios.Source = (ImageSource)new ImageSourceConverter().ConvertFrom("..\\..\\images\\cancel.png");
+        }
+
+        private void btnGuardarCambios_MouseLeave(object sender, MouseEventArgs e)
+        {
+            btnGuardarCambios.Background = Brushes.White;
+            btnGuardarCambios.Foreground = Brushes.Black;
+            imgGuardarCambios.Source = (ImageSource)new ImageSourceConverter().ConvertFrom("..\\..\\images\\save.png");
+        }
     }
 }
