@@ -11,7 +11,7 @@ import inter.intermodular.models.UserModel
 import inter.intermodular.services.ApiServices
 import java.lang.Exception
 
-class UserViewModel : ViewModel() {
+class MapViewModel : ViewModel() {
 
     var allUsersClientResponse : List<UserModel> by mutableStateOf(listOf())
     var usersFichadosResponse : List<UserModel> by mutableStateOf(listOf())

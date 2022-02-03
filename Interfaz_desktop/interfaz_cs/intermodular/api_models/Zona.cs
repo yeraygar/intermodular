@@ -14,6 +14,7 @@ namespace intermodular
         private string _id_client;
         private string _zone_name;
         private string id;
+
         public static List<Zona> allZones;
         public static Zona zonaBuscada;
 

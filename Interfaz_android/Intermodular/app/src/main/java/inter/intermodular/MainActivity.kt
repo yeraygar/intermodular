@@ -11,7 +11,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
-import inter.intermodular.view_models.UserViewModel
+import inter.intermodular.view_models.MapViewModel
 import com.orhanobut.logger.AndroidLogAdapter
 import com.orhanobut.logger.Logger
 import inter.intermodular.screens.*
@@ -25,7 +25,7 @@ import inter.intermodular.view_models.LoginRegisterViewModel
 
 class MainActivity : ComponentActivity() {
 
-    private val userViewModel by viewModels<UserViewModel>() //renombrar a map view model
+    private val mapViewModel by viewModels<MapViewModel>()
     private val loginRegisterViewModel by viewModels<LoginRegisterViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -69,7 +69,7 @@ class MainActivity : ComponentActivity() {
                         )
                     ){
                         ValidateLoginScreen(loginRegisterViewModel = loginRegisterViewModel, navController = navController, activityKiller = activityKiller)
-                        BackHandler(true) {
+                        BackHandler(false) {
                             Toast.makeText(applicationContext, "BackButton Deshabilitado en el MAIN", Toast.LENGTH_SHORT).show()
                         }
                     }
@@ -108,7 +108,7 @@ class MainActivity : ComponentActivity() {
                             password = entry.arguments?.getString("password"),
                             loginRegisterViewModel = loginRegisterViewModel,
                             navController = navController)
-                        BackHandler(true) {
+                        BackHandler(false) {
                             Toast.makeText(applicationContext, "BackButton Deshabilitado en el MAIN", Toast.LENGTH_SHORT).show()
                         }
                     }
