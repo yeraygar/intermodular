@@ -127,6 +127,9 @@
     <Compile Include="views\CrearEmpleado.xaml.cs">
       <DependentUpon>CrearEmpleado.xaml</DependentUpon>
     </Compile>
+    <Compile Include="views\CrearFamiliaProducto.xaml.cs">
+      <DependentUpon>CrearFamiliaProducto.xaml</DependentUpon>
+    </Compile>
     <Compile Include="views\CrearMesa.xaml.cs">
       <DependentUpon>CrearMesa.xaml</DependentUpon>
     </Compile>
@@ -182,6 +185,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="views\CrearEmpleado.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="views\CrearFamiliaProducto.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
