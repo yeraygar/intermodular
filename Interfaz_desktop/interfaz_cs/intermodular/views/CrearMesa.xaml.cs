@@ -99,64 +99,17 @@ namespace intermodular
         //Este método comprueba que el valor introducido en el textbox del número de mesas sea un valor válido.
         private bool checkZoneNumber(string txtNumZona)
         {
-            if (!String.IsNullOrEmpty(txtNumZona) && !String.IsNullOrWhiteSpace(txtNumZona) && isInteger(txtNumZona))
+            bool retorno = true;
+            if(String.IsNullOrEmpty(txtNumMesas.Text) || String.IsNullOrWhiteSpace(txtNumMesas.Text))
             {
-                return true;
-            }
-            else
+                retorno = false;
+            }else if(txtNumMesas.Text.Contains(" "))
             {
-                return false;
+                retorno = false;
             }
+            return retorno;
         }
 
-
-        //Este método comprueba que el string que le pasamos por parametro sea de tipo integer
-        private bool isInteger(string value)
-        {
-            try
-            {
-                int.Parse(value);
-                return true;
-            }
-            catch (Exception e)
-            {
-                return false;
-            }
-        }
-
-        //Este evento saltará cuando salimos del focus del text box y pintara la imagen correspondiente segun si existe algun campo erroneo o no.
-        private void txtZona_LostFocus(object sender, RoutedEventArgs e)
-        {
-            imgValidTableName.Visibility = Visibility.Visible;
-            if (checkZoneName(txtMesa.Text))
-            {
-                //MessageBox.Show("Nombre de zona válido");
-                imgValidTableName.Source = (ImageSource)new ImageSourceConverter().ConvertFrom("..\\..\\images\\verify.png");
-                imgValidTableName.ToolTip = null;
-            }
-            else
-            {
-                imgValidTableName.Source = (ImageSource)new ImageSourceConverter().ConvertFrom("..\\..\\images\\error.png");
-                imgValidTableName.ToolTip = "El nombre no puede estar vacío";
-            }
-        }
-
-        //Este evento saltará cuando salimos del focus del text box y pintara la imagen correspondiente segun si existe algun campo erroneo o no.
-        private void txtNumMesas_LostFocus(object sender, RoutedEventArgs e)
-        {
-            txtNumMesas.Text = txtNumMesas.Text.Replace(" ", "");
-            imgValidNumComensales.Visibility = Visibility.Visible;
-            if (checkZoneNumber(txtNumMesas.Text))
-            {
-                imgValidNumComensales.Source = (ImageSource)new ImageSourceConverter().ConvertFrom("..\\..\\images\\verify.png");
-                imgValidNumComensales.ToolTip = null;
-            }
-            else
-            {
-                imgValidNumComensales.Source = (ImageSource)new ImageSourceConverter().ConvertFrom("..\\..\\images\\error.png");
-                imgValidNumComensales.ToolTip = "valor no válido, introduzca otro valor.";
-            }
-        }
 
         private void btnCancelar_Click(object sender, RoutedEventArgs e)
         {
@@ -196,6 +149,30 @@ namespace intermodular
                 MessageBox.Show("Error al crear la zona");
             }
 
+        }
+
+        private void txtMesa_TextChanged(object sender, TextChangedEventArgs e)
+        {
+                imgValidTableName.Visibility = Visibility.Visible;
+                imgValidTableName.Source = checkZoneName(txtMesa.Text) ? (ImageSource)new ImageSourceConverter().ConvertFrom("..\\..\\images\\verify.png") : (ImageSource)new ImageSourceConverter().ConvertFrom("..\\..\\images\\error.png");
+        }
+
+        private void txtNumMesas_TextChanged(object sender, TextChangedEventArgs e)
+        {
+                imgValidNumComensales.Visibility = Visibility.Visible;
+                if(String.IsNullOrEmpty(txtNumMesas.Text) || String.IsNullOrWhiteSpace(txtNumMesas.Text))
+                {
+                    imgValidNumComensales.Source = (ImageSource)new ImageSourceConverter().ConvertFrom("..\\..\\images\\error.png");
+                    imgValidNumComensales.ToolTip = "Debes introducir un número de comensales";
+                }else if(txtNumMesas.Text.Contains(" "))
+                {
+                    imgValidNumComensales.Source = (ImageSource)new ImageSourceConverter().ConvertFrom("..\\..\\images\\error.png");
+                    imgValidNumComensales.ToolTip = "El campo no puede contener espacios";
+                }else
+                {
+                    imgValidNumComensales.Source = (ImageSource)new ImageSourceConverter().ConvertFrom("..\\..\\images\\verify.png");
+                    imgValidNumComensales.ToolTip = null;
+                }
         }
     }
 }

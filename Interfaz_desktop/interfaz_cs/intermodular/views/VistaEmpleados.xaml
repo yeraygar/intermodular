@@ -1,4 +1,4 @@
-﻿<Window x:Class="intermodular.Zonas"
+﻿<Window x:Class="intermodular.VistaEmpleados"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:intermodular"
         mc:Ignorable="d"
         Title="Zonas"
-        Height="600" 
+        Height="750" 
         Width="1000"
         ResizeMode="NoResize"
         WindowStyle="None"
@@ -24,8 +24,8 @@
                     <ColumnDefinition/>
                     <ColumnDefinition Width="60"/>
                 </Grid.ColumnDefinitions>
-                <TextBlock FontSize="25" Foreground="White" VerticalAlignment="Center" Margin="10,0,0,0">Zonas</TextBlock>
-                <Button x:Name="btn_cerrar" Style="{StaticResource btnRedondo}" Grid.Column="1" Height="40" Width="40" Cursor="Hand" Click="btn_cerrar_Click" MouseEnter="btn_cerrar_MouseEnter" MouseLeave="btn_cerrar_MouseLeave">
+                <TextBlock FontSize="25" Foreground="White" VerticalAlignment="Center" Margin="10,0,0,0">Empleados</TextBlock>
+                <Button x:Name="btn_cerrar" Style="{StaticResource btnRedondo}" Grid.Column="1" Height="40" Width="40" Cursor="Hand" MouseEnter="btn_cerrar_MouseEnter" MouseLeave="btn_cerrar_MouseLeave" Click="btn_cerrar_Click">
                     <Image x:Name="imgCerrar" Source="..\images\cerrar.png" Width="20" Height="20" RenderOptions.BitmapScalingMode="HighQuality"/>
                 </Button>
             </Grid>
@@ -44,11 +44,11 @@
                                     <RowDefinition Height="auto"/>
                                 </Grid.RowDefinitions>
                                 <Border CornerRadius="10,10,0,0" Background="DarkSlateGray" Padding="20">
-                                    <TextBlock Foreground="white" FontSize="23" HorizontalAlignment="Center" VerticalAlignment="Center">Zonas</TextBlock>
+                                    <TextBlock Foreground="white" FontSize="23" HorizontalAlignment="Center" VerticalAlignment="Center">Empleados</TextBlock>
                                 </Border>
                                 <Border Grid.Row="1" BorderBrush="DarkSlateGray" BorderThickness="4,0,4,0" Padding="5" Background="#E0E0E0">
                                     <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" CanContentScroll="True">
-                                        <StackPanel x:Name="stackZonas">
+                                        <StackPanel x:Name="stackEmpleados">
 
                                         </StackPanel>
                                     </ScrollViewer>
@@ -59,7 +59,7 @@
                                             <ColumnDefinition/>
                                             <ColumnDefinition/>
                                         </Grid.ColumnDefinitions>
-                                        <Button x:Name="btnAgregar" Style="{StaticResource btnRedondo}" Height="90" Width="90" Margin="0,0,10,0" Cursor="Hand" Click="Button_Click" MouseEnter="btns_MouseEnter" MouseLeave="btns_MouseLeave">
+                                        <Button x:Name="btnAgregar" Style="{StaticResource btnRedondo}" Height="90" Width="90" Margin="0,0,10,0" Cursor="Hand" Click="btnAgregar_Click" MouseEnter="btns_MouseEnter" MouseLeave="btns_MouseLeave">
                                             <Grid VerticalAlignment="Center" HorizontalAlignment="Center">
                                                 <Grid.RowDefinitions>
                                                     <RowDefinition/>
@@ -69,7 +69,7 @@
                                                 <TextBlock Grid.Row="1" FontSize="18" VerticalAlignment="Top" HorizontalAlignment="Center">Agregar</TextBlock>
                                             </Grid>
                                         </Button>
-                                        <Button x:Name="btnEliminarZona" Style="{StaticResource btnRedondo}" Height="90" Width="90" Grid.Column="1" Margin="10,0,0,0" Cursor="Hand" Click="btnEliminarZona_Click" MouseEnter="btns_MouseEnter" MouseLeave="btns_MouseLeave" Visibility="Collapsed">
+                                        <Button x:Name="btnEliminarZona" Style="{StaticResource btnRedondo}" Height="90" Width="90" Grid.Column="1" Margin="10,0,0,0" Cursor="Hand" Visibility="Collapsed" Click="btnEliminarZona_Click" MouseEnter="btns_MouseEnter" MouseLeave="btns_MouseLeave">
                                             <Grid VerticalAlignment="Center" HorizontalAlignment="Center">
                                                 <Grid.RowDefinitions>
                                                     <RowDefinition/>
@@ -93,12 +93,23 @@
                                         <RowDefinition Height="auto"/>
                                     </Grid.RowDefinitions>
                                     <Grid>
-                                        <TextBlock HorizontalAlignment="Left" Margin="45,106,0,0" TextWrapping="Wrap" Text="Información de la zona" VerticalAlignment="Top" FontSize="19" FontWeight="Bold"/>
-                                        <TextBlock x:Name="txtAyuda" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="255,106,0,0" Text="(Seleccione una zona)" FontSize="19"/>
-                                        <TextBlock HorizontalAlignment="Left" Margin="45,195,0,0" TextWrapping="Wrap" Text="Nombre de la zona" VerticalAlignment="Top" FontSize="19" RenderTransformOrigin="0.73,0.68"/>
-                                        <TextBox x:Name="txtEditarNombreZona" HorizontalAlignment="Left" Margin="224,195,0,0" TextWrapping="NoWrap" VerticalAlignment="Top" Width="203" FontSize="19" IsEnabled="False" TextChanged="txtEditarNombreZona_TextChanged" />
-
-                                        <Image x:Name="imgEditNombreZona" Height="20" Width="20"  HorizontalAlignment="Left" VerticalAlignment="Top" Margin="441,200,0,0" RenderOptions.BitmapScalingMode="HighQuality" Cursor="Hand"   MouseDown="imgEditNombreZona_MouseDown" Source="/intermodular;component/images/pencil.png" Visibility="Hidden"/>
+                                        <TextBlock HorizontalAlignment="Left" Margin="45,106,0,0" TextWrapping="Wrap" Text="Información de empleado" VerticalAlignment="Top" FontSize="19" FontWeight="Bold"/>
+                                        <TextBlock x:Name="txtAyuda" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="281,106,0,0" Text="(Seleccione un empleado)" FontSize="19"/>
+                                        <Label Content="Nombre" HorizontalAlignment="Left" Margin="45,178,0,0" VerticalAlignment="Top" FontSize="19" RenderTransformOrigin="0.111,0.114"/>
+                                        <Label Content="Email" HorizontalAlignment="Left" Margin="45,238,0,0" VerticalAlignment="Top" FontSize="19" RenderTransformOrigin="0.111,0.114"/>
+                                        <Label Content="Contraseña" HorizontalAlignment="Left" Margin="45,298,0,0" VerticalAlignment="Top" FontSize="19" RenderTransformOrigin="0.111,0.114"/>
+                                        <Label Content="Rol" HorizontalAlignment="Left" Margin="45,358,0,0" VerticalAlignment="Top" FontSize="19" RenderTransformOrigin="0.111,0.114"/>
+                                        <TextBox x:Name="txtPass" Width="200" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="155,305,0,0" FontSize="19" IsEnabled="False" TextChanged="txtPass_TextChanged" />
+                                        <TextBox x:Name="txtEmail" HorizontalAlignment="Left" VerticalAlignment="Top" Width="200" FontSize="19" Margin="155,243,0,0" IsEnabled="False" TextChanged="txtEmail_TextChanged" />
+                                        <TextBox x:Name="txtNombre" HorizontalAlignment="Left" VerticalAlignment="Top" Width="200" FontSize="19" Margin="155,185,0,0" IsEnabled="false" TextChanged="txtNombre_TextChanged"/>
+                                        <ComboBox x:Name="comboBoxRol" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="155,362,0,0" Width="130" FontSize="19" IsEnabled="False" SelectionChanged="comboBoxRol_SelectionChanged">
+                                            <ComboBoxItem Content="Estándar"/>
+                                            <ComboBoxItem Content="Admin"/>
+                                        </ComboBox>
+                                        <Image x:Name="imgNombre" Width="25" Height="25" HorizontalAlignment="Left" VerticalAlignment="Top" Source="/intermodular;component/images/pencil.png" Margin="366,187,0,0" RenderOptions.BitmapScalingMode="HighQuality" Visibility="Hidden" MouseLeftButtonDown="imgNombre_MouseLeftButtonDown" Cursor="Hand"/>
+                                        <Image x:Name="imgEmail" Width="25" Height="25" HorizontalAlignment="Left" VerticalAlignment="Top" Source="/intermodular;component/images/pencil.png" Margin="366,245,0,0" RenderOptions.BitmapScalingMode="HighQuality" Visibility="Hidden" Cursor="Hand" MouseLeftButtonDown="imgEmail_MouseLeftButtonDown"/>
+                                        <Image x:Name="imgPassword" Width="25" Height="25" HorizontalAlignment="Left" VerticalAlignment="Top" Source="/intermodular;component/images/pencil.png" Margin="366,307,0,0" RenderOptions.BitmapScalingMode="HighQuality" Visibility="Hidden" Cursor="Hand" MouseLeftButtonDown="imgPassword_MouseLeftButtonDown"/>
+                                        <Image x:Name="imgRol" Width="25" Height="25" HorizontalAlignment="Left" VerticalAlignment="Top" Source="/intermodular;component/images/pencil.png" Margin="290,368,0,0" RenderOptions.BitmapScalingMode="HighQuality" Visibility="Hidden" Cursor="Hand" MouseLeftButtonDown="imgRol_MouseLeftButtonDown"/>
                                     </Grid>
                                     <Grid Grid.Row="1">
                                         <Grid.ColumnDefinitions>
@@ -106,7 +117,7 @@
                                             <ColumnDefinition/>
                                         </Grid.ColumnDefinitions>
                                         <Border Grid.Column="1" Padding="10">
-                                            <Button x:Name="btnEditarZona" Grid.Column="1" Style="{StaticResource btnRedondo}" HorizontalAlignment="Center" VerticalAlignment="Center" Height="90" Cursor="Hand" Click="btnEditarZona_Click" MouseEnter="btnEditarZona_MouseEnter" MouseLeave="btnEditarZona_MouseLeave" IsEnabled="False" Visibility="Hidden">
+                                            <Button x:Name="btnEditarZona" Grid.Column="1" Style="{StaticResource btnRedondo}" HorizontalAlignment="Center" VerticalAlignment="Center" Height="90" Cursor="Hand" Visibility="Hidden" Click="btnEditarZona_Click" MouseEnter="btnEditarZona_MouseEnter" MouseLeave="btnEditarZona_MouseLeave">
                                                 <Grid Width="230">
                                                     <Grid.ColumnDefinitions>
                                                         <ColumnDefinition/>
@@ -117,7 +128,7 @@
                                                 </Grid>
                                             </Button>
                                         </Border>
-                                        <Button x:Name="btnCancelar" Style="{StaticResource btnRedondo}" HorizontalAlignment="Center" VerticalAlignment="Center" Height="90" Cursor="Hand" Click="btnCancelar_Click" MouseEnter="btnCancelar_MouseEnter" MouseLeave="btnCancelar_MouseLeave" IsEnabled="False" Visibility="Hidden">
+                                        <Button x:Name="btnCancelar" Style="{StaticResource btnRedondo}" HorizontalAlignment="Center" VerticalAlignment="Center" Height="90" Cursor="Hand"  Visibility="Hidden" Click="btnCancelar_Click" MouseEnter="btnCancelar_MouseEnter" MouseLeave="btnCancelar_MouseLeave">
                                             <Grid Width="230">
                                                 <Grid.ColumnDefinitions>
                                                     <ColumnDefinition/>
@@ -138,3 +149,4 @@
         </Grid>
     </Border>
 </Window>
+

@@ -21,6 +21,7 @@ namespace intermodular
     public partial class CrearZona : Window
     {
         public Zona zona;
+        private bool editedZone = false;
         public CrearZona()
         {
             InitializeComponent();
@@ -106,51 +107,17 @@ namespace intermodular
             }
         }
 
-        //Este método comprueba que el valor introducido en el textbox del número de mesas sea un valor válido.
-        private bool checkZoneNumber(string txtNumZona)
+        private void txtZona_TextChanged(object sender, TextChangedEventArgs e)
         {
-            if(!String.IsNullOrEmpty(txtNumZona) && !String.IsNullOrWhiteSpace(txtNumZona) && isInteger(txtNumZona))
+            if(!editedZone)
             {
-                return true;
-            }else
-            {
-                return false;
-            }
-        }
-
-
-        //Este método comprueba que el string que le pasamos por parametro sea de tipo integer
-        private bool isInteger(string value)
-        {
-            try
-            {
-                int.Parse(value);
-                return true;
-            }catch(Exception e)
-            {
-                return false;
-            }
-        }
-
-
-        //Este evento saltará cuando salimos del focus del text box y pintara la imagen correspondiente segun si existe algun campo erroneo o no.
-        private void txtZona_LostFocus(object sender, RoutedEventArgs e)
-        {
-            imgValidZoneName.Visibility = Visibility.Visible;
-            if (checkZoneName(txtZona.Text))
-            {
-                //MessageBox.Show("Nombre de zona válido");
-                imgValidZoneName.Source = (ImageSource)new ImageSourceConverter().ConvertFrom("..\\..\\images\\verify.png");
-                imgValidZoneName.ToolTip = null;
+                editedZone = true;
             }
             else
             {
-                imgValidZoneName.Source = (ImageSource)new ImageSourceConverter().ConvertFrom("..\\..\\images\\error.png");
-                imgValidZoneName.ToolTip = "El nombre no puede estar vacío";
+                imgValidZoneName.Visibility = Visibility.Visible;
+                imgValidZoneName.Source = checkZoneName(txtZona.Text) ? (ImageSource)new ImageSourceConverter().ConvertFrom("..\\..\\images\\verify.png") : (ImageSource)new ImageSourceConverter().ConvertFrom("..\\..\\images\\error.png");
             }
         }
-
-        //Este evento saltará cuando salimos del focus del text box y pintara la imagen correspondiente segun si existe algun campo erroneo o no.
-
     }
 }
