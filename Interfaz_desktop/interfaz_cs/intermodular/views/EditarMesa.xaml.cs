@@ -38,10 +38,14 @@ namespace intermodular
         private void txtNombreMesa_TextChanged(object sender, TextChangedEventArgs e)
         {
             visualizarNumChar();
-            if (!txtNombreMesa.Text.Equals(mesa.name))
+            if (!txtNombreMesa.Tag.ToString().Equals(txtNombreMesa.Text))
             {
+                imgNombreMesa.Visibility = Visibility.Visible;
+                imgNombreMesa.Source = validNombreMesa() ? (ImageSource)new ImageSourceConverter().ConvertFrom("..\\..\\images\\verify.png") : (ImageSource)new ImageSourceConverter().ConvertFrom("..\\..\\images\\error.png");
+                imgNombreMesa.ToolTip = validNombreMesa() ? null : "Debe introducir un nombre";
                 btnEliminarCambios.Visibility = Visibility.Visible;
                 btnGuardarCambios.Visibility = Visibility.Visible;
+                txtNombreMesa.Tag = txtNombreMesa.Text;
             }
         }
 
@@ -56,9 +60,15 @@ namespace intermodular
 
         private void cargarMesa()
         {
+            txtNombreMesa.Tag = mesa.name;
+            txtNumComensales.Tag = mesa.comensales.ToString();
+            comboBoxEstado.Tag = mesa.status ? comboBoxEstado.Items[0] : comboBoxEstado.Items[1];
             txtNombreMesa.Text = mesa.name;
             txtNumComensales.Text = mesa.comensalesMax.ToString();
             comboBoxEstado.SelectedItem = mesa.status ? comboBoxEstado.Items[0] : comboBoxEstado.Items[1];
+            imgNombreMesa.Visibility = Visibility.Hidden;
+            imgNumComensales.Visibility = Visibility.Hidden;
+            imgEstado.Visibility = Visibility.Hidden;
         }
 
         private bool validNombreMesa() => !String.IsNullOrEmpty(txtNombreMesa.Text) && !String.IsNullOrWhiteSpace(txtNombreMesa.Text);
@@ -79,17 +89,26 @@ namespace intermodular
 
         private bool validNumComensales() => !String.IsNullOrEmpty(txtNumComensales.Text) && !String.IsNullOrWhiteSpace(txtNumComensales.Text);
 
-        private void txtNombreMesa_LostFocus(object sender, RoutedEventArgs e)
-        {
-            imgNombreMesa.Visibility = Visibility.Visible;
-            imgNombreMesa.Source = validNombreMesa() ? (ImageSource)new ImageSourceConverter().ConvertFrom("..\\..\\images\\verify.png") : (ImageSource)new ImageSourceConverter().ConvertFrom("..\\..\\images\\error.png");
-            imgNombreMesa.ToolTip = validNombreMesa() ? null : "Debe introducir un nombre";
-        }
 
         private void txtNumComensales_TextChanged(object sender, TextChangedEventArgs e)
         {
-            if(!txtNumComensales.Text.Equals(mesa.comensalesMax.ToString()))
+            if(!txtNumComensales.Tag.Equals(txtNumComensales.Text))
             {
+                imgNumComensales.Visibility = Visibility.Visible;
+                if(String.IsNullOrEmpty(txtNumComensales.Text) || String.IsNullOrWhiteSpace(txtNumComensales.Text))
+                {
+                    imgNumComensales.Source = (ImageSource)new ImageSourceConverter().ConvertFrom("..\\..\\images\\error.png");
+                    imgNumComensales.ToolTip = "Debe introducir un número de comensales";
+                }else if(txtNumComensales.Text.Contains(" "))
+                {
+                    imgNumComensales.Source = (ImageSource)new ImageSourceConverter().ConvertFrom("..\\..\\images\\error.png");
+                    imgNumComensales.ToolTip = "El campo no puede incluir espacios";
+                }
+                else
+                {
+                    imgNumComensales.Source = (ImageSource)new ImageSourceConverter().ConvertFrom("..\\..\\images\\verify.png");
+                    imgNumComensales.ToolTip = null;
+                }
                 btnEliminarCambios.Visibility = Visibility.Visible;
                 btnGuardarCambios.Visibility = Visibility.Visible;
             }
@@ -97,10 +116,13 @@ namespace intermodular
 
         private void comboBoxEstado_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (mesa.status && comboBoxEstado.Items.IndexOf(comboBoxEstado.SelectedItem) != 0 || !mesa.status && comboBoxEstado.Items.IndexOf(comboBoxEstado.SelectedItem) != 1)
+            if(!comboBoxEstado.Tag.ToString().Equals(comboBoxEstado.SelectedItem.ToString()))
             {
-                btnGuardarCambios.Visibility = Visibility.Visible;
+                imgEstado.Visibility = Visibility.Visible;
+                imgEstado.Source = (ImageSource)new ImageSourceConverter().ConvertFrom("..\\..\\images\\verify.png");
+                comboBoxEstado.Tag = comboBoxEstado.SelectedItem;
                 btnEliminarCambios.Visibility = Visibility.Visible;
+                btnGuardarCambios.Visibility = Visibility.Visible;
             }
         }
 
