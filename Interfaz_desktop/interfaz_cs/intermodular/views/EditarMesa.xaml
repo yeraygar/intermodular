@@ -47,7 +47,7 @@
                             <Label x:Name="numChar" Grid.Column="1" FontSize="14" VerticalAlignment="Center" HorizontalAlignment="Center"/>
                         </Grid>
                     </Border>
-                    <TextBox x:Name="txtNumComensales" FontSize="19" Width="37" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="204,167,0,0" PreviewTextInput="txtNumComensales_PreviewTextInput" LostFocus="txtNumComensales_LostFocus" TextChanged="txtNumComensales_TextChanged"/>
+                    <TextBox x:Name="txtNumComensales" FontSize="19" Width="37" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="204,167,0,0" PreviewTextInput="txtNumComensales_PreviewTextInput" TextChanged="txtNumComensales_TextChanged"/>
                     <ComboBox x:Name="comboBoxEstado" VerticalAlignment="top" HorizontalAlignment="Left" Margin="124,104,0,0" Width="140" FontSize="19" SelectionChanged="comboBoxEstado_SelectionChanged">
                         <ComboBoxItem>Abierta</ComboBoxItem>
                         <ComboBoxItem>Cerrada</ComboBoxItem>

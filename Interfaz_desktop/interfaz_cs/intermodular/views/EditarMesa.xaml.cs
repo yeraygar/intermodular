@@ -61,10 +61,10 @@ namespace intermodular
         private void cargarMesa()
         {
             txtNombreMesa.Tag = mesa.name;
-            txtNumComensales.Tag = mesa.comensales.ToString();
             comboBoxEstado.Tag = mesa.status ? comboBoxEstado.Items[0] : comboBoxEstado.Items[1];
             txtNombreMesa.Text = mesa.name;
             txtNumComensales.Text = mesa.comensalesMax.ToString();
+            txtNumComensales.Tag = txtNumComensales.Text;
             comboBoxEstado.SelectedItem = mesa.status ? comboBoxEstado.Items[0] : comboBoxEstado.Items[1];
             imgNombreMesa.Visibility = Visibility.Hidden;
             imgNumComensales.Visibility = Visibility.Hidden;
@@ -79,22 +79,13 @@ namespace intermodular
             e.Handled = regex.IsMatch(e.Text);
         }
 
-        private void txtNumComensales_LostFocus(object sender, RoutedEventArgs e)
-        {
-            txtNumComensales.Text.Replace(" ", "");
-            imgNumComensales.Visibility = Visibility.Visible;
-            imgNumComensales.Source = validNumComensales() ? (ImageSource)new ImageSourceConverter().ConvertFrom("..\\..\\images\\verify.png") : (ImageSource)new ImageSourceConverter().ConvertFrom("..\\..\\images\\error.png");
-            imgNumComensales.ToolTip = validNumComensales() ? null : "Debe introducir un nombre";
-        }
-
         private bool validNumComensales() => !String.IsNullOrEmpty(txtNumComensales.Text) && !String.IsNullOrWhiteSpace(txtNumComensales.Text);
 
 
         private void txtNumComensales_TextChanged(object sender, TextChangedEventArgs e)
         {
-            if(!txtNumComensales.Tag.Equals(txtNumComensales.Text))
+            if( txtNumComensales.Tag != null && !txtNumComensales.Tag.ToString().Equals(txtNumComensales.Text))
             {
-                imgNumComensales.Visibility = Visibility.Visible;
                 if(String.IsNullOrEmpty(txtNumComensales.Text) || String.IsNullOrWhiteSpace(txtNumComensales.Text))
                 {
                     imgNumComensales.Source = (ImageSource)new ImageSourceConverter().ConvertFrom("..\\..\\images\\error.png");
@@ -109,6 +100,7 @@ namespace intermodular
                     imgNumComensales.Source = (ImageSource)new ImageSourceConverter().ConvertFrom("..\\..\\images\\verify.png");
                     imgNumComensales.ToolTip = null;
                 }
+                imgNumComensales.Visibility = Visibility.Visible;
                 btnEliminarCambios.Visibility = Visibility.Visible;
                 btnGuardarCambios.Visibility = Visibility.Visible;
             }
