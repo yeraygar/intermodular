@@ -109,11 +109,11 @@ namespace intermodular
             btnEliminarZona.Visibility = Visibility.Collapsed;
             btnPressed = null;
             empleado = null;
-            btnCancelar.IsEnabled = false;
-            btnCancelar.Visibility = Visibility.Hidden;
-            btnEditarZona.IsEnabled = false;
-            btnEditarZona.Visibility = Visibility.Hidden;
             txtAyuda.Visibility = Visibility.Visible;
+            txtNombre.Tag = "";
+            txtEmail.Tag = "";
+            txtPass.Tag = "";
+            comboBoxRol.Tag = "";
             txtNombre.Text = "";
             txtEmail.Text = "";
             txtPass.Text = "";
@@ -126,6 +126,10 @@ namespace intermodular
             imgEmail.Visibility = Visibility.Hidden;
             imgPassword.Visibility = Visibility.Hidden;
             imgRol.Visibility = Visibility.Hidden;
+            btnCancelar.Visibility = Visibility.Hidden;
+            btnEditarZona.Visibility = Visibility.Hidden;
+            btnCancelar.IsEnabled = false;
+            btnEditarZona.IsEnabled = false;
             CrearEmpleado crearEmpleado = new CrearEmpleado();
             crearEmpleado.ShowDialog();
             if (crearEmpleado.empleado != null)
@@ -217,6 +221,10 @@ namespace intermodular
                 imgPassword.Visibility = Visibility.Visible;
                 imgRol.Visibility = Visibility.Visible;
                 btnEliminarZona.Visibility = Visibility.Visible;
+                btnCancelar.IsEnabled = false;
+                btnCancelar.Visibility = Visibility.Hidden;
+                btnEditarZona.IsEnabled = false;
+                btnEditarZona.Visibility = Visibility.Hidden;
             }
         }
 
