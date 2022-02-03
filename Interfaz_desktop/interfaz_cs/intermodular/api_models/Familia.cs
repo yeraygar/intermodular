@@ -24,7 +24,7 @@ namespace intermodular
             this.id_client = Client.currentClient._id;
         }
 
-        public static async Task<bool> clientFamilies()
+        public static async Task<bool> getClientFamilies()
         {
             string url = $"{Staticresources.urlHead}family/client/{Client.currentClient._id}";
             HttpResponseMessage httpResponse = await Staticresources.httpClient.GetAsync(url);
@@ -100,7 +100,7 @@ namespace intermodular
             else return false;
         }
 
-        public static async Task<bool> deleteClient(string id) 
+        public static async Task<bool> deleteFamily(string id) 
         {
             string url = $"{Staticresources.urlHead}family/{id}";
 

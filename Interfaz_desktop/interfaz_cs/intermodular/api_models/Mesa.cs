@@ -23,12 +23,8 @@ namespace intermodular
         public int num_row { get; set; }
         public int num_column { get; set; }
 
-
         public static Mesa currentMesa;
         public static List<Mesa> currentZoneTables;
-
-
-        public Mesa() { }
 
         public Mesa(string name, bool status, string id_zone, int comensalesMax)
         {
@@ -48,8 +44,7 @@ namespace intermodular
         /// </summary>
         public static async Task<Mesa> createTable (Mesa mesa)
         {
-            HttpClient client = new HttpClient();
-            string url = "http://localhost:8081/api/tables";
+            string url = $"{Staticresources.urlHead}tables";
 
             //Creamos objeto tipo JSon
             var values = new JObject();
@@ -65,7 +60,7 @@ namespace intermodular
 
             //Mandamos el JSon
             //var httpResponse = client.PostAsJsonAsync(url, values).Result; //Otra opcion sin await, no usar
-            var httpResponse = await client.PostAsync(url, content);
+            var httpResponse = await Staticresources.httpClient.PostAsync(url, content);
 
             if (httpResponse.IsSuccessStatusCode)
             {
@@ -75,12 +70,9 @@ namespace intermodular
                 //Leemos resultado del Body(Contenido) pero tambien podemos ver los Headers o las Cookies
                 var postResult = JsonSerializer.Deserialize<Mesa>(result);
                 return postResult;
-
             }
-            else
-            {
-                return null;
-            }
+            else return null;
+            
         }
 
         /// <summary>
@@ -91,9 +83,7 @@ namespace intermodular
         /// </summary>
         public static async Task<bool> updateTable(string id, Mesa mesa) 
         {
-            HttpClient client = new HttpClient();
-            string url = "http://localhost:8081/api/tables";
-            url = url + "/" + id;
+            string url = $"{Staticresources.urlHead}tables/{id}";
 
             //Creamos objeto tipo JSon con los nuevos parametros
             var values = new JObject();
@@ -110,19 +100,16 @@ namespace intermodular
         HttpContent content = new StringContent(values.ToString(), System.Text.Encoding.UTF8, "application/json");
 
             //Mandamos el JSon
-            var httpResponse = await client.PutAsync(url, content);
+            var httpResponse = await Staticresources.httpClient.PutAsync(url, content);
 
             if (httpResponse.IsSuccessStatusCode)
             {
                 //Guardamos la respuesta
                 var result = await httpResponse.Content.ReadAsStringAsync();
                 return true;
-
             }
-            else
-            {
-                return false;
-            }
+            else return false;
+            
         }
 
         /// <summary>
@@ -136,6 +123,7 @@ namespace intermodular
             HttpClient client = new HttpClient();
             string url = "http://localhost:8081/api/tables";
             url = url + "/" + id;
+            
 
             //Mandamos el JSon
             //var httpResponse = client.PostAsJsonAsync(url, values).Result; //Otra opcion sin await, no usar
@@ -159,12 +147,10 @@ namespace intermodular
         /// </summary>
         public static async Task getZoneTables(String id_zona)
         {
-            HttpClient client = new HttpClient();
-            string url = "http://localhost:8081/api/tables/zone";
-            url = url + "/" + id_zona;
+            string url = $"{Staticresources.urlHead}tables/zone";
 
             //Hacemos la peticion
-            var httpResponse = client.GetAsync(url);
+            var httpResponse = Staticresources.httpClient.GetAsync(url);
 
             //Tareas que podemos hacer mientras se hace la peticion,
             // Si no necesitamos hacer nada mientras se puede hacer del tiron
@@ -189,13 +175,10 @@ namespace intermodular
 
         public static async Task removeZoneTables(string id_zona)
         {
-            HttpClient client = new HttpClient();
-            string url = "http://localhost:8081/api/tables/zone";
-            url = url + "/" + id_zona;
+            string url = $"{Staticresources.urlHead}tables/zone";
 
             //Hacemos la peticion
-            var httpResponse = await client.DeleteAsync(url);
-
+            var httpResponse = await Staticresources.httpClient.DeleteAsync(url);
 
             if (httpResponse.IsSuccessStatusCode)
             {
@@ -203,13 +186,7 @@ namespace intermodular
                 var result = await httpResponse.Content.ReadAsStringAsync();
             }
         }
-
-
-        //TODO get all zones from client
-
-
     }
-
 }
 
 
