@@ -13,20 +13,9 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="069ddd03-50ea-4920-8045-2ecc81179fd3" name="Default Changelist" comment="modelos api que faltaban">
-      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
+    <list default="true" id="069ddd03-50ea-4920-8045-2ecc81179fd3" name="Default Changelist" comment="arreglando onBackPressed">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/incremental/mergeDebugAssets/merger.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/build/intermediates/incremental/mergeDebugAssets/merger.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/incremental/mergeDebugJniLibFolders/merger.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/build/intermediates/incremental/mergeDebugJniLibFolders/merger.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/incremental/mergeDebugResources/compile-file-map.properties" beforeDir="false" afterPath="$PROJECT_DIR$/app/build/intermediates/incremental/mergeDebugResources/compile-file-map.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/incremental/mergeDebugResources/merged.dir/values/values.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/build/intermediates/incremental/mergeDebugResources/merged.dir/values/values.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/incremental/mergeDebugResources/merger.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/build/intermediates/incremental/mergeDebugResources/merger.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/incremental/mergeDebugShaders/merger.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/build/intermediates/incremental/mergeDebugShaders/merger.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/inter/intermodular/MainActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/inter/intermodular/MainActivity.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/inter/intermodular/screens/login_register/ValidateLoginScreen.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/inter/intermodular/screens/login_register/ValidateLoginScreen.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/inter/intermodular/view_models/UserViewModel.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/inter/intermodular/view_models/MapViewModel.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../Interfaz_desktop/interfaz_cs/intermodular/api_models/Zona.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../../Interfaz_desktop/interfaz_cs/intermodular/api_models/Zona.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/inter/intermodular/services/ApiServices.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/inter/intermodular/services/ApiServices.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -139,7 +128,14 @@
       <option name="project" value="LOCAL" />
       <updated>1643827039411</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="arreglando onBackPressed">
+      <created>1643898565011</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1643898565011</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -156,6 +152,7 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="modelos api que faltaban" />
-    <option name="LAST_COMMIT_MESSAGE" value="modelos api que faltaban" />
+    <MESSAGE value="arreglando onBackPressed" />
+    <option name="LAST_COMMIT_MESSAGE" value="arreglando onBackPressed" />
   </component>
 </project>

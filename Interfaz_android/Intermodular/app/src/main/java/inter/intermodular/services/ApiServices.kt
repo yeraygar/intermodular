@@ -20,13 +20,13 @@ interface ApiServices {
                 /**TODO CADA UNO TIENE QUE PONER SU IP LOCAL DONDE CORRE LA API*/
                                 /**cmd -> ipconfig -> IPv4Address*/
 
-                val address : Array<String> = arrayOf("http://192.168.56.1:8081/api/", "Pablo")
+                //val address : Array<String> = arrayOf("http://192.168.56.1:8081/api/", "Pablo")
+                val address : Array<String> = arrayOf("http://192.168.223.70:8081/api/", "PabloMovil")
                 //val address : Array<String> = arrayOf("http://xxxxxxxxxx:8081/api/", "Yeray")
                 //val address : Array<String> = arrayOf("http://xxxxxxxxxx:8081/api/", "Maria")
 
                 apiServices = Retrofit.Builder()
                     .baseUrl(address[0])
-                   // .addConverterFactory(ScalarsConverterFactory.create)
                     .addConverterFactory(GsonConverterFactory.create())
                     .build()
                     .create(ApiServices::class.java)
