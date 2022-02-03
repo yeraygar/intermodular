@@ -8,6 +8,7 @@
         Title="EditarMesa" Height="380" Width="550"
         WindowStyle="None"
         AllowsTransparency="True"
+        ResizeMode="NoResize"
         Background="Transparent"
         WindowStartupLocation="CenterScreen">
     <Border CornerRadius="10" Background="#48C9B0">

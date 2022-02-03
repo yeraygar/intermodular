@@ -163,6 +163,9 @@
     <Compile Include="views\VistaEmpleados.xaml.cs">
       <DependentUpon>VistaEmpleados.xaml</DependentUpon>
     </Compile>
+    <Compile Include="views\VistaProductos.xaml.cs">
+      <DependentUpon>VistaProductos.xaml</DependentUpon>
+    </Compile>
     <Compile Include="views\Zonas.xaml.cs">
       <DependentUpon>Zonas.xaml</DependentUpon>
     </Compile>
@@ -231,6 +234,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="views\VistaEmpleados.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="views\VistaProductos.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

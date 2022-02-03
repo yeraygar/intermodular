@@ -104,7 +104,7 @@
                         <TextBlock x:Name="txt_salir" Grid.Row="1" HorizontalAlignment="Center" Padding="5" FontSize="20">Salir</TextBlock>
                     </Grid>
                 </Button>
-                <Button x:Name="btn_productos" Width="260" Height="150" Style="{StaticResource btnRedondo}" Grid.Row="2" MouseEnter="btn_productos_MouseEnter" MouseLeave="btn_productos_MouseLeave" Cursor="Hand">
+                <Button x:Name="btn_productos" Width="260" Height="150" Style="{StaticResource btnRedondo}" Grid.Row="2" MouseEnter="btn_productos_MouseEnter" MouseLeave="btn_productos_MouseLeave" Cursor="Hand" Click="btn_productos_Click">
                     <Grid>
                         <Grid.RowDefinitions>
                             <RowDefinition Height="2*"/>
