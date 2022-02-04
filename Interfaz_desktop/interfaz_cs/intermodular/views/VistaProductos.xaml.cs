@@ -29,6 +29,7 @@ namespace intermodular
 
         private void btnAgregarFamilia_Click(object sender, RoutedEventArgs e)
         {
+            resetearVistaNuevaFamilia();
             CrearFamiliaProducto crearFamilia = new CrearFamiliaProducto(null);
             crearFamilia.ShowDialog();
             if(crearFamilia.familia != null)
@@ -41,23 +42,165 @@ namespace intermodular
         private void agregarFamiliaStackPanel(Familia familia)
         {
 
+            Button btn = new Button
+            {
+                Height = 70,
+                Content = familia.name,
+                Tag = familia._id,
+                Style = Application.Current.TryFindResource("btnRedondo") as Style,
+                Cursor = Cursors.Hand,
+                Margin = new Thickness(10),
+                FontSize = 19
+            };
+
+            //Creamos un Evento click para cada botón que se crea y asignamos un valor u otro a ciertos elementos, dependiendo de la información que devuelve cada zona de la BD
+            btn.Click += (object send, RoutedEventArgs a) =>
+            {
+                selectedFamilia = familia;
+                Familia.currentFamilia = familia;
+                btnEditarFamilia.Visibility = Visibility.Visible;
+                btnEliminarFamilia.Visibility = Visibility.Visible;
+
+                if (btnFamiliaSelect != null)
+                {
+                    btnFamiliaSelect.Background = Brushes.White;
+                    btnFamiliaSelect.Foreground = Brushes.Black;
+                }
+                btnFamiliaSelect = btn;
+                btn.Background = (Brush)(new BrushConverter().ConvertFrom("#3b7a7a"));
+                btn.Foreground = Brushes.White;
+                btnAgregarProd.Visibility = Visibility.Visible;
+            };
+
+            btn.MouseEnter += (object senderMouseEnter, MouseEventArgs mouseEventArg) => {
+                if (btnFamiliaSelect == null || btnFamiliaSelect.Tag != btn.Tag)
+                    btn.Background = (Brush)(new BrushConverter().ConvertFrom("#93d5d5"));
+            };
+
+            btn.MouseLeave += (object senderMouseLeave, MouseEventArgs mouseLeaveArgs) =>
+            {
+                if (btnFamiliaSelect == null || btnFamiliaSelect.Tag != btn.Tag)
+                    btn.Background = Brushes.White;
+            };
+            
+            stackFamilias.Children.Add(btn);
+            if (btnFamiliaSelect != null)
+            {
+                btnFamiliaSelect.Background = Brushes.White;
+                btnFamiliaSelect.Foreground = Brushes.Black;
+            }
+            btnFamiliaSelect = btn;
+            btn.Background = (Brush)(new BrushConverter().ConvertFrom("#3b7a7a"));
+            btn.Foreground = Brushes.White;
+            selectedFamilia = familia;
+            Familia.currentFamilia = familia;
+            btnAgregarProd.Visibility = Visibility.Visible;
         }
 
         private async void cargarFamilias()
         {
-            /*if (await Familia.getClientFamilies())
+            if (await Familia.getClientFamilies())
             {
+                if(Familia.clientFamilias != null)
+                { if (Familia.clientFamilias.Count != 0)
+                    {
+                        foreach (Familia f in Familia.clientFamilias)
+                        {
+                            Button btn = new Button
+                            {
+                                Height = 70,
+                                Content = f.name,
+                                Tag = f._id,
+                                Style = Application.Current.TryFindResource("btnRedondo") as Style,
+                                Cursor = Cursors.Hand,
+                                Margin = new Thickness(10,30,10,0),
+                                FontSize = 19
+                            };
 
-            }*/
+                            //Creamos un Evento click para cada botón que se crea y asignamos un valor u otro a ciertos elementos, dependiendo de la información que devuelve cada zona de la BD
+                            btn.Click += (object send, RoutedEventArgs a) =>
+                            {
+                                selectedFamilia = f;
+                                Familia.currentFamilia = f;
+                                btnEditarFamilia.Visibility = Visibility.Visible;
+                                btnEliminarFamilia.Visibility = Visibility.Visible;
+
+                                if (btnFamiliaSelect != null)
+                                {
+                                    btnFamiliaSelect.Background = Brushes.White;
+                                    btnFamiliaSelect.Foreground = Brushes.Black;
+                                }
+                                btnFamiliaSelect = btn;
+                                btn.Background = (Brush)(new BrushConverter().ConvertFrom("#3b7a7a"));
+                                btn.Foreground = Brushes.White;
+                                btnAgregarProd.Visibility = Visibility.Visible;
+                            };
+
+                            btn.MouseEnter += (object senderMouseEnter, MouseEventArgs mouseEventArg) =>
+                            {
+                                if (btnFamiliaSelect == null || btnFamiliaSelect.Tag != btn.Tag)
+                                    btn.Background = (Brush)(new BrushConverter().ConvertFrom("#93d5d5"));
+                            };
+
+                            btn.MouseLeave += (object senderMouseLeave, MouseEventArgs mouseLeaveArgs) =>
+                            {
+                                if (btnFamiliaSelect == null || btnFamiliaSelect.Tag != btn.Tag)
+                                    btn.Background = Brushes.White;
+                            };
+
+                            stackFamilias.Children.Add(btn);
+                        }
+                    }
+                }
+            }
+            else
+            {
+                //Mostrar Error
+                MessageBox.Show("Error al cargar la BD");
+            }
         }
 
         private void btnEditarFamilia_Click(object sender, RoutedEventArgs e)
         {
+            string nomFam = selectedFamilia.name;
             CrearFamiliaProducto editarFamilia = new CrearFamiliaProducto(selectedFamilia);
             editarFamilia.ShowDialog();
-            if (!selectedFamilia.name.Equals(editarFamilia.familia.name))
+            if (!nomFam.Equals(editarFamilia.familia.name))
             {
                 btnFamiliaSelect.Content = editarFamilia.familia.name;
+            }
+        }
+
+        private void resetearVistaNuevaFamilia()
+        {
+            btnEditarFamilia.Visibility = Visibility.Collapsed;
+            btnEliminarFamilia.Visibility = Visibility.Collapsed;
+            btnAgregarProd.Visibility = Visibility.Collapsed;
+            btnEditarProd.Visibility = Visibility.Collapsed;
+            btnEliminarProd.Visibility = Visibility.Collapsed;
+            Grid grid = new Grid();
+            for(int x = 0; x < 3; x++)
+            {
+                grid.ColumnDefinitions.Add(new ColumnDefinition());
+            }
+            contenedorGridProductos.Child = grid;
+        }
+
+        private async void btnEliminarFamilia_Click(object sender, RoutedEventArgs e)
+        {
+            if(await Familia.deleteFamily(selectedFamilia._id))
+            {
+                Familia.clientFamilias.Remove(selectedFamilia);
+                Familia.currentFamilia = null;
+                stackFamilias.Children.Remove(btnFamiliaSelect);
+                btnFamiliaSelect = null;
+                selectedFamilia = null;
+                resetearVistaNuevaFamilia();
+            }
+            else
+            {
+                //Mostramos un error
+                MessageBox.Show("Error al eliminar la familia de productos");
             }
         }
     }

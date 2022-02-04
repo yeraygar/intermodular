@@ -23,7 +23,7 @@
                     <ColumnDefinition Width="60"/>
                 </Grid.ColumnDefinitions>
                 <TextBlock x:Name="tituloVentana" FontSize="25" Foreground="White" VerticalAlignment="Center" Margin="10,0,0,0">Familia Producto</TextBlock>
-                <Button x:Name="btn_cerrar" Style="{StaticResource btnRedondo}" Grid.Column="1" Height="40" Width="40" Cursor="Hand">
+                <Button x:Name="btn_cerrar" Style="{StaticResource btnRedondo}" Grid.Column="1" Height="40" Width="40" Cursor="Hand" MouseEnter="btn_cerrar_MouseEnter" MouseLeave="btn_cerrar_MouseLeave" Click="btn_cerrar_Click">
                     <Image x:Name="imgCerrar" Source="..\images\cerrar.png" Width="20" Height="20" RenderOptions.BitmapScalingMode="HighQuality"/>
                 </Button>
             </Grid>
@@ -43,7 +43,7 @@
                             <ColumnDefinition/>
                             <ColumnDefinition/>
                         </Grid.ColumnDefinitions>
-                        <Button x:Name="btnCancelar" Style="{StaticResource btnRedondo}" Width="180" Height="60" FontSize="19" Cursor="Hand">
+                        <Button x:Name="btnCancelar" Style="{StaticResource btnRedondo}" Width="180" Height="60" FontSize="19" Cursor="Hand" Click="btnCancelar_Click" MouseEnter="btnCancelar_MouseEnter" MouseLeave="btnCancelar_MouseLeave">
                             <Grid>
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition/>
@@ -53,7 +53,7 @@
                                 <TextBlock Grid.Column="1" FontSize="19" Text="Cancelar"/>
                             </Grid>
                         </Button>
-                        <Button x:Name="btnSiguiente" Grid.Column="1" Style="{StaticResource btnRedondo}" Width="200" Height="60" FontSize="19" Cursor="Hand">
+                        <Button x:Name="btnSiguiente" Grid.Column="1" Style="{StaticResource btnRedondo}" Width="200" Height="60" FontSize="19" Cursor="Hand" MouseEnter="btnSiguiente_MouseEnter" MouseLeave="btnSiguiente_MouseLeave" Click="btnSiguiente_Click">
                             <Grid>
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition />

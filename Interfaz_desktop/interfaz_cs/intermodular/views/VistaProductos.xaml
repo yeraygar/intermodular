@@ -78,7 +78,7 @@
                                                 <TextBlock Grid.Row="1" FontSize="18" HorizontalAlignment="Center">Editar</TextBlock>
                                             </Grid>
                                         </Button>
-                                        <Button x:Name="btnEliminarFamilia" Style="{StaticResource btnRedondo}" Height="90" Width="90" Grid.Column="2" Cursor="Hand" Visibility="Collapsed">
+                                        <Button x:Name="btnEliminarFamilia" Style="{StaticResource btnRedondo}" Height="90" Width="90" Grid.Column="2" Cursor="Hand" Visibility="Collapsed" Click="btnEliminarFamilia_Click">
                                             <Grid VerticalAlignment="Center" HorizontalAlignment="Center">
                                                 <Grid.RowDefinitions>
                                                     <RowDefinition/>
@@ -100,13 +100,15 @@
                                     <RowDefinition/>
                                     <RowDefinition Height="auto"/>
                                 </Grid.RowDefinitions>
-                                <Grid x:Name="gridProductos">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition/>
-                                        <ColumnDefinition/>
-                                        <ColumnDefinition/>
-                                    </Grid.ColumnDefinitions>
-                                </Grid>
+                                <Border x:Name="contenedorGridProductos">
+                                    <Grid x:Name="gridProductos">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition/>
+                                            <ColumnDefinition/>
+                                            <ColumnDefinition/>
+                                        </Grid.ColumnDefinitions>
+                                    </Grid>
+                                </Border>
                                 <Border Grid.Row="1" Padding="10">
                                     <Grid HorizontalAlignment="Center">
                                         <Grid.ColumnDefinitions>
@@ -114,7 +116,7 @@
                                             <ColumnDefinition/>
                                             <ColumnDefinition/>
                                         </Grid.ColumnDefinitions>
-                                        <Button x:Name="btnAgregarProd" Style="{StaticResource btnRedondo}" Height="90" Width="90" Cursor="Hand" >
+                                        <Button x:Name="btnAgregarProd" Style="{StaticResource btnRedondo}" Height="90" Width="90" Cursor="Hand" Visibility="Collapsed">
                                             <Grid VerticalAlignment="Center" HorizontalAlignment="Center">
                                                 <Grid.RowDefinitions>
                                                     <RowDefinition/>
