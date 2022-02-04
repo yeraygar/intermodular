@@ -110,7 +110,8 @@ fun ShowAlertDialog(
                         onClick = {
                             isDialogOpen.value = false
                             if(!loginRegisterViewModel.emailExistsResponse){
-                                navController.navigate(ScreenNav.MainScreen.withArgs(currentClient.name))
+                                backRegister = false
+                                navController.navigate(ScreenNav.MapScreen.route)
                             }else{
                                 //Si volvemos al register da problemas con el back button
                                 navController.navigate(ScreenNav.LoginScreen.route)

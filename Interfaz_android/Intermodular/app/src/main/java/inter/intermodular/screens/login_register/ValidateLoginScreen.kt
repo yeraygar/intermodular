@@ -87,7 +87,8 @@ fun ShowAlertDialogLogin(
                             isDialogOpen.value = false
                             var current = loginRegisterViewModel.currentClientResponse
                             if(current._id != "Error"){
-                                navController.navigate(ScreenNav.MainScreen.withArgs(current.name?:"Error"))
+                                backLogin = false
+                                navController.navigate(ScreenNav.MapScreen.route)
                             }else{
                                 navController.navigate(ScreenNav.LoginScreen.route)
                             }

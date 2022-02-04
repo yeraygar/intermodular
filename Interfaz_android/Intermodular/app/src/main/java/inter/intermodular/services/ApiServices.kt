@@ -21,7 +21,7 @@ interface ApiServices {
                                 /**cmd -> ipconfig -> IPv4Address*/
 
                 //val address : Array<String> = arrayOf("http://192.168.56.1:8081/api/", "Pablo")
-                val address : Array<String> = arrayOf("http://192.168.1.93:8081/api/", "PabloMovil")
+                val address : Array<String> = arrayOf("http://192.168.1.93:8081/api/", "PabloPhone")
                 //val address : Array<String> = arrayOf("http://xxxxxxxxxx:8081/api/", "Yeray")
                 //val address : Array<String> = arrayOf("http://xxxxxxxxxx:8081/api/", "Maria")
 
@@ -31,7 +31,7 @@ interface ApiServices {
                     .build()
                     .create(ApiServices::class.java)
 
-                Logger.w("Conectado a la API, ${address[0]}; IP de ${address[1]}")
+                Logger.w("Connected a la API, ${address[0]}; IP de ${address[1]}")
             }
             return apiServices!!
         }
@@ -45,17 +45,17 @@ interface ApiServices {
 
     /********************USERS**********************/
 
-    @GET("users/client/Ecosistema1")
-    suspend fun getClientUsers() : List<UserModel>
+    @GET("users/client/{id}")
+    suspend fun getClientUsers(@Path("id") id : String) : List<UserModel>
 
-    @GET("users/client/Ecosistema1/active")
-    suspend fun getUsersFichados() : List<UserModel>
+    @GET("users/client/{id}/active")
+    suspend fun getUsersFichados(@Path("id") id : String) : List<UserModel>
 
-    @GET("users/client/Ecosistema1/inactive")
-    suspend fun getUsersNoFichados() : List<UserModel>
+    @GET("users/client/{id}/inactive")
+    suspend fun getUsersNoFichados(@Path("id") id : String) : List<UserModel>
 
-    @GET("users/client/Ecosistema1/admin")
-    suspend fun getClientAdmin() : List<UserModel>
+    @GET("users/client/{id}/admin")
+    suspend fun getClientAdmin(@Path("id") id : String) : List<UserModel>
 
 
     /********************CLIENT**********************/
