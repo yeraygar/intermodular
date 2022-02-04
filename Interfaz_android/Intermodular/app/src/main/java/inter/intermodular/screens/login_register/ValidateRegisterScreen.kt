@@ -17,9 +17,7 @@ import com.orhanobut.logger.Logger
 import inter.intermodular.R
 import inter.intermodular.ScreenNav
 import inter.intermodular.models.ClientPost
-import inter.intermodular.support.clientCreated
-import inter.intermodular.support.currentClient
-import inter.intermodular.support.getSHA256
+import inter.intermodular.support.*
 import inter.intermodular.view_models.LoginRegisterViewModel
 
 @Composable
@@ -43,6 +41,11 @@ fun ValidateRegisterScreen(
         navController = navController,
         buttonText = buttonText
     )
+
+    if(!isDialogOpen.value && backRegister){
+        backRegister = false;
+        navController.navigate(ScreenNav.LoginScreen.route)
+    }
 }
 
 @Composable

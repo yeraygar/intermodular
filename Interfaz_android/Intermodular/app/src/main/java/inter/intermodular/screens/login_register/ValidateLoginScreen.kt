@@ -21,6 +21,7 @@ import androidx.navigation.NavController
 import com.orhanobut.logger.Logger
 import inter.intermodular.R
 import inter.intermodular.ScreenNav
+import inter.intermodular.support.backLogin
 import inter.intermodular.support.currentClient
 import inter.intermodular.support.loginIntents
 import inter.intermodular.view_models.LoginRegisterViewModel
@@ -42,8 +43,10 @@ fun ValidateLoginScreen(
         activityKiller = activityKiller
     )
 
-
-
+    if(!isDialogOpen.value && backLogin){
+        backLogin = false;
+        navController.navigate(ScreenNav.LoginScreen.route)
+    }
 
 }
 

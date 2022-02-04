@@ -24,6 +24,7 @@ import androidx.navigation.NavController
 import com.orhanobut.logger.Logger
 import inter.intermodular.R
 import inter.intermodular.ScreenNav
+import inter.intermodular.support.backRegister
 import inter.intermodular.support.clientCreated
 import inter.intermodular.view_models.LoginRegisterViewModel
 import androidx.compose.material.OutlinedTextField as OutlinedTextField1
@@ -166,6 +167,7 @@ fun Register(navController: NavController, loginRegisterViewModel: LoginRegister
                 }else{
                     if(password1.value == password2.value){
                         clientCreated = false
+                        backRegister = true
                         loginRegisterViewModel.checkEmail(email.value)
                         navController.navigate(ScreenNav.ValidateRegisterScreen.withArgs(name.value,email.value,password1.value))
                     }

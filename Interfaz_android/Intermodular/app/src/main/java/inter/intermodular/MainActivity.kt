@@ -28,6 +28,7 @@ class MainActivity : ComponentActivity() {
     private val mapViewModel by viewModels<MapViewModel>()
     private val loginRegisterViewModel by viewModels<LoginRegisterViewModel>()
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
