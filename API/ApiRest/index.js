@@ -15,7 +15,11 @@ const mongoose = require("mongoose");
 const userRoutes = require("./routes/user");
 const tableRoutes = require("./routes/table");
 const zoneRoutes = require("./routes/zone");
-const clientRoutes = require("./routes/client")
+const clientRoutes = require("./routes/client");
+const familyRoutes = require("./routes/family");
+const productRoutes = require("./routes/product");
+const ticketRoutes = require("./routes/ticket");
+const ticketLineRoutes = require("./routes/ticket_line");
 const express = require('express');
 const app = express();
 require("dotenv").config();
@@ -26,12 +30,16 @@ app.use(express.json());
 app.use('/api', tableRoutes);
 app.use('/api', userRoutes);
 app.use("/api", zoneRoutes);
-app.use("/api", clientRoutes)
+app.use("/api", clientRoutes);
+app.use("/api", familyRoutes);
+app.use("/api", productRoutes);
+app.use("/api", ticketRoutes);
+app.use("/api", ticketLineRoutes);
 
 //CONNECTION WITH MONGODB
 mongoose
-.connect(process.env.MONGODB_URI)
-//.connect("mongodb://127.0.0.1:27017/myFirstDatabase")
+//.connect(process.env.MONGODB_URI)
+.connect("mongodb://127.0.0.1:27017/myFirstDatabase")
 .then(() => console.log("Connected to MongoDB Atlas"))
 .catch((err) => console.log(`Error al conectar con MongoDB: ${err}`));
 

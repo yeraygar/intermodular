@@ -15,14 +15,27 @@ const productSchema = mongoose.Schema({
         required: false,
         default: 0.0
     },
+    stock:{
+        type: Number,
+        required: false,
+        default: 1
+    },
+    total:{
+        type: Number,
+        required: false,
+        default: 0.0 // cantidad * precio
+    },
     id_client:{
         type: String,
         required: true
     },
     id_familia:{
-        type:Array,
-        required:false,
-        default: ["all"]
+        type:String,
+        required: true,
+    },
+    id_ticket:{
+        type:String,
+        required: false
     }
 
 })

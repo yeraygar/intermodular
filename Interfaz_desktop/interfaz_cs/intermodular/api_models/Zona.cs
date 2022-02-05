@@ -14,6 +14,7 @@ namespace intermodular
         private string _id_client;
         private string _zone_name;
         private string id;
+
         public static List<Zona> allZones;
         public static Zona zonaBuscada;
 
@@ -75,13 +76,9 @@ namespace intermodular
             // Si no necesitamos hacer nada mientras se puede hacer del tiron
             // deteniendo el hilo principal:
             // var httpResponse = await client.GetAsync(url);
-            Console.WriteLine("peticion en curso");
 
             //Detenemos el hilo principal hasta que recibamos la respuesta
             await httpResponse;
-
-            //ambos Return true si la peticion se ha realizado correctamente.
-            Console.WriteLine($"Peticion realizada con exito? : {httpResponse.Result.IsSuccessStatusCode}");
 
             if (httpResponse.Result.IsSuccessStatusCode)
             {
@@ -161,7 +158,6 @@ namespace intermodular
             var values = new JObject();
             values.Add("id_client", zona.id_client);
             values.Add("zone_name", zona.zone_name);
-
 
             //Creamos la peticion
             HttpContent content = new StringContent(values.ToString(), System.Text.Encoding.UTF8, "application/json");

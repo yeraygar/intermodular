@@ -221,5 +221,11 @@ namespace intermodular
                 this.Close();
             }
         }
+
+        private void btn_empleados_Click(object sender, RoutedEventArgs e)
+        {
+            VistaEmpleados vistaEmpleados = new VistaEmpleados();
+            vistaEmpleados.Show();
+        }
     }
 }

@@ -6,6 +6,7 @@ using System.Net.Http;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
+
 namespace intermodular
 {
     public class User
@@ -44,15 +45,10 @@ namespace intermodular
             this.name = name;
             this.email = email;
             this.passw = passw;
-            this.id_client = id_client;
+            this.id_client = Client.currentClient._id;
             this.active = active;
             this.rol = rol;
-
         }
-
-        public User() { }
-
-
 
         /// <summary>
         /// Async Static Method, carga todos los usuarios 
@@ -61,23 +57,20 @@ namespace intermodular
         /// </summary>
         public static async Task getAllUsers()
         {
-            HttpClient client = new HttpClient();
-            string url = "http://localhost:8081/api/users";
+       
+            string url = $"{Staticresources.urlHead}users";
+
 
             //Hacemos la peticion
-            var httpResponse = client.GetAsync(url);
+            var httpResponse = Staticresources.httpClient.GetAsync(url);
 
             //Tareas que podemos hacer mientras se hace la peticion,
             // Si no necesitamos hacer nada mientras se puede hacer del tiron
             // deteniendo el hilo principal:
             // var httpResponse = await client.GetAsync(url);
-            Console.WriteLine("peticion en curso");
 
             //Detenemos el hilo principal hasta que recibamos la respuesta
             await httpResponse;
-
-            //ambos Return true si la peticion se ha realizado correctamente.
-            Console.WriteLine($"Peticion realizada con exito? : {httpResponse.Result.IsSuccessStatusCode}");
 
             if (httpResponse.Result.IsSuccessStatusCode)
             {
@@ -99,24 +92,18 @@ namespace intermodular
         /// </summary>
         public static async Task getUserById(string id)
         {
-            HttpClient client = new HttpClient();
-            string url = "http://localhost:8081/api/users";
-            url = url + "/" + id;
+            string url = $"{Staticresources.urlHead}users";
 
             //Hacemos la peticion
-            var httpResponse = client.GetAsync(url);
+            var httpResponse = Staticresources.httpClient.GetAsync(url);
 
             //Tareas que podemos hacer mientras se hace la peticion,
             // Si no necesitamos hacer nada mientras se puede hacer del tiron
             // deteniendo el hilo principal:
             // var httpResponse = await client.GetAsync(url);
-            Console.WriteLine("peticion en curso");
 
             //Detenemos el hilo principal hasta que recibamos la respuesta
             await httpResponse;
-
-            //ambos Return true si la peticion se ha realizado correctamente.
-            Console.WriteLine($"Peticion realizada con exito? : {httpResponse.Result.IsSuccessStatusCode}");
 
             if (httpResponse.Result.IsSuccessStatusCode)
             {
@@ -136,10 +123,9 @@ namespace intermodular
         /// MongoDB con <b>_id</b> autogenerado
         /// <return>Void</return>
         /// </summary>
-        public static async Task createUser(User user)
+        public static async Task<User> createUser(User user)
         {
-            HttpClient client = new HttpClient();
-            string url = "http://localhost:8081/api/users";
+            string url = $"{Staticresources.urlHead}users";
 
             //Creamos objeto tipo JSon
             var values = new JObject();
@@ -154,7 +140,7 @@ namespace intermodular
 
             //Mandamos el JSon
             //var httpResponse = client.PostAsJsonAsync(url, values).Result; //Otra opcion sin await, no usar
-            var httpResponse = await client.PostAsync(url, content);
+            var httpResponse = await Staticresources.httpClient.PostAsync(url, content);
 
             if (httpResponse.IsSuccessStatusCode)
             {
@@ -163,10 +149,10 @@ namespace intermodular
 
                 //Leemos resultado del Body(Contenido) pero tambien podemos ver los Headers o las Cookies
                 var postResult = JsonSerializer.Deserialize<User>(result);
-
-                Console.WriteLine($"Usuario creado correctamente\n\tname: {postResult.name},\n\temail: {postResult.email} _id: {postResult._id}");
-
+                return postResult;
             }
+            else return null;
+            
         }
 
         /// <summary>
@@ -175,11 +161,9 @@ namespace intermodular
         ///  actualiza en MongoDB donde id = _id (unica)
         /// <return>Void</return>
         /// </summary>
-        public static async Task updateUser(string id, User user)
+        public static async Task<bool> updateUser(string id, User user)
         {
-            HttpClient client = new HttpClient();
-            string url = "http://localhost:8081/api/users";
-            url = url + "/" + id;
+            string url = $"{Staticresources.urlHead}users/{id}";
 
             //Creamos objeto tipo JSon con los nuevos parametros
             var values = new JObject();
@@ -195,16 +179,15 @@ namespace intermodular
             HttpContent content = new StringContent(values.ToString(), System.Text.Encoding.UTF8, "application/json");
 
             //Mandamos el JSon
-            var httpResponse = await client.PutAsync(url, content);
+            var httpResponse = await Staticresources.httpClient.PutAsync(url, content);
 
             if (httpResponse.IsSuccessStatusCode)
             {
                 //Guardamos la respuesta
                 var result = await httpResponse.Content.ReadAsStringAsync();
-
-                Console.WriteLine($"Usuario actualizado correctamente {result}");
-
+                return true;
             }
+            else return false;
         }
 
         /// <summary>
@@ -213,15 +196,13 @@ namespace intermodular
         ///  donde id = _id (unica)
         /// <returns>Void</returns>
         /// </summary>
-        public static async Task deleteUser(string id)
+        public static async Task<bool> deleteUser(string id)
         {
-            HttpClient client = new HttpClient();
-            string url = "http://localhost:8081/api/users";
-            url = url + "/" + id;
+            string url = $"{Staticresources.urlHead}users/{id}";
 
             //Mandamos el JSon
             //var httpResponse = client.PostAsJsonAsync(url, values).Result; //Otra opcion sin await, no usar
-            var httpResponse = await client.DeleteAsync(url);
+            var httpResponse = await Staticresources.httpClient.DeleteAsync(url);
 
             if (httpResponse.IsSuccessStatusCode)
             {
@@ -229,8 +210,11 @@ namespace intermodular
                 var result = await httpResponse.Content.ReadAsStringAsync();
 
                 Console.WriteLine($"Usuario eliminado correctamente {result}");
+                return true;
 
             }
+            else return false;
+            
         }
 
         /// <summary>
@@ -268,24 +252,19 @@ namespace intermodular
         /// </summary>
         public static async Task getClientUsers(String id_client)
         {
-            HttpClient client = new HttpClient();
-            string url = "http://localhost:8081/api/users/client";
-            url = url + "/" + id_client;
+            string url = $"{Staticresources.urlHead}users/client/{id_client}";
+
 
             //Hacemos la peticion
-            var httpResponse = client.GetAsync(url);
+            var httpResponse = Staticresources.httpClient.GetAsync(url);
 
             //Tareas que podemos hacer mientras se hace la peticion,
             // Si no necesitamos hacer nada mientras se puede hacer del tiron
             // deteniendo el hilo principal:
             // var httpResponse = await client.GetAsync(url);
-            Console.WriteLine("peticion en curso");
 
             //Detenemos el hilo principal hasta que recibamos la respuesta
             await httpResponse;
-
-            //ambos Return true si la peticion se ha realizado correctamente.
-            Console.WriteLine($"Peticion realizada con exito? : {httpResponse.Result.IsSuccessStatusCode}");
 
             if (httpResponse.Result.IsSuccessStatusCode)
             {
@@ -307,12 +286,11 @@ namespace intermodular
         /// </summary>
         public static async Task getUsersFichados(String id_client, bool fichados)
         {
-            HttpClient client = new HttpClient();
-            string url = "http://localhost:8081/api/users/client";
-            url = url + "/" + id_client + (fichados ? "/active" : "/inactive");
+            string url = $"{Staticresources.urlHead}users/client/{id_client}/{(fichados ? "/active" : "/inactive")}";
+
 
             //Hacemos la peticion
-            var httpResponse = client.GetAsync(url);
+            var httpResponse = Staticresources.httpClient.GetAsync(url);
 
             //Tareas que podemos hacer mientras se hace la peticion,
             // Si no necesitamos hacer nada mientras se puede hacer del tiron
@@ -344,12 +322,10 @@ namespace intermodular
         /// </summary>
         public static async Task getAdmins(String id_client)
         {
-            HttpClient client = new HttpClient();
-            string url = "http://localhost:8081/api/users/client";
-            url = url + "/" + id_client + "/admin";
+            string url = $"{Staticresources.urlHead}users/client/{id_client}/admin";
 
             //Hacemos la peticion
-            var httpResponse = client.GetAsync(url);
+            var httpResponse = Staticresources.httpClient.GetAsync(url);
 
             //Tareas que podemos hacer mientras se hace la peticion,
             // Si no necesitamos hacer nada mientras se puede hacer del tiron

@@ -96,7 +96,7 @@
                                         <TextBlock HorizontalAlignment="Left" Margin="45,106,0,0" TextWrapping="Wrap" Text="Información de la zona" VerticalAlignment="Top" FontSize="19" FontWeight="Bold"/>
                                         <TextBlock x:Name="txtAyuda" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="255,106,0,0" Text="(Seleccione una zona)" FontSize="19"/>
                                         <TextBlock HorizontalAlignment="Left" Margin="45,195,0,0" TextWrapping="Wrap" Text="Nombre de la zona" VerticalAlignment="Top" FontSize="19" RenderTransformOrigin="0.73,0.68"/>
-                                        <TextBox x:Name="txtEditarNombreZona" HorizontalAlignment="Left" Margin="224,195,0,0" TextWrapping="NoWrap" VerticalAlignment="Top" Width="203" FontSize="19" IsEnabled="False" TextChanged="txtEditarNombreZona_TextChanged" LostFocus="txtEditarNombreZona_LostFocus" />
+                                        <TextBox x:Name="txtEditarNombreZona" HorizontalAlignment="Left" Margin="224,195,0,0" TextWrapping="NoWrap" VerticalAlignment="Top" Width="203" FontSize="19" IsEnabled="False" TextChanged="txtEditarNombreZona_TextChanged" />
 
                                         <Image x:Name="imgEditNombreZona" Height="20" Width="20"  HorizontalAlignment="Left" VerticalAlignment="Top" Margin="441,200,0,0" RenderOptions.BitmapScalingMode="HighQuality" Cursor="Hand"   MouseDown="imgEditNombreZona_MouseDown" Source="/intermodular;component/images/pencil.png" Visibility="Hidden"/>
                                     </Grid>
