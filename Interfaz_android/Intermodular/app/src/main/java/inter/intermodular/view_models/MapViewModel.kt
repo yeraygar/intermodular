@@ -9,6 +9,7 @@ import com.orhanobut.logger.Logger
 import kotlinx.coroutines.launch
 import inter.intermodular.models.UserModel
 import inter.intermodular.services.ApiServices
+import inter.intermodular.support.currentClient
 import java.lang.Exception
 
 class MapViewModel : ViewModel() {
@@ -24,7 +25,8 @@ class MapViewModel : ViewModel() {
         viewModelScope.launch {
             val apiServices = ApiServices.getInstance()
             try{
-                allUsersClientResponse = apiServices.getClientUsers()
+                allUsersClientResponse = apiServices.getClientUsers("Ecosistema1")
+                //allUsersClientResponse = apiServices.getClientUsers(currentClient._id)
                 Logger.i("CORRECT getClientUsersList ")
             }catch (e : Exception){
                 errorMessage = e.message.toString()
@@ -37,8 +39,10 @@ class MapViewModel : ViewModel() {
         viewModelScope.launch {
             val apiServices = ApiServices.getInstance()
             try{
-                if(buscarFichados) usersFichadosResponse = apiServices.getUsersFichados()
-                else usersNoFichadosResponse = apiServices.getUsersNoFichados()
+                if(buscarFichados) usersFichadosResponse = apiServices.getUsersFichados("Ecosistema1")
+                //if(buscarFichados) usersFichadosResponse = apiServices.getUsersFichados(currentClient._id)
+                else usersNoFichadosResponse = apiServices.getUsersNoFichados("Ecosistema1")
+                //else usersNoFichadosResponse = apiServices.getUsersNoFichados(currentClient._id)
                 Logger.i("CORRECT getUsersFichados ${buscarFichados}")
             }catch (e : Exception){
                 errorMessage = e.message.toString()
@@ -52,7 +56,8 @@ class MapViewModel : ViewModel() {
         viewModelScope.launch {
             val apiServices = ApiServices.getInstance()
             try{
-                adminsClientResponse = apiServices.getClientAdmin()
+                adminsClientResponse = apiServices.getClientAdmin("Ecosistema1")
+                //adminsClientResponse = apiServices.getClientAdmin(currentClient._id)
                 Logger.i("CORRECT getClientAdmins ")
             }catch (e: Exception){
                 errorMessage = e.message.toString()

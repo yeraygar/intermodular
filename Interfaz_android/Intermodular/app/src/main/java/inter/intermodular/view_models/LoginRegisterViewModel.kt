@@ -14,6 +14,12 @@ import inter.intermodular.support.getSHA256
 import kotlinx.coroutines.launch
 import retrofit2.Response
 
+/**
+ * Logica asincrona de llamadas a la Api,
+ * vinculado a las vistas del paquete login_register
+ * Las funciones se ejecutan en el ViewModelScope y
+ * llaman a la instancia de Retrofit con sus rutas.
+ */
 class LoginRegisterViewModel : ViewModel() {
 
     var emailExistsResponse : Boolean by mutableStateOf(true)

@@ -3,7 +3,7 @@ package inter.intermodular.support
 import com.orhanobut.logger.Logger
 import java.nio.charset.StandardCharsets
 import java.security.MessageDigest
-
+/** Recibe un string y lo devuelve cifrado */
 fun getSHA256(passw : String) : String {
     try{
         val bytes = passw.toString().toByteArray()
