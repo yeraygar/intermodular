@@ -29,27 +29,42 @@ namespace intermodular
       
         private void textBoxUsuario(object sender, MouseButtonEventArgs e)
         {
-            TextBox textbox = sender as TextBox;
-            Teclado keyboardWindow = new Teclado(textbox, this);
+            Button buton = sender as Button;            
+            //TextBox textBox = sender as TextBox;
+            Teclado keyboardWindow = new Teclado(buton,this);
             if (keyboardWindow.ShowDialog() == true)
-                textbox.Text = keyboardWindow.Result;
+                textBox.Text = keyboardWindow.Result;
+        }
+
+        private void textBoxNombre(object sender, MouseButtonEventArgs e)
+        {
+            Button buton = sender as Button;
+            //TextBox textBox = sender as TextBox;
+            Teclado keyboardWindow = new Teclado(buton, this);
+            if (keyboardWindow.ShowDialog() == true)
+                textBoxN.Text = keyboardWindow.Result;
         }
 
         private void textBoxContraseña(object sender, MouseButtonEventArgs e)
         {
-            PasswordBox pass = sender as PasswordBox;
-            Teclado keyboardWindow = new Teclado(pass, this);
+            Button buton = sender as Button;
+            //PasswordBox pass = sender as PasswordBox;
+            Teclado keyboardWindow = new Teclado(buton, this);
             if (keyboardWindow.ShowDialog() == true)
-                pass.Password = keyboardWindow.Result;
+                passworbox.Password = keyboardWindow.Result;
         }
-      
 
-        private void boton_registrar(object sender, RoutedEventArgs e)
+        private void textBoxContraseña2(object sender, MouseButtonEventArgs e)
         {
-           
-            Registro regis = new Registro();
-            regis.ShowDialog();
+            Button buton = sender as Button;
+            //PasswordBox pass = sender as PasswordBox;
+            Teclado keyboardWindow = new Teclado(buton, this);
+            if (keyboardWindow.ShowDialog() == true)
+                passworbox2.Password = keyboardWindow.Result;
         }
+
+
+       
 
         private async void boton_iniciarSesion(object sender, RoutedEventArgs e)
         {
@@ -85,5 +100,97 @@ namespace intermodular
         {
             btn_cerrar.Background = Brushes.White;
         }
+
+        private void boton_Registro(object sender, RoutedEventArgs e)
+        {
+            stackpanelNombre.Visibility = Visibility.Visible;
+            stackpanelcontraseña2.Visibility = Visibility.Visible;
+            botonRegistrarse.Visibility = Visibility.Visible;
+            botonInicio.Visibility = Visibility.Collapsed;
+            //botonInicio.Content = "Registrarse";
+        }
+
+        private void boton_Login(object sender, RoutedEventArgs e)
+        {
+            stackpanelNombre.Visibility = Visibility.Collapsed;
+            stackpanelcontraseña2.Visibility = Visibility.Collapsed;
+            botonRegistrarse.Visibility = Visibility.Collapsed;
+            botonInicio.Visibility = Visibility.Visible;
+        }
+                
+
+        private async void boton_Registrarse(object sender, RoutedEventArgs e)
+        {
+
+            if (passworbox.Password != passworbox2.Password)
+            {
+                MessageBox.Show("Las contraseñas introdicidas no coinciden.");
+            }
+            else
+            {
+                if (textBox.Text.Length != 0 || textBoxN.Text.Length != 0 || passworbox.Password.Length != 0 || passworbox2.Password.Length != 0)
+                {
+
+                    Boolean comprobarEmail = await Client.checkEmailExists(textBox.Text);
+
+                    if (comprobarEmail)
+                    {
+                        MessageBox.Show("El email ya existe. Indroduzca un email válido.");
+                    }
+                    else
+                    {
+                        Client clientprueba = new Client(textBoxN.Text, textBox.Text, passworbox.Password);
+                        Boolean crearCliente = await Client.createClient(clientprueba);
+                        MessageBox.Show("Usuario creado correctamente");
+                        LoginCliente log = new LoginCliente();
+                        log.ShowDialog();
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("No puede haber campos vacios.");
+                }
+
+            }
+        }
+
+        private void inicio_Enter(object sender, MouseEventArgs e)
+        {
+            botonInicio.Background = Brushes.DarkSlateGray;           
+        }
+
+        private void inicio_Leave(object sender, MouseEventArgs e)
+        {
+            botonInicio.Background = (Brush)(new BrushConverter().ConvertFrom("#5da9b7"));            
+        }
+
+        private void registro_Enter(object sender, MouseEventArgs e)
+        {
+            botonRegistro.Background = Brushes.DarkSlateGray;
+        }
+
+        private void registro_Leave(object sender, MouseEventArgs e)
+        {
+            botonRegistro.Background = (Brush)(new BrushConverter().ConvertFrom("#5da9b7"));
+        }
+        private void login_Enter(object sender, MouseEventArgs e)
+        {
+            botonLogin.Background = Brushes.DarkSlateGray;
+        }
+
+        private void login_Leave(object sender, MouseEventArgs e)
+        {
+            botonLogin.Background = (Brush)(new BrushConverter().ConvertFrom("#5da9b7"));
+        }
+        private void registrarse_Enter(object sender, MouseEventArgs e)
+        {
+            botonRegistrarse.Background = Brushes.DarkSlateGray;
+        }
+
+        private void registrarse_Leave(object sender, MouseEventArgs e)
+        {
+            botonRegistrarse.Background = (Brush)(new BrushConverter().ConvertFrom("#5da9b7"));
+        }
     }
 }
+

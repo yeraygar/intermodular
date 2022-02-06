@@ -17,13 +17,13 @@ namespace intermodular.support
         public RatioConverter() { }
 
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
-        { // do not let the culture default to local to prevent variable outcome re decimal syntax
+        { // no permita que la referencia cultural sea local por defecto para evitar resultados variables con sintaxis decimal
             double size = System.Convert.ToDouble(value) * System.Convert.ToDouble(parameter, CultureInfo.InvariantCulture);
             return size.ToString("G0", CultureInfo.InvariantCulture);
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
-        { // read only converter...
+        { // convertidor de solo lectura...
             throw new NotImplementedException();
         }
 

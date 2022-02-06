@@ -381,6 +381,18 @@
     <Resource Include="images\eye.png" />
     <Resource Include="images\eye_closed.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="images\teclado1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="images\TECLADO.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="images\tecladoCirculo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="images\leaves-green-leaves-macro-wallpaper-preview.jpg" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\System.Text.Json.6.0.1\build\System.Text.Json.targets" Condition="Exists('..\packages\System.Text.Json.6.0.1\build\System.Text.Json.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

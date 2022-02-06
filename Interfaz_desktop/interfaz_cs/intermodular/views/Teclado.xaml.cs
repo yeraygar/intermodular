@@ -37,6 +37,7 @@ namespace intermodular
         private string _result;
         private TextBox textbox;
         private LoginCliente loginCliente;
+        private Button buton;
 
         public string Result
         {
@@ -48,7 +49,7 @@ namespace intermodular
 
         #region Constructor
 
-        public Teclado(PasswordBox owner, Window wndOwner)
+      public Teclado(PasswordBox owner, Window wndOwner)
         {
             InitializeComponent();
             this.Owner = wndOwner;
@@ -63,6 +64,15 @@ namespace intermodular
             this.loginCliente = loginCliente;
             Result = "";
         }
+
+        public Teclado(Button buton, LoginCliente loginCliente)
+        {
+            InitializeComponent();
+            this.buton = buton;
+            this.loginCliente = loginCliente;
+        }
+
+
 
         #endregion
 

@@ -21,45 +21,89 @@
 
     <Border CornerRadius="20">
         <Border.Background>
-            <ImageBrush ImageSource="..\images\fondo8.jpg"/>
+            <ImageBrush ImageSource="..\images\leaves-green-leaves-macro-wallpaper-preview.jpg"/>
         </Border.Background>
         <Grid>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
-            </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
-                <RowDefinition Height="120"></RowDefinition>
-                <RowDefinition></RowDefinition>
-                <RowDefinition></RowDefinition>
+                <RowDefinition Height="60"></RowDefinition>
                 <RowDefinition></RowDefinition>
             </Grid.RowDefinitions>
 
-            <Button x:Name="btn_cerrar" Style="{StaticResource btnRedondo}" Height="40" Width="40" Grid.Column="2" Grid.Row="0" HorizontalAlignment="Right"  Cursor="Hand" Margin="30" Click="cerrar" MouseEnter="btn_cerrar_MouseEnter" MouseLeave="btn_cerrar_MouseLeave">
+            <Border Grid.Row="1" Background="WhiteSmoke" Opacity="0.95" CornerRadius="20" Width="600" Height="700" VerticalAlignment="Center" HorizontalAlignment="center">
+                <Grid Grid.Row="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1*"></ColumnDefinition>
+                        <ColumnDefinition Width="2*"></ColumnDefinition>
+                        <ColumnDefinition Width="1*"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="1*"></RowDefinition>
+                        <RowDefinition Height="2*"></RowDefinition>
+                        <RowDefinition Height="2*"></RowDefinition>
+                        <RowDefinition Height="1*"></RowDefinition>
+                    </Grid.RowDefinitions>
+
+
+                    <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="25">
+                        <Label Content="Usuario" Foreground="DarkSlateGray" FontSize="25" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                            <TextBox x:Name="textBox"  Height="35" Width="160" FontSize="20"/>
+                            <Button HorizontalAlignment="Right" VerticalAlignment="Bottom"  Grid.Column="0" Grid.Row="1" Background="Transparent" BorderBrush="Transparent" PreviewMouseDown="textBoxUsuario"  >
+                                <Image Source="..\images\TECLADO.png" Height="32" Width="32" />
+                            </Button>
+
+                        </StackPanel>
+                    </StackPanel>
+
+                    <StackPanel Grid.Row="2" Grid.Column="1" Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="top" >
+                        <Label Content="Contraseña" Foreground="DarkSlateGray" HorizontalAlignment="Left" VerticalAlignment="Center"  FontSize="25"/>
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                            <PasswordBox Height="35" HorizontalAlignment="Center"  x:Name="passworbox" Width="160" FontSize="20" />
+                            <Button HorizontalAlignment="Right" VerticalAlignment="Bottom" Grid.Column="0" Grid.Row="2" Background="Transparent" BorderBrush="Transparent" PreviewMouseDown="textBoxContraseña">
+                                <Image Source="..\images\TECLADO.png" Height="32" Width="32"/>
+                            </Button>
+
+                        </StackPanel>
+
+                    </StackPanel>
+
+                    <StackPanel x:Name="stackpanelNombre" Grid.Row="1" Grid.Column="1" Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="TOP"  Margin="25" Visibility="Collapsed">
+                        <Label Content="Nombre" Foreground="DarkSlateGray" FontSize="25" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                            <TextBox Name="textBoxN" Height="35" Width="160" FontSize="20" VerticalAlignment="Top" />
+                            <Button HorizontalAlignment="Right" VerticalAlignment="Bottom"  Grid.Column="0" Grid.Row="1" Background="Transparent" BorderBrush="Transparent" PreviewMouseDown="textBoxNombre">
+                                <Image Source="..\images\TECLADO.png" Height="32" Width="32" />
+                            </Button>
+
+                        </StackPanel>
+                    </StackPanel>
+
+
+                    <StackPanel x:Name="stackpanelcontraseña2" Grid.Row="2" Grid.Column="1" Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Bottom"  Margin="25" Visibility="Collapsed">
+                        <Label Content="Repita Contraseña" Foreground="DarkSlateGray" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="25"/>
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                            <PasswordBox Height="35" HorizontalAlignment="Center"  x:Name="passworbox2" VerticalAlignment="Bottom" Width="160" FontSize="20" />
+                            <Button HorizontalAlignment="Right" VerticalAlignment="top" Grid.Column="0" Grid.Row="2" Background="Transparent" BorderBrush="Transparent" PreviewMouseDown="textBoxContraseña2">
+                                <Image Source="..\images\TECLADO.png" Height="32" Width="32"/>
+                            </Button>
+                        </StackPanel>
+                    </StackPanel>
+
+
+                    <Button x:Name="botonInicio" Content="Iniciar sesion" Background="#5da9b7" Foreground="WhiteSmoke" HorizontalAlignment="Left" VerticalAlignment="Center" Width="140" Height="70" Grid.Column="2" Grid.Row="3" Style="{StaticResource btnRedondo}" FontSize="20" Click="boton_iniciarSesion" MouseEnter="inicio_Enter" MouseLeave="inicio_Leave" />
+                    <Button x:Name="botonRegistrarse" Content="Registrase" Background="#5da9b7" Foreground="WhiteSmoke" HorizontalAlignment="Left" VerticalAlignment="Center" Width="140" Height="70" Grid.Column="2" Grid.Row="3" Style="{StaticResource btnRedondo}" FontSize="20" Visibility="Collapsed" Click="boton_Registrarse" MouseEnter="registrarse_Enter" MouseLeave="registrarse_Leave" />
+                    <Button x:Name="botonLogin" Content="Login" Background="#5da9b7" Foreground="WhiteSmoke" Width="160" Height="70" Grid.Row="0" Style="{StaticResource btnRedondo}" FontSize="20"  Grid.ColumnSpan="2" Margin="0,0,100,0" Click="boton_Login" MouseEnter="login_Enter" MouseLeave="login_Leave"/>
+                    <Button x:Name="botonRegistro" Content="Registro" Background="#5da9b7" Foreground="WhiteSmoke" Width="160" Height="70" Grid.Column="1" Grid.ColumnSpan="2" Style="{StaticResource btnRedondo}" FontSize="20" Margin="100,0,0,0" Click="boton_Registro" MouseEnter="registro_Enter" MouseLeave="registro_Leave"/>
+
+
+                </Grid>
+
+            </Border>
+            <Button x:Name="btn_cerrar" Style="{StaticResource btnRedondo}" Height="40" Margin="0,20,20,0" Width="40" Grid.Row="0" HorizontalAlignment="Right"  Cursor="Hand"  Click="cerrar" MouseEnter="btn_cerrar_MouseEnter" MouseLeave="btn_cerrar_MouseLeave">
                 <Image Source="..\images\cerrar.png" Width="20" Height="20"/>
             </Button>
-
-            <Label Content="Usuario" Foreground="White" FontSize="70" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="1"  Grid.Column="1" />
-            <TextBox Grid.Row="1" Grid.Column="1" PreviewMouseDown="textBoxUsuario" Height="70" HorizontalAlignment="Center" Name="textBox" VerticalAlignment="Bottom" Width="400" FontSize="50" Margin="20"/>
-
-            <Label Content="Contraseña" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center"  FontSize="70"  Grid.Row="2" Grid.Column="1"/>
-            <PasswordBox PreviewMouseDown="textBoxContraseña" Height="70" HorizontalAlignment="Center"  x:Name="passworbox" VerticalAlignment="Bottom" Width="400" FontSize="50" Grid.Row="2" Grid.Column="1" Margin="20" />
-
-            <Button Content="Iniciar sesion" HorizontalAlignment="Left" VerticalAlignment="Top" Width="200" Height="70" Grid.Column="2" Grid.Row="3" Style="{StaticResource btnRedondo}" FontSize="20" Click="boton_iniciarSesion" />
-            <Button Content="Registrarse" HorizontalAlignment="Left" VerticalAlignment="Center" Width="200" Height="70" Grid.Column="2" Grid.Row="3" Style="{StaticResource btnRedondo}" FontSize="20" Click="boton_registrar" />
-
-           <!-- <Button  HorizontalAlignment="Left" VerticalAlignment="Bottom" Grid.Column="1" Grid.Row="1" Margin="20">
-                <Image Source="..\images\TECLADO.png" Height="60" Width="60" />
-            </Button>
-            <Button HorizontalAlignment="Left" VerticalAlignment="Bottom" Grid.Column="1" Grid.Row="2" Margin="20" >
-                <Image Source="..\images\TECLADO.png" Height="60" Width="60"/>
-            </Button>-->
-
-
-
-
         </Grid>
     </Border>
+
 </Window>
 
