@@ -33,7 +33,8 @@ const tableSchema = mongoose.Schema({
     },
     id_user:{
         type:String,
-        required:false
+        required:false,
+        default: "Error"
     }   
 })
 module.exports = mongoose.model('Table', tableSchema);
