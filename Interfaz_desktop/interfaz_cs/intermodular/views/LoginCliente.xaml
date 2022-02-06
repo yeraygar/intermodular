@@ -23,13 +23,17 @@
         <Border.Background>
             <ImageBrush ImageSource="..\images\leaves-green-leaves-macro-wallpaper-preview.jpg"/>
         </Border.Background>
+        
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="60"></RowDefinition>
                 <RowDefinition></RowDefinition>
             </Grid.RowDefinitions>
 
-            <Border Grid.Row="1" Background="WhiteSmoke" Opacity="0.95" CornerRadius="20" Width="600" Height="700" VerticalAlignment="Center" HorizontalAlignment="center">
+            <Border Grid.Row="1" Background="WhiteSmoke" Opacity="0.90" CornerRadius="20" Width="600" Height="700" VerticalAlignment="Center" HorizontalAlignment="center">
+                <Border.Effect>
+                    <DropShadowEffect BlurRadius="190" ShadowDepth="0" Opacity="0.9" Color="Black" />
+                </Border.Effect>
                 <Grid Grid.Row="1">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="1*"></ColumnDefinition>
