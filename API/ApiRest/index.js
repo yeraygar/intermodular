@@ -51,6 +51,7 @@ app.get("/", (req, res) =>
 
 //FAVICON
 const favicon = require('serve-favicon');
+const prodImage = require('./models/prodImage');
 app.get("/favicon.ico", () => 
   app.use(favicon(path.join(__dirname, '/www/favicon.ico'))));
 

@@ -69,7 +69,9 @@ namespace intermodular
                 btnFamiliaSelect = btn;
                 btn.Background = (Brush)(new BrushConverter().ConvertFrom("#3b7a7a"));
                 btn.Foreground = Brushes.White;
+                contenedorBtnsProd.Visibility = Visibility.Visible;
                 btnAgregarProd.Visibility = Visibility.Visible;
+                tituloFamiliaProducto.Text = selectedFamilia.name;
             };
 
             btn.MouseEnter += (object senderMouseEnter, MouseEventArgs mouseEventArg) => {
@@ -94,7 +96,11 @@ namespace intermodular
             btn.Foreground = Brushes.White;
             selectedFamilia = familia;
             Familia.currentFamilia = familia;
+            contenedorBtnsProd.Visibility = Visibility.Visible;
             btnAgregarProd.Visibility = Visibility.Visible;
+            btnEditarFamilia.Visibility = Visibility.Visible;
+            btnEliminarFamilia.Visibility = Visibility.Visible;
+            tituloFamiliaProducto.Text = selectedFamilia.name;
         }
 
         private async void cargarFamilias()
@@ -133,7 +139,9 @@ namespace intermodular
                                 btnFamiliaSelect = btn;
                                 btn.Background = (Brush)(new BrushConverter().ConvertFrom("#3b7a7a"));
                                 btn.Foreground = Brushes.White;
+                                contenedorBtnsProd.Visibility = Visibility.Visible;
                                 btnAgregarProd.Visibility = Visibility.Visible;
+                                tituloFamiliaProducto.Text = selectedFamilia.name;
                             };
 
                             btn.MouseEnter += (object senderMouseEnter, MouseEventArgs mouseEventArg) =>
@@ -178,6 +186,8 @@ namespace intermodular
             btnAgregarProd.Visibility = Visibility.Collapsed;
             btnEditarProd.Visibility = Visibility.Collapsed;
             btnEliminarProd.Visibility = Visibility.Collapsed;
+            contenedorBtnsProd.Visibility = Visibility.Hidden;
+            tituloFamiliaProducto.Text = "Productos";
             Grid grid = new Grid();
             for(int x = 0; x < 3; x++)
             {
@@ -202,6 +212,22 @@ namespace intermodular
                 //Mostramos un error
                 MessageBox.Show("Error al eliminar la familia de productos");
             }
+        }
+
+        private void btnAgregarProd_Click(object sender, RoutedEventArgs e)
+        {
+            CrearProductos crearProd = new CrearProductos(selectedFamilia._id,null);
+            crearProd.ShowDialog();
+            if(crearProd.producto != null)
+            {
+                agregarNuevoBtnProducto(crearProd.producto);
+            }
+        }
+
+
+        private void agregarNuevoBtnProducto(Producto prod)
+        {
+
         }
     }
 }

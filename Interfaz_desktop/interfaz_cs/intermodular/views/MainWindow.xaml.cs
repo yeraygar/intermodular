@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -29,10 +30,7 @@ namespace intermodular
         {
 
             InitializeComponent();
-            Staticresources.height = this.Height;
-            Staticresources.width = this.Width;
-            Staticresources.mainWindow = this;
-            
+
 
             Zona.getAllZones().ContinueWith(task =>
             {

@@ -97,10 +97,14 @@
                         <Border CornerRadius="10" Background="#E0E0E0">
                             <Grid>
                                 <Grid.RowDefinitions>
+                                    <RowDefinition Height="auto"/>
                                     <RowDefinition/>
                                     <RowDefinition Height="auto"/>
                                 </Grid.RowDefinitions>
-                                <Border x:Name="contenedorGridProductos">
+                                <Border CornerRadius="10,10,0,0" Background="DarkSlateGray" Padding="20">
+                                    <TextBlock Name="tituloFamiliaProducto" Foreground="white" FontSize="23" HorizontalAlignment="Center" VerticalAlignment="Center">Productos</TextBlock>
+                                </Border>
+                                <Border x:Name="contenedorGridProductos" Grid.Row="1">
                                     <Grid x:Name="gridProductos">
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition/>
@@ -109,14 +113,14 @@
                                         </Grid.ColumnDefinitions>
                                     </Grid>
                                 </Border>
-                                <Border Grid.Row="1" Padding="10">
+                                <Border x:Name="contenedorBtnsProd" Grid.Row="2" Padding="10" Background="DarkSlateGray" CornerRadius="0,0,10,10" Visibility="Hidden">
                                     <Grid HorizontalAlignment="Center">
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition/>
                                             <ColumnDefinition/>
                                             <ColumnDefinition/>
                                         </Grid.ColumnDefinitions>
-                                        <Button x:Name="btnAgregarProd" Style="{StaticResource btnRedondo}" Height="90" Width="90" Cursor="Hand" Visibility="Collapsed">
+                                        <Button x:Name="btnAgregarProd" Style="{StaticResource btnRedondo}" Height="90" Width="90" Cursor="Hand" Visibility="Collapsed" Click="btnAgregarProd_Click">
                                             <Grid VerticalAlignment="Center" HorizontalAlignment="Center">
                                                 <Grid.RowDefinitions>
                                                     <RowDefinition/>
