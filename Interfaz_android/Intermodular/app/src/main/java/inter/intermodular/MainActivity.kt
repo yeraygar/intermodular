@@ -22,7 +22,28 @@ import inter.intermodular.screens.map_tables.MapScreen
 import inter.intermodular.ui.theme.IntermodularTheme
 import inter.intermodular.view_models.LoginRegisterViewModel
 
-
+/**********************************************************************************************************
+ * FUNCIONAMIENTO GENERAL:                                                                                *
+ **********************************************************************************************************
+ *                                                                                                        *
+ * La unica actividad real es esta, la MainActivity, el resto de vistas seran como fragments y            *
+ * viajaremos entre ellos por medio del NavHost donde especificaremos cada una de las rutas que           *
+ * mantenemos separadas en el ScreenNav, para viajar a cada una de las vistas o screens debemos           *
+ * pasar el navControler como parametro para poder seguir viajando dentro de la aplicacion, y,            *
+ * por otro lado, le pasaremos el ViewModel que necesite cada una de las vistas ya que solo lo            *
+ * podremos instanciar antes del onCreate de la MainActivity.                                             *
+ *                                                                                                        *
+ * ViewModel                                                                                              *
+ * Contiene toda la funcionalidad que requiera la screen o un grupo de ellas, por ejemplo, el paquete     *
+ * login_register contiene las screens que requieren del LoginRegisterViewModel, es la unica manera       *
+ * que tenemos de llamar a una funcion suspendible dentro de un Composable. Estas funciones suspendibles  *
+ * seran las que instancien el companionObject que contiene Retrofit de la interfaz ApiServices, a su vez *
+ * esta instancia nos provee de las rutas de CRUD para llamar a la API.                                   *
+ *                                                                                                        *
+ * Por ultimo estan los models que solo son un recipiente de atributos que coinciden con el objeto        *
+ * creado en la API, los usamos para almacenar datos, hacer peticiones y recibir respuestas.              *
+ *                                                                                                        *
+ **********************************************************************************************************/
 class MainActivity : ComponentActivity() {
 
     private val mapViewModel by viewModels<MapViewModel>()

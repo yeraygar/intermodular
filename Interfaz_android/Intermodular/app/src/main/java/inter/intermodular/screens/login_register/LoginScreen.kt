@@ -1,6 +1,5 @@
 package inter.intermodular.screens.login_register
 
-import androidx.activity.viewModels
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
@@ -111,7 +110,7 @@ fun Login(navController: NavController, loginRegisterViewModel: LoginRegisterVie
                 if(email.value.isEmpty() || password.value.isEmpty()){
                     Logger.e("Email or Password input Login is null or empty")
                 }else{
-                    backLogin = true;
+                    backLogin = true
                     loginRegisterViewModel.validateClient(email = email.value, passw = password.value)
                     navController.navigate(ScreenNav.ValidateLoginScreen.route)
                 }

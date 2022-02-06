@@ -1,5 +1,6 @@
 package inter.intermodular
 
+/** Clase para almacenar las rutas, con y sin parametros */
 sealed class ScreenNav(val route: String) {
     object LoginScreen : ScreenNav("login_screen")
     object MapScreen : ScreenNav("map_screen")

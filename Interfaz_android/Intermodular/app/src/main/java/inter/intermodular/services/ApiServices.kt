@@ -9,6 +9,10 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.*
 
+/**
+ * Interfaz que contiene las rutas para llamar a la API y la instancia de Retrofit para hacerlo
+ * se tiene que llamar desde el ViewModel
+ */
 interface ApiServices {
 
     companion object {
