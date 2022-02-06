@@ -23,7 +23,8 @@ import retrofit2.Response
 class LoginRegisterViewModel : ViewModel() {
 
     var emailExistsResponse : Boolean by mutableStateOf(true)
-    var currentClientResponse : ClientModel by mutableStateOf(ClientModel("Error", "Error", "Error", "Error"))
+    var currentClientResponse : ClientModel by mutableStateOf(
+        ClientModel("Error", "Error", "Error", "Error"))
 
     private var errorMessage : String by mutableStateOf("")
 
@@ -76,12 +77,4 @@ class LoginRegisterViewModel : ViewModel() {
             }
         }
     }
-
-
-
-
-
-
-
-
 }

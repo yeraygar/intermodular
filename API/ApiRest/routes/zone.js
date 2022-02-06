@@ -46,6 +46,21 @@ router.get("/zones/:id", (req, res) => {
         })
 })
 
+//Get all zones from a client
+router.get("/zones/client/:id_client", (req, res) => {
+    const {id_client} = req.params;
+    zoneSchema
+        .find({id_client: id_client})
+        .then((data) =>{
+            res.json(data);
+            console.log(`\nZone: \n ${data}`);
+        })
+        .catch((err) => {
+            res.json({message:err});
+            console.log(`Error get /api/zones/client/${id} : ${err}`);
+        })
+})
+
 //Update Zone, si algun campo no se pone no se elimina
 router.put("/zones/:id", (req, res) => {
     const {id} = req.params;

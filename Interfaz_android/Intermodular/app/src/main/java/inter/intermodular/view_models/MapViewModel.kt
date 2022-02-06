@@ -6,8 +6,10 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.orhanobut.logger.Logger
+import inter.intermodular.models.TableModel
 import kotlinx.coroutines.launch
 import inter.intermodular.models.UserModel
+import inter.intermodular.models.ZoneModel
 import inter.intermodular.services.ApiServices
 import inter.intermodular.support.currentClient
 import java.lang.Exception
@@ -19,7 +21,23 @@ class MapViewModel : ViewModel() {
     var usersNoFichadosResponse : List<UserModel> by mutableStateOf(listOf())
     var adminsClientResponse : List<UserModel> by mutableStateOf(listOf())
 
+    var clientZonesResponse : List<ZoneModel> by mutableStateOf(listOf())
+    var zoneTablesResponse : List<TableModel> by mutableStateOf((listOf()))
+
     private var errorMessage : String by mutableStateOf("")
+
+    fun getClientZones(id_client : String) {
+        viewModelScope.launch {
+            val apiServices = ApiServices.getInstance()
+            try{
+                clientZonesResponse = apiServices.getZones(id_client)
+                Logger.i("CORRECT getClientZones")
+            }catch(e : Exception){
+                errorMessage = e.message.toString()
+                Logger.e("FAILURE getClientZones")
+            }
+        }
+    }
 
     fun getClientUsersList(){
         viewModelScope.launch {

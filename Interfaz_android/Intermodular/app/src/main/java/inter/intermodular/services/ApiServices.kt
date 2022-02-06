@@ -1,9 +1,7 @@
 package inter.intermodular.services
 
 import com.orhanobut.logger.Logger
-import inter.intermodular.models.ClientModel
-import inter.intermodular.models.ClientPost
-import inter.intermodular.models.UserModel
+import inter.intermodular.models.*
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -77,5 +75,18 @@ interface ApiServices {
     suspend fun createClient(
         @Body client : ClientPost
     ) : Response<ClientModel>
+
+
+    /********************ZONES**********************/
+
+    @GET("zones/client/{id}")
+    suspend fun getZones(@Path(value = "id") id : String) : List<ZoneModel>
+
+
+    /********************TABLES**********************/
+
+    @GET("tables/zone/{id}")
+    suspend fun getZoneTables(@Path(value = "id") id : String) : List<TableModel>
+
 
 }
