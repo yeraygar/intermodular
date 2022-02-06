@@ -1,18 +1,25 @@
 package inter.intermodular.screens.map_tables
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.*
-import androidx.compose.runtime.Composable
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Menu
+import androidx.compose.material.icons.filled.Settings
+import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.colorResource
-import androidx.compose.ui.res.dimensionResource
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
+import com.orhanobut.logger.Logger
 import inter.intermodular.R
-import inter.intermodular.view_models.LoginRegisterViewModel
+import inter.intermodular.support.currentClient
 import inter.intermodular.view_models.MapViewModel
 
 @Composable
@@ -20,88 +27,74 @@ fun MapScreen(mapViewModel : MapViewModel){
 
 
 
-    Surface(color = MaterialTheme.colors.background) {
 
-        mapViewModel.getUsersFichados(true)
+        var isMenuActive = remember { mutableStateOf(true)}
+        if (isMenuActive.value ){
+            Logger.d("isMenuActive changed in $isMenuActive")
+            DropdownDemo()
+        }
+    Logger.d("isMenuActive changed out $isMenuActive")
+
+
+
+    mapViewModel.getUsersFichados(true)
         mapViewModel.getClientUsersList()
         mapViewModel.getClientAdmins()
+       // mapViewModel.getClientZones(currentClient._id)
+        mapViewModel.getClientZones("Ecosistema1")
 
-        LoadTables()
-
-
-
-
+    LoadTables(isMenuActive)
 
 
 
 
 
-        /*val data = listOf("Item 1", "Item 2", "Item 3", "Item 4", "Item 5")
 
-        LazyVerticalGrid(
-            cells = GridCells.Fixed(3),
-            contentPadding = PaddingValues(8.dp)
-        ) {
-            items(data) { item ->
-                Card(
-                    modifier = Modifier.padding(4.dp),
-                    backgroundColor = Color.LightGray
-                ) {
-                    Text(
-                        text = item,
-                        fontSize = 24.sp,
-                        textAlign = TextAlign.Center,
-                        modifier = Modifier.padding(24.dp)
-                    )
-                }
-            }
-        }*/
-
-       /* Box(
-            modifier = Modifier
-                .fillMaxSize()
-
-        ){
-            Column() {
-                Spacer(modifier = Modifier.height(18.dp))
-                Text(text = email ?: "No se ha cargado bien")
-                Spacer(modifier = Modifier.height(18.dp))
-                Text(text = currentClient.email)
-                //AllUsersClient(clientViewModel)
-            }
-        }*/
-    }
 }
 
-/*
+
+
 @Composable
-fun AllUsersClient(clientViewModel: ClientViewModel : UserViewModel) {
-    userViewModel.getClientUsersList()
-    var lista : List<UserModel> = userViewModel.allUsersClientResponse
+fun LoadTables(isMenuActive: MutableState<Boolean>) {
+    Scaffold(
+        topBar = {
+            TopAppBar(
+                title = { Text(currentClient.name, modifier = Modifier.padding(30.dp,0.dp,0.dp,0.dp)) },
+                navigationIcon = {
 
-    Column(
+                    IconButton(
+                        onClick = {
+                            isMenuActive.value = true
+                            Logger.d("Click en options icon")
 
-    ){
-        var usuarioMostrar : String = "Error";
-        for(u: UserModel in lista){
-            usuarioMostrar = u.name
-            Text(text = "Hello $usuarioMostrar!")
+                        },
+
+                        ) {
+                        Icon(Icons.Filled.Menu, contentDescription = null)
+
+                    }
+
+                },
+                actions = {
+
+                    IconButton(onClick = { /* doSomething() */ }) {
+                        Icon(Icons.Filled.Settings, contentDescription = "Localized description")
+                    }
+                }
+            )
         }
-    }
-}*/
-
-@Composable
-fun LoadTables() {
-    LazyColumn(
-        modifier = Modifier
-            .fillMaxSize()
     ) {
-        for(i in 1..30){
-            item {
-                RowContent()
+        LazyColumn(
+            modifier = Modifier
+                .fillMaxSize()
+        ) {
+            for(i in 1..30){
+                item {
+                    RowContent()
+                }
             }
-        }
 
+        }
     }
 }
 
@@ -121,7 +114,9 @@ fun RowContent() {
        ){
            for(i in 0..5)
            Button(
-               modifier = Modifier.weight(1f).fillMaxSize(),
+               modifier = Modifier
+                   .weight(1f)
+                   .fillMaxSize(),
                colors = ButtonDefaults.buttonColors(backgroundColor = colorResource(R.color.azul)),
                onClick = { /*TODO*/ }) {
                Text(text = "${i + 1}")
@@ -136,8 +131,59 @@ fun RowContent() {
 )
 @Composable
 fun PreviewTable(){
-    LoadTables()
+    /*var isMenuActive = remember { mutableStateOf(false)}
+    if (isMenuActive.value ) DropdownDemo()
+    LoadTables(isMenuActive)*/
+    DropdownDemo()
 }
+
+@Composable
+fun DropdownDemo() {
+    var expanded by remember { mutableStateOf(false) }
+    val items = listOf(
+        "Apple", "Banana", "Cherry", "Grapes",
+        "Mango", "Pineapple", "Pear"
+    )
+    var selectedIndex by remember { mutableStateOf(0) }
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .wrapContentSize(Alignment.TopStart)
+            .padding(all = 5.dp)
+    ) {
+        Text(
+            items[selectedIndex],
+            modifier = Modifier
+                .fillMaxWidth()
+                .clickable(onClick = { expanded = true })
+                .background(
+                    Color.Red
+                ),
+            color = Color.White,
+            fontSize = 20.sp,
+            textAlign = TextAlign.Start
+        )
+        DropdownMenu(
+            expanded = expanded,
+            onDismissRequest = { expanded = false },
+            modifier = Modifier
+                .fillMaxWidth()
+                .background(
+                    Color.Gray
+                )
+        ) {
+            items.forEachIndexed { index, s ->
+                DropdownMenuItem(onClick = {
+                    selectedIndex = index
+                    expanded = false
+                }) {
+                    Text(text = s)
+                }
+            }
+        }
+    }
+}
+
 
 
 
