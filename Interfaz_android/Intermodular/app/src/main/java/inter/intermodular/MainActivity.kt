@@ -19,7 +19,6 @@ import inter.intermodular.screens.login_register.Register
 import inter.intermodular.screens.login_register.ValidateLoginScreen
 import inter.intermodular.screens.login_register.ValidateRegisterScreen
 import inter.intermodular.screens.map_tables.MapScreen
-import inter.intermodular.support.currentZone
 import inter.intermodular.ui.theme.IntermodularTheme
 import inter.intermodular.view_models.LoginRegisterViewModel
 
@@ -140,7 +139,7 @@ class MainActivity : ComponentActivity() {
                     composable(
                         route = ScreenNav.MapScreen.route,
                     ){
-                        MapScreen(mapViewModel = mapViewModel)
+                        MapScreen(mapViewModel = mapViewModel, navController = navController)
                         BackHandler(true) {
                             Toast.makeText(applicationContext, "BackButton Deshabilitado en el MAP", Toast.LENGTH_SHORT).show()
                         }
