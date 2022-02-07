@@ -501,7 +501,8 @@
     <color name="androidx_core_ripple_material_light">#1f000000</color>
     <color name="androidx_core_secondary_text_default_material_light">#8a000000</color>
     <color name="azul">#5da9b7</color>
-    <color name="azul_oscuro">#AB144F5A</color>
+    <color name="azul_extraclaro">#E3F7FA</color>
+    <color name="azul_oscuro">#C310434E</color>
     <color name="background_floating_material_dark">@color/material_grey_800</color>
     <color name="background_floating_material_light">@android:color/white</color>
     <color name="background_material_dark">@color/material_grey_850</color>
@@ -695,6 +696,7 @@
     <color name="m3_sys_color_light_surface_variant">@color/m3_ref_palette_neutral_variant90</color>
     <color name="m3_sys_color_light_tertiary">@color/m3_ref_palette_tertiary40</color>
     <color name="m3_sys_color_light_tertiary_container">@color/m3_ref_palette_tertiary90</color>
+    <color name="marron_oscuro">#251C1D</color>
     <color name="material_blue_grey_800">#ff37474f</color>
     <color name="material_blue_grey_900">#ff263238</color>
     <color name="material_blue_grey_950">#ff21272b</color>

@@ -7,6 +7,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
@@ -27,15 +28,15 @@ fun MapScreen(mapViewModel: MapViewModel, navController: NavHostController){
     mapViewModel.getClientUsersList()
     mapViewModel.getClientAdmins()
 
-    var scaffoldState = rememberScaffoldState()
+    val scaffoldState = rememberScaffoldState()
     val scope = rememberCoroutineScope()
-    var snackbarHostState = remember { SnackbarHostState()}
+    val snackbarHostState = remember { SnackbarHostState()}
 
-    var title = remember { mutableStateOf("")}
+    val title = remember { mutableStateOf("")}
 
     if(!mapViewModel.clientZonesResponse.isNullOrEmpty()){
         if(firstOpenMap){
-            title.value = mapViewModel.clientZonesResponse[0].zone_name ?: "Error de Carga"
+            title.value = mapViewModel.clientZonesResponse[0].zone_name
             currentZone = mapViewModel.clientZonesResponse[0]
             firstOpenMap = false
         }
@@ -78,6 +79,7 @@ fun MapTablesStart(
         },
 
         drawerShape = MaterialTheme.shapes.small,
+        drawerBackgroundColor = Color.White,
         drawerContent = {
             MapZoneComponent(mapViewModel, title, scope, scaffoldState)
         },
@@ -97,15 +99,19 @@ fun MapTablesStart(
                         onClick = {
                             Logger.d("Click en options icon")
                             scope.launch { scaffoldState.drawerState.open() }
+
                         }) {
-                        Icon(Icons.Filled.Menu, contentDescription = null)
+                        Icon(Icons.Filled.Menu, contentDescription = null, tint = Color.White)
                     }
                 },
                 actions = {
                     IconButton(onClick = {
-                        scope.launch { snackbarHostState.showSnackbar("hola") }
+                        scope.launch {
+                            snackbarHostState.currentSnackbarData?.dismiss()
+                            snackbarHostState.showSnackbar("")
+                        }
                     }) {
-                        Icon(Icons.Filled.Settings, contentDescription = "Localized description")
+                        Icon(Icons.Filled.Settings, contentDescription = "Localized description", tint = Color.White)
                     }
                 }
             )

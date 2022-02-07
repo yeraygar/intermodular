@@ -19,9 +19,11 @@ import androidx.navigation.NavHostController
 import com.orhanobut.logger.Logger
 import inter.intermodular.R
 import inter.intermodular.ScreenNav
+import inter.intermodular.models.TableModel
 import inter.intermodular.support.currentTable
 import inter.intermodular.support.currentZone
 import inter.intermodular.support.currentZoneTables
+import inter.intermodular.support.tableCount
 import inter.intermodular.view_models.MapViewModel
 
 @OptIn(ExperimentalFoundationApi::class)
@@ -35,12 +37,16 @@ fun MapTableComponent(mapViewModel: MapViewModel, navController: NavHostControll
     ) {
         mapViewModel.getZoneTables(currentZone?._id ?: "Error")
         if(!mapViewModel.zoneTablesResponse.isNullOrEmpty()){
+            currentZoneTables = mapViewModel.zoneTablesResponse
+            currentZoneTables = currentZoneTables.sortedWith(compareBy<TableModel> { it.num_row}.thenBy{it.num_column})
+            for (table in currentZoneTables) Logger.d(table)
             for (i in 0 until mapViewModel.zoneTablesResponse.count()) {
                 item {
                     RowContent(i, mapViewModel, navController)
                 }
             }
         }
+        tableCount = 0
     }
 }
 
@@ -48,14 +54,14 @@ fun MapTableComponent(mapViewModel: MapViewModel, navController: NavHostControll
 fun RowContent(i: Int, mapViewModel: MapViewModel, navController: NavHostController) {
 
     if(currentZone != null){
-        mapViewModel.getZoneTables(currentZone!!._id)
-        if(!mapViewModel.zoneTablesResponse.isNullOrEmpty()){
-            currentZoneTables = mapViewModel.zoneTablesResponse
+        //mapViewModel.getZoneTables(currentZone!!._id)
+        if(currentZoneTables.isNullOrEmpty()){
+            tableCount++
+          //  currentZoneTables = mapViewModel.zoneTablesResponse
+           // currentZoneTables = currentZoneTables.sortedBy { it.num_row }
 
-            var countTables = currentZoneTables.count()
-            Logger.i("Numero de Mesas cargadas en la zona: ${countTables.toString()}")
-
-            /**TODO Asignar la currentMesa a la i y navegar a la vista de la mesa*/
+            //if(tableCount != currentZoneTables[i].num_row + currentZoneTables[i].num_column)
+            /**TODO Colocar en orden fila x columna las diferentes mesas*/
             Button(
                 modifier = Modifier
                     .height(75.dp)

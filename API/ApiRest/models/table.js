@@ -10,6 +10,11 @@ const tableSchema = mongoose.Schema({
         required:false,
         default: true
     },
+    ocupada:{
+        type: Boolean,
+        required:false,
+        default: false
+    },
     id_zone:{
         type:String,
         required:true

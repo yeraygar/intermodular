@@ -1,18 +1,19 @@
 package inter.intermodular.screens.map_tables
 
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
+import android.content.res.Resources
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.material.Button
-import androidx.compose.material.ScaffoldState
-import androidx.compose.material.Text
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.colorResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import com.orhanobut.logger.Logger
 import inter.intermodular.support.currentZone
@@ -20,15 +21,37 @@ import inter.intermodular.support.currentZoneTables
 import inter.intermodular.view_models.MapViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
+import inter.intermodular.R
+import org.intellij.lang.annotations.JdkConstants
 
 
 @Composable
-public fun MapZoneComponent(
+fun MapZoneComponent(
     mapViewModel: MapViewModel,
     title: MutableState<String>,
     scope: CoroutineScope,
     scaffoldState: ScaffoldState
 ) {
+
+    Card (
+        modifier = Modifier
+            .fillMaxWidth()
+            .height(80.dp),
+
+        backgroundColor = colorResource(id = R.color.azul_oscuro)
+            ) {
+       Column(
+           horizontalAlignment = Alignment.CenterHorizontally,
+           verticalArrangement = Arrangement.Center ) {
+           Text(
+               text = "ELIGE UNA ZONA",
+               fontSize = 20.sp,
+               fontWeight = FontWeight.Bold,
+               color = Color.White
+           )
+       }
+    }
+
     LazyColumn(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.spacedBy(15.dp),
@@ -37,6 +60,7 @@ public fun MapZoneComponent(
             .padding(10.dp, 5.dp)
     ) {
         items(mapViewModel.clientZonesResponse.count()) { i ->
+            Spacer(modifier = Modifier.height(10.dp))
             Button(
                 onClick = {
                     currentZone = mapViewModel.clientZonesResponse[i]
@@ -52,15 +76,18 @@ public fun MapZoneComponent(
                         }
                     }
                 },
+
+                colors = ButtonDefaults.buttonColors(backgroundColor = colorResource(R.color.azul)),
                 modifier = Modifier
                     .fillMaxWidth()
-                    .height(50.dp)
+                    .height(50.dp),
             ) {
-                Text(text = mapViewModel.clientZonesResponse[i].zone_name)
-
+                Text(
+                    text = mapViewModel.clientZonesResponse[i].zone_name,
+                    color = Color.White,
+                    fontWeight = FontWeight.Bold
+                )
             }
         }
-
-
     }
 }

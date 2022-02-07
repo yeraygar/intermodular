@@ -14,3 +14,4 @@ var currentZone : ZoneModel? = null
 var currentZoneTables : List<TableModel> = listOf()
 var currentTable : TableModel? = null
 var firstOpenMap : Boolean = true
+var tableCount : Int = 0

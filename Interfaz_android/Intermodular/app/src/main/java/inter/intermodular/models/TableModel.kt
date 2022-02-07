@@ -8,6 +8,7 @@ data class TableModel(
     var _id: String,
     var name: String,
     var status: Boolean,
+    var ocupada: Boolean,
     var id_zone: String,
     var comensales: Int,
     var num_row: Int,

@@ -15,6 +15,7 @@ namespace intermodular
         public string _id { get; set; }
         public string name { get; set; }
         public bool status { get; set; }
+        public bool ocupada { get; set; } = false;
         public string id_zone { get; set; }
         public string id_client { get; set; }
         public int comensales { get; set; }
@@ -34,7 +35,6 @@ namespace intermodular
             this.id_zone = id_zone;
             this.id_client = Client.currentClient._id;
         }
-
 
         /// <summary>
         /// Async Static Method, le pasamos por parametros 
@@ -95,6 +95,7 @@ namespace intermodular
             values.Add("num_row", mesa.num_row);
             values.Add("num_column", mesa.num_column);
             values.Add("id_user", mesa.id_user);
+            values.Add("ocupada", mesa.ocupada);
 
         //Creamos la peticion
         HttpContent content = new StringContent(values.ToString(), System.Text.Encoding.UTF8, "application/json");
