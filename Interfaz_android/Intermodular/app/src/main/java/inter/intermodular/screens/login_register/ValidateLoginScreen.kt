@@ -128,7 +128,7 @@ fun ResponseLogin(
         )
         Spacer(modifier = Modifier.padding(5.dp))
         Text(
-            text = "Intentos Restantes: $loginIntents",
+            text = "Intentos Restantes: ${loginIntents-1}",
             color = Color.Red,
             fontWeight = FontWeight.Bold,
             fontSize = 15.sp

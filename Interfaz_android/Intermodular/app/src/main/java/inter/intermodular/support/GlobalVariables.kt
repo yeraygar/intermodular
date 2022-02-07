@@ -6,7 +6,7 @@ import inter.intermodular.models.ZoneModel
 
 var currentClient = ClientModel("Error", "Error", "Error", "Error")
 var clientCreated = false
-var loginIntents = 3;
+var loginIntents = 4;
 var backLogin = true;
 var backRegister = true;
 var clientZones : List<ZoneModel> = listOf()

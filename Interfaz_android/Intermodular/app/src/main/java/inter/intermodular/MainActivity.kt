@@ -19,8 +19,10 @@ import inter.intermodular.screens.login_register.Register
 import inter.intermodular.screens.login_register.ValidateLoginScreen
 import inter.intermodular.screens.login_register.ValidateRegisterScreen
 import inter.intermodular.screens.map_tables.MapScreen
+import inter.intermodular.screens.table_payment.TableScreen
 import inter.intermodular.ui.theme.IntermodularTheme
 import inter.intermodular.view_models.LoginRegisterViewModel
+import inter.intermodular.view_models.TableViewModel
 
 /**********************************************************************************************************
  * FUNCIONAMIENTO GENERAL:                                                                                *
@@ -48,7 +50,7 @@ class MainActivity : ComponentActivity() {
 
     private val mapViewModel by viewModels<MapViewModel>()
     private val loginRegisterViewModel by viewModels<LoginRegisterViewModel>()
-
+    private val tableViewModel by viewModels<TableViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -135,13 +137,23 @@ class MainActivity : ComponentActivity() {
                         }
                     }
 
-                                    /*** MAIN SCREEN ***/
+                                    /*** MAP SCREEN ***/
                     composable(
-                        route = ScreenNav.MapScreen.route,
+                        route = ScreenNav.MapScreen.route
                     ){
                         MapScreen(mapViewModel = mapViewModel, navController = navController)
                         BackHandler(true) {
                             Toast.makeText(applicationContext, "BackButton Deshabilitado en el MAP", Toast.LENGTH_SHORT).show()
+                        }
+                    }
+
+                                    /*** TABLE SCREEN ***/
+                    composable(
+                        route = ScreenNav.TableScreen.route
+                    ){
+                        TableScreen(navController = navController, tableViewModel = tableViewModel)
+                        BackHandler(false) {
+                            Toast.makeText(applicationContext, "BackButton Deshabilitado por el momento", Toast.LENGTH_SHORT).show()
                         }
                     }
                 }

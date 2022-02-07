@@ -34,9 +34,6 @@ class MapViewModel : ViewModel() {
             try{
                 zoneTablesResponse = apiServices.getZoneTables(id_table)
                 currentZoneTables = zoneTablesResponse
-                for(table in zoneTablesResponse){
-                    Logger.d(table)
-                }
             }catch(e : Exception){
                 errorMessage = e.message.toString()
                 Logger.e("FAILURE getZoneTables")
@@ -50,9 +47,6 @@ class MapViewModel : ViewModel() {
             try{
                 clientZonesResponse = apiServices.getZones(id_client)
                 clientZones = clientZonesResponse
-                for(zone in clientZonesResponse){
-                    Logger.d(zone.zone_name)
-                }
                 Logger.i("CORRECT getClientZones")
             }catch(e : Exception){
                 errorMessage = e.message.toString()
