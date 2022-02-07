@@ -14,36 +14,61 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.orhanobut.logger.Logger
 import inter.intermodular.R
-import inter.intermodular.support.currentClient
+import inter.intermodular.models.TableModel
+import inter.intermodular.support.currentZone
+import inter.intermodular.support.currentZoneTables
+import inter.intermodular.support.firstOpenMap
 import inter.intermodular.view_models.MapViewModel
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.launch
 
 @Composable
 fun MapScreen(mapViewModel : MapViewModel){
 
+    mapViewModel.getClientZones("Ecosistema1")
+    mapViewModel.getUsersFichados(true)
+    mapViewModel.getClientUsersList()
+    mapViewModel.getClientAdmins()
+
+    var scaffoldState = rememberScaffoldState()
+    val scope = rememberCoroutineScope()
 
 
+    var isMenuActive = remember { mutableStateOf(true)}
+    var title = remember { mutableStateOf("")}
 
-        var isMenuActive = remember { mutableStateOf(true)}
-        if (isMenuActive.value ){
-            Logger.d("isMenuActive changed in $isMenuActive")
-            DropdownDemo()
+    var tablesToShow : List<TableModel> = remember { mutableListOf() }
+    //var zones : List<ZoneModel> = mapViewModel.clientZonesResponse
+    //title.value = zones[0].zone_name
+    if(!mapViewModel.clientZonesResponse.isNullOrEmpty()){
+        if(firstOpenMap){
+            title.value = mapViewModel.clientZonesResponse[0].zone_name ?: "Error de Carga"
+            currentZone = mapViewModel.clientZonesResponse[0]
+            firstOpenMap = false
         }
+        mapViewModel.getZoneTables(currentZone!!._id)
+        if(!mapViewModel.zoneTablesResponse.isNullOrEmpty()){
+            tablesToShow = mapViewModel.zoneTablesResponse
+            LoadTables(title, scaffoldState, scope, mapViewModel,tablesToShow)
+
+        }
+    }
+
+
+    if (isMenuActive.value ){
+        Logger.d("isMenuActive changed in $isMenuActive")
+        //DropdownDemo()
+    }
     Logger.d("isMenuActive changed out $isMenuActive")
 
 
+    // mapViewModel.getClientZones(currentClient._id)
 
-    mapViewModel.getUsersFichados(true)
-        mapViewModel.getClientUsersList()
-        mapViewModel.getClientAdmins()
-       // mapViewModel.getClientZones(currentClient._id)
-        mapViewModel.getClientZones("Ecosistema1")
 
-    LoadTables(isMenuActive)
 
 
 
@@ -55,22 +80,71 @@ fun MapScreen(mapViewModel : MapViewModel){
 
 
 @Composable
-fun LoadTables(isMenuActive: MutableState<Boolean>) {
+fun LoadTables(
+    title: MutableState<String>,
+    scaffoldState: ScaffoldState,
+    scope: CoroutineScope,
+    mapViewModel: MapViewModel,
+    tablesToShow: List<TableModel>
+) {
     Scaffold(
+        scaffoldState = scaffoldState,
+        drawerShape = MaterialTheme.shapes.small,
+        drawerContent = {
+
+
+            LazyColumn(
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.spacedBy(15.dp),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(10.dp, 5.dp)
+            ){
+                items(mapViewModel.clientZonesResponse.count()) { i ->
+                    Button(
+                        onClick = {
+                            currentZone = mapViewModel.clientZonesResponse[i]
+                            title.value = currentZone!!.zone_name
+                            mapViewModel.getZoneTables(currentZone!!._id)
+                            if(!mapViewModel.zoneTablesResponse.isNullOrEmpty()){
+                                currentZoneTables = mapViewModel.zoneTablesResponse
+                                scope.launch {
+                                    scaffoldState.drawerState.close()
+                                }
+                            }
+                        },
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .height(50.dp)
+                    ) {
+                        Text(text = mapViewModel.clientZonesResponse[i].zone_name)
+
+                    }
+                }
+
+
+
+            }
+
+        },
+
         topBar = {
             TopAppBar(
-                title = { Text(currentClient.name, modifier = Modifier.padding(30.dp,0.dp,0.dp,0.dp)) },
+                title = { Text(title.value, modifier = Modifier.padding(30.dp,0.dp,0.dp,0.dp)) },
                 navigationIcon = {
 
                     IconButton(
                         onClick = {
-                            isMenuActive.value = true
                             Logger.d("Click en options icon")
+                            scope.launch {
+                                scaffoldState.drawerState.open()
+                            }
 
                         },
 
                         ) {
                         Icon(Icons.Filled.Menu, contentDescription = null)
+
 
                     }
 
@@ -80,17 +154,21 @@ fun LoadTables(isMenuActive: MutableState<Boolean>) {
                     IconButton(onClick = { /* doSomething() */ }) {
                         Icon(Icons.Filled.Settings, contentDescription = "Localized description")
                     }
+
                 }
+
             )
+
         }
+
     ) {
         LazyColumn(
             modifier = Modifier
                 .fillMaxSize()
         ) {
-            for(i in 1..30){
+            for(i in 0..tablesToShow.count()){
                 item {
-                    RowContent()
+                    RowContent(tablesToShow, mapViewModel)
                 }
             }
 
@@ -99,43 +177,83 @@ fun LoadTables(isMenuActive: MutableState<Boolean>) {
 }
 
 @Composable
-fun RowContent() {
+fun RowContent(tablesToShow: List<TableModel>, mapViewModel: MapViewModel) {
 
-       Row(
+if(currentZone != null){
+    mapViewModel.getZoneTables(currentZone!!._id)
+    if(!mapViewModel.zoneTablesResponse.isNullOrEmpty()){
+        currentZoneTables = mapViewModel.zoneTablesResponse
+        for (table in currentZoneTables) {
+            if (tablesToShow.indexOf(table) % 6 != 0) {
+                Button(
+                    modifier = Modifier
+                        .fillMaxSize(),
+                    colors = ButtonDefaults.buttonColors(backgroundColor = colorResource(R.color.azul)),
+                    onClick = { /*TODO*/ }) {
+                    Text(text = "${table.name}")
+                }
 
-           horizontalArrangement = Arrangement.spacedBy(15.dp),
 
-           modifier = Modifier
-               .fillMaxWidth()
-               .padding(5.dp)
-               //.background(color = Color.Red)
-               .height(50.dp)
+            } else {
+                Row(
 
-       ){
-           for(i in 0..5)
+                    horizontalArrangement = Arrangement.spacedBy(15.dp),
+
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(5.dp)
+                        //.background(color = Color.Red)
+                        .height(50.dp)
+
+                ) {
+
+
+                    Button(
+                        modifier = Modifier
+                            .weight(1f)
+                            .fillMaxSize(),
+                        colors = ButtonDefaults.buttonColors(backgroundColor = colorResource(R.color.azul)),
+                        onClick = { /*TODO*/ }) {
+                        Text(text = "${table.name}")
+                    }
+                }
+            }
+
+        }
+    }
+}
+
+
+
+  /* Row(
+
+       horizontalArrangement = Arrangement.spacedBy(15.dp),
+
+       modifier = Modifier
+           .fillMaxWidth()
+           .padding(5.dp)
+           //.background(color = Color.Red)
+           .height(50.dp)
+
+   ){
+       for (table in tablesToShow){
+
+       }
+       *//*for(i in 0..5){
            Button(
                modifier = Modifier
                    .weight(1f)
                    .fillMaxSize(),
                colors = ButtonDefaults.buttonColors(backgroundColor = colorResource(R.color.azul)),
-               onClick = { /*TODO*/ }) {
+               onClick = { *//**//*TODO*//**//* }) {
                Text(text = "${i + 1}")
            }
-       }
+       }*//*
+   }*/
 
 }
 
-@Preview(
-    name = "table",
-    showBackground = true
-)
-@Composable
-fun PreviewTable(){
-    /*var isMenuActive = remember { mutableStateOf(false)}
-    if (isMenuActive.value ) DropdownDemo()
-    LoadTables(isMenuActive)*/
-    DropdownDemo()
-}
+
 
 @Composable
 fun DropdownDemo() {

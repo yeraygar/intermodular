@@ -11,7 +11,9 @@ import kotlinx.coroutines.launch
 import inter.intermodular.models.UserModel
 import inter.intermodular.models.ZoneModel
 import inter.intermodular.services.ApiServices
+import inter.intermodular.support.clientZones
 import inter.intermodular.support.currentClient
+import inter.intermodular.support.currentZoneTables
 import java.lang.Exception
 
 class MapViewModel : ViewModel() {
@@ -26,11 +28,31 @@ class MapViewModel : ViewModel() {
 
     private var errorMessage : String by mutableStateOf("")
 
+    fun getZoneTables(id_table : String){
+        viewModelScope.launch {
+            val apiServices = ApiServices.getInstance()
+            try{
+                zoneTablesResponse = apiServices.getZoneTables(id_table)
+                currentZoneTables = zoneTablesResponse
+                for(table in zoneTablesResponse){
+                    Logger.d(table)
+                }
+            }catch(e : Exception){
+                errorMessage = e.message.toString()
+                Logger.e("FAILURE getZoneTables")
+            }
+        }
+    }
+
     fun getClientZones(id_client : String) {
         viewModelScope.launch {
             val apiServices = ApiServices.getInstance()
             try{
                 clientZonesResponse = apiServices.getZones(id_client)
+                clientZones = clientZonesResponse
+                for(zone in clientZonesResponse){
+                    Logger.d(zone.zone_name)
+                }
                 Logger.i("CORRECT getClientZones")
             }catch(e : Exception){
                 errorMessage = e.message.toString()

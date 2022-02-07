@@ -46,8 +46,8 @@ class LoginRegisterViewModel : ViewModel() {
         viewModelScope.launch {
             val apiServices = ApiServices.getInstance()
             try{
-                var passwEncrypt = getSHA256(passw)
-                var list : List<ClientModel> =  apiServices.validateClient(email, passwEncrypt)
+                val passwEncrypt = getSHA256(passw)
+                val list : List<ClientModel> =  apiServices.validateClient(email, passwEncrypt)
 
                 if(list.isNotEmpty()){
                     currentClientResponse = list[0]
@@ -65,7 +65,7 @@ class LoginRegisterViewModel : ViewModel() {
         viewModelScope.launch {
             val apiServices = ApiServices.getInstance()
             try{
-                var response : Response<ClientModel> = apiServices.createClient(client)
+                val response : Response<ClientModel> = apiServices.createClient(client)
                 if(response.isSuccessful){
                     currentClientResponse = response.body()!!
                     currentClient = currentClientResponse

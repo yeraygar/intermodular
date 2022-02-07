@@ -6,7 +6,6 @@
     </shared>
   </component>
   <component name="AndroidLogFilters">
-    <option name="TOOL_WINDOW_CUSTOM_FILTER" value="PRETTY_LOGGER" />
     <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="Show only selected application" />
   </component>
   <component name="AutoImportSettings">
@@ -14,9 +13,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="069ddd03-50ea-4920-8045-2ecc81179fd3" name="Default Changelist" comment="Android Documentado">
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/inter/intermodular/models/ClientPost.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/inter/intermodular/models/TableModel.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/inter/intermodular/models/ZoneModel.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/build/kotlin/compileDebugKotlin/build-history.bin" beforeDir="false" afterPath="$PROJECT_DIR$/app/build/kotlin/compileDebugKotlin/build-history.bin" afterDir="false" />
@@ -82,9 +78,9 @@
       <change beforePath="$PROJECT_DIR$/app/build/kotlin/compileDebugKotlin/caches-jvm/lookups/lookups.tab.values.at" beforeDir="false" afterPath="$PROJECT_DIR$/app/build/kotlin/compileDebugKotlin/caches-jvm/lookups/lookups.tab.values.at" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/build/kotlin/compileDebugKotlin/caches-jvm/lookups/lookups.tab_i" beforeDir="false" afterPath="$PROJECT_DIR$/app/build/kotlin/compileDebugKotlin/caches-jvm/lookups/lookups.tab_i" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/build/kotlin/compileDebugKotlin/last-build.bin" beforeDir="false" afterPath="$PROJECT_DIR$/app/build/kotlin/compileDebugKotlin/last-build.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/inter/intermodular/models/ClientModel.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/inter/intermodular/models/ClientModel.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/inter/intermodular/MainActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/inter/intermodular/MainActivity.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/inter/intermodular/screens/map_tables/MapScreen.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/inter/intermodular/screens/map_tables/MapScreen.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/inter/intermodular/services/ApiServices.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/inter/intermodular/services/ApiServices.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/inter/intermodular/support/GlobalVariables.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/inter/intermodular/support/GlobalVariables.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/inter/intermodular/view_models/LoginRegisterViewModel.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/inter/intermodular/view_models/LoginRegisterViewModel.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/inter/intermodular/view_models/MapViewModel.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/inter/intermodular/view_models/MapViewModel.kt" afterDir="false" />
     </list>
@@ -133,7 +129,7 @@
     <property name="RunOnceActivity.cidr.known.project.marker" value="true" />
     <property name="cidr.known.project.marker" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
-    <property name="settings.editor.selected.configurable" value="preferences.toDoOptions" />
+    <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
   </component>
   <component name="RunManager">
     <configuration name="app" type="AndroidRunConfigurationType" factoryName="Android App" activateToolWindowBeforeRun="false">
@@ -247,7 +243,21 @@
       <option name="project" value="LOCAL" />
       <updated>1643979456360</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="Android Documentado">
+      <created>1644172063807</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1644172063807</updated>
+    </task>
+    <task id="LOCAL-00008" summary="Android Documentado">
+      <created>1644172137041</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1644172137041</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="Vcs.Log.History.Properties">
