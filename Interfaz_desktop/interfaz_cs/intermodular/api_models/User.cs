@@ -50,6 +50,11 @@ namespace intermodular
             this.rol = rol;
         }
 
+        public User()
+        {
+
+        }
+
         /// <summary>
         /// Async Static Method, carga todos los usuarios 
         /// desde la Api y los guarda en <b>User.allUsers</b> --   
@@ -286,7 +291,7 @@ namespace intermodular
         /// </summary>
         public static async Task getUsersFichados(String id_client, bool fichados)
         {
-            string url = $"{Staticresources.urlHead}users/client/{id_client}/{(fichados ? "/active" : "/inactive")}";
+            string url = $"{Staticresources.urlHead}users/client/{id_client}/{(fichados ? "active" : "inactive")}";
 
 
             //Hacemos la peticion

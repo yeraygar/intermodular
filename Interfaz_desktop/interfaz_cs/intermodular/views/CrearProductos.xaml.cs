@@ -23,7 +23,7 @@ namespace intermodular
     {
         private bool isPhotoChanged = false;
         private string idFamilia;
-        private bool isProdUpdated = false;
+        public bool isProdUpdated = false;
         public Producto producto;
         public CrearProductos(string idFamilia,Producto producto)
         {
@@ -146,14 +146,33 @@ namespace intermodular
             {
                 if (producto != null)
                 {
+                    //Añadir imagen
 
+                    producto.name = txtNombre.Text;
+                    producto.precio = float.Parse(txtPrecio.Text);
+                    producto.stock = int.Parse(txtStock.Text);
+                    try
+                    {
+                        if(await Producto.updateProduct(producto,producto._id))
+                        {
+                            isProdUpdated = true;
+                            MessageBox.Show("Producto actualizado", "Producto", MessageBoxButton.OK, MessageBoxImage.Information);
+                        }else
+                        {
+                            MessageBox.Show("Error al actualizar el producto", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                        }
+                    }catch(Exception exc)
+                    {
+                        MessageBox.Show("Error al cargar la BD", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
                 }
                 else
                 {
-                    Producto prod = new Producto(txtNombre.Text, 1, float.Parse(txtPrecio.Text), int.Parse(txtStock.Text), idFamilia);
+                    Producto prod = new Producto(txtNombre.Text,float.Parse(txtPrecio.Text), int.Parse(txtStock.Text), idFamilia);
                     if(await Producto.createProduct(prod))
                     {
                         producto = Producto.currentProduct;
+                        this.Close();
                     }
                     else
                     {

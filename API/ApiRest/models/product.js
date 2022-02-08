@@ -35,7 +35,8 @@ const productSchema = mongoose.Schema({
     },
     id_ticket:{
         type:String,
-        required: false
+        required: false,
+        default: "Error"
     }
 
 })

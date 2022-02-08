@@ -30,7 +30,7 @@ namespace intermodular
         {
 
             InitializeComponent();
-
+            Staticresources.mainWindow = this;
 
             Zona.getAllZones().ContinueWith(task =>
             {

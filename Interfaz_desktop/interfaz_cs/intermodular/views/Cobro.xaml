@@ -64,14 +64,14 @@
                   
                 <Button x:Name="boton_Efectivo" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="0" Width="220" Height="90" Style="{StaticResource btnRedondo}" Background="#48C9B0" FontSize="20" Foreground="WhiteSmoke" Click="boton_efectivo" Cursor="Hand">
                     <StackPanel Orientation="Horizontal">
-                        <Image Source="/intermodular;component/images/monedas.png" HorizontalAlignment="Left" Height="60" VerticalAlignment="Center" Width="60"/>
+                        <Image Source="/intermodular;component/images/monedas.png" HorizontalAlignment="Left" Height="60" VerticalAlignment="Center" Width="60" RenderOptions.BitmapScalingMode="HighQuality"/>
                         <TextBlock x:Name="TextblockEfectivo" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="30" Margin="15">Efectivo</TextBlock>
                     </StackPanel>
                 </Button>
 
                 <Button x:Name="boton_Tarjeta" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="0" Grid.Column="2" Width="220" Height="90" Style="{StaticResource btnRedondo}" Background="#48C9B0" FontSize="20" Foreground="WhiteSmoke" Click="boton_tarjeta" Cursor="Hand">
                     <StackPanel Orientation="Horizontal">
-                        <Image Source="/intermodular;component/images/tarjetas.png" HorizontalAlignment="Left" Height="80" VerticalAlignment="Center" Width="80" Margin="0"/>
+                        <Image Source="/intermodular;component/images/tarjetas.png" HorizontalAlignment="Left" Height="80" VerticalAlignment="Center" Width="80" Margin="0" RenderOptions.BitmapScalingMode="HighQuality"/>
                         <TextBlock x:Name="Textblocktarjeta" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="10" FontSize="30">Tarjeta</TextBlock>
                     </StackPanel>
                 </Button>

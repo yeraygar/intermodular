@@ -26,7 +26,7 @@ namespace intermodular
         public VistaEmpleados()
         {
             InitializeComponent();
-            User.getClientUsers(Staticresources.id_client).ContinueWith(task =>
+            User.getClientUsers(Client.currentClient._id).ContinueWith(task =>
             {
                 if(User.usuariosDeCliente != null)
                 {
