@@ -10,7 +10,7 @@ namespace intermodular
     class Staticresources
     {
         public static string caja = "cerrada";
-        public static string id_client = "Ecosistema1";
+        //public static string id_client = "Ecosistema1";
         public static double width;
         public static double height;
         public static MainWindow mainWindow;
