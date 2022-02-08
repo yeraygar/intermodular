@@ -114,6 +114,8 @@ fun ShowAlertDialog(
                             isDialogOpen.value = false
                             if(!loginRegisterViewModel.emailExistsResponse){
                                 backRegister = false
+                                //TODO CREAR NUEVO ADMIN
+                                isNewClient = true
                                 navController.navigate(ScreenNav.MapScreen.route)
                             }else{
                                 //Si volvemos al register da problemas con el back button

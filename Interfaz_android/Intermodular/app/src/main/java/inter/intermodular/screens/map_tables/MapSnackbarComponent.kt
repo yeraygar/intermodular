@@ -27,6 +27,7 @@ import com.orhanobut.logger.Logger
 import inter.intermodular.R
 import inter.intermodular.ScreenNav
 import inter.intermodular.support.currentUser
+import inter.intermodular.support.isNewClient
 
 @Composable
 fun SnackBarContent(
@@ -61,6 +62,10 @@ fun SnackBarContent(
                             Logger.d("CLICK EN ADMIN")
                             //navController.navigate(ScreenNav.LoginScreen.route)
                             /**TODO Agregar ruta de opciones Admin si el currentUser rol es Admin*/
+                            if(isNewClient){
+                                //TODO MOSTRAR MENSAJE ESPECIAL CON EL ADMIN POR DEFECTO
+                            }
+
                         }
                 ) {
                     Column(
