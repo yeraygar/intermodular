@@ -243,6 +243,7 @@ namespace intermodular
                         btnPressed.Content = zonaSelect.zone_name;
                         txtAyuda.Visibility = Visibility.Hidden;
                         txtEditarNombreZona.Text = zonaSelect.zone_name;
+                        txtEditarNombreZona.Tag = zonaSelect.zone_name;
                         txtEditarNombreZona.IsEnabled = false;
                         imgEditNombreZona.Source = (ImageSource)new ImageSourceConverter().ConvertFrom("..\\..\\images\\pencil.png");
                         imgEditNombreZona.Visibility = Visibility.Visible;

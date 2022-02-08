@@ -5,15 +5,28 @@ Content-Type: application/json
 {
     "name":"Yeray 2222",
     "email":"yeray@email.com",
-    "id_client": "Ecosistema1",
+    "id_client": "61fc6bad557d880476f3d920",
     "passw" : "2222"
 }
 
 ###
 GET http://localhost:8081/api/users/client/Ecosistema1/admin HTTP/1.1
 
+###
+POST http://localhost:8081/api/tables HTTP/1.1
+Content-Type: application/json
 
-
+{
+    "name":"MESA 1",
+    "status": false,
+    "id_client": "Ecosistema1",
+    "id_zone": "1",
+    "id_row": "1",
+    "id_column":"1",
+    "comensales":"10",
+    "id_user":"que exista en users"
+}
+###
 GET http://localhost:8081/api/users/61c4c5a77d7ffe11ecbe1783 HTTP/1.1
 
 ###
@@ -96,25 +109,31 @@ Content-Type: application/json
 }
 
 ###
-GET http://localhost:8081/api/tables/zone/61f2e994cbdaae6c1f4f72e9 HTTP/1.1
+GET http://localhost:8081/api/tables/zone/61f02956f0fb3f60da768907 HTTP/1.1
 
-### Comprobaciones Clientes
-POST http://localhost:8081/api/client HTTP/1.1
-Content-Type: application/json
-
-{
-    "email": "maria",
-    "name": "Bar_Molon", 
-    "passw": "03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4"
-}
+###
+DELETE  http://localhost:8081/api/tables/zone/61f02956f0fb3f60da768907 HTTP/1.1
 
 ###
 POST http://localhost:8081/api/client HTTP/1.1
 Content-Type: application/json
 
 {
-    "email": "correosinnombre",
-    "passw": "03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4"
+    "name" : "y",
+    "email" : "y",
+    "passw" : "03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4"
+}
+
+###
+POST http://localhost:8081/api/users HTTP/1.1
+Content-Type: application/json
+
+{
+    "name" : "yeray",
+    "email" : "asd@gmail.com",
+    "passw" : "03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4",
+    "id_client" : "61fc6dab557d880476f3d925",
+    "rol" : "Admin"
 }
 
 ###

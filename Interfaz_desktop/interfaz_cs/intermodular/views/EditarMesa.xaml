@@ -8,15 +8,16 @@
         Title="EditarMesa" Height="380" Width="550"
         WindowStyle="None"
         AllowsTransparency="True"
+        ResizeMode="NoResize"
         Background="Transparent"
         WindowStartupLocation="CenterScreen">
-    <Border CornerRadius="10" Background="#48C9B0">
+    <Border CornerRadius="10" Background="#5da9b7">
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="47"/>
                 <RowDefinition/>
             </Grid.RowDefinitions>
-            <Border  Background="#48C9B0" CornerRadius="10,10,0,0">
+            <Border  Background="#5da9b7" CornerRadius="10,10,0,0">
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition/>

@@ -176,7 +176,7 @@ namespace intermodular
         {
             if(isValidNombre(txtNombre.Text) && isValidEmail(txtEmail.Text) && isValidPass(password.Password))
             {
-                empleado = await User.createUser(new User(txtNombre.Text, txtEmail.Text, password.Password, Staticresources.id_client, true, comboBoxRol.SelectedItem.ToString()));
+                empleado = await User.createUser(new User(txtNombre.Text, txtEmail.Text, password.Password, Client.currentClient._id, true, comboBoxRol.SelectedItem.ToString()));
                 this.Close();
             }
             else

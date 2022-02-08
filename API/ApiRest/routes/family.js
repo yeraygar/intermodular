@@ -35,9 +35,9 @@ router.get("/family/:id", (req, res) => {
 //Update family, si algun campo no se pone no se elimina
 router.put("/family/:id", (req, res) => {
     const {id} = req.params;
-    const {name, email, active} = req.body;
+    const {name, email} = req.body;
     familySchema
-        .updateOne({_id: id}, {$set:{name, email, active}})
+        .updateOne({_id: id}, {$set:{name, email}})
         .then((data) =>{
             res.json(data);
             console.log(`\nFamily Update succesful: \n ${data}`);

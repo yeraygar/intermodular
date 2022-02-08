@@ -148,7 +148,7 @@ namespace intermodular
         /// </summary>
         public static async Task getZoneTables(String id_zona)
         {
-            string url = $"{Staticresources.urlHead}tables/zone";
+            string url = $"{Staticresources.urlHead}tables/zone/"+id_zona;
 
             //Hacemos la peticion
             var httpResponse = Staticresources.httpClient.GetAsync(url);
@@ -176,7 +176,7 @@ namespace intermodular
 
         public static async Task removeZoneTables(string id_zona)
         {
-            string url = $"{Staticresources.urlHead}tables/zone";
+            string url = $"{Staticresources.urlHead}tables/zone/"+id_zona;
 
             //Hacemos la peticion
             var httpResponse = await Staticresources.httpClient.DeleteAsync(url);

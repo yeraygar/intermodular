@@ -93,4 +93,19 @@ router.get("/product/family/:id_familia", (req, res) => {
         })
 })
 
+//Delete all products from a family
+router.delete("/product/family/:id_familia",(req,res) => {
+    const {id_familia} = req.params;
+    productSchema
+    .deleteMany({id_familia: id_familia})
+    .then((data) => {
+        res.json(data);
+        console.log("Productos eliminados");
+    })
+    .catch((err) => {
+        res.json({message:err});
+        console.log(`Error al borar los productos ${err}`);
+    })
+});
+
 module.exports = router
