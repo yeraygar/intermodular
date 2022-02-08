@@ -13,9 +13,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.orhanobut.logger.Logger
 import inter.intermodular.R
-import inter.intermodular.support.currentZone
-import inter.intermodular.support.currentZoneTables
-import inter.intermodular.support.firstOpenMap
+import inter.intermodular.support.*
 import inter.intermodular.view_models.MapViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
@@ -23,10 +21,10 @@ import kotlinx.coroutines.launch
 @Composable
 fun MapScreen(mapViewModel: MapViewModel, navController: NavHostController){
 
-    mapViewModel.getClientZones("Ecosistema1")
-    mapViewModel.getUsersFichados(true)
-    mapViewModel.getClientUsersList()
-    mapViewModel.getClientAdmins()
+    mapViewModel.getClientZones(currentClient._id)
+   // mapViewModel.getUsersFichados(true)
+    //mapViewModel.getClientUsersList()
+    //mapViewModel.getClientAdmins()
 
     val scaffoldState = rememberScaffoldState()
     val scope = rememberCoroutineScope()
@@ -40,6 +38,9 @@ fun MapScreen(mapViewModel: MapViewModel, navController: NavHostController){
             currentZone = mapViewModel.clientZonesResponse[0]
             firstOpenMap = false
         }
+        else{
+            title.value = currentZone?.zone_name ?: "Zona"
+        }
         mapViewModel.getZoneTables(currentZone!!._id)
         if(!mapViewModel.zoneTablesResponse.isNullOrEmpty()){
             currentZoneTables = mapViewModel.zoneTablesResponse
@@ -51,6 +52,9 @@ fun MapScreen(mapViewModel: MapViewModel, navController: NavHostController){
                 snackbarHostState = snackbarHostState,
                 navController = navController
             )
+        }else{
+
+            //TODO crear zona por defecto con un par de mesas
         }
     }
 }
@@ -99,7 +103,6 @@ fun MapTablesStart(
                         onClick = {
                             Logger.d("Click en options icon")
                             scope.launch { scaffoldState.drawerState.open() }
-
                         }) {
                         Icon(Icons.Filled.Menu, contentDescription = null, tint = Color.White)
                     }
@@ -117,7 +120,7 @@ fun MapTablesStart(
             )
         }
     ) {
-        MapTableComponent(mapViewModel, navController)
+        MapTableComponent(mapViewModel, navController, scope)
     }
 }
 

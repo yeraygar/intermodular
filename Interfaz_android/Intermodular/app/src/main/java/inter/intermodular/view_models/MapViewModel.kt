@@ -28,12 +28,13 @@ class MapViewModel : ViewModel() {
 
     private var errorMessage : String by mutableStateOf("")
 
-    fun getZoneTables(id_table : String){
+    fun getZoneTables(id_zone : String){
         viewModelScope.launch {
             val apiServices = ApiServices.getInstance()
             try{
-                zoneTablesResponse = apiServices.getZoneTables(id_table)
+                zoneTablesResponse = apiServices.getZoneTables(id_zone)
                 currentZoneTables = zoneTablesResponse
+                for(table in currentZoneTables) Logger.w("Mesas en current Zone:\n $table")
             }catch(e : Exception){
                 errorMessage = e.message.toString()
                 Logger.e("FAILURE getZoneTables")
@@ -55,12 +56,11 @@ class MapViewModel : ViewModel() {
         }
     }
 
-    fun getClientUsersList(){
+/*    fun getClientUsersList(){
         viewModelScope.launch {
             val apiServices = ApiServices.getInstance()
             try{
-                allUsersClientResponse = apiServices.getClientUsers("Ecosistema1")
-                //allUsersClientResponse = apiServices.getClientUsers(currentClient._id)
+                allUsersClientResponse = apiServices.getClientUsers(currentClient._id)
                 Logger.i("CORRECT getClientUsersList ")
             }catch (e : Exception){
                 errorMessage = e.message.toString()
@@ -73,10 +73,8 @@ class MapViewModel : ViewModel() {
         viewModelScope.launch {
             val apiServices = ApiServices.getInstance()
             try{
-                if(buscarFichados) usersFichadosResponse = apiServices.getUsersFichados("Ecosistema1")
-                //if(buscarFichados) usersFichadosResponse = apiServices.getUsersFichados(currentClient._id)
-                else usersNoFichadosResponse = apiServices.getUsersNoFichados("Ecosistema1")
-                //else usersNoFichadosResponse = apiServices.getUsersNoFichados(currentClient._id)
+                if(buscarFichados) usersFichadosResponse = apiServices.getUsersFichados(currentClient._id)
+                else usersNoFichadosResponse = apiServices.getUsersNoFichados(currentClient._id)
                 Logger.i("CORRECT getUsersFichados ${buscarFichados}")
             }catch (e : Exception){
                 errorMessage = e.message.toString()
@@ -90,13 +88,12 @@ class MapViewModel : ViewModel() {
         viewModelScope.launch {
             val apiServices = ApiServices.getInstance()
             try{
-                adminsClientResponse = apiServices.getClientAdmin("Ecosistema1")
-                //adminsClientResponse = apiServices.getClientAdmin(currentClient._id)
+                adminsClientResponse = apiServices.getClientAdmin(currentClient._id)
                 Logger.i("CORRECT getClientAdmins ")
             }catch (e: Exception){
                 errorMessage = e.message.toString()
                 Logger.e("FAILURE getClientAdmins ")
             }
         }
-    }
+    }*/
 }

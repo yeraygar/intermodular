@@ -14,10 +14,7 @@ import androidx.navigation.navArgument
 import inter.intermodular.view_models.MapViewModel
 import com.orhanobut.logger.AndroidLogAdapter
 import com.orhanobut.logger.Logger
-import inter.intermodular.screens.login_register.Login
-import inter.intermodular.screens.login_register.Register
-import inter.intermodular.screens.login_register.ValidateLoginScreen
-import inter.intermodular.screens.login_register.ValidateRegisterScreen
+import inter.intermodular.screens.login_register.*
 import inter.intermodular.screens.map_tables.MapScreen
 import inter.intermodular.screens.table_payment.TableScreen
 import inter.intermodular.ui.theme.IntermodularTheme
@@ -136,6 +133,25 @@ class MainActivity : ComponentActivity() {
                             Toast.makeText(applicationContext, "BackButton Deshabilitado en el MAIN", Toast.LENGTH_SHORT).show()
                         }
                     }
+                                    /*** USER SELECTION SCREEN ***/
+                    composable(
+                        route = ScreenNav.UserSelectionScreen.route
+                    ){
+                        UserSelection(loginRegisterViewModel = loginRegisterViewModel, navController = navController)
+                        BackHandler(true) {
+                            Toast.makeText(applicationContext, "BackButton Deshabilitado en el MAP", Toast.LENGTH_SHORT).show()
+                        }
+                    }
+/*
+                                    *//*** USER VALIDATION SCREEN ***//*
+                    composable(
+                        route = ScreenNav.ValidateUserScreen.route
+                    ){
+                        ValidateUser(loginRegisterViewModel = loginRegisterViewModel, navController = navController)
+                        BackHandler(true) {
+                            Toast.makeText(applicationContext, "BackButton Deshabilitado en el MAP", Toast.LENGTH_SHORT).show()
+                        }
+                    }*/
 
                                     /*** MAP SCREEN ***/
                     composable(

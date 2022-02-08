@@ -26,6 +26,7 @@ import androidx.navigation.NavHostController
 import com.orhanobut.logger.Logger
 import inter.intermodular.R
 import inter.intermodular.ScreenNav
+import inter.intermodular.support.currentUser
 
 @Composable
 fun SnackBarContent(
@@ -44,7 +45,7 @@ fun SnackBarContent(
     ) {
         Column {
 
-            if (true/*currentUser.rol == "Admin"*/) { /*TODO que aparezca segun el rol*/
+            if (currentUser.rol == "Admin") {
                 Box(
                     Modifier
                         .background(

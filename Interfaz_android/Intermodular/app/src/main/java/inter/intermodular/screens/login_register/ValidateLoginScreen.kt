@@ -1,5 +1,6 @@
 package inter.intermodular.screens.login_register
 
+import androidx.activity.OnBackPressedCallback
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -88,7 +89,8 @@ fun ShowAlertDialogLogin(
                             var current = loginRegisterViewModel.currentClientResponse
                             if(current._id != "Error"){
                                 backLogin = false
-                                navController.navigate(ScreenNav.MapScreen.route)
+                                //navController.navigate(ScreenNav.MapScreen.route)
+                                navController.navigate(ScreenNav.UserSelectionScreen.route)
                             }else{
                                 navController.navigate(ScreenNav.LoginScreen.route)
                             }

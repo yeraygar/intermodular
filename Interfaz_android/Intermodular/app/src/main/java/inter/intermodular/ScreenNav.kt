@@ -7,7 +7,9 @@ sealed class ScreenNav(val route: String) {
     object RegisterScreen : ScreenNav("register_screen")
     object ValidateRegisterScreen : ScreenNav("validate_register_screen")
     object ValidateLoginScreen : ScreenNav("validate_login_screen")
+    object UserSelectionScreen : ScreenNav("user_selection_screen")
     object TableScreen : ScreenNav("table_screen")
+    object ValidateUserScreen : ScreenNav("validate_user_screen")
 
     fun withArgs(vararg args: String) : String{
         return buildString{

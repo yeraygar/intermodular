@@ -12,7 +12,9 @@ import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.colorResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
@@ -20,15 +22,17 @@ import com.orhanobut.logger.Logger
 import inter.intermodular.R
 import inter.intermodular.ScreenNav
 import inter.intermodular.models.TableModel
-import inter.intermodular.support.currentTable
-import inter.intermodular.support.currentZone
-import inter.intermodular.support.currentZoneTables
-import inter.intermodular.support.tableCount
+import inter.intermodular.support.*
 import inter.intermodular.view_models.MapViewModel
+import kotlinx.coroutines.*
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun MapTableComponent(mapViewModel: MapViewModel, navController: NavHostController) {
+fun MapTableComponent(
+    mapViewModel: MapViewModel,
+    navController: NavHostController,
+    scope: CoroutineScope
+) {
     LazyVerticalGrid(
         cells = GridCells.Fixed(6),
         modifier = Modifier
@@ -36,52 +40,107 @@ fun MapTableComponent(mapViewModel: MapViewModel, navController: NavHostControll
             .padding(5.dp)
     ) {
         mapViewModel.getZoneTables(currentZone?._id ?: "Error")
-        if(!mapViewModel.zoneTablesResponse.isNullOrEmpty()){
+        if (!mapViewModel.zoneTablesResponse.isNullOrEmpty()) {
+
             currentZoneTables = mapViewModel.zoneTablesResponse
-            currentZoneTables = currentZoneTables.sortedWith(compareBy<TableModel> { it.num_row}.thenBy{it.num_column})
-            for (table in currentZoneTables) Logger.d(table)
-            for (i in 0 until mapViewModel.zoneTablesResponse.count()) {
+            currentZoneTables = currentZoneTables.sortedWith(compareBy<TableModel> { it.num_row }.thenBy { it.num_column })
+
+            for (i in 0 until currentZoneTables.count()) {
+
                 item {
-                    RowContent(i, mapViewModel, navController)
+                    //RowContent(i, mapViewModel, navController)
+                    ButtonMesa(i, navController)
+
                 }
             }
         }
-        tableCount = 0
     }
 }
 
 @Composable
-fun RowContent(i: Int, mapViewModel: MapViewModel, navController: NavHostController) {
+fun RowContent(
+    i: Int,
+    mapViewModel: MapViewModel,
+    navController: NavHostController,
+) {
 
-    if(currentZone != null){
-        //mapViewModel.getZoneTables(currentZone!!._id)
-        if(currentZoneTables.isNullOrEmpty()){
-            tableCount++
-          //  currentZoneTables = mapViewModel.zoneTablesResponse
-           // currentZoneTables = currentZoneTables.sortedBy { it.num_row }
+    if (currentZone != null) {
+        if (!currentZoneTables.isNullOrEmpty()) {
 
-            //if(tableCount != currentZoneTables[i].num_row + currentZoneTables[i].num_column)
+            for (table in currentZoneTables) Logger.w("All tables $table")
+
+
+            // if (!emptySpace) {
             /**TODO Colocar en orden fila x columna las diferentes mesas*/
-            Button(
-                modifier = Modifier
-                    .height(75.dp)
-                    .width(75.dp)
-                    .padding(3.dp),
-                colors = ButtonDefaults.buttonColors(backgroundColor = colorResource(R.color.azul)),
-                elevation = ButtonDefaults.elevation(
-                    defaultElevation = 15.dp,
-                    pressedElevation = 1.dp,
-                    disabledElevation = 0.dp
+            ButtonMesa(i, navController)
+            //emptySpace = false
 
-                ),
-                onClick = {
-                    currentTable = mapViewModel.zoneTablesResponse[i]
-                    Logger.i("Mesa seleccionada $currentTable")
-                    navController.navigate(ScreenNav.TableScreen.route)
-                }) {
-                Text(text = currentZoneTables[i].name.substring(0,3), fontSize = 11.sp,
-                )
-            }
+            // } else {
+            //TODO CREAR UN BOTON VACIO
+
+            /*  Button(
+                    modifier = Modifier
+                        .height(60.dp)
+                        .width(60.dp)
+                        .padding(3.dp),
+                    colors = ButtonDefaults.buttonColors(backgroundColor = Color.Transparent),
+
+                    onClick = {
+
+                        //currentTable = currentZoneTables[i]
+                        //Logger.i("Mesa seleccionada $currentTable")
+                        //navController.navigate(ScreenNav.TableScreen.route)
+                    }) {
+                    Text(
+                        text = "", fontSize = 8.sp,
+                    )
+                    emptySpace = true
+                    lastTable = currentZoneTables[i]
+                    //lastTable!!.num_column++
+                    //astTable!!.num_row++
+
+                    //ButtonMesa(i, navController)
+                }
+            }*/
+            // lastTable = currentZoneTables[i]
+            // tableColumn++
+            //if (tableColumn == 6) {
+            //    tableColumn = 1
+            //   tableRow++
         }
+
+    }
+}
+
+@Composable
+private fun ButtonMesa(i: Int, navController: NavHostController) {
+    Button(
+        modifier = Modifier
+            .height(60.dp)
+            .width(60.dp)
+            .padding(3.dp),
+        colors =
+            if (currentZoneTables[i].ocupada)ButtonDefaults.buttonColors(backgroundColor = colorResource(R.color.rojo))
+            else ButtonDefaults.buttonColors(backgroundColor = colorResource(R.color.azul)),
+       /* elevation = ButtonDefaults.elevation(
+            defaultElevation = 10.dp,
+            pressedElevation = 1.dp,
+            disabledElevation = 0.dp
+        ),*/
+        onClick = {
+
+            //currentTable = if(emptySpace) currentZoneTables[i-1] else currentZoneTables[i]
+            currentTable = currentZoneTables[i]
+            Logger.i("Mesa seleccionada $currentTable")
+            navController.navigate(ScreenNav.TableScreen.route)
+        }) {
+        Text(
+            text =  if (currentZoneTables[i].name.length > 3)
+                        currentZoneTables[i].name.substring(0, 3)
+                    else currentZoneTables[i].name,
+            fontSize = 8.sp,
+            color = Color.White,
+            fontWeight = FontWeight.Bold
+        )
     }
 }

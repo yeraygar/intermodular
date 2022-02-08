@@ -38,7 +38,7 @@ fun MapZoneComponent(
             .fillMaxWidth()
             .height(80.dp),
 
-        backgroundColor = colorResource(id = R.color.azul_oscuro)
+       // backgroundColor = colorResource(id = R.color.azul_oscuro)
             ) {
        Column(
            horizontalAlignment = Alignment.CenterHorizontally,
@@ -47,7 +47,7 @@ fun MapZoneComponent(
                text = "ELIGE UNA ZONA",
                fontSize = 20.sp,
                fontWeight = FontWeight.Bold,
-               color = Color.White
+               color = colorResource(id = R.color.azul_oscuro)
            )
        }
     }

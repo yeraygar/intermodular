@@ -8,6 +8,7 @@ import androidx.lifecycle.viewModelScope
 import com.orhanobut.logger.Logger
 import inter.intermodular.models.ClientModel
 import inter.intermodular.models.ClientPost
+import inter.intermodular.models.UserModel
 import inter.intermodular.services.ApiServices
 import inter.intermodular.support.currentClient
 import inter.intermodular.support.getSHA256
@@ -21,6 +22,9 @@ import retrofit2.Response
  * llaman a la instancia de Retrofit con sus rutas.
  */
 class LoginRegisterViewModel : ViewModel() {
+
+    var allUsersClientResponse : List<UserModel> by mutableStateOf(listOf())
+    var adminsClientResponse : List<UserModel> by mutableStateOf(listOf())
 
     var emailExistsResponse : Boolean by mutableStateOf(true)
     var currentClientResponse : ClientModel by mutableStateOf(
@@ -74,6 +78,32 @@ class LoginRegisterViewModel : ViewModel() {
             }catch (e: Exception){
                 errorMessage = e.message.toString()
                 Logger.e("FAILURE create client")
+            }
+        }
+    }
+
+    fun getClientUsersList(){
+        viewModelScope.launch {
+            val apiServices = ApiServices.getInstance()
+            try{
+                allUsersClientResponse = apiServices.getClientUsers(currentClient._id)
+                Logger.i("CORRECT getClientUsersList ")
+            }catch (e : java.lang.Exception){
+                errorMessage = e.message.toString()
+                Logger.e("FAILURE getClientUsersList ")
+            }
+        }
+    }
+
+    fun getClientAdmins(){
+        viewModelScope.launch {
+            val apiServices = ApiServices.getInstance()
+            try{
+                adminsClientResponse = apiServices.getClientAdmin(currentClient._id)
+                Logger.i("CORRECT getClientAdmins ")
+            }catch (e: java.lang.Exception){
+                errorMessage = e.message.toString()
+                Logger.e("FAILURE getClientAdmins ")
             }
         }
     }
