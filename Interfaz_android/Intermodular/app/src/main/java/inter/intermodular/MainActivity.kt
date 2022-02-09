@@ -168,7 +168,7 @@ class MainActivity : ComponentActivity() {
                         route = ScreenNav.TableScreen.route
                     ){
                         TableScreen(navController = navController, tableViewModel = tableViewModel)
-                        BackHandler(false) {
+                        BackHandler(true) {
                             Toast.makeText(applicationContext, "BackButton Deshabilitado por el momento", Toast.LENGTH_SHORT).show()
                         }
                     }

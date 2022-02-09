@@ -5,6 +5,7 @@ package inter.intermodular.models
  * nuevos Productos a la API
  */
 data class ProductPost(
+    var name : String,
     var precio : Float,
     var stock : Int,
     var id_client : String,

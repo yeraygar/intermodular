@@ -6,6 +6,7 @@ package inter.intermodular.models
  */
 data class ProductModel(
     var _id: String,
+    var name: String,
     var cantidad: Int,
     var precio: Float,
     var stock: Int,

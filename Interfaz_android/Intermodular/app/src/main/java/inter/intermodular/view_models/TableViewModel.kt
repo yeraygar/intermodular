@@ -8,10 +8,7 @@ import androidx.lifecycle.viewModelScope
 import com.orhanobut.logger.Logger
 import inter.intermodular.models.*
 import inter.intermodular.services.ApiServices
-import inter.intermodular.support.currentClient
-import inter.intermodular.support.currentTable
-import inter.intermodular.support.currentTicket
-import inter.intermodular.support.currentUser
+import inter.intermodular.support.*
 import kotlinx.coroutines.launch
 import retrofit2.Response
 import java.util.*
@@ -19,7 +16,7 @@ import java.util.*
 class TableViewModel : ViewModel() {
 
     var currentTicketLineResponse : ProductModel by mutableStateOf(
-        ProductModel("Error", 0, 0.0f, 0, 0.0f,
+        ProductModel("Error", "Error",0, 0.0f, 0, 0.0f,
             "Error", "Error", "Error", "Error")
     )
 
@@ -180,6 +177,7 @@ class TableViewModel : ViewModel() {
             try{
                 clientFamiliesResponse = listOf()
                 clientFamiliesResponse = apiServices.getClientFamilies(clientId)
+                allFamilies = clientFamiliesResponse
                 Logger.i("SUCCESS loading getClientFamilies for clientId: $clientId")
             }catch (e: Exception){
                 errorMessage = e.message.toString()
@@ -204,5 +202,7 @@ class TableViewModel : ViewModel() {
             }
         }
     }
+
+
 
 }
