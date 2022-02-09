@@ -37,7 +37,7 @@ class LoginRegisterViewModel : ViewModel() {
         UserModel("Error", "Error", "Error", "Error", "Error", "Error", false))
 
     var currentTableResponse : TableModel by mutableStateOf(
-        TableModel("Error", "Error", true, false, "Error", 6, 1,1,10,"Error"))
+        TableModel("Error", "Error", true, false, "Error", 6, 1,1,10,"Error", "Error"))
 
     private var errorMessage : String by mutableStateOf("")
 
@@ -83,7 +83,7 @@ class LoginRegisterViewModel : ViewModel() {
                     currentClientResponse = response.body()!!
                     currentClient = currentClientResponse
                     Logger.i("Create client SUCCESSFUL \n $response \n ${response.body()}")
-                }else Logger.e("Error Response Create Client")
+                }else Logger.e("Error Response Create Client $response")
             }catch (e: Exception){
                 errorMessage = e.message.toString()
                 Logger.e("FAILURE create client")

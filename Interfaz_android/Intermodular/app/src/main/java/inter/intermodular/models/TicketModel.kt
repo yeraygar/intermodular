@@ -16,5 +16,5 @@ data class TicketModel(
     var name_table : String,
     var comensales : Int,
     var date : Date,
-    var cobrado: Boolean
+    var cobrado: Boolean,
 )

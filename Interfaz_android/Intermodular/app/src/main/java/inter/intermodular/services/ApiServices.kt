@@ -98,6 +98,32 @@ interface ApiServices {
     suspend fun createTable(@Body table : TablePost) : Response<TableModel>
 
 
+    /********************TICKET**********************/
+
+    @GET("ticket/table/{id}/sin_cobrar")
+    suspend fun hasTicketOpen(@Path(value = "id") id : String ) : List<TicketModel>
+
+    @POST("ticket")
+    suspend fun createTicket(@Body ticket : TicketPost) : Response<TicketModel>
+
+
+    /********************TICKET*LINES**********************/
+
+    @POST("ticket_line")
+    suspend fun  createTicketLine(@Body product : ProductModel) : Response<ProductModel>
+
+
+    /********************PRODUCTS**********************/
+
+    @GET("product/family/{id}")
+    suspend fun getFamilyProducts(@Path(value = "id") id : String) : List<ProductModel>
+
+
+    /********************FAMILIES**********************/
+    @GET("family/client/{id}")
+    suspend fun getClientFamilies(@Path(value = "id") id : String) : List<FamilyModel>
+
+
 
 
 }
