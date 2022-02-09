@@ -168,8 +168,8 @@ class LoginRegisterViewModel : ViewModel() {
             for ( i in 0 until 5){
                 defaultTable.num_column = 0
                 for(j in 0 until 6){
-                    createTable(defaultTable)
                     defaultTable.name = "${defaultTable.num_row + 1}${defaultTable.num_column + 1}"
+                    createTable(defaultTable)
                     defaultTable.num_column++
                     if(defaultTable.num_column == 5) defaultTable.num_row++
                 }
