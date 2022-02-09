@@ -29,14 +29,13 @@ import inter.intermodular.ScreenNav
 import inter.intermodular.support.allUsers
 import inter.intermodular.support.backUser
 import inter.intermodular.support.currentUser
+import inter.intermodular.support.defaultAdmin
 import inter.intermodular.view_models.LoginRegisterViewModel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 @Composable
 fun UserSelection(navController: NavController, loginRegisterViewModel: LoginRegisterViewModel){
-
-
 
     val isDialogOpen = remember { mutableStateOf(false) }
     val inputText = remember { mutableStateOf("")}
@@ -85,6 +84,12 @@ fun ShowAlertDialogUser(
     var checked by remember { mutableStateOf(false)}
     val textAnswer by remember { mutableStateOf("")}
 
+    if (currentUser.name == defaultAdmin.name
+        && currentUser.rol == defaultAdmin.name
+        && currentUser.passw == defaultAdmin.passw){
+            inputText.value = defaultAdmin.passw
+            passwordVisibility = true
+    }
 
     if(isDialogOpen.value) {
         Dialog(onDismissRequest = { isDialogOpen.value = false }) {

@@ -19,6 +19,8 @@ import inter.intermodular.ScreenNav
 import inter.intermodular.models.ClientPost
 import inter.intermodular.support.*
 import inter.intermodular.view_models.LoginRegisterViewModel
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 @Composable
 fun ValidateRegisterScreen(
@@ -52,7 +54,13 @@ fun ValidateRegisterScreen(
 }
 
 @Composable
-fun ResponseRegister(loginRegisterViewModel: LoginRegisterViewModel, buttonText: MutableState<String>) {
+fun ResponseRegister(
+    loginRegisterViewModel: LoginRegisterViewModel,
+    buttonText: MutableState<String>,
+    loading1: MutableState<Boolean>,
+    loading2: MutableState<Boolean>,
+    loading3: MutableState<Boolean>
+) {
     val res = loginRegisterViewModel.emailExistsResponse
     if (res) {
         Text(text = "Email ya en uso")
@@ -60,11 +68,29 @@ fun ResponseRegister(loginRegisterViewModel: LoginRegisterViewModel, buttonText:
         buttonText.value = "Back to Login"
 
     } else {
-        Text(text = "Email disponible")
-        Spacer(modifier = Modifier.padding(5.dp))
-        Text(text = "Client Creado")
-        Logger.i("Email disponible")
-        buttonText.value = "Login"
+        Column(
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Center,
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(10.dp)
+        ) {
+            Text(text = "Email disponible", modifier = Modifier.padding(10.dp), fontWeight = FontWeight.Bold, color = colorResource(id = R.color.azul_oscuro))
+            Text(text = "Client Creado", modifier = Modifier.padding(10.dp), fontWeight = FontWeight.Bold, color = colorResource(id = R.color.azul_oscuro))
+            if(loading1.value) Text(text = "Usuario Admin Creado", modifier = Modifier.padding(10.dp), fontWeight = FontWeight.Bold, color = colorResource(id = R.color.azul_oscuro))
+            if(loading2.value) Text(text = "Zona Comedor Creada", modifier = Modifier.padding(10.dp), fontWeight = FontWeight.Bold, color = colorResource(id = R.color.azul_oscuro))
+            if(loading3.value) Text(text = "18 Mesas Creadas", modifier = Modifier.padding(10.dp), fontWeight = FontWeight.Bold, color = colorResource(id = R.color.azul_oscuro))
+            Logger.i("Email disponible")
+            buttonText.value = "Login"
+            LaunchedEffect(Unit){
+                delay(400)
+                loading1.value = true
+                delay(400)
+                loading2.value = true
+                delay(400)
+                loading3.value = true
+            }
+        }
     }
 }
 
@@ -77,6 +103,12 @@ fun ShowAlertDialog(
     navController: NavController,
     buttonText: MutableState<String>
 ) {
+    val scope = rememberCoroutineScope()
+    val loading1 = remember { mutableStateOf(false)}
+    val loading2 = remember { mutableStateOf(false)}
+    val loading3 = remember { mutableStateOf(false)}
+    var oneClick = true
+
     if(isDialogOpen.value) {
         Dialog(onDismissRequest = { isDialogOpen.value = false }) {
             Surface(
@@ -104,21 +136,31 @@ fun ShowAlertDialog(
                     Spacer(modifier = Modifier.padding(10.dp))
                     ResponseRegister(
                         loginRegisterViewModel = loginRegisterViewModel,
-                        buttonText = buttonText
+                        buttonText = buttonText,
+                        loading1 = loading1,
+                        loading2 = loading2,
+                        loading3 = loading3
                     )
 
                     Spacer(modifier = Modifier.padding(15.dp))
 
                     Button(
                         onClick = {
-                            isDialogOpen.value = false
                             if(!loginRegisterViewModel.emailExistsResponse){
-                                backRegister = false
-                                //TODO CREAR NUEVO ADMIN
-                                isNewClient = true
-                                navController.navigate(ScreenNav.MapScreen.route)
+                                scope.launch {
+                                    if(oneClick){
+                                        loginRegisterViewModel.createDefaults()
+                                        oneClick = false
+                                    }
+                                    delay(1000)
+                                    isDialogOpen.value = false
+                                    backRegister = false
+                                    navController.navigate(ScreenNav.MapScreen.route)
+
+                                }
                             }else{
                                 //Si volvemos al register da problemas con el back button
+                                isDialogOpen.value = false
                                 navController.navigate(ScreenNav.LoginScreen.route)
                             }
                         },

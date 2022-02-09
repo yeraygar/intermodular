@@ -59,6 +59,9 @@ interface ApiServices {
     @GET("users/client/{id}/admin")
     suspend fun getClientAdmin(@Path("id") id : String) : List<UserModel>
 
+    @POST("users")
+    suspend fun createUser(@Body user : UserPost) : Response<UserModel>
+
 
     /********************CLIENT**********************/
 
@@ -82,11 +85,19 @@ interface ApiServices {
     @GET("zones/client/{id}")
     suspend fun getZones(@Path(value = "id") id : String) : List<ZoneModel>
 
+    @POST("zones")
+    suspend fun createZone(@Body zone : ZonePost) : Response<ZoneModel>
+
 
     /********************TABLES**********************/
 
     @GET("tables/zone/{id}")
     suspend fun getZoneTables(@Path(value = "id") id : String) : List<TableModel>
+
+    @POST("tables")
+    suspend fun createTable(@Body table : TablePost) : Response<TableModel>
+
+
 
 
 }
