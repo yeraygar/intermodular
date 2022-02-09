@@ -8,7 +8,8 @@ const ticketSchema = mongoose.Schema({
     },
     tipo_ticket:{ //Efectivo o Tarjeta
         type:String,
-        required: false
+        required: false,
+        defafult: "Efectivo"
     },
     id_user_que_abrio:{
         type: String,
@@ -17,6 +18,7 @@ const ticketSchema = mongoose.Schema({
     id_user_que_cerro:{
         type: String,
         required: false,
+        default: "Sin cerrar"
     },
     id_client:{
         type: String,
@@ -42,7 +44,7 @@ const ticketSchema = mongoose.Schema({
     },
     cobrado:{
         type: Boolean,
-        required: true,
+        required: false,
         default: false,
     }
 })
