@@ -6,10 +6,7 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.orhanobut.logger.Logger
-import inter.intermodular.models.FamilyModel
-import inter.intermodular.models.ProductModel
-import inter.intermodular.models.TicketModel
-import inter.intermodular.models.TicketPost
+import inter.intermodular.models.*
 import inter.intermodular.services.ApiServices
 import inter.intermodular.support.currentClient
 import inter.intermodular.support.currentTable
@@ -34,6 +31,7 @@ class TableViewModel : ViewModel() {
     var openTicketResponse : List<TicketModel> by mutableStateOf(listOf())
     var familyProductsResponse : List<ProductModel> by mutableStateOf(listOf())
     var clientFamiliesResponse : List<FamilyModel> by mutableStateOf(listOf())
+    var updateOkResponse : Boolean by mutableStateOf(false)
 
 
     private var errorMessage : String by mutableStateOf("")
@@ -55,6 +53,40 @@ class TableViewModel : ViewModel() {
         }
     }
 
+    fun updateTicketLine(productLine: ProductModel, productLineId : String){
+        viewModelScope.launch {
+            val apiServices = ApiServices.getInstance()
+            updateOkResponse = false
+            try{
+                val response = apiServices.updateTicketLine(productLineId, productLine)
+                if (response.isSuccessful){
+                    updateOkResponse = true
+                    Logger.i("SUCCESS updateTicketLine $response ${response.body()}")
+                }else Logger.e("FAILURE response updateTicketLine $productLine in $productLineId")
+            }catch (e: Exception){
+                errorMessage = e.message.toString()
+                Logger.e("FAILURE update LineTicket\n${e.message.toString()}")
+            }
+        }
+    }
+
+    fun deleteTicketLine(productLineId : String){
+        viewModelScope.launch {
+            val apiServices = ApiServices.getInstance()
+            updateOkResponse = false
+            try{
+                val response = apiServices.deleteTicketLine(productLineId)
+                if (response.isSuccessful){
+                    updateOkResponse = true
+                    Logger.i("SUCCESS deleteTicketLine $response ${response.body()}")
+                }else Logger.e("FAILURE response DeleteTicketLine for $productLineId")
+            }catch (e: Exception){
+                errorMessage = e.message.toString()
+                Logger.e("FAILURE delete LineTicket\n${e.message.toString()}")
+            }
+        }
+    }
+
     fun createTicket(){
         viewModelScope.launch {
             val newTicket : TicketPost =
@@ -71,6 +103,40 @@ class TableViewModel : ViewModel() {
             }catch (e: Exception){
                 errorMessage = e.message.toString()
                 Logger.e("FAILURE create Ticket\n${e.message.toString()}")
+            }
+        }
+    }
+
+    fun updateTicket(ticket: TicketModel, ticketId : String){
+        viewModelScope.launch {
+            val apiServices = ApiServices.getInstance()
+            updateOkResponse = false
+            try{
+                val response = apiServices.updateTicket(ticketId, ticket)
+                if (response.isSuccessful){
+                    updateOkResponse = true
+                    Logger.i("SUCCESS updateTicket $response ${response.body()}")
+                }else Logger.e("FAILURE response updateTicket ")
+            }catch (e: Exception){
+                errorMessage = e.message.toString()
+                Logger.e("FAILURE update Ticket\n${e.message.toString()}")
+            }
+        }
+    }
+
+    fun deleteTicket(ticketId : String){
+        viewModelScope.launch {
+            val apiServices = ApiServices.getInstance()
+            updateOkResponse = false
+            try{
+                val response = apiServices.deleteTicket(ticketId)
+                if (response.isSuccessful){
+                    updateOkResponse = true
+                    Logger.i("SUCCESS deleteTicket $response ${response.body()}")
+                }else Logger.e("FAILURE response DeleteTicket for $ticketId")
+            }catch (e: Exception){
+                errorMessage = e.message.toString()
+                Logger.e("FAILURE delete Ticket\n${e.message.toString()}")
             }
         }
     }
@@ -122,15 +188,21 @@ class TableViewModel : ViewModel() {
         }
     }
 
-    /**
-     * UPDATE TICKET
-     * UPDATE TABLE
-     * UPDATE LINEA_TICKET
-     * DELETE TICKET
-     * DELETE LINEA_TICKET
-     */
-
-
-
+    fun updateTable(table: TableModel, tableId : String){
+        viewModelScope.launch {
+            val apiServices = ApiServices.getInstance()
+            updateOkResponse = false
+            try{
+                val response = apiServices.updateTable(tableId, table)
+                if (response.isSuccessful){
+                    updateOkResponse = true
+                    Logger.i("SUCCESS updateTable $response ${response.body()}")
+                }else Logger.e("FAILURE response updateTable ")
+            }catch (e: Exception){
+                errorMessage = e.message.toString()
+                Logger.e("FAILURE update Table\n${e.message.toString()}")
+            }
+        }
+    }
 
 }

@@ -75,9 +75,7 @@ interface ApiServices {
     ) :List<ClientModel>
 
     @POST("client")
-    suspend fun createClient(
-        @Body client : ClientPost
-    ) : Response<ClientModel>
+    suspend fun createClient(@Body client : ClientPost) : Response<ClientModel>
 
 
     /********************ZONES**********************/
@@ -97,6 +95,9 @@ interface ApiServices {
     @POST("tables")
     suspend fun createTable(@Body table : TablePost) : Response<TableModel>
 
+    @PUT("tables/{id}")
+    suspend fun updateTable(@Path(value = "id") id : String, @Body table : TableModel) : Response<Any>
+
 
     /********************TICKET**********************/
 
@@ -106,11 +107,23 @@ interface ApiServices {
     @POST("ticket")
     suspend fun createTicket(@Body ticket : TicketPost) : Response<TicketModel>
 
+    @PUT("ticket/{id}")
+    suspend fun updateTicket(@Path(value = "id") id : String, @Body ticket : TicketModel) : Response<Any>
+
+    @DELETE("ticket/{id}")
+    suspend fun deleteTicket(@Path(value = "id") id : String) : Response<Any>
+
 
     /********************TICKET*LINES**********************/
 
     @POST("ticket_line")
-    suspend fun  createTicketLine(@Body product : ProductModel) : Response<ProductModel>
+    suspend fun createTicketLine(@Body product : ProductModel) : Response<ProductModel>
+
+    @PUT("ticket_line/{id}")
+    suspend fun updateTicketLine(@Path(value = "id") id : String, @Body ticket_line : ProductModel) : Response<Any>
+
+    @DELETE("ticket_line/{id}")
+    suspend fun deleteTicketLine(@Path(value = "id") id : String) : Response<Any>
 
 
     /********************PRODUCTS**********************/
@@ -120,6 +133,7 @@ interface ApiServices {
 
 
     /********************FAMILIES**********************/
+
     @GET("family/client/{id}")
     suspend fun getClientFamilies(@Path(value = "id") id : String) : List<FamilyModel>
 
