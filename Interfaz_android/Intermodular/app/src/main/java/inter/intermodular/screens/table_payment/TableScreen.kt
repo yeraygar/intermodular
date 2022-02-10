@@ -59,6 +59,12 @@ fun TableScreen(navController: NavController, tableViewModel : TableViewModel){
             }
     }*/
 
+    Logger.wtf(currentTicketLines.value.toString())
+    Logger.wtf(currentTable._id + currentTable.name)
+    if(currentTicketLines.value.isEmpty()){
+        tableViewModel.hasOpenTicket(currentTable._id)
+    }
+
     title.value = "${currentTable.name} - ${currentUser.name}"
 
     if(productClicked.value){
@@ -293,7 +299,7 @@ private fun TicketContentComponent(currentTicketLines: MutableState<List<Product
                         }){}
                     ){
                         Text(
-                            text = "${currentTicketLines.value[i].precio}",
+                            text = "${currentTicketLines.value[i].precio}€",
                             modifier = Modifier
                                 .fillMaxSize()
                                 .padding(10.dp)
@@ -307,7 +313,7 @@ private fun TicketContentComponent(currentTicketLines: MutableState<List<Product
                         }){}
                     ){
                         Text(
-                            text = "${currentTicketLines.value[i].total}",
+                            text = "${currentTicketLines.value[i].total}€",
                             modifier = Modifier
                                 .fillMaxSize()
                                 .padding(10.dp)
