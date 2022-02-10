@@ -12,7 +12,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.colorResource
-import androidx.compose.ui.res.fontResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
@@ -27,7 +26,6 @@ import inter.intermodular.view_models.TableViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import java.time.format.TextStyle
 
 @Composable
 fun TableScreen(navController: NavController, tableViewModel : TableViewModel){
@@ -40,36 +38,42 @@ fun TableScreen(navController: NavController, tableViewModel : TableViewModel){
     val afterFirstProduct = remember { mutableStateOf(false)}
 
     var familyProductList : MutableState<List<ProductModel>> = remember { mutableStateOf(listOf())}
-    var currentTicketLines : MutableState<MutableList<ProductModel>> = remember { mutableStateOf(mutableListOf())}
+   // var currentTicketLines : MutableState<MutableList<ProductModel>> = remember { mutableStateOf(mutableListOf())}
+    val currentTicketLines = remember { mutableStateOf(listOf<ProductModel>()) }
 
     if(currentTicketLines.value.isEmpty()){
         tableViewModel.hasOpenTicket(currentTable._id)
         if (!tableViewModel.openTicketResponse.isNullOrEmpty())
-        if(currentTable._id == tableViewModel.openTicketResponse[0].id_table){
-            currentTable.ocupada = true
-            currentTicket = tableViewModel.openTicketResponse[0]
-            tableViewModel.getTicketLines(currentTicket._id)
-            if(!tableViewModel.ticketLinesResponse.isNullOrEmpty())
-                currentTicketLines.value.addAll(0,tableViewModel.ticketLinesResponse)
-        }
+            if(currentTable._id == tableViewModel.openTicketResponse[0].id_table){
+                currentTable.ocupada = true
+                currentTicket = tableViewModel.openTicketResponse[0]
+                tableViewModel.getTicketLines(currentTicket._id)
+                if(!tableViewModel.ticketLinesResponse.isNullOrEmpty())
+                    //currentTicketLines.value.addAll(0,tableViewModel.ticketLinesResponse)
+                        for(line in tableViewModel.ticketLinesResponse){
+                            currentTicketLines.value = currentTicketLines.value + line
+                        }
+            }
     }
 
     title.value = "${currentTable.name} - ${currentUser.name}"
 
+
+
     tableViewModel.getClientFamilies(currentClient._id)
     //(!tableViewModel.clientFamiliesResponse.isNullOrEmpty() && firstOpenTable){
-        firstOpenTable = false
-        TableStart(
-            navController = navController,
-            tableViewModel = tableViewModel,
-            scaffoldState = scaffoldState,
-            scope = scope,
-            snackbarHostState = snackbarHostState,
-            title = title,
-            isDialogOpen = isDialogOpen,
-            familyProductList = familyProductList,
-            currentTicketLines = currentTicketLines
-        )
+    firstOpenTable = false
+    TableStart(
+        navController = navController,
+        tableViewModel = tableViewModel,
+        scaffoldState = scaffoldState,
+        scope = scope,
+        snackbarHostState = snackbarHostState,
+        title = title,
+        isDialogOpen = isDialogOpen,
+        familyProductList = familyProductList,
+        currentTicketLines = currentTicketLines
+    )
     if (isDialogOpen.value)
         ShowAlertDialogFamilyProducts(
             isDialogOpen = isDialogOpen,
@@ -79,7 +83,7 @@ fun TableScreen(navController: NavController, tableViewModel : TableViewModel){
             currentTicketLines = currentTicketLines,
             afterFirstProduct = afterFirstProduct
         )
-   // }
+    // }
 }
 
 @OptIn(ExperimentalFoundationApi::class)
@@ -93,7 +97,7 @@ fun TableStart(
     title: MutableState<String>,
     isDialogOpen: MutableState<Boolean>,
     familyProductList: MutableState<List<ProductModel>>,
-    currentTicketLines: MutableState<MutableList<ProductModel>>,
+    currentTicketLines: MutableState<List<ProductModel>>,
 ) {
 
     allFamilies = tableViewModel.clientFamiliesResponse
@@ -115,7 +119,7 @@ fun TableStart(
         drawerShape = MaterialTheme.shapes.small,
         drawerBackgroundColor = Color.White,
         drawerContent = {
-                        //TODO component drawer botones de accion
+            //TODO component drawer botones de accion
             Text(text = "aqui el drawer")
 
         },
@@ -176,21 +180,21 @@ fun TableStart(
                                     currentFamily = tableViewModel.clientFamiliesResponse[i]
                                     Logger.i("Familia seleccionada $currentFamily")
 
-                                   scope.launch{
+                                    scope.launch{
                                         tableViewModel.getFamilyProducts(tableViewModel.clientFamiliesResponse[i]._id)
                                         delay(100)
-                                       familyProductList.value = tableViewModel.familyProductsResponse
+                                        familyProductList.value = tableViewModel.familyProductsResponse
 
-                                       currentProductList = tableViewModel.familyProductsResponse
-                                       isDialogOpen.value = true
+                                        currentProductList = tableViewModel.familyProductsResponse
+                                        isDialogOpen.value = true
 
                                     }
 
                                 }) {
                                 Text(
                                     text =  if (allFamilies[i].name.length > 5)
-                                                allFamilies[i].name.substring(0, 5)
-                                            else allFamilies[i].name,
+                                        allFamilies[i].name.substring(0, 5)
+                                    else allFamilies[i].name,
                                     fontSize = 16.sp,
                                     color = Color.White,
                                     fontWeight = FontWeight.Bold
@@ -221,7 +225,7 @@ fun TableStart(
                                 backgroundColor = colorResource(id = R.color.gris_muy_claro),
                                 modifier = Modifier
                                     .fillMaxWidth()
-                                    //.padding(10.dp)
+                                //.padding(10.dp)
                             ) {
                                 Text(
                                     text = "TOTAL CUENTA : ",
@@ -246,7 +250,7 @@ fun TableStart(
                                 backgroundColor = colorResource(id = R.color.gris_muy_claro),
                                 modifier = Modifier
                                     .fillMaxWidth()
-                                    //.padding(10.dp)
+                                //.padding(10.dp)
                             ) {
                                 Text(
                                     text = "CANT.",
@@ -270,7 +274,7 @@ fun TableStart(
                                 backgroundColor = colorResource(id = R.color.gris_muy_claro),
                                 modifier = Modifier
                                     .fillMaxWidth()
-                                   // .padding(10.dp)
+                                // .padding(10.dp)
                             ) {
                                 Text(
                                     text = "NOMBRE",
@@ -295,7 +299,7 @@ fun TableStart(
                                 backgroundColor = colorResource(id = R.color.gris_muy_claro),
                                 modifier = Modifier
                                     .fillMaxWidth()
-                                    //.padding(10.dp)
+                                //.padding(10.dp)
                             ) {
                                 Text(
                                     text = "$/Un.",
@@ -319,7 +323,7 @@ fun TableStart(
                                 backgroundColor = colorResource(id = R.color.gris_muy_claro),
                                 modifier = Modifier
                                     .fillMaxWidth()
-                                    //.padding(10.dp)
+                                //.padding(10.dp)
                             ) {
                                 Text(
                                     text = "TOT.",
@@ -343,13 +347,13 @@ fun TableStart(
                     backgroundColor = colorResource(id = R.color.gris_muy_claro),
                     modifier = Modifier
                         .fillMaxWidth()
-                        .fillMaxHeight(0.2f)
+                        .fillMaxHeight(1f)
                         .padding(5.dp)
                 ) {
                     LazyVerticalGrid(
                         cells = GridCells.Fixed(5),
                         horizontalArrangement = Arrangement.Center,
-                        verticalArrangement = Arrangement.Center,
+                        verticalArrangement = Arrangement.Top,
                         contentPadding = PaddingValues(5.dp),
                     ) {
                         for (i in 0 until currentTicketLines.value.count()) {
@@ -388,7 +392,7 @@ fun TableStart(
                         }
                     }
                 }
-  }
+            }
         }
     }
 }
