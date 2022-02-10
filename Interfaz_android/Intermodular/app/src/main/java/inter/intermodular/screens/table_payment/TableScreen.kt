@@ -39,15 +39,17 @@ fun TableScreen(navController: NavController, tableViewModel : TableViewModel){
     var familyProductList : MutableState<List<ProductModel>> = remember { mutableStateOf(listOf())}
     var currentTicketLines : MutableState<MutableList<ProductModel>> = remember { mutableStateOf(mutableListOf())}
 
-   /* if(currentTicketLines.value.isEmpty()){
+    if(currentTicketLines.value.isEmpty()){
         tableViewModel.hasOpenTicket(currentTable._id)
+        if (!tableViewModel.openTicketResponse.isNullOrEmpty())
         if(currentTable._id == tableViewModel.openTicketResponse[0].id_table){
             currentTable.ocupada = true
             currentTicket = tableViewModel.openTicketResponse[0]
             tableViewModel.getTicketLines(currentTicket._id)
-            currentTicketLines.value.addAll(0,tableViewModel.ticketLinesResponse)
+            if(!tableViewModel.ticketLinesResponse.isNullOrEmpty())
+                currentTicketLines.value.addAll(0,tableViewModel.ticketLinesResponse)
         }
-    }*/
+    }
 
     title.value = "${currentTable.name} - ${currentUser.name}"
 
@@ -62,7 +64,8 @@ fun TableScreen(navController: NavController, tableViewModel : TableViewModel){
             snackbarHostState = snackbarHostState,
             title = title,
             isDialogOpen = isDialogOpen,
-            ticketLines = familyProductList
+            familyProductList = familyProductList,
+            currentTicketLines = currentTicketLines
         )
     if (isDialogOpen.value)
         ShowAlertDialogFamilyProducts(
@@ -86,7 +89,8 @@ fun TableStart(
     scaffoldState: ScaffoldState,
     title: MutableState<String>,
     isDialogOpen: MutableState<Boolean>,
-    ticketLines: MutableState<List<ProductModel>>,
+    familyProductList: MutableState<List<ProductModel>>,
+    currentTicketLines: MutableState<MutableList<ProductModel>>,
 ) {
 
     allFamilies = tableViewModel.clientFamiliesResponse
@@ -173,7 +177,7 @@ fun TableStart(
                                    scope.launch{
                                         tableViewModel.getFamilyProducts(tableViewModel.clientFamiliesResponse[i]._id)
                                         delay(100)
-                                       ticketLines.value = tableViewModel.familyProductsResponse
+                                       familyProductList.value = tableViewModel.familyProductsResponse
 
                                        currentProductList = tableViewModel.familyProductsResponse
                                        isDialogOpen.value = true
@@ -198,14 +202,14 @@ fun TableStart(
                 backgroundColor = colorResource(id = R.color.rojo),
                 modifier = Modifier
                     .fillMaxWidth()
-                    .fillMaxHeight()
+                    //.fillMaxHeight()
                     .padding(5.dp)
             ) {
                 LazyVerticalGrid(
-                    cells = GridCells.Fixed(4),
+                    cells = GridCells.Fixed(5),
                     //modifier = Modifier.fillMaxSize()
                 ){
-                    item(span =   { GridItemSpan(4)}
+                    item(span =   { GridItemSpan(5)}
                     ){
                         Column ( modifier =  Modifier.fillMaxWidth(), horizontalAlignment = Alignment.End, verticalArrangement = Arrangement.Center) {
                             Text(text = "TOTAL CUENTA => ", modifier = Modifier.padding(10.dp))
@@ -216,7 +220,7 @@ fun TableStart(
                             .fillMaxSize()
                             .padding(5.dp))
                     }
-                    item {
+                    item (span = { GridItemSpan(2)}) {
                         Text(text = "NOMBRE", modifier = Modifier
                             .fillMaxSize()
                             .padding(5.dp))
@@ -232,27 +236,46 @@ fun TableStart(
                             .padding(5.dp))
                     }
                 }
-                /*TODO MOSTRAR LINEAS TICKET*/
-               /* if(isDialogOpen.value){
-                    if(!currentProductList.isNullOrEmpty()){
-                        LazyVerticalGrid(cells = GridCells.Fixed(4)){
-                            for(i in 0 until currentProductList.count()){
-                                item {
-                                    Text(text = "${ticketLines.value[i].cantidad}")
-                                }
-                                item {
-                                    Text(text = ticketLines.value[i].name)
-                                }
-                                item {
-                                    Text(text = "${ticketLines.value[i].precio}")
-                                }
-                                item {
-                                    Text(text = "${ticketLines.value[i].total}")
-                                }
-                            }
+
+            }
+            /*TODO MOSTRAR LINEAS TICKET*/
+            if(!currentTicketLines.value.isNullOrEmpty()) {
+                LazyVerticalGrid(cells = GridCells.Fixed(4)) {
+                    for (i in 0 until currentTicketLines.value.count()) {
+                        item {
+                            Text(
+                                text = "${currentTicketLines.value[i].cantidad}",
+                                modifier = Modifier
+                                    .fillMaxSize()
+                                    .padding(5.dp)
+                            )
+                        }
+                        item (span = { GridItemSpan(2)}){
+                            Text(
+                                text = currentTicketLines.value[i].name,
+                                modifier = Modifier
+                                    .fillMaxSize()
+                                    .padding(5.dp)
+                            )
+                        }
+                        item {
+                            Text(
+                                text = "${currentTicketLines.value[i].precio}",
+                                modifier = Modifier
+                                    .fillMaxSize()
+                                    .padding(5.dp)
+                            )
+                        }
+                        item {
+                            Text(
+                                text = "${currentTicketLines.value[i].total}",
+                                modifier = Modifier
+                                    .fillMaxSize()
+                                    .padding(5.dp)
+                            )
                         }
                     }
-                }*/
+                }
             }
         }
     }

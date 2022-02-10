@@ -39,6 +39,7 @@ class TableViewModel : ViewModel() {
         viewModelScope.launch {
             val apiServices = ApiServices.getInstance()
             product.id_ticket = currentTicket._id
+            product._id = ""
             try{
                 val response : Response<ProductModel> = apiServices.createTicketLine(product)
                 if (response.isSuccessful){
