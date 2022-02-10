@@ -3,7 +3,6 @@ package inter.intermodular.screens.table_payment
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.*
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.HighlightOff
@@ -16,7 +15,6 @@ import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.compose.ui.window.Dialog
 import androidx.navigation.NavController
 import com.orhanobut.logger.Logger
 import inter.intermodular.R
@@ -31,18 +29,25 @@ import kotlinx.coroutines.launch
 @Composable
 fun TableScreen(navController: NavController, tableViewModel : TableViewModel){
 
-    currentLinesTicket = listOf()
-
-    //TODO comprobacion de que la mesa esta vacia y en su defecto cargar las currentLinesTicket
-
     val scaffoldState = rememberScaffoldState()
     val scope = rememberCoroutineScope()
     val snackbarHostState = remember { SnackbarHostState()}
     val title = remember { mutableStateOf("") }
     val isDialogOpen = remember { mutableStateOf(false)}
+    val afterFirstProduct = remember { mutableStateOf(false)}
 
-    var ticketLines : MutableState<List<ProductModel>> = remember { mutableStateOf(listOf())}
+    var familyProductList : MutableState<List<ProductModel>> = remember { mutableStateOf(listOf())}
+    var currentTicketLines : MutableState<MutableList<ProductModel>> = remember { mutableStateOf(mutableListOf())}
 
+   /* if(currentTicketLines.value.isEmpty()){
+        tableViewModel.hasOpenTicket(currentTable._id)
+        if(currentTable._id == tableViewModel.openTicketResponse[0].id_table){
+            currentTable.ocupada = true
+            currentTicket = tableViewModel.openTicketResponse[0]
+            tableViewModel.getTicketLines(currentTicket._id)
+            currentTicketLines.value.addAll(0,tableViewModel.ticketLinesResponse)
+        }
+    }*/
 
     title.value = "${currentTable.name} - ${currentUser.name}"
 
@@ -57,15 +62,17 @@ fun TableScreen(navController: NavController, tableViewModel : TableViewModel){
             snackbarHostState = snackbarHostState,
             title = title,
             isDialogOpen = isDialogOpen,
-            ticketLines = ticketLines
+            ticketLines = familyProductList
         )
-
-   /* ShowAlertDialogFamilyProducts(
-        isDialogOpen = isDialogOpen,
-        tableViewModel = tableViewModel,
-        navController = navController,
-        ticketLines = ticketLines
-    )*/
+    if (isDialogOpen.value)
+        ShowAlertDialogFamilyProducts(
+            isDialogOpen = isDialogOpen,
+            tableViewModel = tableViewModel,
+            scope = scope,
+            familyProductList = familyProductList,
+            currentTicketLines = currentTicketLines,
+            afterFirstProduct = afterFirstProduct
+        )
    // }
 }
 
@@ -81,12 +88,7 @@ fun TableStart(
     isDialogOpen: MutableState<Boolean>,
     ticketLines: MutableState<List<ProductModel>>,
 ) {
-    ShowAlertDialogFamilyProducts(
-        isDialogOpen = isDialogOpen,
-        tableViewModel = tableViewModel,
-        navController = navController,
-        ticketLines = ticketLines
-    )
+
     allFamilies = tableViewModel.clientFamiliesResponse
 
     Scaffold(
@@ -169,9 +171,8 @@ fun TableStart(
                                     Logger.i("Familia seleccionada $currentFamily")
 
                                    scope.launch{
-                                        delay(1000)
                                         tableViewModel.getFamilyProducts(tableViewModel.clientFamiliesResponse[i]._id)
-                                        delay(3000)
+                                        delay(100)
                                        ticketLines.value = tableViewModel.familyProductsResponse
 
                                        currentProductList = tableViewModel.familyProductsResponse
@@ -257,63 +258,4 @@ fun TableStart(
     }
 }
 
-@OptIn(ExperimentalFoundationApi::class)
-@Composable
-fun ShowAlertDialogFamilyProducts(
-    isDialogOpen: MutableState<Boolean>,
-    tableViewModel: TableViewModel,
-    navController: NavController,
-    ticketLines: MutableState<List<ProductModel>>,
-) {
-    currentProductList = tableViewModel.familyProductsResponse
 
-    if(isDialogOpen.value) {
-        if (!ticketLines.value.isNullOrEmpty()){
-            for ( i in 0 until ticketLines.value.count()){
-                Logger.wtf(ticketLines.value[i].name)
-                Dialog(onDismissRequest = { isDialogOpen.value = false }) {
-                    Surface(
-                        modifier = Modifier
-                            .fillMaxSize()
-                            .padding(10.dp, 20.dp),
-                        shape = RoundedCornerShape(5.dp),
-                        color = Color.White
-                    ) {
-                        LazyVerticalGrid(
-                            cells = GridCells.Adaptive(10.dp),
-                            modifier = Modifier
-                                .fillMaxSize()
-                        ){
-                            item {
-                                Button(
-                                    modifier = Modifier
-                                        .height(80.dp)
-                                        .width(100.dp)
-                                        .padding(5.dp),
-
-                                    colors = ButtonDefaults.buttonColors(colorResource(id = R.color.azul_oscuro)),
-                                    onClick = {
-                                        currentProduct = ticketLines.value[i]
-                                        Logger.i("Producto seleccionado $currentProduct")
-                                        //TODO, logica de crear ticket y anyadir linea_ticket
-
-                                        isDialogOpen.value = false
-
-                                    }) {
-                                    Text(
-                                        text =  if (ticketLines.value[i].name.length > 5)
-                                                     ticketLines.value[i].name.substring(0, 5)
-                                                 else ticketLines.value[i].name,
-                                        fontSize = 14.sp,
-                                        color = Color.White,
-                                        fontWeight = FontWeight.Bold
-                                    )
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        }
-    }
-}

@@ -28,6 +28,7 @@ class TableViewModel : ViewModel() {
     var openTicketResponse : List<TicketModel> by mutableStateOf(listOf())
     var familyProductsResponse : List<ProductModel> by mutableStateOf(listOf())
     var clientFamiliesResponse : List<FamilyModel> by mutableStateOf(listOf())
+    var ticketLinesResponse : List<ProductModel> by mutableStateOf(listOf())
     var updateOkResponse : Boolean by mutableStateOf(false)
 
 
@@ -37,6 +38,7 @@ class TableViewModel : ViewModel() {
     fun createTicketLine(product : ProductModel){
         viewModelScope.launch {
             val apiServices = ApiServices.getInstance()
+            product.id_ticket = currentTicket._id
             try{
                 val response : Response<ProductModel> = apiServices.createTicketLine(product)
                 if (response.isSuccessful){
@@ -84,6 +86,21 @@ class TableViewModel : ViewModel() {
         }
     }
 
+    fun getTicketLines(ticketId : String){
+        viewModelScope.launch {
+            val apiServices = ApiServices.getInstance()
+            try{
+                ticketLinesResponse = listOf()
+                ticketLinesResponse = apiServices.getTicketLines(ticketId)
+                //allFamilies = ticketLinesResponse
+                Logger.i("SUCCESS loading getTicketLines for clientId: $ticketId")
+            }catch (e: Exception){
+                errorMessage = e.message.toString()
+                Logger.e("FAILURE loading ticket lines for clientId: $ticketId")
+            }
+        }
+    }
+
     fun createTicket(){
         viewModelScope.launch {
             val newTicket : TicketPost =
@@ -94,6 +111,9 @@ class TableViewModel : ViewModel() {
                 if (response.isSuccessful){
                     currentTicketResponse = response.body()!!
                     currentTicket = currentTicketResponse
+                    currentTable.id_ticket = currentTicketResponse._id
+                    currentTable.ocupada = true
+                    updateTable(currentTable, currentTable._id)
                     Logger.i("Create ticket successful ${response.body()}")
                 }else Logger.e("Error response CreateTicket $response")
 

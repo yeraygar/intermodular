@@ -7,7 +7,7 @@ import java.util.*
  * las respuestas de la API
  */
 data class TicketModel(
-    var id_ : String,
+    var _id : String,
     val total : Float,
     var id_user_que_abrio : String,
     var id_user_que_cerro: String,

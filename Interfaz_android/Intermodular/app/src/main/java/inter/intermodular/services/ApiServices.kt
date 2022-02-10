@@ -116,6 +116,9 @@ interface ApiServices {
 
     /********************TICKET*LINES**********************/
 
+    @GET("ticket_line/ticket/{id}")
+    suspend fun getTicketLines(@Path(value = "id") id : String) : List<ProductModel>
+
     @POST("ticket_line")
     suspend fun createTicketLine(@Body product : ProductModel) : Response<ProductModel>
 

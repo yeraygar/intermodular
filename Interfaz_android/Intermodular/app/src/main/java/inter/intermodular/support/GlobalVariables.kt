@@ -11,7 +11,7 @@ var currentTable : TableModel = TableModel("Error", "Error", true, false, "Error
 var currentFamily : FamilyModel = FamilyModel("Error", "Error", "Error")
 var currentProduct : ProductModel = ProductModel("Error","name", 0, 0f,0, 0f, "Error", "Error", "Error", "Error")
 
-var currentLinesTicket : List<ProductModel> = listOf()
+//var currentLinesTicket : List<ProductModel> = listOf()
 var allUsers : List<UserModel> = listOf()
 var clientZones : List<ZoneModel> = listOf()
 var currentZoneTables : List<TableModel> = listOf()
