@@ -26,7 +26,7 @@ namespace intermodular
 
             InitializeComponent();
            
-                User.getUsersFichados(Staticresources.id_client, !paraFichar).ContinueWith(task =>
+                User.getUsersFichados(Client.currentClient._id, !paraFichar).ContinueWith(task =>
                 {
                     List<User> listaElegida = paraFichar ? User.usuariosNoFichados : User.usuariosFichados;
 

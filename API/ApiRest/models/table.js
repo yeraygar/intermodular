@@ -10,6 +10,11 @@ const tableSchema = mongoose.Schema({
         required:false,
         default: true
     },
+    ocupada:{
+        type: Boolean,
+        required:false,
+        default: false
+    },
     id_zone:{
         type:String,
         required:true
@@ -33,7 +38,8 @@ const tableSchema = mongoose.Schema({
     },
     id_user:{
         type:String,
-        required:false
+        required:false,
+        default: "Error"
     }   
 })
 module.exports = mongoose.model('Table', tableSchema);

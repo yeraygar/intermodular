@@ -1,11 +1,12 @@
-﻿using System;
+﻿using Newtonsoft.Json.Linq;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Text.Json;
-using Newtonsoft.Json.Linq;
 using System.Threading.Tasks;
+
 
 namespace intermodular
 {
@@ -28,15 +29,13 @@ namespace intermodular
         public static List<Producto> familyProducts;
 
         ///<summary> Constructor para crear nuevos productos desde Admin</summary>
-        public Producto(string name, int cantidad, float precio, int stock, string id_familia)
+        public Producto(string name, float precio, int stock, string id_familia)
         {
-            if (cantidad <= 0) cantidad = 1;
             if (stock < 0) stock = 0;
             this.name = name;
-            this.cantidad = cantidad;
             this.precio = precio;
             this.stock = stock;
-            this.id_client = Client.currentClient._id;
+            id_client = Client.currentClient._id;
             this.id_familia = id_familia;
         }
 
@@ -51,7 +50,10 @@ namespace intermodular
             this.id_familia = p.id_familia;
             this.id_ticket = Ticket.currentTicket._id;
         }
+        public Producto()
+        {
 
+        }
         public static async Task<bool> getClientProducts(string id)
         {
             string url = $"{Staticresources.urlHead}product/client/{id}";
@@ -105,9 +107,7 @@ namespace intermodular
             {
                 { "name", producto.name },
                 { "id_client", producto.id_client },
-                { "cantidad", producto.cantidad },
                 { "precio", producto.precio },
-                { "total", producto.cantidad * producto.precio },
                 { "stock", producto.stock },
                 { "id_familia", producto.id_familia }
             };
@@ -125,9 +125,9 @@ namespace intermodular
             return false;
         }
 
-        public static async Task<bool> updateProduct(Producto producto)
+        public static async Task<bool> updateProduct(Producto producto,string id)
         {
-            string url = $"{Staticresources.urlHead}product/{currentProduct._id}";
+            string url = $"{Staticresources.urlHead}product/{id}";
 
             JObject values = new JObject
             {
@@ -142,22 +142,9 @@ namespace intermodular
 
             HttpContent content = new StringContent(values.ToString(), System.Text.Encoding.UTF8, "application/json");
 
-            HttpResponseMessage httpResponse = await Staticresources.httpClient.PostAsync(url, content);
+            HttpResponseMessage httpResponse = await Staticresources.httpClient.PutAsync(url, content);
 
-            if (httpResponse.IsSuccessStatusCode)
-            {
-                string result = await httpResponse.Content.ReadAsStringAsync();
-                currentProduct.name = producto.name;
-                currentProduct.id_client = producto.id_client;
-                currentProduct.cantidad = producto.cantidad;
-                currentProduct.precio = producto.precio;
-                currentProduct.total = producto.precio * producto.cantidad;
-                currentProduct.stock = producto.stock;
-                currentProduct.id_familia = producto.id_familia;
-
-                return true;
-            }
-            else return false;
+            return httpResponse.IsSuccessStatusCode;
         }
 
         public static async Task<bool> deleteProduct(string id)
@@ -276,7 +263,12 @@ namespace intermodular
             else return false;
         }
 
-
+        public static async Task<bool> deleteAllFamilyProducts(string id_familia)
+        {
+            string url = $"{Staticresources.urlHead}/product/family/{id_familia}";
+            HttpResponseMessage httpResponse = await Staticresources.httpClient.DeleteAsync(url);
+            return httpResponse.IsSuccessStatusCode;  //Esto ya retorna true o false.
+        }
 
 
 

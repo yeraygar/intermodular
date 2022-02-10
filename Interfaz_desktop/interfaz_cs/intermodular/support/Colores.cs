@@ -15,6 +15,7 @@ namespace intermodular
         public static Brush oscuro = Brushes.DarkSlateGray;
         public static Brush gris = Brushes.DimGray;
         public static Brush grisClaro = (Brush)(new BrushConverter().ConvertFrom("#E0E0E0"));
+        public static Brush AzulMainWindow = (Brush)(new BrushConverter().ConvertFrom("#5da9b7"));
 
     }
 }

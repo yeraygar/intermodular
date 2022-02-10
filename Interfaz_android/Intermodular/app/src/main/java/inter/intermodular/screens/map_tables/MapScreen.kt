@@ -1,49 +1,135 @@
-package inter.intermodular.screens
+package inter.intermodular.screens.map_tables
 
+import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Surface
-import androidx.compose.material.Text
-import androidx.compose.runtime.Composable
+import androidx.compose.material.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.*
+import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.unit.dp
-import inter.intermodular.support.currentClient
-import inter.intermodular.view_models.LoginRegisterViewModel
+import androidx.navigation.NavHostController
+import com.orhanobut.logger.Logger
+import inter.intermodular.R
+import inter.intermodular.support.*
+import inter.intermodular.view_models.MapViewModel
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.launch
 
 @Composable
-fun MainScreen(email: String?, loginRegisterViewModel: LoginRegisterViewModel){
+fun MapScreen(mapViewModel: MapViewModel, navController: NavHostController){
 
-    Surface(color = MaterialTheme.colors.background) {
+    mapViewModel.getClientZones(currentClient._id)
+   // mapViewModel.getUsersFichados(true)
+    //mapViewModel.getClientUsersList()
+    //mapViewModel.getClientAdmins()
 
-        Box(
-            modifier = Modifier
-                .fillMaxSize()
+    val scaffoldState = rememberScaffoldState()
+    val scope = rememberCoroutineScope()
+    val snackbarHostState = remember { SnackbarHostState()}
 
-        ){
-            Column() {
-                Spacer(modifier = Modifier.height(18.dp))
-                Text(text = email ?: "No se ha cargado bien")
-                Spacer(modifier = Modifier.height(18.dp))
-                Text(text = currentClient.email)
-                //AllUsersClient(clientViewModel)
-            }
+    val title = remember { mutableStateOf("")}
+
+    if(!mapViewModel.clientZonesResponse.isNullOrEmpty()){
+        if(firstOpenMap){
+            title.value = mapViewModel.clientZonesResponse[0].zone_name
+            currentZone = mapViewModel.clientZonesResponse[0]
+            firstOpenMap = false
+        }
+        else{
+            title.value = currentZone?.zone_name ?: "Zona"
+        }
+        mapViewModel.getZoneTables(currentZone!!._id)
+        if(!mapViewModel.zoneTablesResponse.isNullOrEmpty()){
+            currentZoneTables = mapViewModel.zoneTablesResponse
+            MapTablesStart(
+                title = title,
+                scaffoldState = scaffoldState,
+                scope = scope,
+                mapViewModel = mapViewModel,
+                snackbarHostState = snackbarHostState,
+                navController = navController
+            )
+        }else{
+
+            //TODO crear zona por defecto con un par de mesas
         }
     }
 }
 
-/*
+
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun AllUsersClient(clientViewModel: ClientViewModel : UserViewModel) {
-    userViewModel.getClientUsersList()
-    var lista : List<UserModel> = userViewModel.allUsersClientResponse
+fun MapTablesStart(
+    title: MutableState<String>,
+    scaffoldState: ScaffoldState,
+    scope: CoroutineScope,
+    mapViewModel: MapViewModel,
+    snackbarHostState: SnackbarHostState,
+    navController: NavHostController
+) {
+    Scaffold(
 
-    Column(
+        scaffoldState = scaffoldState,
+        snackbarHost = {
+            SnackbarHost(
+                hostState = snackbarHostState,
+                snackbar = {
+                    SnackBarContent(snackbarHostState, navController)
+                }
+            )
+        },
 
-    ){
-        var usuarioMostrar : String = "Error";
-        for(u: UserModel in lista){
-            usuarioMostrar = u.name
-            Text(text = "Hello $usuarioMostrar!")
+        drawerShape = MaterialTheme.shapes.small,
+        drawerBackgroundColor = Color.White,
+        drawerContent = {
+            MapZoneComponent(mapViewModel, title, scope, scaffoldState)
+        },
+
+        topBar = {
+            TopAppBar(
+                backgroundColor = colorResource(id = R.color.azul_oscuro),
+                title = {
+                    Text(
+                        text = title.value,
+                        modifier = Modifier
+                            .padding(30.dp,0.dp,0.dp,0.dp),
+                        color = colorResource(id = R.color.white)
+                    ) },
+                navigationIcon = {
+                    IconButton(
+                        onClick = {
+                            Logger.d("Click en options icon")
+                            scope.launch { scaffoldState.drawerState.open() }
+                        }) {
+                        Icon(Icons.Filled.Menu, contentDescription = null, tint = Color.White)
+                    }
+                },
+                actions = {
+                    IconButton(onClick = {
+                        scope.launch {
+                            snackbarHostState.currentSnackbarData?.dismiss()
+                            snackbarHostState.showSnackbar("")
+                        }
+                    }) {
+                        Icon(Icons.Filled.Settings, contentDescription = "Localized description", tint = Color.White)
+                    }
+                }
+            )
         }
+    ) {
+        MapTableComponent(mapViewModel, navController, scope)
     }
-}*/
+}
+
+
+
+
+
+
+
+
+
+

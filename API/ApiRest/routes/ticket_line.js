@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const ticketLineSchema = require("../models/product");
+const ticketLineSchema = require("../models/ticket_line");
 
 
 //Create new ticket_line

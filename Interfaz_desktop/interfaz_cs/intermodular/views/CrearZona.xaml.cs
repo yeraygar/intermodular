@@ -42,7 +42,7 @@ namespace intermodular
         {
             if(checkZoneName(txtZona.Text))
             {
-                zona = await Zona.createZone(new Zona(Staticresources.id_client, txtZona.Text));
+                zona = await Zona.createZone(new Zona(Client.currentClient._id, txtZona.Text));
                 this.Close();
             }
             else

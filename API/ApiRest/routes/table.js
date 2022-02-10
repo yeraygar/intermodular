@@ -49,9 +49,9 @@ router.get("/tables/:id", (req, res) => {
 //Update table, si algun campo no se pone no se elimina
 router.put("/tables/:id", (req, res) => {
     const {id} = req.params;
-    const {name, status, id_client, id_zone, id_row, id_column, comensales, id_user} = req.body;
+    const {name, status, ocupada, id_client, id_zone, id_row, id_column, comensales, id_user} = req.body;
     tableSchema
-        .updateOne({_id: id}, {$set:{name, status, id_client, id_zone, id_row, id_column, comensales, id_user}})
+        .updateOne({_id: id}, {$set:{name, status, ocupada, id_client, id_zone, id_row, id_column, comensales, id_user}})
         .then((data) =>{
             res.json(data);
             console.log(`\nUpdate succesful: \n ${data}`);

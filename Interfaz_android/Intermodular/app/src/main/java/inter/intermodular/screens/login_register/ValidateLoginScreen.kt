@@ -1,5 +1,6 @@
 package inter.intermodular.screens.login_register
 
+import androidx.activity.OnBackPressedCallback
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -21,6 +22,7 @@ import androidx.navigation.NavController
 import com.orhanobut.logger.Logger
 import inter.intermodular.R
 import inter.intermodular.ScreenNav
+import inter.intermodular.support.backLogin
 import inter.intermodular.support.currentClient
 import inter.intermodular.support.loginIntents
 import inter.intermodular.view_models.LoginRegisterViewModel
@@ -42,8 +44,10 @@ fun ValidateLoginScreen(
         activityKiller = activityKiller
     )
 
-
-
+    if(!isDialogOpen.value && backLogin){
+        backLogin = false;
+        navController.navigate(ScreenNav.LoginScreen.route)
+    }
 
 }
 
@@ -84,7 +88,9 @@ fun ShowAlertDialogLogin(
                             isDialogOpen.value = false
                             var current = loginRegisterViewModel.currentClientResponse
                             if(current._id != "Error"){
-                                navController.navigate(ScreenNav.MainScreen.withArgs(current.name?:"Error"))
+                                backLogin = false
+                                //navController.navigate(ScreenNav.MapScreen.route)
+                                navController.navigate(ScreenNav.UserSelectionScreen.route)
                             }else{
                                 navController.navigate(ScreenNav.LoginScreen.route)
                             }
@@ -124,7 +130,7 @@ fun ResponseLogin(
         )
         Spacer(modifier = Modifier.padding(5.dp))
         Text(
-            text = "Intentos Restantes: $loginIntents",
+            text = "Intentos Restantes: ${loginIntents-1}",
             color = Color.Red,
             fontWeight = FontWeight.Bold,
             fontSize = 15.sp

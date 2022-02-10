@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -24,7 +25,7 @@ namespace intermodular
     {
         public LoginCliente()
         {
-            InitializeComponent();
+            InitializeComponent(); 
         }
       
         private void textBoxUsuario(object sender, MouseButtonEventArgs e)
@@ -70,16 +71,24 @@ namespace intermodular
         {
             if (textBox.Text != null && passworbox.Password != null)
             {
-                Boolean comprobar = await Client.validateClient(textBox.Text, passworbox.Password);
-                if (comprobar)
+                try
                 {
-                    MainWindow inicio = new MainWindow();
-                    inicio.ShowDialog();
+                    Boolean comprobar = await Client.validateClient(textBox.Text, passworbox.Password);
+                    if (comprobar)
+                    {
+                        MainWindow inicio = new MainWindow();
+                        inicio.ShowDialog();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Usuario o contraseña incorrectos");
+                    }
                 }
-                else
+                catch(Exception exc)
                 {
-                    MessageBox.Show("Usuario o contraseña incorrectos");
+                    MessageBox.Show("Error al conectarse a la base de datos");
                 }
+               
             }
             else
             {

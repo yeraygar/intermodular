@@ -61,7 +61,7 @@ namespace intermodular
             JObject values = new JObject
             {
                 { "name", familia.name },
-                { "id_client", familia.id_client }
+                { "id_client", Client.currentClient._id }
             };
 
             HttpContent content = new StringContent(values.ToString(), System.Text.Encoding.UTF8, "application/json");
@@ -77,9 +77,9 @@ namespace intermodular
             return false;
         }
 
-        public static async Task<bool> updateFamilia(Familia familia)
+        public static async Task<bool> updateFamilia(string id,Familia familia)
         {
-            string url = $"{Staticresources.urlHead}family/{currentFamilia._id}";
+            string url = $"{Staticresources.urlHead}family/{id}";
 
             JObject values = new JObject
             {
@@ -89,7 +89,7 @@ namespace intermodular
 
             HttpContent content = new StringContent(values.ToString(), System.Text.Encoding.UTF8, "application/json");
 
-            HttpResponseMessage httpResponse = await Staticresources.httpClient.PostAsync(url, content);
+            HttpResponseMessage httpResponse = await Staticresources.httpClient.PutAsync(url, content);
 
             if (httpResponse.IsSuccessStatusCode)
             {

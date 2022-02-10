@@ -227,5 +227,11 @@ namespace intermodular
             VistaEmpleados vistaEmpleados = new VistaEmpleados();
             vistaEmpleados.Show();
         }
+
+        private void btn_productos_Click(object sender, RoutedEventArgs e)
+        {
+            VistaProductos vistaProd = new VistaProductos();
+            vistaProd.Show();
+        }
     }
 }

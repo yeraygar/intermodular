@@ -36,7 +36,7 @@ namespace intermodular
             this.modificar = modificar;
 
             //Si se va a hacer una validacion del passw de cualquier Admin cargamos todos los admin del client de manera asincrona;
-            if (admin) User.getAdmins(Staticresources.id_client).ContinueWith(task => { }, TaskScheduler.FromCurrentSynchronizationContext());
+            if (admin) User.getAdmins(Client.currentClient._id).ContinueWith(task => { }, TaskScheduler.FromCurrentSynchronizationContext());
 
         }
 

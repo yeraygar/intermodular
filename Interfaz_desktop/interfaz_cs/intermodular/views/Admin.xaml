@@ -13,14 +13,15 @@
         AllowsTransparency="True"
         Background="Transparent"
         WindowStyle="None"
-        WindowStartupLocation="CenterScreen">
-    <Border CornerRadius="10" Background="#48C9B0">
+        WindowStartupLocation="CenterScreen"
+        ResizeMode="NoResize">
+    <Border CornerRadius="10" Background="#5da9b7">
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="47"/>
                 <RowDefinition/>
             </Grid.RowDefinitions>
-            <Border  Background="#48C9B0" CornerRadius="10,10,0,0">
+            <Border  Background="#5da9b7" CornerRadius="10,10,0,0">
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition/>
@@ -104,7 +105,7 @@
                         <TextBlock x:Name="txt_salir" Grid.Row="1" HorizontalAlignment="Center" Padding="5" FontSize="20">Salir</TextBlock>
                     </Grid>
                 </Button>
-                <Button x:Name="btn_productos" Width="260" Height="150" Style="{StaticResource btnRedondo}" Grid.Row="2" MouseEnter="btn_productos_MouseEnter" MouseLeave="btn_productos_MouseLeave" Cursor="Hand">
+                <Button x:Name="btn_productos" Width="260" Height="150" Style="{StaticResource btnRedondo}" Grid.Row="2" MouseEnter="btn_productos_MouseEnter" MouseLeave="btn_productos_MouseLeave" Cursor="Hand" Click="btn_productos_Click">
                     <Grid>
                         <Grid.RowDefinitions>
                             <RowDefinition Height="2*"/>
