@@ -1,6 +1,7 @@
 package inter.intermodular.screens.table_payment
 
 import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.*
 import androidx.compose.material.*
@@ -36,12 +37,14 @@ fun TableScreen(navController: NavController, tableViewModel : TableViewModel){
     val title = remember { mutableStateOf("") }
     val isDialogOpen = remember { mutableStateOf(false)}
     val afterFirstProduct = remember { mutableStateOf(false)}
+    val totalBill = remember { mutableStateOf(0.0f)}
+    val productClicked = remember { mutableStateOf(false)}
 
     var familyProductList : MutableState<List<ProductModel>> = remember { mutableStateOf(listOf())}
    // var currentTicketLines : MutableState<MutableList<ProductModel>> = remember { mutableStateOf(mutableListOf())}
     val currentTicketLines = remember { mutableStateOf(listOf<ProductModel>()) }
 
-    if(currentTicketLines.value.isEmpty()){
+/*    if(currentTicketLines.value.isEmpty()){
         tableViewModel.hasOpenTicket(currentTable._id)
         if (!tableViewModel.openTicketResponse.isNullOrEmpty())
             if(currentTable._id == tableViewModel.openTicketResponse[0].id_table){
@@ -54,9 +57,14 @@ fun TableScreen(navController: NavController, tableViewModel : TableViewModel){
                             currentTicketLines.value = currentTicketLines.value + line
                         }
             }
-    }
+    }*/
 
     title.value = "${currentTable.name} - ${currentUser.name}"
+
+    if(productClicked.value){
+        recalculate(currentTicketLines, totalBill)
+        productClicked.value = false
+    }
 
 
 
@@ -72,7 +80,9 @@ fun TableScreen(navController: NavController, tableViewModel : TableViewModel){
         title = title,
         isDialogOpen = isDialogOpen,
         familyProductList = familyProductList,
-        currentTicketLines = currentTicketLines
+        currentTicketLines = currentTicketLines,
+        totalBill = totalBill
+
     )
     if (isDialogOpen.value)
         ShowAlertDialogFamilyProducts(
@@ -81,9 +91,23 @@ fun TableScreen(navController: NavController, tableViewModel : TableViewModel){
             scope = scope,
             familyProductList = familyProductList,
             currentTicketLines = currentTicketLines,
-            afterFirstProduct = afterFirstProduct
+            afterFirstProduct = afterFirstProduct,
+            totalBill = totalBill,
+            productClicked = productClicked
         )
     // }
+}
+
+fun recalculate(
+    currentTicketLines: MutableState<List<ProductModel>>,
+    totalBill: MutableState<Float>
+) {
+    totalBill.value = 0.0f
+    if (!currentTicketLines.value.isNullOrEmpty())
+        for (line in currentTicketLines.value) {
+            line.total = line.cantidad * line.precio
+            totalBill.value = totalBill.value + line.total
+        }
 }
 
 @OptIn(ExperimentalFoundationApi::class)
@@ -98,6 +122,7 @@ fun TableStart(
     isDialogOpen: MutableState<Boolean>,
     familyProductList: MutableState<List<ProductModel>>,
     currentTicketLines: MutableState<List<ProductModel>>,
+    totalBill: MutableState<Float>,
 ) {
 
     allFamilies = tableViewModel.clientFamiliesResponse
@@ -204,192 +229,230 @@ fun TableStart(
                     }
                 }
             }
-            Card(
-                backgroundColor = colorResource(id = R.color.gris_muy_claro),
-                modifier = Modifier
-                    .fillMaxWidth()
-                    //.fillMaxHeight()
-                    .padding(5.dp)
-            ) {
-                LazyVerticalGrid(
-                    cells = GridCells.Fixed(5),
-                    contentPadding = PaddingValues(5.dp),
-                    //modifier = Modifier.padding(5.dp)
-                ){
-                    item (span = { GridItemSpan(5)}) {
-                        Column ( modifier =  Modifier.fillMaxWidth(),
-                            horizontalAlignment = Alignment.End,
-                            verticalArrangement = Arrangement.Center
-                        ) {
-                            Card(
-                                backgroundColor = colorResource(id = R.color.gris_muy_claro),
-                                modifier = Modifier
-                                    .fillMaxWidth()
-                                //.padding(10.dp)
-                            ) {
-                                Text(
-                                    text = "TOTAL CUENTA : ",
-                                    modifier = Modifier
-                                        .fillMaxSize()
-                                        .padding(5.dp),
-                                    fontWeight = FontWeight.ExtraBold,
-                                    fontSize = 16.sp,
-                                    color = colorResource(id = R.color.azul_oscuro)
-                                )
-                            }
-                        }
 
-                    }
-                    item {
+            TicketHeadComponent(totalBill = totalBill)
 
-                        Column ( modifier =  Modifier.fillMaxWidth(),
-                            horizontalAlignment = Alignment.End,
-                            verticalArrangement = Arrangement.Center
-                        ) {
-                            Card(
-                                backgroundColor = colorResource(id = R.color.gris_muy_claro),
-                                modifier = Modifier
-                                    .fillMaxWidth()
-                                //.padding(10.dp)
-                            ) {
-                                Text(
-                                    text = "CANT.",
-                                    modifier = Modifier
-                                        .fillMaxSize()
-                                        .padding(5.dp),
-                                    fontWeight = FontWeight.ExtraBold,
-                                    fontSize = 12.sp,
-                                    textDecoration = TextDecoration.Underline,
-                                    color = colorResource(id = R.color.azul_oscuro)
-                                )
-                            }
-                        }
-                    }
-                    item (span = { GridItemSpan(2)}) {
-                        Column ( modifier =  Modifier.fillMaxWidth(),
-                            horizontalAlignment = Alignment.End,
-                            verticalArrangement = Arrangement.Center
-                        ) {
-                            Card(
-                                backgroundColor = colorResource(id = R.color.gris_muy_claro),
-                                modifier = Modifier
-                                    .fillMaxWidth()
-                                // .padding(10.dp)
-                            ) {
-                                Text(
-                                    text = "NOMBRE",
-                                    modifier = Modifier
-                                        .fillMaxSize()
-                                        .padding(5.dp),
-                                    fontWeight = FontWeight.ExtraBold,
-                                    fontSize = 12.sp,
-                                    textDecoration = TextDecoration.Underline,
-                                    color = colorResource(id = R.color.azul_oscuro)
-                                )
-                            }
-                        }
+            if(!currentTicketLines.value.isNullOrEmpty()) {
+                TicketContentComponent(currentTicketLines)
+            }
+        }
+    }
+}
 
+@OptIn(ExperimentalFoundationApi::class)
+@Composable
+private fun TicketContentComponent(currentTicketLines: MutableState<List<ProductModel>>) {
+    Card(
+        backgroundColor = colorResource(id = R.color.gris_muy_claro),
+        modifier = Modifier
+            .fillMaxWidth()
+            .fillMaxHeight(1f)
+            .padding(5.dp)
+    ) {
+        LazyVerticalGrid(
+            cells = GridCells.Fixed(5),
+            horizontalArrangement = Arrangement.Center,
+            verticalArrangement = Arrangement.Top,
+            contentPadding = PaddingValues(5.dp),
+        ) {
+            for (i in 0 until currentTicketLines.value.count()) {
+                currentTicketLines.value[i].total = currentTicketLines.value[i].cantidad * currentTicketLines.value[i].precio
+
+                item {
+                    Card(
+                        modifier = Modifier.combinedClickable(onLongClick = {
+                            Logger.wtf("LONG CLICK!!")
+                        }){}
+                    ){
+                        Text(
+                            text = "${currentTicketLines.value[i].cantidad}",
+                            modifier = Modifier
+                                .fillMaxSize()
+                                .padding(10.dp)
+                        )
                     }
-                    item {
-                        Column ( modifier =  Modifier.fillMaxWidth(),
-                            horizontalAlignment = Alignment.End,
-                            verticalArrangement = Arrangement.Center
-                        ) {
-                            Card(
-                                backgroundColor = colorResource(id = R.color.gris_muy_claro),
-                                modifier = Modifier
-                                    .fillMaxWidth()
-                                //.padding(10.dp)
-                            ) {
-                                Text(
-                                    text = "$/Un.",
-                                    modifier = Modifier
-                                        .fillMaxSize()
-                                        .padding(5.dp),
-                                    fontSize = 12.sp,
-                                    fontWeight = FontWeight.ExtraBold,
-                                    textDecoration = TextDecoration.Underline,
-                                    color = colorResource(id = R.color.azul_oscuro)
-                                )
-                            }
-                        }
+                }
+                item(span = { GridItemSpan(2) }) {
+                    Card(
+                        modifier = Modifier.combinedClickable(onLongClick = {
+                            Logger.wtf("LONG CLICK!!")
+                        }){}
+                    ){
+                        Text(
+                            text = currentTicketLines.value[i].name,
+                            modifier = Modifier
+                                .fillMaxSize()
+                                .padding(10.dp)
+                        )
                     }
-                    item {
-                        Column ( modifier =  Modifier.fillMaxWidth(),
-                            horizontalAlignment = Alignment.End,
-                            verticalArrangement = Arrangement.Center
-                        ) {
-                            Card(
-                                backgroundColor = colorResource(id = R.color.gris_muy_claro),
-                                modifier = Modifier
-                                    .fillMaxWidth()
-                                //.padding(10.dp)
-                            ) {
-                                Text(
-                                    text = "TOT.",
-                                    modifier = Modifier
-                                        .fillMaxSize()
-                                        .padding(5.dp),
-                                    fontWeight = FontWeight.ExtraBold,
-                                    fontSize = 12.sp,
-                                    textDecoration = TextDecoration.Underline,
-                                    color = colorResource(id = R.color.azul_oscuro)
-                                )
-                            }
-                        }
+                }
+                item {
+                    Card(
+                        modifier = Modifier.combinedClickable(onLongClick = {
+                            Logger.wtf("LONG CLICK!!")
+                        }){}
+                    ){
+                        Text(
+                            text = "${currentTicketLines.value[i].precio}",
+                            modifier = Modifier
+                                .fillMaxSize()
+                                .padding(10.dp)
+                        )
+                    }
+                }
+                item {
+                    Card(
+                        modifier = Modifier.combinedClickable(onLongClick = {
+                            Logger.wtf("LONG CLICK!!")
+                        }){}
+                    ){
+                        Text(
+                            text = "${currentTicketLines.value[i].total}",
+                            modifier = Modifier
+                                .fillMaxSize()
+                                .padding(10.dp)
+                        )
                     }
                 }
             }
+        }
+    }
+}
 
-            /*TODO MOSTRAR LINEAS TICKET*/
-            if(!currentTicketLines.value.isNullOrEmpty()) {
-                Card(
-                    backgroundColor = colorResource(id = R.color.gris_muy_claro),
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .fillMaxHeight(1f)
-                        .padding(5.dp)
+@OptIn(ExperimentalFoundationApi::class)
+@Composable
+private fun TicketHeadComponent(totalBill: MutableState<Float>) {
+    Card(
+        backgroundColor = colorResource(id = R.color.gris_muy_claro),
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(5.dp)
+    ) {
+        LazyVerticalGrid(
+            cells = GridCells.Fixed(5),
+            contentPadding = PaddingValues(5.dp),
+            //modifier = Modifier.padding(5.dp)
+        ) {
+            item(span = { GridItemSpan(5) }) {
+                Column(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalAlignment = Alignment.End,
+                    verticalArrangement = Arrangement.Center
                 ) {
-                    LazyVerticalGrid(
-                        cells = GridCells.Fixed(5),
-                        horizontalArrangement = Arrangement.Center,
-                        verticalArrangement = Arrangement.Top,
-                        contentPadding = PaddingValues(5.dp),
+                    Card(
+                        backgroundColor = colorResource(id = R.color.gris_muy_claro),
+                        modifier = Modifier
                     ) {
-                        for (i in 0 until currentTicketLines.value.count()) {
-                            item {
-                                Text(
-                                    text = "${currentTicketLines.value[i].cantidad}",
-                                    modifier = Modifier
-                                        .fillMaxSize()
-                                        .padding(10.dp)
-                                )
-                            }
-                            item(span = { GridItemSpan(2) }) {
-                                Text(
-                                    text = currentTicketLines.value[i].name,
-                                    modifier = Modifier
-                                        .fillMaxSize()
-                                        .padding(10.dp)
-                                )
-                            }
-                            item {
-                                Text(
-                                    text = "${currentTicketLines.value[i].precio}",
-                                    modifier = Modifier
-                                        .fillMaxSize()
-                                        .padding(10.dp)
-                                )
-                            }
-                            item {
-                                Text(
-                                    text = "${currentTicketLines.value[i].total}",
-                                    modifier = Modifier
-                                        .fillMaxSize()
-                                        .padding(10.dp)
-                                )
-                            }
-                        }
+                        Text(
+                            text = "TOTAL CUENTA  :   ${totalBill.value}€ ",
+                            modifier = Modifier
+                                .padding(30.dp, 10.dp),
+                            fontWeight = FontWeight.ExtraBold,
+                            fontSize = 16.sp,
+                            color = colorResource(id = R.color.azul_oscuro)
+                        )
+                    }
+                }
+            }
+            item {
+
+                Column(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalAlignment = Alignment.End,
+                    verticalArrangement = Arrangement.Center
+                ) {
+                    Card(
+                        backgroundColor = colorResource(id = R.color.gris_muy_claro),
+                        modifier = Modifier
+                            .fillMaxWidth()
+                        //.padding(10.dp)
+                    ) {
+                        Text(
+                            text = "CANT.",
+                            modifier = Modifier
+                                .fillMaxSize()
+                                .padding(5.dp),
+                            fontWeight = FontWeight.ExtraBold,
+                            fontSize = 12.sp,
+                            textDecoration = TextDecoration.Underline,
+                            color = colorResource(id = R.color.azul_oscuro)
+                        )
+                    }
+                }
+            }
+            item(span = { GridItemSpan(2) }) {
+                Column(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalAlignment = Alignment.End,
+                    verticalArrangement = Arrangement.Center
+                ) {
+                    Card(
+                        backgroundColor = colorResource(id = R.color.gris_muy_claro),
+                        modifier = Modifier
+                            .fillMaxWidth()
+                        // .padding(10.dp)
+                    ) {
+                        Text(
+                            text = "NOMBRE",
+                            modifier = Modifier
+                                .fillMaxSize()
+                                .padding(5.dp),
+                            fontWeight = FontWeight.ExtraBold,
+                            fontSize = 12.sp,
+                            textDecoration = TextDecoration.Underline,
+                            color = colorResource(id = R.color.azul_oscuro)
+                        )
+                    }
+                }
+
+            }
+            item {
+                Column(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalAlignment = Alignment.End,
+                    verticalArrangement = Arrangement.Center
+                ) {
+                    Card(
+                        backgroundColor = colorResource(id = R.color.gris_muy_claro),
+                        modifier = Modifier
+                            .fillMaxWidth()
+                        //.padding(10.dp)
+                    ) {
+                        Text(
+                            text = "$/Un.",
+                            modifier = Modifier
+                                .fillMaxSize()
+                                .padding(5.dp),
+                            fontSize = 12.sp,
+                            fontWeight = FontWeight.ExtraBold,
+                            textDecoration = TextDecoration.Underline,
+                            color = colorResource(id = R.color.azul_oscuro)
+                        )
+                    }
+                }
+            }
+            item {
+                Column(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalAlignment = Alignment.End,
+                    verticalArrangement = Arrangement.Center
+                ) {
+                    Card(
+                        backgroundColor = colorResource(id = R.color.gris_muy_claro),
+                        modifier = Modifier
+                            .fillMaxWidth()
+                        //.padding(10.dp)
+                    ) {
+                        Text(
+                            text = "TOT.",
+                            modifier = Modifier
+                                .fillMaxSize()
+                                .padding(5.dp),
+                            fontWeight = FontWeight.ExtraBold,
+                            fontSize = 12.sp,
+                            textDecoration = TextDecoration.Underline,
+                            color = colorResource(id = R.color.azul_oscuro)
+                        )
                     }
                 }
             }

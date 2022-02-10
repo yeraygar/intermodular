@@ -36,6 +36,8 @@ fun ShowAlertDialogFamilyProducts(
     scope: CoroutineScope,
     afterFirstProduct: MutableState<Boolean>,
     currentTicketLines: MutableState<List<ProductModel>>,
+    totalBill: MutableState<Float>,
+    productClicked: MutableState<Boolean>,
 ) {
     currentProductList = tableViewModel.familyProductsResponse
 
@@ -98,12 +100,15 @@ fun ShowAlertDialogFamilyProducts(
                                                     delay(100)
                                                     currentProduct.id_ticket = currentTicket._id
                                                     tableViewModel.createTicketLine(currentProduct)
+                                                    //recalculate(currentTicketLines = currentTicketLines, totalBill = totalBill)
                                                     delay(100)
+
                                                 }
                                                 else{
                                                     tableViewModel.createTicketLine(currentProduct)
                                                     delay(100)
                                                 }
+                                                productClicked.value = true
                                                 //currentTicketLines.value.add(tableViewModel.currentTicketLineResponse)
                                                 currentTicketLines.value = currentTicketLines.value + tableViewModel.currentTicketLineResponse
                                                 isDialogOpen.value = false
