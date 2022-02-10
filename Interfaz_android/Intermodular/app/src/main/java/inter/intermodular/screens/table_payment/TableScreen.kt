@@ -12,7 +12,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.colorResource
+import androidx.compose.ui.res.fontResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
@@ -25,6 +27,7 @@ import inter.intermodular.view_models.TableViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import java.time.format.TextStyle
 
 @Composable
 fun TableScreen(navController: NavController, tableViewModel : TableViewModel){
@@ -153,13 +156,12 @@ fun TableStart(
                 backgroundColor = colorResource(id = R.color.azul),
                 modifier = Modifier
                     .fillMaxWidth()
-                    .fillMaxHeight(0.4f)
+                    .fillMaxHeight(0.35f)
                     .padding(5.dp)
             ) {
                 LazyVerticalGrid(
                     cells = GridCells.Adaptive(100.dp),
-                    modifier = Modifier
-                        .fillMaxSize()
+                    modifier = Modifier.fillMaxSize()
                 ){
                     for( i in 0 until tableViewModel.clientFamiliesResponse.count()){
                         item {
@@ -199,7 +201,7 @@ fun TableStart(
                 }
             }
             Card(
-                backgroundColor = colorResource(id = R.color.rojo),
+               // backgroundColor = colorResource(id = R.color.rojo),
                 modifier = Modifier
                     .fillMaxWidth()
                     //.fillMaxHeight()
@@ -207,76 +209,187 @@ fun TableStart(
             ) {
                 LazyVerticalGrid(
                     cells = GridCells.Fixed(5),
-                    //modifier = Modifier.fillMaxSize()
+                    contentPadding = PaddingValues(5.dp),
+                    //modifier = Modifier.padding(5.dp)
                 ){
-                    item(span =   { GridItemSpan(5)}
-                    ){
-                        Column ( modifier =  Modifier.fillMaxWidth(), horizontalAlignment = Alignment.End, verticalArrangement = Arrangement.Center) {
-                            Text(text = "TOTAL CUENTA => ", modifier = Modifier.padding(10.dp))
+                    item (span = { GridItemSpan(5)}) {
+                        Column ( modifier =  Modifier.fillMaxWidth(),
+                            horizontalAlignment = Alignment.End,
+                            verticalArrangement = Arrangement.Center
+                        ) {
+                            Card(
+                                backgroundColor = colorResource(id = R.color.azul),
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .padding(10.dp)
+                            ) {
+                                Text(
+                                    text = "TOTAL CUENTA : ",
+                                    modifier = Modifier
+                                        .fillMaxSize()
+                                        .padding(5.dp),
+                                    fontWeight = FontWeight.ExtraBold,
+                                    fontSize = 16.sp,
+                                    color = Color.White
+                                )
+                            }
+                        }
+
+                    }
+                    item {
+
+                        Column ( modifier =  Modifier.fillMaxWidth(),
+                            horizontalAlignment = Alignment.End,
+                            verticalArrangement = Arrangement.Center
+                        ) {
+                            Card(
+                                backgroundColor = colorResource(id = R.color.azul),
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .padding(10.dp)
+                            ) {
+                                Text(
+                                    text = "CANT.",
+                                    modifier = Modifier
+                                        .fillMaxSize()
+                                        .padding(5.dp),
+                                    fontWeight = FontWeight.Bold,
+                                    fontSize = 12.sp,
+                                    textDecoration = TextDecoration.Underline,
+                                    color = Color.White
+                                )
+                            }
+                        }
+                    }
+                    item (span = { GridItemSpan(2)}) {
+                        Column ( modifier =  Modifier.fillMaxWidth(),
+                            horizontalAlignment = Alignment.End,
+                            verticalArrangement = Arrangement.Center
+                        ) {
+                            Card(
+                                backgroundColor = colorResource(id = R.color.azul),
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .padding(10.dp)
+                            ) {
+                                Text(
+                                    text = "NOMBRE",
+                                    modifier = Modifier
+                                        .fillMaxSize()
+                                        .padding(5.dp),
+                                    fontWeight = FontWeight.Bold,
+                                    fontSize = 12.sp,
+                                    textDecoration = TextDecoration.Underline,
+                                    color = Color.White
+                                )
+                            }
+                        }
+
+                    }
+                    item {
+                        Column ( modifier =  Modifier.fillMaxWidth(),
+                            horizontalAlignment = Alignment.End,
+                            verticalArrangement = Arrangement.Center
+                        ) {
+                            Card(
+                                backgroundColor = colorResource(id = R.color.azul),
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .padding(10.dp)
+                            ) {
+                                Text(
+                                    text = "$/Un.",
+                                    modifier = Modifier
+                                        .fillMaxSize()
+                                        .padding(5.dp),
+                                    fontSize = 12.sp,
+                                    textDecoration = TextDecoration.Underline,
+                                    color = Color.White
+                                )
+                            }
                         }
                     }
                     item {
-                        Text(text = "CANT.", modifier = Modifier
-                            .fillMaxSize()
-                            .padding(5.dp))
-                    }
-                    item (span = { GridItemSpan(2)}) {
-                        Text(text = "NOMBRE", modifier = Modifier
-                            .fillMaxSize()
-                            .padding(5.dp))
-                    }
-                    item {
-                        Text(text = "PRECIO", modifier = Modifier
-                            .fillMaxSize()
-                            .padding(5.dp))
-                    }
-                    item {
-                        Text(text = "TOTAL", modifier = Modifier
-                            .fillMaxSize()
-                            .padding(5.dp))
+                        Column ( modifier =  Modifier.fillMaxWidth(),
+                            horizontalAlignment = Alignment.End,
+                            verticalArrangement = Arrangement.Center
+                        ) {
+                            Card(
+                                backgroundColor = colorResource(id = R.color.azul),
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .padding(10.dp)
+                            ) {
+                                Text(
+                                    text = "TOT.",
+                                    modifier = Modifier
+                                        .fillMaxSize()
+                                        .padding(5.dp),
+                                    fontWeight = FontWeight.Bold,
+                                    fontSize = 12.sp,
+                                    textDecoration = TextDecoration.Underline,
+                                    color = Color.White
+                                )
+                            }
+                        }
                     }
                 }
 
+
             }
+
             /*TODO MOSTRAR LINEAS TICKET*/
             if(!currentTicketLines.value.isNullOrEmpty()) {
-                LazyVerticalGrid(cells = GridCells.Fixed(4)) {
-                    for (i in 0 until currentTicketLines.value.count()) {
-                        item {
-                            Text(
-                                text = "${currentTicketLines.value[i].cantidad}",
-                                modifier = Modifier
-                                    .fillMaxSize()
-                                    .padding(5.dp)
-                            )
-                        }
-                        item (span = { GridItemSpan(2)}){
-                            Text(
-                                text = currentTicketLines.value[i].name,
-                                modifier = Modifier
-                                    .fillMaxSize()
-                                    .padding(5.dp)
-                            )
-                        }
-                        item {
-                            Text(
-                                text = "${currentTicketLines.value[i].precio}",
-                                modifier = Modifier
-                                    .fillMaxSize()
-                                    .padding(5.dp)
-                            )
-                        }
-                        item {
-                            Text(
-                                text = "${currentTicketLines.value[i].total}",
-                                modifier = Modifier
-                                    .fillMaxSize()
-                                    .padding(5.dp)
-                            )
+                Card(
+                    backgroundColor = colorResource(id = R.color.rojo),
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .fillMaxHeight(0.2f)
+                        .padding(5.dp)
+                ) {
+                    LazyVerticalGrid(
+                        cells = GridCells.Fixed(5),
+                        horizontalArrangement = Arrangement.Center,
+                        verticalArrangement = Arrangement.Center,
+                        contentPadding = PaddingValues(5.dp),
+                    ) {
+                        for (i in 0 until currentTicketLines.value.count()) {
+                            item {
+                                Text(
+                                    text = "${currentTicketLines.value[i].cantidad}",
+                                    modifier = Modifier
+                                        .fillMaxSize()
+                                        .padding(10.dp)
+                                )
+                            }
+                            item(span = { GridItemSpan(2) }) {
+                                Text(
+                                    text = currentTicketLines.value[i].name,
+                                    modifier = Modifier
+                                        .fillMaxSize()
+                                        .padding(10.dp)
+                                )
+                            }
+                            item {
+                                Text(
+                                    text = "${currentTicketLines.value[i].precio}",
+                                    modifier = Modifier
+                                        .fillMaxSize()
+                                        .padding(10.dp)
+                                )
+                            }
+                            item {
+                                Text(
+                                    text = "${currentTicketLines.value[i].total}",
+                                    modifier = Modifier
+                                        .fillMaxSize()
+                                        .padding(10.dp)
+                                )
+                            }
                         }
                     }
                 }
-            }
+  }
         }
     }
 }

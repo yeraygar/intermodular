@@ -120,7 +120,7 @@ interface ApiServices {
     suspend fun getTicketLines(@Path(value = "id") id : String) : List<ProductModel>
 
     @POST("ticket_line")
-    suspend fun createTicketLine(@Body product : ProductModel) : Response<ProductModel>
+    suspend fun createTicketLine(@Body product: ProductPost) : Response<ProductModel>
 
     @PUT("ticket_line/{id}")
     suspend fun updateTicketLine(@Path(value = "id") id : String, @Body ticket_line : ProductModel) : Response<Any>

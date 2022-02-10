@@ -39,9 +39,17 @@ class TableViewModel : ViewModel() {
         viewModelScope.launch {
             val apiServices = ApiServices.getInstance()
             product.id_ticket = currentTicket._id
-            product._id = ""
+            val ticketLine = ProductPost(
+                name = product.name,
+                precio = product.precio,
+                cantidad = product.cantidad,
+                total = product.total,
+                id_client = product.id_client,
+                id_familia = product.id_familia,
+                id_ticket = product.id_ticket
+                )
             try{
-                val response : Response<ProductModel> = apiServices.createTicketLine(product)
+                val response : Response<ProductModel> = apiServices.createTicketLine(ticketLine)
                 if (response.isSuccessful){
                     currentTicketLineResponse = response.body()!!
                     Logger.i("CORRECT createTicketLine $product")

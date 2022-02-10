@@ -7,7 +7,9 @@ package inter.intermodular.models
 data class ProductPost(
     var name : String,
     var precio : Float,
-    var stock : Int,
+    var cantidad : Int,
+    var total : Float,
     var id_client : String,
     var id_familia : String,
+    var id_ticket : String
 )

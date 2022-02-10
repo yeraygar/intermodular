@@ -98,11 +98,13 @@ fun ShowAlertDialogFamilyProducts(
                                                     delay(100)
                                                     currentProduct.id_ticket = currentTicket._id
                                                     tableViewModel.createTicketLine(currentProduct)
+                                                    delay(100)
                                                 }
                                                 else{
                                                     tableViewModel.createTicketLine(currentProduct)
+                                                    delay(100)
                                                 }
-                                                currentTicketLines.value.add(currentProduct)
+                                                currentTicketLines.value.add(tableViewModel.currentTicketLineResponse)
                                                 isDialogOpen.value = false
                                             }
 
