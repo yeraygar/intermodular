@@ -153,10 +153,10 @@ fun TableStart(
             modifier = Modifier.fillMaxSize()
         ) {
             Card(
-                backgroundColor = colorResource(id = R.color.azul),
+                backgroundColor = colorResource(id = R.color.gris_muy_claro),
                 modifier = Modifier
                     .fillMaxWidth()
-                    .fillMaxHeight(0.35f)
+                    .fillMaxHeight(0.25f)
                     .padding(5.dp)
             ) {
                 LazyVerticalGrid(
@@ -201,7 +201,7 @@ fun TableStart(
                 }
             }
             Card(
-               // backgroundColor = colorResource(id = R.color.rojo),
+                backgroundColor = colorResource(id = R.color.gris_muy_claro),
                 modifier = Modifier
                     .fillMaxWidth()
                     //.fillMaxHeight()
@@ -218,10 +218,10 @@ fun TableStart(
                             verticalArrangement = Arrangement.Center
                         ) {
                             Card(
-                                backgroundColor = colorResource(id = R.color.azul),
+                                backgroundColor = colorResource(id = R.color.gris_muy_claro),
                                 modifier = Modifier
                                     .fillMaxWidth()
-                                    .padding(10.dp)
+                                    //.padding(10.dp)
                             ) {
                                 Text(
                                     text = "TOTAL CUENTA : ",
@@ -230,7 +230,7 @@ fun TableStart(
                                         .padding(5.dp),
                                     fontWeight = FontWeight.ExtraBold,
                                     fontSize = 16.sp,
-                                    color = Color.White
+                                    color = colorResource(id = R.color.azul_oscuro)
                                 )
                             }
                         }
@@ -243,20 +243,20 @@ fun TableStart(
                             verticalArrangement = Arrangement.Center
                         ) {
                             Card(
-                                backgroundColor = colorResource(id = R.color.azul),
+                                backgroundColor = colorResource(id = R.color.gris_muy_claro),
                                 modifier = Modifier
                                     .fillMaxWidth()
-                                    .padding(10.dp)
+                                    //.padding(10.dp)
                             ) {
                                 Text(
                                     text = "CANT.",
                                     modifier = Modifier
                                         .fillMaxSize()
                                         .padding(5.dp),
-                                    fontWeight = FontWeight.Bold,
+                                    fontWeight = FontWeight.ExtraBold,
                                     fontSize = 12.sp,
                                     textDecoration = TextDecoration.Underline,
-                                    color = Color.White
+                                    color = colorResource(id = R.color.azul_oscuro)
                                 )
                             }
                         }
@@ -267,20 +267,20 @@ fun TableStart(
                             verticalArrangement = Arrangement.Center
                         ) {
                             Card(
-                                backgroundColor = colorResource(id = R.color.azul),
+                                backgroundColor = colorResource(id = R.color.gris_muy_claro),
                                 modifier = Modifier
                                     .fillMaxWidth()
-                                    .padding(10.dp)
+                                   // .padding(10.dp)
                             ) {
                                 Text(
                                     text = "NOMBRE",
                                     modifier = Modifier
                                         .fillMaxSize()
                                         .padding(5.dp),
-                                    fontWeight = FontWeight.Bold,
+                                    fontWeight = FontWeight.ExtraBold,
                                     fontSize = 12.sp,
                                     textDecoration = TextDecoration.Underline,
-                                    color = Color.White
+                                    color = colorResource(id = R.color.azul_oscuro)
                                 )
                             }
                         }
@@ -292,10 +292,10 @@ fun TableStart(
                             verticalArrangement = Arrangement.Center
                         ) {
                             Card(
-                                backgroundColor = colorResource(id = R.color.azul),
+                                backgroundColor = colorResource(id = R.color.gris_muy_claro),
                                 modifier = Modifier
                                     .fillMaxWidth()
-                                    .padding(10.dp)
+                                    //.padding(10.dp)
                             ) {
                                 Text(
                                     text = "$/Un.",
@@ -303,8 +303,9 @@ fun TableStart(
                                         .fillMaxSize()
                                         .padding(5.dp),
                                     fontSize = 12.sp,
+                                    fontWeight = FontWeight.ExtraBold,
                                     textDecoration = TextDecoration.Underline,
-                                    color = Color.White
+                                    color = colorResource(id = R.color.azul_oscuro)
                                 )
                             }
                         }
@@ -315,33 +316,31 @@ fun TableStart(
                             verticalArrangement = Arrangement.Center
                         ) {
                             Card(
-                                backgroundColor = colorResource(id = R.color.azul),
+                                backgroundColor = colorResource(id = R.color.gris_muy_claro),
                                 modifier = Modifier
                                     .fillMaxWidth()
-                                    .padding(10.dp)
+                                    //.padding(10.dp)
                             ) {
                                 Text(
                                     text = "TOT.",
                                     modifier = Modifier
                                         .fillMaxSize()
                                         .padding(5.dp),
-                                    fontWeight = FontWeight.Bold,
+                                    fontWeight = FontWeight.ExtraBold,
                                     fontSize = 12.sp,
                                     textDecoration = TextDecoration.Underline,
-                                    color = Color.White
+                                    color = colorResource(id = R.color.azul_oscuro)
                                 )
                             }
                         }
                     }
                 }
-
-
             }
 
             /*TODO MOSTRAR LINEAS TICKET*/
             if(!currentTicketLines.value.isNullOrEmpty()) {
                 Card(
-                    backgroundColor = colorResource(id = R.color.rojo),
+                    backgroundColor = colorResource(id = R.color.gris_muy_claro),
                     modifier = Modifier
                         .fillMaxWidth()
                         .fillMaxHeight(0.2f)
