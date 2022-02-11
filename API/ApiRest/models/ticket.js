@@ -11,7 +11,7 @@ const ticketSchema = mongoose.Schema({
         required: false,
         defafult: "Efectivo"
     },
-    id_user_que_abrio:{
+    id_user_que_abrio:{ 
         type: String,
         required: true,
     },

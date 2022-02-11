@@ -35,9 +35,9 @@ router.get("/ticket/:id", (req, res) => {
 //Update ticket, si algun campo no se pone no se elimina
 router.put("/ticket/:id", (req, res) => {
     const {id} = req.params;
-    const {name, email, active} = req.body;
+    const {total, tipo_ticket, id_user_que_abrio, id_user_que_cerro, id_client, id_table, name_table,comensales, date, cobrado} = req.body;
     ticketSchema
-        .updateOne({_id: id}, {$set:{name, email, active}})
+        .updateOne({_id: id}, {$set:{total,tipo_ticket,id_user_que_abrio,id_user_que_cerro,id_client,id_table,name_table,comensales,date,cobrado}})
         .then((data) =>{
             res.json(data);
             console.log(`\nticket Update succesful: \n ${data}`);

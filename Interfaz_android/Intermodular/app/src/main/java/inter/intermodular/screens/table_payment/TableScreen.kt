@@ -41,6 +41,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import java.lang.Exception
+import java.util.*
 
 @Composable
 fun TableScreen(
@@ -316,6 +317,8 @@ fun ShowAlertDialogCobrar(
                             if (cashInput.value >= currentTicket.total){
                                 currentTicket.cobrado = true
                                 currentTicket.tipo_ticket = "Efectivo"
+                                currentTicket.id_user_que_cerro = currentUser._id
+                                currentTicket.date to Date()
                                 currentTable.id_ticket = "Error"
                                 currentTable.ocupada = false
                                 tableViewModel.updateTicket(currentTicket, currentTicket._id)
@@ -331,6 +334,8 @@ fun ShowAlertDialogCobrar(
                             currentTicket.cobrado = true
                             currentTable.id_ticket = "Error"
                             currentTable.ocupada = false
+                            currentTicket.id_user_que_cerro = currentUser._id
+                            currentTicket.date to Date()
                             tableViewModel.updateTicket(currentTicket, currentTicket._id)
                             tableViewModel.updateTable(currentTable, currentTable._id)
                             // firstOpenTable = true
