@@ -48,7 +48,6 @@ fun TableScreen(
     tableViewModel: TableViewModel,
     applicationContext: Context
 ){
-
     val scaffoldState = rememberScaffoldState()
     val scope = rememberCoroutineScope()
     val snackbarHostState = remember { SnackbarHostState()}
@@ -74,12 +73,11 @@ fun TableScreen(
         //TODO PEDIR NUMERO COMENSALES, NUEVO DIALOG
     }
 
-
+    //TODO otro boolean para el reset
     if(firstOpenTable){
         currentTicketLines.value = listOf()
         tableViewModel.resetTableViewModel()
     }
-
 
     if(currentTicketLines.value.isEmpty() || firstOpenTable){
         tableViewModel.recuperaMesa(currentTable._id)
@@ -95,7 +93,6 @@ fun TableScreen(
                 isComensalesOpen.value = true
         }
         firstOpenTable = false
-
     }
 
     title.value = "${currentTable.name} - ${currentUser.name}"
@@ -125,9 +122,8 @@ fun TableScreen(
         applicationContext = applicationContext,
         isComensalesOpen = isComensalesOpen,
         isCobrarOpen = isCobrarOpen
-
-
     )
+
     if (isDialogOpen.value)
         ShowAlertDialogFamilyProducts(
             isDialogOpen = isDialogOpen,
@@ -152,9 +148,10 @@ fun TableScreen(
             isCobrarOpen = isCobrarOpen,
             tableViewModel = tableViewModel,
             applicationContext = applicationContext,
-            navController = navController
+            navController = navController,
+            scaffoldState = scaffoldState,
+            scope = scope
         )
-
 }
 
 @OptIn(ExperimentalFoundationApi::class)
@@ -163,7 +160,9 @@ fun ShowAlertDialogCobrar(
     isCobrarOpen: MutableState<Boolean>,
     tableViewModel: TableViewModel,
     applicationContext: Context,
-    navController: NavController
+    navController: NavController,
+    scaffoldState: ScaffoldState,
+    scope: CoroutineScope
 ) {
     var aceptarEnabled = remember { mutableStateOf(false)}
     var cashOk = remember { mutableStateOf(false)}
@@ -204,17 +203,28 @@ fun ShowAlertDialogCobrar(
                         modifier = Modifier.padding(10.dp))
                 }
 
+                Spacer(modifier = Modifier.height(5.dp))
+
                 LazyVerticalGrid(cells = GridCells.Fixed(3), modifier = Modifier.fillMaxWidth(), contentPadding = PaddingValues(10.dp)){
                     item{
                         Card(
-                            backgroundColor = if (pagoTarjeta.value) Color.White else colorResource(id = R.color.azul)
+                            backgroundColor = if (pagoTarjeta.value) Color.White else colorResource(id = R.color.azul),
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .height(50.dp)
                         ){
-                            Text(
-                                text = "EFECTIVO",
-                                modifier = Modifier.padding(5.dp),
-                                fontWeight = FontWeight.Bold,
-                                color = if (pagoTarjeta.value) Color.Black else Color.White
-                            )
+                            Column (
+                                horizontalAlignment = Alignment.CenterHorizontally,
+                                verticalArrangement = Arrangement.Center,
+                                modifier = Modifier.fillMaxWidth()
+                            ){
+                                Text(
+                                    text = "EFECTIVO",
+                                    modifier = Modifier.padding(5.dp),
+                                    fontWeight = FontWeight.Bold,
+                                    color = if (pagoTarjeta.value) Color.Black else Color.White
+                                )
+                            }
                         }
                     }
                     item{
@@ -226,14 +236,23 @@ fun ShowAlertDialogCobrar(
                     }
                     item{
                         Card(
-                            backgroundColor = if (!pagoTarjeta.value) Color.White else colorResource(id = R.color.azul)
+                            backgroundColor = if (!pagoTarjeta.value) Color.White else colorResource(id = R.color.azul),
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .height(50.dp)
                         ){
-                            Text(
-                                text = "TARJETA",
-                                modifier = Modifier.padding(5.dp),
-                                fontWeight = FontWeight.Bold,
-                                color = if (!pagoTarjeta.value) Color.Black else Color.White
-                            )
+                            Column (
+                                horizontalAlignment = Alignment.CenterHorizontally,
+                                verticalArrangement = Arrangement.Center,
+                                modifier = Modifier.fillMaxWidth()
+                            ){
+                                Text(
+                                    text = "TARJETA",
+                                    modifier = Modifier.padding(5.dp),
+                                    fontWeight = FontWeight.Bold,
+                                    color = if (!pagoTarjeta.value) Color.Black else Color.White
+                                )
+                            }
                         }
                     }
                 }
@@ -301,7 +320,7 @@ fun ShowAlertDialogCobrar(
                                 currentTable.ocupada = false
                                 tableViewModel.updateTicket(currentTicket, currentTicket._id)
                                 tableViewModel.updateTable(currentTable, currentTable._id)
-                                firstOpenTable = true
+                                //firstOpenTable = true
                                 navController.navigate(ScreenNav.MapScreen.route)
 
                             }else{
@@ -314,13 +333,13 @@ fun ShowAlertDialogCobrar(
                             currentTable.ocupada = false
                             tableViewModel.updateTicket(currentTicket, currentTicket._id)
                             tableViewModel.updateTable(currentTable, currentTable._id)
-                            firstOpenTable = true
+                            // firstOpenTable = true
                             navController.navigate(ScreenNav.MapScreen.route)
                         }
                     },
                     modifier = Modifier
                         .fillMaxWidth()
-                        .height(60.dp)
+                        .height(80.dp)
                         .padding(10.dp),
                     shape = RoundedCornerShape(5.dp),
                     colors = ButtonDefaults.buttonColors(backgroundColor = colorResource(id = R.color.azul)),
@@ -331,7 +350,26 @@ fun ShowAlertDialogCobrar(
                         fontSize = 12.sp
                     )
                 }
+                Spacer(modifier = Modifier.height(10.dp))
 
+                Button(
+                    onClick = {
+                        isCobrarOpen.value = false
+                        scope.launch { scaffoldState.drawerState.close() }
+                    },
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(80.dp)
+                        .padding(10.dp),
+                    shape = RoundedCornerShape(5.dp),
+                    colors = ButtonDefaults.buttonColors(backgroundColor = colorResource(id = R.color.rojo)),
+                ) {
+                    Text(
+                        text = "CANCELAR",
+                        color = Color.White,
+                        fontSize = 12.sp
+                    )
+                }
             }
         }
     }
