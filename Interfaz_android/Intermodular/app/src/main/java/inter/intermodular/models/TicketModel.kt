@@ -8,7 +8,8 @@ import java.util.*
  */
 data class TicketModel(
     var _id : String,
-    val total : Float,
+    var total : Float,
+    var tipo_ticket : String,
     var id_user_que_abrio : String,
     var id_user_que_cerro: String,
     var id_client : String,

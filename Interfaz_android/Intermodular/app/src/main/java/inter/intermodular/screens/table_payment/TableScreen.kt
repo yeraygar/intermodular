@@ -1,22 +1,34 @@
 package inter.intermodular.screens.table_payment
 
+import android.content.Context
+import android.widget.Toast
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.*
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.HighlightOff
-import androidx.compose.material.icons.filled.Menu
+import androidx.compose.material.icons.filled.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.geometry.Rect
+import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.Outline
+import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.res.colorResource
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextDecoration
+import androidx.compose.ui.unit.Density
+import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.compose.ui.window.Dialog
 import androidx.navigation.NavController
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import com.orhanobut.logger.Logger
@@ -28,9 +40,14 @@ import inter.intermodular.view_models.TableViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import java.lang.Exception
 
 @Composable
-fun TableScreen(navController: NavController, tableViewModel : TableViewModel){
+fun TableScreen(
+    navController: NavController,
+    tableViewModel: TableViewModel,
+    applicationContext: Context
+){
 
     val scaffoldState = rememberScaffoldState()
     val scope = rememberCoroutineScope()
@@ -41,29 +58,20 @@ fun TableScreen(navController: NavController, tableViewModel : TableViewModel){
     val totalBill = remember { mutableStateOf(0.0f)}
     val productClicked = remember { mutableStateOf(false)}
 
-    var familyProductList : MutableState<List<ProductModel>> = remember { mutableStateOf(listOf())}
-   // var currentTicketLines : MutableState<MutableList<ProductModel>> = remember { mutableStateOf(mutableListOf())}
-    val currentTicketLines = remember { mutableStateOf(listOf<ProductModel>()) }
+    val isComensalesOpen = remember { mutableStateOf(false)}
+    val isCobrarOpen = remember { mutableStateOf(false)}
 
-/*    if(currentTicketLines.value.isEmpty()){
-        tableViewModel.hasOpenTicket(currentTable._id)
-        if (!tableViewModel.openTicketResponse.isNullOrEmpty())
-            if(currentTable._id == tableViewModel.openTicketResponse[0].id_table){
-                currentTable.ocupada = true
-                currentTicket = tableViewModel.openTicketResponse[0]
-                tableViewModel.getTicketLines(currentTicket._id)
-                if(!tableViewModel.ticketLinesResponse.isNullOrEmpty())
-                    //currentTicketLines.value.addAll(0,tableViewModel.ticketLinesResponse)
-                        for(line in tableViewModel.ticketLinesResponse){
-                            currentTicketLines.value = currentTicketLines.value + line
-                        }
-            }
-    }*/
+    var familyProductList : MutableState<List<ProductModel>> = remember { mutableStateOf(listOf())}
+    val currentTicketLines = remember { mutableStateOf(listOf<ProductModel>()) }
 
     if(currentTicketLines.value.isNotEmpty()){
         afterFirstProduct.value = false
         for(line in currentTicketLines.value)
             Logger.d(" $line \n $currentTable \n $currentTicket ")
+    }
+
+    if(!currentTable.ocupada && currentTable.id_ticket != "Error"){
+        //TODO PEDIR NUMERO COMENSALES, NUEVO DIALOG
     }
 
 
@@ -79,7 +87,13 @@ fun TableScreen(navController: NavController, tableViewModel : TableViewModel){
         Logger.wtf(currentTable._id + currentTable.name)
         Logger.wtf("Ticket" + currentTable.id_ticket)
         currentTicketLines.value = tableViewModel.ticketLinesResponse
-        if(currentTicketLines.value.isNotEmpty()) productClicked.value = true
+        if(currentTicketLines.value.isNotEmpty()){
+            productClicked.value = true
+            isComensalesOpen.value = false
+        }else{
+            if(!currentTable.ocupada && firstOpenTable)
+                isComensalesOpen.value = true
+        }
         firstOpenTable = false
 
     }
@@ -87,15 +101,16 @@ fun TableScreen(navController: NavController, tableViewModel : TableViewModel){
     title.value = "${currentTable.name} - ${currentUser.name}"
 
     if(productClicked.value){
-        recalculate(currentTicketLines, totalBill)
+        recalculate(
+            currentTicketLines = currentTicketLines,
+            totalBill = totalBill,
+            tableViewModel = tableViewModel
+        )
         productClicked.value = false
     }
 
-
-
     tableViewModel.getClientFamilies(currentClient._id)
-    //(!tableViewModel.clientFamiliesResponse.isNullOrEmpty() && firstOpenTable){
-    //firstOpenTable = false
+
     TableStart(
         navController = navController,
         tableViewModel = tableViewModel,
@@ -106,7 +121,11 @@ fun TableScreen(navController: NavController, tableViewModel : TableViewModel){
         isDialogOpen = isDialogOpen,
         familyProductList = familyProductList,
         currentTicketLines = currentTicketLines,
-        totalBill = totalBill
+        totalBill = totalBill,
+        applicationContext = applicationContext,
+        isComensalesOpen = isComensalesOpen,
+        isCobrarOpen = isCobrarOpen
+
 
     )
     if (isDialogOpen.value)
@@ -120,12 +139,327 @@ fun TableScreen(navController: NavController, tableViewModel : TableViewModel){
             totalBill = totalBill,
             productClicked = productClicked
         )
-    // }
+
+    if (isComensalesOpen.value)
+        ShowAlertDialogComensales(
+            isComensalesOpen = isComensalesOpen,
+            tableViewModel = tableViewModel,
+            applicationContext = applicationContext
+        )
+
+    if(isCobrarOpen.value)
+        ShowAlertDialogCobrar(
+            isCobrarOpen = isCobrarOpen,
+            tableViewModel = tableViewModel,
+            applicationContext = applicationContext,
+            navController = navController
+        )
+
 }
+
+@OptIn(ExperimentalFoundationApi::class)
+@Composable
+fun ShowAlertDialogCobrar(
+    isCobrarOpen: MutableState<Boolean>,
+    tableViewModel: TableViewModel,
+    applicationContext: Context,
+    navController: NavController
+) {
+    var aceptarEnabled = remember { mutableStateOf(false)}
+    var cashOk = remember { mutableStateOf(false)}
+    var pagoTarjeta = remember { mutableStateOf(false)}
+    var cashInput = remember { mutableStateOf(0f)}
+
+    cashOk.value = (cashInput.value >= currentTicket.total)
+    if (pagoTarjeta.value) aceptarEnabled.value = true
+    else aceptarEnabled.value = cashOk.value
+
+    Dialog(onDismissRequest = { isCobrarOpen.value = false }) {
+        Surface(
+            modifier = Modifier
+                //.width(400.dp)
+                //.height(600.dp)
+                .padding(10.dp),
+            shape = RoundedCornerShape(5.dp),
+            color = Color.White
+        ) {
+            Column(
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.Center,
+                modifier = Modifier
+                    // .fillMaxSize()
+                    .padding(10.dp)
+            ) {
+
+                Card(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(10.dp),
+                    backgroundColor = colorResource(id = R.color.gris_muy_claro)
+                ) {
+                    Text(
+                        text = "TOTAL MESA ${currentTable.name} :  ${currentTicket.total}€" ,
+                        fontWeight = FontWeight.Bold,
+                        fontSize = 16.sp,
+                        modifier = Modifier.padding(10.dp))
+                }
+
+                LazyVerticalGrid(cells = GridCells.Fixed(3), modifier = Modifier.fillMaxWidth(), contentPadding = PaddingValues(10.dp)){
+                    item{
+                        Card(
+                            backgroundColor = if (pagoTarjeta.value) Color.White else colorResource(id = R.color.azul)
+                        ){
+                            Text(
+                                text = "EFECTIVO",
+                                modifier = Modifier.padding(5.dp),
+                                fontWeight = FontWeight.Bold,
+                                color = if (pagoTarjeta.value) Color.Black else Color.White
+                            )
+                        }
+                    }
+                    item{
+                        Switch(
+                            checked = pagoTarjeta.value,
+                            onCheckedChange = { pagoTarjeta.value = it},
+                            //modifier = Modifier.fillMaxWidth()
+                        )
+                    }
+                    item{
+                        Card(
+                            backgroundColor = if (!pagoTarjeta.value) Color.White else colorResource(id = R.color.azul)
+                        ){
+                            Text(
+                                text = "TARJETA",
+                                modifier = Modifier.padding(5.dp),
+                                fontWeight = FontWeight.Bold,
+                                color = if (!pagoTarjeta.value) Color.Black else Color.White
+                            )
+                        }
+                    }
+                }
+
+
+                OutlinedTextField(
+                    enabled = !pagoTarjeta.value,
+                    value = cashInput.value.toString(),
+                    onValueChange = { it.also {
+                        try{
+                            cashInput.value = it.toFloat()
+
+                        }catch (e: Exception){
+                            Toast.makeText(applicationContext, "Caracteres Invalidos", Toast.LENGTH_SHORT).show()
+                        }
+                    } },
+                    label = { Text(text = "Cantidad Introducida", style = TextStyle(
+                        color = colorResource(id = R.color.gris_claro)),) },
+                    placeholder = { Text(text = "Cantidad Introducida",style = TextStyle(
+                        color = colorResource(id = R.color.gris_claro)),) },
+                    singleLine = true,
+                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+                    trailingIcon = {
+                        val image = Icons.Filled.Calculate
+                        IconButton(onClick = { cashInput.value = currentTicket.total }
+                        ) { Icon(imageVector  = image, "Dinero") }
+                    },
+                    colors = TextFieldDefaults.outlinedTextFieldColors(
+                        focusedBorderColor = colorResource(id = R.color.azul_oscuro),
+                        unfocusedBorderColor = colorResource(id = R.color.gris_claro),
+                        focusedLabelColor = colorResource(id = R.color.azul_oscuro),
+                        unfocusedLabelColor = colorResource(id = R.color.gris_claro),
+                        cursorColor = colorResource(id = R.color.azul)
+                    ),
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(10.dp, 10.dp, 10.dp, 5.dp),
+                )
+
+                Spacer(modifier = Modifier.height(10.dp))
+
+                Card(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(10.dp),
+                    backgroundColor = colorResource(id = R.color.gris_muy_claro)
+                ) {
+                    Text(
+                        text = if (!pagoTarjeta.value) "A DEVOLVER: ${cashInput.value - currentTicket.total}€" else "",
+                        fontWeight = FontWeight.Bold,
+                        fontSize = 14.sp,
+                        modifier = Modifier.padding(10.dp))
+                }
+
+                Spacer(modifier = Modifier.height(5.dp))
+
+                Button(
+                    enabled = aceptarEnabled.value,
+                    onClick = {
+                        if (!pagoTarjeta.value){
+                            if (cashInput.value >= currentTicket.total){
+                                currentTicket.cobrado = true
+                                currentTicket.tipo_ticket = "Efectivo"
+                                currentTable.id_ticket = "Error"
+                                currentTable.ocupada = false
+                                tableViewModel.updateTicket(currentTicket, currentTicket._id)
+                                tableViewModel.updateTable(currentTable, currentTable._id)
+                                firstOpenTable = true
+                                navController.navigate(ScreenNav.MapScreen.route)
+
+                            }else{
+                                Toast.makeText(applicationContext, "Falta dinero en efectivo", Toast.LENGTH_SHORT).show()
+                            }
+                        }else{
+                            currentTicket.tipo_ticket = "Tarjeta"
+                            currentTicket.cobrado = true
+                            currentTable.id_ticket = "Error"
+                            currentTable.ocupada = false
+                            tableViewModel.updateTicket(currentTicket, currentTicket._id)
+                            tableViewModel.updateTable(currentTable, currentTable._id)
+                            firstOpenTable = true
+                            navController.navigate(ScreenNav.MapScreen.route)
+                        }
+                    },
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(60.dp)
+                        .padding(10.dp),
+                    shape = RoundedCornerShape(5.dp),
+                    colors = ButtonDefaults.buttonColors(backgroundColor = colorResource(id = R.color.azul)),
+                ) {
+                    Text(
+                        text = "COBRAR",
+                        color = Color.White,
+                        fontSize = 12.sp
+                    )
+                }
+
+            }
+        }
+    }
+}
+
+
+@Composable
+fun ShowAlertDialogComensales(
+    isComensalesOpen: MutableState<Boolean>,
+    tableViewModel: TableViewModel,
+    applicationContext: Context
+) {
+    var comensales  = remember { mutableStateOf(0) }
+    var aceptarEnabled = remember { mutableStateOf(false)}
+    if (comensales.value <= currentTable.comensalesMax && comensales.value > 0){
+        currentTable.comensales = comensales.value
+        aceptarEnabled.value = true
+    }
+    else {
+        Toast.makeText(applicationContext, "Comensales entre [1 - ${currentTable.comensalesMax}]", Toast.LENGTH_SHORT).show()
+    }
+
+    Dialog(onDismissRequest = { isComensalesOpen.value = false }) {
+        Surface(
+            modifier = Modifier
+                //.fillMaxSize()
+                .padding(10.dp, 20.dp),
+            shape = RoundedCornerShape(5.dp),
+            color = Color.White
+        ) {
+            Column(
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.Center
+            ) {
+
+                OutlinedTextField(
+                    value = comensales.value.toString(),
+                    onValueChange = { it.also {
+                        try{
+                            comensales.value = it.toInt()
+
+                        }catch (e: Exception){
+                            Toast.makeText(applicationContext, "Caracteres Invalidos", Toast.LENGTH_SHORT).show()
+                        }
+                    } },
+                    label = { Text(text = "Numero de Comensales", style = TextStyle(
+                        color = colorResource(id = R.color.gris_claro)),) },
+                    placeholder = { Text(text = "Numero de Comensales",style = TextStyle(
+                        color = colorResource(id = R.color.gris_claro)),) },
+                    singleLine = true,
+                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+                    trailingIcon = {
+                        val image = Icons.Filled.Groups
+                        IconButton(onClick = {  }
+                        ) { Icon(imageVector  = image, "Comensales") }
+                    },
+                    colors = TextFieldDefaults.outlinedTextFieldColors(
+                        focusedBorderColor = colorResource(id = R.color.azul_oscuro),
+                        unfocusedBorderColor = colorResource(id = R.color.gris_claro),
+                        focusedLabelColor = colorResource(id = R.color.azul_oscuro),
+                        unfocusedLabelColor = colorResource(id = R.color.gris_claro),
+                        cursorColor = colorResource(id = R.color.azul)
+                    ),
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(10.dp, 10.dp, 10.dp, 5.dp),
+                )
+
+                Spacer(modifier = Modifier.height(5.dp))
+
+
+                    Button(
+                        enabled = aceptarEnabled.value,
+                        onClick = {
+                            if (comensales.value <= currentTable.comensalesMax && comensales.value > 0) {
+                                isComensalesOpen.value = false
+                                aceptarEnabled.value = false
+                                tableViewModel.updateTable(currentTable, currentTable._id)
+                            }else{
+                                Toast.makeText(applicationContext, "Valor Incorrecto [1 - ${currentTable.comensalesMax}] ", Toast.LENGTH_SHORT).show()
+                            }
+                        },
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .height(60.dp)
+                            .padding(10.dp),
+                        shape = RoundedCornerShape(5.dp),
+                        colors = ButtonDefaults.buttonColors(backgroundColor = colorResource(id = R.color.azul)),
+                    ) {
+                        Text(
+                            text = "ACEPTAR",
+                            color = Color.White,
+                            fontSize = 12.sp
+                        )
+                    }
+
+                Spacer(modifier = Modifier.height(5.dp))
+
+                Button(
+                      //  enabled = isAceptarEnabled.value,
+                        onClick = {
+                            isComensalesOpen.value = false
+                        },
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .height(60.dp)
+                            .padding(10.dp),
+                        shape = RoundedCornerShape(5.dp),
+                        colors = ButtonDefaults.buttonColors(backgroundColor = colorResource(id = R.color.rojo)),
+                    ) {
+                        Text(
+                            text = "CANCELAR",
+                            color = Color.White,
+                            fontSize = 12.sp
+                        )
+                    }
+
+
+            }
+        }
+    }
+}
+
 
 fun recalculate(
     currentTicketLines: MutableState<List<ProductModel>>,
-    totalBill: MutableState<Float>
+    totalBill: MutableState<Float>,
+    tableViewModel: TableViewModel
 ) {
     totalBill.value = 0.0f
     if (!currentTicketLines.value.isNullOrEmpty())
@@ -133,6 +467,10 @@ fun recalculate(
             line.total = line.cantidad * line.precio
             totalBill.value = totalBill.value + line.total
         }
+    currentTicket.total = totalBill.value
+    currentTicket.id_user_que_abrio = currentUser._id
+    tableViewModel.updateTicket(currentTicket, currentTicket._id)
+
 }
 
 @OptIn(ExperimentalFoundationApi::class)
@@ -148,6 +486,9 @@ fun TableStart(
     familyProductList: MutableState<List<ProductModel>>,
     currentTicketLines: MutableState<List<ProductModel>>,
     totalBill: MutableState<Float>,
+    applicationContext: Context,
+    isComensalesOpen: MutableState<Boolean>,
+    isCobrarOpen: MutableState<Boolean>,
 ) {
 
     allFamilies = tableViewModel.clientFamiliesResponse
@@ -161,16 +502,62 @@ fun TableStart(
                 snackbar = {
                     Text(text = "aqui el grueso")
 
-                    //TODO component snackBar, en este Scaffold no haria falta
+                    //No hara falta snackBar en este scaffold
                 }
             )
         },
+        drawerBackgroundColor = colorResource(id = R.color.gris_muy_claro),
+        drawerShape = customShape(),
+        drawerContent =  {
 
-        drawerShape = MaterialTheme.shapes.small,
-        drawerBackgroundColor = Color.White,
-        drawerContent = {
-            //TODO component drawer botones de accion
-            Text(text = "aqui el drawer")
+          Column(
+              horizontalAlignment = Alignment.Start,
+              verticalArrangement = Arrangement.Center,
+              modifier = Modifier
+                  .fillMaxSize()
+                  //.padding(10.dp)
+                  //.height(50.dp)
+          ) {
+              Spacer(modifier = Modifier.height(30.dp))
+
+              Button(
+                  onClick = {
+                      isCobrarOpen.value = true
+                  },
+                  modifier = Modifier
+                      // .fillMaxWidth()
+                      .height(50.dp)
+                      .defaultMinSize(210.dp, 5.dp),
+                  colors = ButtonDefaults.buttonColors(backgroundColor = colorResource(R.color.azul)),
+
+                  ){
+                  Text(
+                      text = "COBRAR",
+                      fontWeight = FontWeight.ExtraBold,
+                      color = Color.White
+                  )
+              }
+
+              Spacer(modifier = Modifier.height(30.dp))
+
+              Button(
+                  onClick = {
+                      isComensalesOpen.value = true
+                  },
+                  modifier = Modifier
+                      //.fillMaxWidth()
+                      .height(50.dp)
+                      .defaultMinSize(210.dp, 5.dp),
+                  colors = ButtonDefaults.buttonColors(backgroundColor = colorResource(R.color.azul)),
+
+                  ){
+                  Text(
+                      text = "MOD. COMENSALES",
+                      fontWeight = FontWeight.ExtraBold,
+                      color = Color.White
+                  )
+              }
+          }
 
         },
 
@@ -197,6 +584,7 @@ fun TableStart(
                     IconButton(onClick = {
                         if(!currentTicketLines.value.isNullOrEmpty()){
                             currentTable.id_ticket = currentTicket._id
+                            currentTable.ocupada = true
                             Logger.wtf("Mesa cerrada llena \nCurrentTicket ${currentTicket._id} && Table ${currentTable.id_ticket}")
                             tableViewModel.updateTable(currentTable, currentTable._id)
                             currentTicketLines.value = listOf()
@@ -276,15 +664,29 @@ fun TableStart(
             TicketHeadComponent(totalBill = totalBill)
 
             if(!currentTicketLines.value.isNullOrEmpty()) {
-                TicketContentComponent(currentTicketLines)
+                TicketContentComponent(currentTicketLines, applicationContext)
             }
         }
     }
 }
 
+@Composable
+fun customShape() = object : Shape {
+    override fun createOutline(
+        size: Size,
+        layoutDirection: LayoutDirection,
+        density: Density
+    ): Outline {
+        return Outline.Rectangle(Rect(left = 0f, top = 0f, right = size.width * 2 / 3, bottom = size.height))
+    }
+}
+
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-private fun TicketContentComponent(currentTicketLines: MutableState<List<ProductModel>>) {
+private fun TicketContentComponent(
+    currentTicketLines: MutableState<List<ProductModel>>,
+    applicationContext: Context
+) {
     Card(
         backgroundColor = colorResource(id = R.color.gris_muy_claro),
         modifier = Modifier
@@ -303,9 +705,14 @@ private fun TicketContentComponent(currentTicketLines: MutableState<List<Product
 
                 item {
                     Card(
-                        modifier = Modifier.combinedClickable(onLongClick = {
-                            Logger.wtf("LONG CLICK!!")
-                        }){}
+                        modifier = Modifier.combinedClickable(
+                            onLongClick = {
+                                Logger.wtf("LONG CLICK!!")
+                        },
+                            onClick = {
+                                Toast.makeText(applicationContext, "Manten pulsado para ver opciones", Toast.LENGTH_SHORT).show()
+                            }
+                        )
                     ){
                         Text(
                             text = "${currentTicketLines.value[i].cantidad}",
@@ -317,9 +724,14 @@ private fun TicketContentComponent(currentTicketLines: MutableState<List<Product
                 }
                 item(span = { GridItemSpan(2) }) {
                     Card(
-                        modifier = Modifier.combinedClickable(onLongClick = {
-                            Logger.wtf("LONG CLICK!!")
-                        }){}
+                        modifier = Modifier.combinedClickable(
+                            onLongClick = {
+                                Logger.wtf("LONG CLICK!!")
+                            },
+                            onClick = {
+                                Toast.makeText(applicationContext, "Manten pulsado para ver opciones", Toast.LENGTH_SHORT).show()
+                            }
+                        )
                     ){
                         Text(
                             text = currentTicketLines.value[i].name,
@@ -331,9 +743,14 @@ private fun TicketContentComponent(currentTicketLines: MutableState<List<Product
                 }
                 item {
                     Card(
-                        modifier = Modifier.combinedClickable(onLongClick = {
-                            Logger.wtf("LONG CLICK!!")
-                        }){}
+                        modifier = Modifier.combinedClickable(
+                            onLongClick = {
+                                Logger.wtf("LONG CLICK!!")
+                            },
+                            onClick = {
+                                Toast.makeText(applicationContext, "Manten pulsado para ver opciones", Toast.LENGTH_SHORT).show()
+                            }
+                        )
                     ){
                         Text(
                             text = "${currentTicketLines.value[i].precio}€",
@@ -345,12 +762,20 @@ private fun TicketContentComponent(currentTicketLines: MutableState<List<Product
                 }
                 item {
                     Card(
-                        modifier = Modifier.combinedClickable(onLongClick = {
-                            Logger.wtf("LONG CLICK!!")
-                        }){}
+                        modifier = Modifier.combinedClickable(
+                            onLongClick = {
+                                Logger.wtf("LONG CLICK!!")
+                            },
+                            onClick = {
+                                Toast.makeText(applicationContext, "Manten pulsado para ver opciones", Toast.LENGTH_SHORT).show()
+                            }
+                        )
                     ){
                         Text(
-                            text = "${currentTicketLines.value[i].total}€",
+                            text =
+                            if (currentTicketLines.value[i].total.toString().length >= 5)
+                                "${currentTicketLines.value[i].total.toString().substring(0,4).toFloat()}€"
+                            else "${currentTicketLines.value[i].total}€",
                             modifier = Modifier
                                 .fillMaxSize()
                                 .padding(10.dp)

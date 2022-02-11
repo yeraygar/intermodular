@@ -13,18 +13,22 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="069ddd03-50ea-4920-8045-2ecc81179fd3" name="Default Changelist" comment="Intentando recargar mesas">
-      <change beforePath="$PROJECT_DIR$/../../API/ApiRest/models/table.js" beforeDir="false" afterPath="$PROJECT_DIR$/../../API/ApiRest/models/table.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../API/ApiRest/routes/table.js" beforeDir="false" afterPath="$PROJECT_DIR$/../../API/ApiRest/routes/table.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../API/ApiRest/routes/ticket.js" beforeDir="false" afterPath="$PROJECT_DIR$/../../API/ApiRest/routes/ticket.js" afterDir="false" />
+    <list default="true" id="069ddd03-50ea-4920-8045-2ecc81179fd3" name="Default Changelist" comment="Tickets funcionando, mesas recargando!">
+      <change beforePath="$PROJECT_DIR$/../../API/ApiRest/routes/ticket_line.js" beforeDir="false" afterPath="$PROJECT_DIR$/../../API/ApiRest/routes/ticket_line.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/deploymentTargetDropDown.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/build/intermediates/incremental/mergeDebugResources/compile-file-map.properties" beforeDir="false" afterPath="$PROJECT_DIR$/app/build/intermediates/incremental/mergeDebugResources/compile-file-map.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/build/intermediates/incremental/mergeDebugResources/merged.dir/values/values.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/build/intermediates/incremental/mergeDebugResources/merged.dir/values/values.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/build/intermediates/incremental/mergeDebugResources/merger.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/build/intermediates/incremental/mergeDebugResources/merger.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/build/kotlin/compileDebugKotlin/build-history.bin" beforeDir="false" afterPath="$PROJECT_DIR$/app/build/kotlin/compileDebugKotlin/build-history.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/build/kotlin/compileDebugKotlin/caches-jvm/inputs/source-to-output.tab" beforeDir="false" afterPath="$PROJECT_DIR$/app/build/kotlin/compileDebugKotlin/caches-jvm/inputs/source-to-output.tab" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/build/kotlin/compileDebugKotlin/caches-jvm/inputs/source-to-output.tab.values.at" beforeDir="false" afterPath="$PROJECT_DIR$/app/build/kotlin/compileDebugKotlin/caches-jvm/inputs/source-to-output.tab.values.at" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/build/kotlin/compileDebugKotlin/caches-jvm/jvm/kotlin/internal-name-to-source.tab" beforeDir="false" afterPath="$PROJECT_DIR$/app/build/kotlin/compileDebugKotlin/caches-jvm/jvm/kotlin/internal-name-to-source.tab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/build/kotlin/compileDebugKotlin/caches-jvm/jvm/kotlin/internal-name-to-source.tab.keystream" beforeDir="false" afterPath="$PROJECT_DIR$/app/build/kotlin/compileDebugKotlin/caches-jvm/jvm/kotlin/internal-name-to-source.tab.keystream" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/build/kotlin/compileDebugKotlin/caches-jvm/jvm/kotlin/internal-name-to-source.tab.keystream.len" beforeDir="false" afterPath="$PROJECT_DIR$/app/build/kotlin/compileDebugKotlin/caches-jvm/jvm/kotlin/internal-name-to-source.tab.keystream.len" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/build/kotlin/compileDebugKotlin/caches-jvm/jvm/kotlin/internal-name-to-source.tab.len" beforeDir="false" afterPath="$PROJECT_DIR$/app/build/kotlin/compileDebugKotlin/caches-jvm/jvm/kotlin/internal-name-to-source.tab.len" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/build/kotlin/compileDebugKotlin/caches-jvm/jvm/kotlin/internal-name-to-source.tab.values.at" beforeDir="false" afterPath="$PROJECT_DIR$/app/build/kotlin/compileDebugKotlin/caches-jvm/jvm/kotlin/internal-name-to-source.tab.values.at" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/build/kotlin/compileDebugKotlin/caches-jvm/jvm/kotlin/internal-name-to-source.tab_i" beforeDir="false" afterPath="$PROJECT_DIR$/app/build/kotlin/compileDebugKotlin/caches-jvm/jvm/kotlin/internal-name-to-source.tab_i" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/build/kotlin/compileDebugKotlin/caches-jvm/jvm/kotlin/package-parts.tab" beforeDir="false" afterPath="$PROJECT_DIR$/app/build/kotlin/compileDebugKotlin/caches-jvm/jvm/kotlin/package-parts.tab" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/build/kotlin/compileDebugKotlin/caches-jvm/jvm/kotlin/package-parts.tab.values.at" beforeDir="false" afterPath="$PROJECT_DIR$/app/build/kotlin/compileDebugKotlin/caches-jvm/jvm/kotlin/package-parts.tab.values.at" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/build/kotlin/compileDebugKotlin/caches-jvm/jvm/kotlin/proto.tab" beforeDir="false" afterPath="$PROJECT_DIR$/app/build/kotlin/compileDebugKotlin/caches-jvm/jvm/kotlin/proto.tab" afterDir="false" />
@@ -47,13 +51,14 @@
       <change beforePath="$PROJECT_DIR$/app/build/kotlin/compileDebugKotlin/caches-jvm/lookups/lookups.tab.values.at" beforeDir="false" afterPath="$PROJECT_DIR$/app/build/kotlin/compileDebugKotlin/caches-jvm/lookups/lookups.tab.values.at" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/build/kotlin/compileDebugKotlin/caches-jvm/lookups/lookups.tab_i" beforeDir="false" afterPath="$PROJECT_DIR$/app/build/kotlin/compileDebugKotlin/caches-jvm/lookups/lookups.tab_i" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/build/kotlin/compileDebugKotlin/last-build.bin" beforeDir="false" afterPath="$PROJECT_DIR$/app/build/kotlin/compileDebugKotlin/last-build.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/inter/intermodular/MainActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/inter/intermodular/MainActivity.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/inter/intermodular/models/TicketModel.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/inter/intermodular/models/TicketModel.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/inter/intermodular/screens/login_register/UserSelectionScreen.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/inter/intermodular/screens/login_register/UserSelectionScreen.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/inter/intermodular/screens/map_tables/MapTableComponent.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/inter/intermodular/screens/map_tables/MapTableComponent.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/inter/intermodular/screens/table_payment/ProductSelectionComposable.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/inter/intermodular/screens/table_payment/ProductSelectionComposable.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/inter/intermodular/screens/table_payment/TableScreen.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/inter/intermodular/screens/table_payment/TableScreen.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/inter/intermodular/support/GlobalVariables.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/inter/intermodular/support/GlobalVariables.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/inter/intermodular/view_models/MapViewModel.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/inter/intermodular/view_models/MapViewModel.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/inter/intermodular/view_models/TableViewModel.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/inter/intermodular/view_models/TableViewModel.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/values/colors.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values/colors.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -318,7 +323,14 @@
       <option name="project" value="LOCAL" />
       <updated>1644499140002</updated>
     </task>
-    <option name="localTasksCounter" value="21" />
+    <task id="LOCAL-00021" summary="Tickets funcionando, mesas recargando!">
+      <created>1644576975411</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1644576975411</updated>
+    </task>
+    <option name="localTasksCounter" value="22" />
     <servers />
   </component>
   <component name="Vcs.Log.History.Properties">
@@ -364,32 +376,7 @@
     <MESSAGE value="Multiseleccion Funcionando" />
     <MESSAGE value="Calculo de lineas y cuenta completos" />
     <MESSAGE value="Intentando recargar mesas" />
-    <option name="LAST_COMMIT_MESSAGE" value="Intentando recargar mesas" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" suspend="THREAD" type="kotlin-line">
-          <url>file://$PROJECT_DIR$/app/src/main/java/inter/intermodular/screens/table_payment/ProductSelectionComposable.kt</url>
-          <line>101</line>
-          <option name="timeStamp" value="18" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="kotlin-line">
-          <url>file://$PROJECT_DIR$/app/src/main/java/inter/intermodular/screens/table_payment/ProductSelectionComposable.kt</url>
-          <line>100</line>
-          <option name="timeStamp" value="19" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="kotlin-line">
-          <url>file://$PROJECT_DIR$/app/src/main/java/inter/intermodular/view_models/TableViewModel.kt</url>
-          <line>199</line>
-          <option name="timeStamp" value="20" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="kotlin-line">
-          <url>file://$PROJECT_DIR$/app/src/main/java/inter/intermodular/view_models/TableViewModel.kt</url>
-          <line>201</line>
-          <option name="timeStamp" value="21" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
+    <MESSAGE value="Tickets funcionando, mesas recargando!" />
+    <option name="LAST_COMMIT_MESSAGE" value="Tickets funcionando, mesas recargando!" />
   </component>
 </project>

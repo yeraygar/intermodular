@@ -282,7 +282,6 @@ fun buttonUser(
             disabledElevation = 0.dp
         ),
         onClick = {
-                //Todo show alert to put password
             currentUser = allUsers[contador]
             backUser = false
             //navController.navigate(ScreenNav.ValidateUserScreen.route)

@@ -26,6 +26,7 @@ import inter.intermodular.view_models.TableViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import kotlin.math.round
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
@@ -95,26 +96,49 @@ fun ShowAlertDialogFamilyProducts(
                                             Logger.i("Producto seleccionado $currentProduct")
                                             //TODO, logica de crear ticket y anyadir linea_ticket
                                             scope.launch {
+                                                currentProduct = familyProductList.value[i]
+                                                Logger.i("Producto seleccionado $currentProduct")
                                                 if(currentTicketLines.value.isEmpty()){
+
                                                     tableViewModel.createTicket()
                                                     delay(100)
                                                     currentProduct.id_ticket = currentTicket._id
                                                     tableViewModel.createTicketLine(currentProduct)
+                                                    //TODO COMPROBAR SI EL CURRENT PRODUCT NAME NO EXISTE EN LA LISTA
                                                     //recalculate(currentTicketLines = currentTicketLines, totalBill = totalBill)
                                                     delay(100)
 
                                                 }
                                                 else{
-                                                    tableViewModel.createTicketLine(currentProduct)
-                                                    delay(100)
+                                                    var exists = false
+                                                    for (line in currentTicketLines.value){
+                                                        if (line.name == currentProduct.name){
+                                                            exists = true
+                                                            line.cantidad++
+
+                                                            line.total = line.cantidad * line.precio
+                                                            if (line.total.toString().length >= 5)
+                                                                line.total = line.total.toString().substring(0,4).toFloat()
+                                                            tableViewModel.updateTicketLine(line, line._id)
+                                                            val toGenerateLines = currentTicketLines.value
+                                                            currentTicketLines.value = listOf()
+                                                            currentTicketLines.value = toGenerateLines
+                                                            delay(200)
+                                                        }
+                                                    }
+
+                                                    if (exists) Logger.d("Producto sumado")
+                                                    else{
+                                                        tableViewModel.createTicketLine(currentProduct)
+                                                        currentTicketLines.value = currentTicketLines.value + tableViewModel.currentTicketLineResponse
+                                                    }
+                                                    delay(500)
                                                 }
                                                 currentTable.id_ticket = currentTicket._id
                                                 //tableViewModel.updateTable(currentTable, currentTable._id)
                                                 delay(100)
                                                 productClicked.value = true
-                                                //currentTicketLines.value.add(tableViewModel.currentTicketLineResponse)
-                                                currentTicketLines.value = currentTicketLines.value + tableViewModel.currentTicketLineResponse
-                                                isDialogOpen.value = false
+                                               // isDialogOpen.value = false
                                             }
 
                                         }) {

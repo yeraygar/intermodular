@@ -24,7 +24,7 @@ class TableViewModel : ViewModel() {
 
     var currentTicketResponse : TicketModel by mutableStateOf(
         TicketModel("Error", 0f, "Error", "Error",
-            "Error", "Error", "Error", 2, Date(),false)
+            "Error", "Error", "Error","Error" , 0, Date(), false)
     )
 
     var openTicketResponse : List<TicketModel> by mutableStateOf(listOf())
@@ -263,8 +263,9 @@ class TableViewModel : ViewModel() {
 
 
         currentTicketResponse
-            TicketModel("Error", 0f, "Error", "Error",
-                "Error", "Error", "Error", 2, Date(),false)
+        TicketModel("Error", 0f, "Error", "Error",
+            "Error", "Error", "Error","Error" , 0, Date(), false)
+
 
 
         openTicketResponse = listOf()

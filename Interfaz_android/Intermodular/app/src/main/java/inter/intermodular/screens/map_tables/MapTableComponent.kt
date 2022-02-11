@@ -79,6 +79,7 @@ private fun ButtonMesa(i: Int, navController: NavHostController) {
 
             //currentTable = if(emptySpace) currentZoneTables[i-1] else currentZoneTables[i]
             currentTable = currentZoneTables[i]
+            currentTable.id_user = currentUser._id
             firstOpenTable = true
             Logger.i("Mesa seleccionada $currentTable")
             navController.navigate(ScreenNav.TableScreen.route){
