@@ -108,6 +108,9 @@ fun ShowAlertDialogFamilyProducts(
                                                     tableViewModel.createTicketLine(currentProduct)
                                                     delay(100)
                                                 }
+                                                currentTable.id_ticket = currentTicket._id
+                                                //tableViewModel.updateTable(currentTable, currentTable._id)
+                                                delay(100)
                                                 productClicked.value = true
                                                 //currentTicketLines.value.add(tableViewModel.currentTicketLineResponse)
                                                 currentTicketLines.value = currentTicketLines.value + tableViewModel.currentTicketLineResponse

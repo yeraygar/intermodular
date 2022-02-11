@@ -24,7 +24,7 @@ var backLogin = true;
 var backRegister = true;
 var backUser = true;
 var firstOpenMap : Boolean = true
-var firstOpenTable :Boolean = false
+var firstOpenTable :Boolean = true
 
 val defaultAdmin : UserPost = UserPost(
     name = "Admin",

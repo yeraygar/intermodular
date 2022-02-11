@@ -34,7 +34,8 @@ class MapViewModel : ViewModel() {
             try{
                 zoneTablesResponse = apiServices.getZoneTables(id_zone)
                 currentZoneTables = zoneTablesResponse
-                for(table in currentZoneTables) Logger.w("Mesas en current Zone:\n $table")
+                Logger.i("SUCCESS getZoneTables")
+                for(table in currentZoneTables) if(table.id_ticket != "Error") Logger.w("Mesas en current Zone:\n $table")
             }catch(e : Exception){
                 errorMessage = e.message.toString()
                 Logger.e("FAILURE getZoneTables")

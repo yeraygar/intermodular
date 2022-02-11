@@ -18,6 +18,7 @@ import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import androidx.navigation.NavGraph.Companion.findStartDestination
 import com.orhanobut.logger.Logger
 import inter.intermodular.R
 import inter.intermodular.ScreenNav
@@ -59,10 +60,28 @@ fun TableScreen(navController: NavController, tableViewModel : TableViewModel){
             }
     }*/
 
-    Logger.wtf(currentTicketLines.value.toString())
-    Logger.wtf(currentTable._id + currentTable.name)
-    if(currentTicketLines.value.isEmpty()){
-        tableViewModel.hasOpenTicket(currentTable._id)
+    if(currentTicketLines.value.isNotEmpty()){
+        afterFirstProduct.value = false
+        for(line in currentTicketLines.value)
+            Logger.d(" $line \n $currentTable \n $currentTicket ")
+    }
+
+
+    if(firstOpenTable){
+        currentTicketLines.value = listOf()
+        tableViewModel.resetTableViewModel()
+    }
+
+
+    if(currentTicketLines.value.isEmpty() || firstOpenTable){
+        tableViewModel.recuperaMesa(currentTable._id)
+        Logger.wtf(currentTicketLines.value.toString())
+        Logger.wtf(currentTable._id + currentTable.name)
+        Logger.wtf("Ticket" + currentTable.id_ticket)
+        currentTicketLines.value = tableViewModel.ticketLinesResponse
+        if(currentTicketLines.value.isNotEmpty()) productClicked.value = true
+        firstOpenTable = false
+
     }
 
     title.value = "${currentTable.name} - ${currentUser.name}"
@@ -76,7 +95,7 @@ fun TableScreen(navController: NavController, tableViewModel : TableViewModel){
 
     tableViewModel.getClientFamilies(currentClient._id)
     //(!tableViewModel.clientFamiliesResponse.isNullOrEmpty() && firstOpenTable){
-    firstOpenTable = false
+    //firstOpenTable = false
     TableStart(
         navController = navController,
         tableViewModel = tableViewModel,
@@ -176,9 +195,27 @@ fun TableStart(
                 },
                 actions = {
                     IconButton(onClick = {
-                        navController.navigate(ScreenNav.MapScreen.route)
+                        if(!currentTicketLines.value.isNullOrEmpty()){
+                            currentTable.id_ticket = currentTicket._id
+                            Logger.wtf("Mesa cerrada llena \nCurrentTicket ${currentTicket._id} && Table ${currentTable.id_ticket}")
+                            tableViewModel.updateTable(currentTable, currentTable._id)
+                            currentTicketLines.value = listOf()
+                        }else{
+                            if(currentTable.id_ticket != "Error")
+                                tableViewModel.deleteTicket(currentTable.id_ticket)
+                            currentTable.id_ticket = "Error"
+                            currentTable.ocupada = false
+                            tableViewModel.updateTable(currentTable, currentTable._id)
+                            Logger.d("Cerrar mesa vacia")
+                        }
+                        navController.navigate(ScreenNav.MapScreen.route){
+                            popUpTo(navController.graph.findStartDestination().id){saveState = false}
+                            restoreState = true
+                        }
+                        firstOpenTable = true
+
                     }) {
-                        Icon(Icons.Filled.HighlightOff, contentDescription = "Localized description", tint = Color.White)
+                        Icon(Icons.Filled.HighlightOff, contentDescription = "Cerrar", tint = Color.White)
                     }
                 }
             )

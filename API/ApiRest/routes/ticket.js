@@ -78,6 +78,23 @@ router.get("/ticket/client/:id_client", (req, res) => {
         })
 })
 
+//Get ticket form a table id
+router.get("/ticket/table/:id_table/sin_cobrar", (req, res) => {
+    const {id_table} = req.params;
+    ticketSchema
+        .find({id_table: id_table, cobrado: false} )
+        .then((data) =>{
+            res.json(data);
+            console.log(`\nticket hasOpenTicket: \n ${data}`);
+        })
+        .catch((err) => {
+            res.json({message:err});
+            console.log(`Error get /api/ticket/client/${id} : ${err}`);
+        })
+})
+
+
+
 
 
 

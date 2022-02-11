@@ -1,5 +1,6 @@
 package inter.intermodular.view_models
 
+import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
@@ -9,6 +10,7 @@ import com.orhanobut.logger.Logger
 import inter.intermodular.models.*
 import inter.intermodular.services.ApiServices
 import inter.intermodular.support.*
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import retrofit2.Response
 import java.util.*
@@ -99,13 +101,34 @@ class TableViewModel : ViewModel() {
         viewModelScope.launch {
             val apiServices = ApiServices.getInstance()
             try{
-                ticketLinesResponse = listOf()
+                //ticketLinesResponse = listOf()
                 ticketLinesResponse = apiServices.getTicketLines(ticketId)
                 //allFamilies = ticketLinesResponse
-                Logger.i("SUCCESS loading getTicketLines for clientId: $ticketId")
+                Logger.i("SUCCESS loading getTicketLines for ticketId: $ticketId")
             }catch (e: Exception){
                 errorMessage = e.message.toString()
-                Logger.e("FAILURE loading ticket lines for clientId: $ticketId")
+                Logger.e("FAILURE loading ticket lines for ticketId: $ticketId")
+            }
+        }
+    }
+
+    fun recuperaMesa(tableId : String){
+        viewModelScope.launch {
+            try{
+                hasOpenTicket(tableId = tableId)
+                delay(100)
+                if(!openTicketResponse.isNullOrEmpty()){
+                    getTicketLines(openTicketResponse[0]._id)
+                    delay(100)
+                    Logger.i("Open Ticket True")
+                    if(!ticketLinesResponse.isNullOrEmpty()){
+                        Logger.i("Mesa recuperada con exito")
+                         ticketLinesResponse
+                    }
+                }
+            }catch (e: Exception){
+                errorMessage = e.message.toString()
+                Logger.e("FAILURE recuperar Mesa")
             }
         }
     }
@@ -175,8 +198,9 @@ class TableViewModel : ViewModel() {
                 openTicketResponse = apiServices.hasTicketOpen(tableId)
                 if(!openTicketResponse.isNullOrEmpty()){
                     currentTicket = openTicketResponse[0]
-                    currentTable.id_ticket
+                    currentTable.id_ticket = currentTicket._id
                     currentTable.id_user = currentUser._id
+                    updateTable(currentTable, currentTable._id)
                 }
                 Logger.i("CORRECT hasOpenTicket: $openTicketResponse")
             }catch (e: Exception){
@@ -223,13 +247,31 @@ class TableViewModel : ViewModel() {
                 val response = apiServices.updateTable(tableId, table)
                 if (response.isSuccessful){
                     updateOkResponse = true
-                    Logger.i("SUCCESS updateTable $response ${response.body()}")
+                    Logger.i("SUCCESS updateTable ${currentTicket._id} && ${table.id_ticket} \n $response ${response.body()}")
                 }else Logger.e("FAILURE response updateTable ")
             }catch (e: Exception){
                 errorMessage = e.message.toString()
                 Logger.e("FAILURE update Table\n${e.message.toString()}")
             }
         }
+    }
+
+    fun resetTableViewModel(){
+        currentTicketLineResponse =
+            ProductModel("Error", "Error",0, 0.0f, 0, 0.0f,
+                "Error", "Error", "Error", "Error")
+
+
+        currentTicketResponse
+            TicketModel("Error", 0f, "Error", "Error",
+                "Error", "Error", "Error", 2, Date(),false)
+
+
+        openTicketResponse = listOf()
+        familyProductsResponse = listOf()
+        clientFamiliesResponse = listOf()
+        ticketLinesResponse = listOf()
+        updateOkResponse = false
     }
 
 

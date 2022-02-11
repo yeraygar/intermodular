@@ -40,6 +40,11 @@ const tableSchema = mongoose.Schema({
         type:String,
         required:false,
         default: "Error"
+    },
+    id_ticket:{
+        type: String,
+        required: false,
+        default: "Error"
     }   
 })
 module.exports = mongoose.model('Table', tableSchema);
