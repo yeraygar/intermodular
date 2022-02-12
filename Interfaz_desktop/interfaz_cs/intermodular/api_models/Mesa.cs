@@ -21,6 +21,7 @@ namespace intermodular
         public int comensales { get; set; }
         public int comensalesMax { get; set; }
         public string id_user { get; set; }
+        public string id_ticket { get; set; }
         public int num_row { get; set; }
         public int num_column { get; set; }
 
@@ -96,6 +97,7 @@ namespace intermodular
             values.Add("num_column", mesa.num_column);
             values.Add("id_user", mesa.id_user);
             values.Add("ocupada", mesa.ocupada);
+            values.Add("id_ticket", mesa.id_ticket);
 
         //Creamos la peticion
         HttpContent content = new StringContent(values.ToString(), System.Text.Encoding.UTF8, "application/json");

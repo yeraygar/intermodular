@@ -72,6 +72,7 @@ namespace intermodular
                     {
                         Comensales comensales = new Comensales(User.usuarioElegido);
                         comensales.Show();
+                        User.currentUser = User.usuarioElegido;
                         //vistaPedidos vistaPedidos = new vistaPedidos();
                         //vistaPedidos.Show();
                     }

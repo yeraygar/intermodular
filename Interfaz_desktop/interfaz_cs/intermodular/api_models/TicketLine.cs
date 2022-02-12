@@ -28,17 +28,16 @@ namespace intermodular.api_models
         {
 
         }
-        public TicketLine(string name, int cantidad, float precio, int stock, float total, string id_client, string id_familia, string id_ticket, string comentario)
+        public TicketLine(Producto producto)
         {
-            this.name = name;
-            this.cantidad = cantidad;
-            this.precio = precio;
-            this.stock = stock;
-            this.total = total;
-            this.id_client = id_client;
-            this.id_familia = id_familia;
-            this.id_ticket = id_ticket;
-            this.comentario = comentario;
+            name = producto.name;
+            cantidad = producto.cantidad;
+            precio = producto.precio;
+            stock = producto.stock;
+            total = producto.total;
+            id_client = producto.id_client;
+            id_familia = producto.id_familia;
+            id_ticket = producto.id_ticket;
         }
 
         //Obtener todas las líneas de un ticket
@@ -71,13 +70,22 @@ namespace intermodular.api_models
                 currentTicketLine = line;
             }
         }
-        public static async Task<TicketLine> createTicketLine(TicketLine ticketLine)
+
+        //Crear Linea de producto
+        public static async Task<TicketLine> createTicketLine(Producto p)
         {
             string url = $"{Staticresources.urlHead}ticket_line";
 
             //Creamos objeto tipo JSon
             var values = new JObject();
-            values.Add("name", ticketLine.name);
+            values.Add("name", p.name);
+            values.Add("cantidad", p.cantidad);
+            values.Add("precio", p.precio);
+            values.Add("stock", p.stock);
+            values.Add("total", p.total);
+            values.Add("id_client", p.id_client);
+            values.Add("id_familia", p.id_familia);
+            values.Add("id_ticket", p.id_ticket);
           
 
             //Creamos la peticion
@@ -97,6 +105,61 @@ namespace intermodular.api_models
                 return postResult;
             }
             else return null;
+
+        }
+
+        //Update linea producto
+        public static async Task<bool> updateTicketLine(string id,TicketLine p)
+        {
+            string url = $"{Staticresources.urlHead}ticket_line/{id}";
+
+            //Creamos objeto tipo JSon con los nuevos parametros
+            var values = new JObject();
+            values.Add("name", p.name);
+            values.Add("cantidad", p.cantidad);
+            values.Add("precio", p.precio);
+            values.Add("stock", p.stock);
+            values.Add("total", p.total);
+            values.Add("id_client", p.id_client);
+            values.Add("id_familia", p.id_familia);
+            values.Add("id_ticket", p.id_ticket);
+            values.Add("comentario", p.comentario);
+
+
+            //Creamos la peticion
+            HttpContent content = new StringContent(values.ToString(), System.Text.Encoding.UTF8, "application/json");
+
+            //Mandamos el JSon
+            var httpResponse = await Staticresources.httpClient.PutAsync(url, content);
+
+            if (httpResponse.IsSuccessStatusCode)
+            {
+                //Guardamos la respuesta
+                var result = await httpResponse.Content.ReadAsStringAsync();
+                return true;
+            }
+            else return false;
+        }
+
+        //Borrar linea de producto
+        public static async Task<bool> deleteTicketLine(string id)
+        {
+            string url = $"{Staticresources.urlHead}ticket_line/{id}";
+
+            //Mandamos el JSon
+            //var httpResponse = client.PostAsJsonAsync(url, values).Result; //Otra opcion sin await, no usar
+            var httpResponse = await Staticresources.httpClient.DeleteAsync(url);
+
+            if (httpResponse.IsSuccessStatusCode)
+            {
+                //Guardamos la respuesta
+                var result = await httpResponse.Content.ReadAsStringAsync();
+
+                Console.WriteLine($"Linea de producto eliminada {result}");
+                return true;
+
+            }
+            else return false;
 
         }
     }

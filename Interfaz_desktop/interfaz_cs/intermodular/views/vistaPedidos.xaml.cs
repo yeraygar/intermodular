@@ -25,11 +25,14 @@ namespace intermodular
         private Button btnProdSelect;
         private Label lblProdSelect;
         private Producto productoSelect;
+        private bool firstProdSelected = true;
+        private int comensales;
         public vistaPedidos(string nomCamarero,string numComensales)
         {
             InitializeComponent();
             lblCamarero.Content += nomCamarero;
             lblComensales.Content += numComensales;
+            this.comensales = int.Parse(numComensales);
             lblFecha.Content = calcularFecha();
             cargarFamiliasProd();
         }
@@ -173,10 +176,134 @@ namespace intermodular
                 grid.Children.Add(lbl);
                 btn.Content = grid;
 
-                btn.Click += (object sender, RoutedEventArgs rea) =>
+                btn.Click +=  async (object sender, RoutedEventArgs rea) =>
                 {
-
+                    btnProdSelect = btn;
+                    productoSelect = p;
+                    Producto.currentProduct = productoSelect;
                     //Añadimos el producto a una línea de pedido
+                    if(firstProdSelected)
+                    {
+                        //Se crea el ticket
+                        Ticket ticket = new Ticket(comensales);
+                        try
+                        {
+                            if(await Ticket.createTicket(ticket))
+                            {
+                                //Crear La línea de ticket
+                                try
+                                {
+                                    if(await Producto.createLineTicket(productoSelect))
+                                    {
+                                       
+                                    }
+                                    stackTicket.Children.Clear();
+                                    foreach (Producto linea in Producto.ticketLines)
+                                    {
+                                        //Crear Botón de linea de producto
+                                        Button lBtn = new Button
+                                        {
+                                            Margin = new Thickness(5),
+                                            Style = Application.Current.TryFindResource("btnRedondo") as Style
+
+                                        };
+                                        Grid gridLinea = new Grid();
+                                        for (int x = 0; x < 4; x++)
+                                        {
+                                            gridLinea.ColumnDefinitions.Add(new ColumnDefinition());
+                                        }
+                                        gridLinea.ColumnDefinitions[0].Width = new GridLength(20, GridUnitType.Star);
+                                        gridLinea.ColumnDefinitions[1].Width = new GridLength(40, GridUnitType.Star);
+                                        gridLinea.ColumnDefinitions[2].Width = new GridLength(20, GridUnitType.Star);
+                                        gridLinea.ColumnDefinitions[3].Width = new GridLength(20, GridUnitType.Star);
+
+                                        Label lblCantidad = new Label
+                                        {
+                                            Content = linea.cantidad,
+                                            FontSize = 19,
+                                            VerticalAlignment = VerticalAlignment.Center,
+                                            HorizontalAlignment = HorizontalAlignment.Left,
+                                            Margin = new Thickness(2, 0, 0, 0)
+                                        };
+
+                                        Label lblNombre = new Label
+                                        {
+                                            Content = linea.name,
+                                            FontSize = 19,
+                                            VerticalAlignment = VerticalAlignment.Center,
+                                            HorizontalAlignment = HorizontalAlignment.Left,
+                                        };
+
+                                        Label lblPrecioUnidad = new Label
+                                        {
+                                            Content = linea.precio,
+                                            FontSize = 19,
+                                            VerticalAlignment = VerticalAlignment.Center,
+                                            HorizontalAlignment = HorizontalAlignment.Left,
+                                        };
+
+                                        Label lblTotal = new Label
+                                        {
+                                            Content = (float)(Math.Truncate((double)(linea.cantidad * linea.precio) * 100.0) / 100.0),
+                                            FontSize = 19,
+                                            VerticalAlignment = VerticalAlignment.Center,
+                                            HorizontalAlignment = HorizontalAlignment.Left,
+                                        };
+
+                                        Image img = new Image
+                                        {
+                                            Width = 50,
+                                            Height = 50,
+                                            VerticalAlignment = VerticalAlignment.Center,
+                                            HorizontalAlignment = HorizontalAlignment.Left,
+                                            Cursor = Cursors.Hand
+                                        };
+
+                                        Grid gridNombre = new Grid();
+                                        for (int x = 0; x < 2; x++)
+                                        {
+                                            gridNombre.ColumnDefinitions.Add(new ColumnDefinition());
+                                        }
+                                        gridNombre.ColumnDefinitions[0].Width = new GridLength(80, GridUnitType.Star);
+                                        gridNombre.ColumnDefinitions[1].Width = new GridLength(20, GridUnitType.Star);
+                                        Grid.SetColumn(lblNombre, 0);
+                                        Grid.SetColumn(img, 1);
+                                        gridNombre.Children.Add(lblNombre);
+                                        gridNombre.Children.Add(img);
+
+                                        Grid.SetColumn(lblCantidad, 0);
+                                        Grid.SetColumn(gridNombre, 1);
+                                        Grid.SetColumn(lblPrecioUnidad, 2);
+                                        Grid.SetColumn(lblTotal, 3);
+                                        gridLinea.Children.Add(lblCantidad);
+                                        gridLinea.Children.Add(gridNombre);
+                                        gridLinea.Children.Add(lblPrecioUnidad);
+                                        gridLinea.Children.Add(lblTotal);
+                                        lBtn.Content = gridLinea;
+                                        stackTicket.Children.Add(lBtn);
+                                    }
+
+                                }
+                                catch(Exception e)
+                                {
+                                    MessageBox.Show("Error al acceder a la BD", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                                }
+                                
+                            }
+                            else
+                            {
+                                MessageBox.Show("Error al crear el Ticket", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                            }
+                        }
+                        catch(Exception e)
+                        {
+                            MessageBox.Show("Error al acceder a la BD", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                        }
+                     
+                    }
+                    else { 
+                    }
+
                 };
 
                 btn.MouseEnter += (object sender, MouseEventArgs MouseEnterevent) =>
