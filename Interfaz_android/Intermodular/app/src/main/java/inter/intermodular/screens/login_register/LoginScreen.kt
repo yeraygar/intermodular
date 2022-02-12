@@ -46,7 +46,7 @@ fun Login(navController: NavController, loginRegisterViewModel: LoginRegisterVie
         Spacer(modifier = Modifier.height(5.dp))
 
         Text(
-            text ="LOGIN",
+            text ="INICIAR SESIÓN",
             fontSize = 20.sp,
             fontWeight = FontWeight.ExtraBold,
             modifier = Modifier.align(Alignment.CenterHorizontally)
@@ -122,7 +122,7 @@ fun Login(navController: NavController, loginRegisterViewModel: LoginRegisterVie
 
             ){
             Text(
-                text = "LOGIN",
+                text = "VALIDAR",
                 fontWeight = FontWeight.ExtraBold,
                 color = Color.White
             )
@@ -140,7 +140,7 @@ fun Login(navController: NavController, loginRegisterViewModel: LoginRegisterVie
             colors = ButtonDefaults.buttonColors(backgroundColor = colorResource(R.color.azul)),
             ){
             Text(
-                text = "to Register",
+                text = "REGISTRARSE",
                 fontWeight = FontWeight.ExtraBold,
                 color = Color.White
             )

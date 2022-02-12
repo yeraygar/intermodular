@@ -65,7 +65,7 @@ fun ResponseRegister(
     if (res) {
         Text(text = "Email ya en uso")
         Logger.e("Email en uso")
-        buttonText.value = "Back to Login"
+        buttonText.value = "Volver al Login"
 
     } else {
         Column(
@@ -76,7 +76,7 @@ fun ResponseRegister(
                 .padding(10.dp)
         ) {
             Text(text = "Email disponible", modifier = Modifier.padding(10.dp), fontWeight = FontWeight.Bold, color = colorResource(id = R.color.azul_oscuro))
-            Text(text = "Client Creado", modifier = Modifier.padding(10.dp), fontWeight = FontWeight.Bold, color = colorResource(id = R.color.azul_oscuro))
+            Text(text = "Cliente Creado", modifier = Modifier.padding(10.dp), fontWeight = FontWeight.Bold, color = colorResource(id = R.color.azul_oscuro))
             if(loading1.value) Text(text = "Usuario Admin Creado", modifier = Modifier.padding(10.dp), fontWeight = FontWeight.Bold, color = colorResource(id = R.color.azul_oscuro))
             if(loading2.value) Text(text = "Zona Comedor Creada", modifier = Modifier.padding(10.dp), fontWeight = FontWeight.Bold, color = colorResource(id = R.color.azul_oscuro))
             if(loading3.value) Text(text = "30 Mesas Creadas", modifier = Modifier.padding(10.dp), fontWeight = FontWeight.Bold, color = colorResource(id = R.color.azul_oscuro))
@@ -127,7 +127,7 @@ fun ShowAlertDialog(
                     Spacer(modifier = Modifier.padding(5.dp))
 
                     Text(
-                        text = "REGISTER",
+                        text = "REGISTRO",
                         color = Color.Black,
                         fontWeight = FontWeight.Bold,
                         fontSize = 25.sp

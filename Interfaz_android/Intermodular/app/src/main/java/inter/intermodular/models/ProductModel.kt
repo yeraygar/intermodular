@@ -14,5 +14,5 @@ data class ProductModel(
     var id_client: String,
     var id_familia: String,
     var id_ticket: String,
-    val comentario: String
+    var comentario: String
 )

@@ -1,11 +1,13 @@
 package inter.intermodular.screens.table_payment
 
 import android.content.Context
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.*
 import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Rect
 import androidx.compose.ui.geometry.Size
@@ -13,6 +15,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Outline
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.res.colorResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.Density
 import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
@@ -149,7 +152,8 @@ fun TableScreen(
             currentLine = currentLine,
             tableViewModel = tableViewModel,
             applicationContext = applicationContext,
-            scope = scope
+            scope = scope,
+            currentTicketLines = currentTicketLines
         )
     }
 }
@@ -180,7 +184,37 @@ fun TableStart(
         snackbarHost = {
             SnackbarHost(
                 hostState = snackbarHostState,
-                snackbar = { /*No hara falta snackBar en este scaffold */ }
+                snackbar = {
+                    Card(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .clickable { snackbarHostState.currentSnackbarData?.dismiss() },
+                        backgroundColor = colorResource(id = R.color.oscuro)
+                    ){
+                        Column(
+                            horizontalAlignment = Alignment.CenterHorizontally,
+                            verticalArrangement = Arrangement.Center,
+                            modifier = Modifier.fillMaxWidth()
+                        ) {
+                            Row(
+                                modifier = Modifier.fillMaxWidth()
+                            ){
+                                Text(
+                                    text = currentLine.value.comentario,
+                                    color = Color.White,
+                                    fontWeight = FontWeight.Bold,
+                                    modifier = Modifier.padding(30.dp).fillMaxWidth(0.8f)
+                                )
+                                IconButton(
+                                    //modifier = Modifier.size(20.dp).padding(20.dp),
+                                    onClick = { snackbarHostState.currentSnackbarData?.dismiss() }
+                                ) {
+                                    Icon(Icons.Filled.HighlightOff, contentDescription = "Ver comentario", tint = Color.White)
+                                }
+                            }
+                        }
+                    }
+                }
             )},
         drawerBackgroundColor = colorResource(id = R.color.gris_muy_claro),
         drawerShape = customShape(),
@@ -229,7 +263,14 @@ fun TableStart(
             TicketHeadComponent(totalBill = totalBill)
 
             if(!currentTicketLines.value.isNullOrEmpty()) {
-                TicketContentComponent(currentTicketLines, applicationContext, currentLine, isLineOptionsOpen)
+                TicketContentComponent(
+                    currentTicketLines,
+                    applicationContext,
+                    currentLine,
+                    isLineOptionsOpen,
+                    snackbarHostState,
+                    scope
+                )
             }
         }
     }

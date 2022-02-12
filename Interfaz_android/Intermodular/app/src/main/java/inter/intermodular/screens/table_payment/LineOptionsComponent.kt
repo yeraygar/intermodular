@@ -48,16 +48,13 @@ fun ShowAlertDialogLineOptions(
     tableViewModel: TableViewModel,
     applicationContext: Context,
     scope: CoroutineScope,
-    currentLine: MutableState<ProductModel>
+    currentLine: MutableState<ProductModel>,
+    currentTicketLines: MutableState<List<ProductModel>>
 ) {
     val aceptarEnabled = remember { mutableStateOf(false) }
-    val cashOk = remember { mutableStateOf(false) }
-    val pagoTarjeta = remember { mutableStateOf(false) }
     val commentInput = remember { mutableStateOf("${currentLine.value.comentario}") }
 
-    //cashOk.value = (cashInput.value >= currentTicket.total)
-    if (pagoTarjeta.value) aceptarEnabled.value = true
-    else aceptarEnabled.value = cashOk.value
+    aceptarEnabled.value = !(commentInput.value.isBlank() || commentInput.value.isEmpty())
 
     Dialog(onDismissRequest = { isLineOptionsOpen.value = false }) {
         Surface(
@@ -73,7 +70,7 @@ fun ShowAlertDialogLineOptions(
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.Center,
                 modifier = Modifier
-                     .fillMaxWidth()
+                    .fillMaxWidth()
                     .padding(10.dp)
             ) {
 
@@ -99,10 +96,10 @@ fun ShowAlertDialogLineOptions(
                                     .padding(10.dp)
                             ) {
                                 Text(
-                                    text = "LINEA ELEGIDA ${currentLine.value.name} :  ${currentLine.value.cantidad}",
+                                    text = "LINEA ELEGIDA :  ${currentLine.value.name}(${currentLine.value.cantidad})",
                                     fontWeight = FontWeight.Bold,
                                     fontSize = 16.sp,
-                                    modifier = Modifier.padding(10.dp)
+                                    modifier = Modifier.padding(5.dp)
                                 )
 
                             }
@@ -115,6 +112,9 @@ fun ShowAlertDialogLineOptions(
                         Button(
                             onClick = {
                                 //TODO DELETE LINEA TICKET NUBE Y LISTA
+                                tableViewModel.deleteTicketLine(currentLine.value._id)
+                                if (currentTicketLines.value.contains(currentLine.value))
+                                    currentTicketLines.value = listOf()
                                 isLineOptionsOpen.value = false
                             },
                             modifier = Modifier
@@ -134,7 +134,6 @@ fun ShowAlertDialogLineOptions(
 
                     item {
                         OutlinedTextField(
-                            //  enabled = !pagoTarjeta.value,
                             value = commentInput.value,
                             onValueChange = { it.also { commentInput.value = it } },
                             label = {
@@ -174,10 +173,11 @@ fun ShowAlertDialogLineOptions(
                     }
                     item {
                         Button(
-                            enabled = aceptarEnabled.value,
+                            enabled = (aceptarEnabled.value && currentLine.value.comentario != commentInput.value),
                             onClick = {
-                                //TODO UPDATE LINEA TICKET EN LISTA Y BBDD
-                                      isLineOptionsOpen.value = false
+                                currentLine.value.comentario = commentInput.value
+                                tableViewModel.updateTicketLine(currentLine.value, currentLine.value._id)
+                                isLineOptionsOpen.value = false
                             },
                             modifier = Modifier
                                 .fillMaxWidth()
@@ -188,6 +188,28 @@ fun ShowAlertDialogLineOptions(
                         ) {
                             Text(
                                 text = "GUARDAR COMENTARIO",
+                                color = Color.White,
+                                fontSize = 12.sp
+                            )
+                        }
+                    }
+                    item {
+                        Button(
+                            enabled = (currentLine.value.comentario.isNotEmpty() || currentLine.value.comentario.isNotBlank()),
+                            onClick = {
+                                currentLine.value.comentario = ""
+                                tableViewModel.updateTicketLine(currentLine.value, currentLine.value._id)
+                                isLineOptionsOpen.value = false
+                            },
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .height(80.dp)
+                                .padding(10.dp),
+                            shape = RoundedCornerShape(5.dp),
+                            colors = ButtonDefaults.buttonColors(backgroundColor = colorResource(id = R.color.azul_oscuro)),
+                        ) {
+                            Text(
+                                text = "ELIMINAR COMENTARIO",
                                 color = Color.White,
                                 fontSize = 12.sp
                             )

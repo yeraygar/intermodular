@@ -151,7 +151,7 @@ fun ShowAlertDialogUser(
                           verticalArrangement = Arrangement.Center,
                       ) {
                           Text(
-                              text = if(correct) "Correct!" else "Incorrect!",
+                              text = if(correct) "Correcto!" else "Incorrecto!",
                               color = if(correct) colorResource(id = R.color.verde)
                               else colorResource(id = R.color.rojo),
                               fontWeight = FontWeight.Bold,

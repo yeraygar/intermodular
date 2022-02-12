@@ -76,7 +76,7 @@ fun SnackBarContent(
                         horizontalAlignment = Alignment.CenterHorizontally
                     ) {
                         Icon(imageVector = Icons.Default.Settings, contentDescription = "")
-                        Text(text = "Admin Options")
+                        Text(text = "OPCIONES ADMIN")
                     }
                 }
 
@@ -142,7 +142,7 @@ fun SnackBarContent(
 
                     ) {
                     Icon(imageVector = Icons.Default.Logout, contentDescription = "")
-                    Text(text = "LogOut")
+                    Text(text = "CERRAR SESIÓN")
                 }
             }
         }

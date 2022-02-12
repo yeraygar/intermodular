@@ -50,7 +50,7 @@ fun Register(navController: NavController, loginRegisterViewModel: LoginRegister
 
         Spacer(modifier = Modifier.height(5.dp))
 
-        Text(text = "REGISTER",
+        Text(text = "REGISTRO",
             fontSize = 20.sp,
             fontWeight = FontWeight.ExtraBold,
             modifier = Modifier.align(Alignment.CenterHorizontally)
@@ -61,14 +61,14 @@ fun Register(navController: NavController, loginRegisterViewModel: LoginRegister
         OutlinedTextField1(
             value = name.value,
             onValueChange = { name.value = it },
-            label = { Text(text = "Name", style = TextStyle(
+            label = { Text(text = "Nombre", style = TextStyle(
                 color = colorResource(id = R.color.gris_claro)),) },
-            placeholder = { Text(text = "Name",style = TextStyle(
+            placeholder = { Text(text = "Nombre",style = TextStyle(
                 color = colorResource(id = R.color.gris_claro)),) },
             singleLine = true,
             trailingIcon = {
                 val image = Icons.Filled.AccountCircle
-                Icon(imageVector = image, "Name")
+                Icon(imageVector = image, "Nombre")
             },
             colors = TextFieldDefaults.outlinedTextFieldColors(
                 focusedBorderColor = colorResource(id = R.color.azul_oscuro),
@@ -136,9 +136,9 @@ fun Register(navController: NavController, loginRegisterViewModel: LoginRegister
         OutlinedTextField1(
             value = password2.value,
             onValueChange = { password2.value = it },
-            label = { Text(text = "Repeat Password", style = TextStyle(
+            label = { Text(text = "Repite Password", style = TextStyle(
                 color = colorResource(id = R.color.gris_claro)),) },
-            placeholder = { Text(text = "Repeat Password",style = TextStyle(
+            placeholder = { Text(text = "Repite Password",style = TextStyle(
                 color = colorResource(id = R.color.gris_claro)),) },
             singleLine = true,
             visualTransformation = if (passwordVisibility) VisualTransformation.None else PasswordVisualTransformation(),
@@ -146,7 +146,7 @@ fun Register(navController: NavController, loginRegisterViewModel: LoginRegister
             trailingIcon = {
                 val image = if (passwordVisibility) Icons.Filled.Visibility else Icons.Filled.VisibilityOff
                 IconButton(onClick = { passwordVisibility = !passwordVisibility }
-                ) { Icon(imageVector  = image, "Repeat Password") }
+                ) { Icon(imageVector  = image, "Repite Password") }
             },
             colors = TextFieldDefaults.outlinedTextFieldColors(
                 focusedBorderColor = colorResource(id = R.color.azul_oscuro),
@@ -180,7 +180,7 @@ fun Register(navController: NavController, loginRegisterViewModel: LoginRegister
 
             ){
             Text(
-                text = "REGISTER",
+                text = "REGISTRO",
                 fontWeight = FontWeight.ExtraBold,
                 color = Color.White
             )

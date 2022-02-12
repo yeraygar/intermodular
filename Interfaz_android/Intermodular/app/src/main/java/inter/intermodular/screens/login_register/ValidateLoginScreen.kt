@@ -151,7 +151,7 @@ fun ResponseLogin(
         Text(text = "Bienvenido")
         Spacer(modifier = Modifier.padding(5.dp))
         Text(text = currentClient.name, fontWeight = FontWeight.Bold)
-        buttonText.value = "NEXT"
+        buttonText.value = "SIGUIENTE"
         Logger.i("Respuesta correcta")
 
     }
