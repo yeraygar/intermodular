@@ -82,7 +82,8 @@ fun ShowAlertDialogFamilyProducts(
                             cells = GridCells.Adaptive(100.dp),
                             // modifier = Modifier.fillMaxSize()
                         ){
-                            for ( i in 0 until familyProductList.value.count()){
+                            //for ( i in 0 until familyProductList.value.count()){
+                            for (product in familyProductList.value){
                                 item {
                                     Button(
                                         modifier = Modifier
@@ -92,21 +93,19 @@ fun ShowAlertDialogFamilyProducts(
 
                                         colors = ButtonDefaults.buttonColors(colorResource(id = R.color.azul_oscuro)),
                                         onClick = {
-                                            currentProduct = familyProductList.value[i]
-                                            Logger.i("Producto seleccionado $currentProduct")
+
                                             //TODO, logica de crear ticket y anyadir linea_ticket
-                                            scope.launch {
-                                                currentProduct = familyProductList.value[i]
+                                            //scope.launch {
+                                                currentProduct = product
                                                 Logger.i("Producto seleccionado $currentProduct")
                                                 if(currentTicketLines.value.isEmpty()){
 
                                                     tableViewModel.createTicket()
-                                                    delay(100)
+                                                    //delay(100)
                                                     currentProduct.id_ticket = currentTicket._id
                                                     tableViewModel.createTicketLine(currentProduct)
-                                                    //TODO COMPROBAR SI EL CURRENT PRODUCT NAME NO EXISTE EN LA LISTA
                                                     //recalculate(currentTicketLines = currentTicketLines, totalBill = totalBill)
-                                                    delay(100)
+                                                   // delay(100)
 
                                                 }
                                                 else{
@@ -115,15 +114,14 @@ fun ShowAlertDialogFamilyProducts(
                                                         if (line.name == currentProduct.name){
                                                             exists = true
                                                             line.cantidad++
-
                                                             line.total = line.cantidad * line.precio
-                                                            if (line.total.toString().length >= 5)
-                                                                line.total = line.total.toString().substring(0,4).toFloat()
+                                                            //if (line.total.toString().length >= 5)
+                                                               // line.total = line.total.toString().substring(0,4).toFloat()
                                                             tableViewModel.updateTicketLine(line, line._id)
                                                             val toGenerateLines = currentTicketLines.value
                                                             currentTicketLines.value = listOf()
                                                             currentTicketLines.value = toGenerateLines
-                                                            delay(200)
+                                                          //  delay(400)
                                                         }
                                                     }
 
@@ -132,20 +130,20 @@ fun ShowAlertDialogFamilyProducts(
                                                         tableViewModel.createTicketLine(currentProduct)
                                                         currentTicketLines.value = currentTicketLines.value + tableViewModel.currentTicketLineResponse
                                                     }
-                                                    delay(500)
+                                                   // delay(100)
                                                 }
                                                 currentTable.id_ticket = currentTicket._id
                                                 //tableViewModel.updateTable(currentTable, currentTable._id)
-                                                delay(100)
+                                               // delay(100)
                                                 productClicked.value = true
                                                // isDialogOpen.value = false
-                                            }
+                                           // }
 
                                         }) {
                                         Text(
-                                            text =  if (familyProductList.value[i].name.length > 5)
-                                                familyProductList.value[i].name.substring(0, 5)
-                                            else familyProductList.value[i].name,
+                                            text =  if (product.name.length > 5)
+                                                product.name.substring(0, 5)
+                                            else product.name,
                                             fontSize = 14.sp,
                                             color = Color.White,
                                             fontWeight = FontWeight.Bold

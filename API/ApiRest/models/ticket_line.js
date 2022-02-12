@@ -37,6 +37,11 @@ const ticketLineSchema = mongoose.Schema({
         type:String,
         required: false,
         default: "Error"
+    },
+    comentario:{
+        type: String,
+        required: false,
+        default: ""
     }
 
 })

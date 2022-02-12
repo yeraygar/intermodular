@@ -76,7 +76,7 @@ private fun ButtonMesa(i: Int, navController: NavHostController) {
             disabledElevation = 0.dp
         ),*/
         onClick = {
-
+            toReset = true
             //currentTable = if(emptySpace) currentZoneTables[i-1] else currentZoneTables[i]
             currentTable = currentZoneTables[i]
             currentTable.id_user = currentUser._id

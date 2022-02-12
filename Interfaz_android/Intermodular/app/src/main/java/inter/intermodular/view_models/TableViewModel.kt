@@ -19,7 +19,7 @@ class TableViewModel : ViewModel() {
 
     var currentTicketLineResponse : ProductModel by mutableStateOf(
         ProductModel("Error", "Error",0, 0.0f, 0, 0.0f,
-            "Error", "Error", "Error", "Error")
+            "Error", "Error", "Error", "")
     )
 
     var currentTicketResponse : TicketModel by mutableStateOf(
@@ -259,7 +259,7 @@ class TableViewModel : ViewModel() {
     fun resetTableViewModel(){
         currentTicketLineResponse =
             ProductModel("Error", "Error",0, 0.0f, 0, 0.0f,
-                "Error", "Error", "Error", "Error")
+                "Error", "Error", "Error", "")
 
 
         currentTicketResponse
