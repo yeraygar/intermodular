@@ -175,7 +175,7 @@ Content-Type: application/json
 
 {
     "id_client": "61fab7718b4920d2aa2d129c",
-    "zone_name": "Zona 2"
+    "zone_name": "Zona 2" 
 }
 
 ###
@@ -198,6 +198,12 @@ GET http://localhost:8081/api/tables/zone/62023a9d530ff963d9eaeef1 HTTP/1.1
 
 ###
 DELETE  ////ttp://localhost:8081/api/tables/zone/62023a9d530ff963d9eaeef1 HTTP/1.1
+
+###
+GET http://localhost:8081/api/ticket/table/62023bbc530ff963d9eaef02/sin_cobrar HTTP/1.1
+
+###
+GET http://localhost:8081/api/ticket_line/ticket/6204da1db8a6d8aa0f411ff4 HTTP/1.1
 
 
 

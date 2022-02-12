@@ -35,9 +35,9 @@ router.get("/ticket/:id", (req, res) => {
 //Update ticket, si algun campo no se pone no se elimina
 router.put("/ticket/:id", (req, res) => {
     const {id} = req.params;
-    const {name, email, active} = req.body;
+    const {total, tipo_ticket, id_user_que_abrio, id_user_que_cerro, id_client, id_table, name_table,comensales, date, cobrado} = req.body;
     ticketSchema
-        .updateOne({_id: id}, {$set:{name, email, active}})
+        .updateOne({_id: id}, {$set:{total,tipo_ticket,id_user_que_abrio,id_user_que_cerro,id_client,id_table,name_table,comensales,date,cobrado}})
         .then((data) =>{
             res.json(data);
             console.log(`\nticket Update succesful: \n ${data}`);
@@ -77,6 +77,23 @@ router.get("/ticket/client/:id_client", (req, res) => {
             console.log(`Error get /api/ticket/client/${id} : ${err}`);
         })
 })
+
+//Get ticket form a table id
+router.get("/ticket/table/:id_table/sin_cobrar", (req, res) => {
+    const {id_table} = req.params;
+    ticketSchema
+        .find({id_table: id_table, cobrado: false} )
+        .then((data) =>{
+            res.json(data);
+            console.log(`\nticket hasOpenTicket: \n ${data}`);
+        })
+        .catch((err) => {
+            res.json({message:err});
+            console.log(`Error get /api/ticket/client/${id} : ${err}`);
+        })
+})
+
+
 
 
 

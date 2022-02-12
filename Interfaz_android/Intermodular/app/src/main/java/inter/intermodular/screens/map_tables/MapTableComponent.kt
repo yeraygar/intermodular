@@ -17,6 +17,7 @@ import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
 import com.orhanobut.logger.Logger
 import inter.intermodular.R
@@ -57,60 +58,7 @@ fun MapTableComponent(
     }
 }
 
-@Composable
-fun RowContent(
-    i: Int,
-    mapViewModel: MapViewModel,
-    navController: NavHostController,
-) {
 
-    if (currentZone != null) {
-        if (!currentZoneTables.isNullOrEmpty()) {
-
-            for (table in currentZoneTables) Logger.w("All tables $table")
-
-
-            // if (!emptySpace) {
-            /**TODO Colocar en orden fila x columna las diferentes mesas*/
-            ButtonMesa(i, navController)
-            //emptySpace = false
-
-            // } else {
-            //TODO CREAR UN BOTON VACIO
-
-            /*  Button(
-                    modifier = Modifier
-                        .height(60.dp)
-                        .width(60.dp)
-                        .padding(3.dp),
-                    colors = ButtonDefaults.buttonColors(backgroundColor = Color.Transparent),
-
-                    onClick = {
-
-                        //currentTable = currentZoneTables[i]
-                        //Logger.i("Mesa seleccionada $currentTable")
-                        //navController.navigate(ScreenNav.TableScreen.route)
-                    }) {
-                    Text(
-                        text = "", fontSize = 8.sp,
-                    )
-                    emptySpace = true
-                    lastTable = currentZoneTables[i]
-                    //lastTable!!.num_column++
-                    //astTable!!.num_row++
-
-                    //ButtonMesa(i, navController)
-                }
-            }*/
-            // lastTable = currentZoneTables[i]
-            // tableColumn++
-            //if (tableColumn == 6) {
-            //    tableColumn = 1
-            //   tableRow++
-        }
-
-    }
-}
 
 @Composable
 private fun ButtonMesa(i: Int, navController: NavHostController) {
@@ -121,18 +69,23 @@ private fun ButtonMesa(i: Int, navController: NavHostController) {
             .padding(3.dp),
         colors =
             if (currentZoneTables[i].ocupada)ButtonDefaults.buttonColors(backgroundColor = colorResource(R.color.rojo))
-            else ButtonDefaults.buttonColors(backgroundColor = colorResource(R.color.azul)),
+            else ButtonDefaults.buttonColors(backgroundColor = colorResource(R.color.verde_mesa)),
        /* elevation = ButtonDefaults.elevation(
             defaultElevation = 10.dp,
             pressedElevation = 1.dp,
             disabledElevation = 0.dp
         ),*/
         onClick = {
-
+            toReset = true
             //currentTable = if(emptySpace) currentZoneTables[i-1] else currentZoneTables[i]
             currentTable = currentZoneTables[i]
+            currentTable.id_user = currentUser._id
+            firstOpenTable = true
             Logger.i("Mesa seleccionada $currentTable")
-            navController.navigate(ScreenNav.TableScreen.route)
+            navController.navigate(ScreenNav.TableScreen.route){
+                popUpTo(navController.graph.findStartDestination().id){saveState = false}
+                restoreState = true
+            }
         }) {
         Text(
             text =  if (currentZoneTables[i].name.length > 3)

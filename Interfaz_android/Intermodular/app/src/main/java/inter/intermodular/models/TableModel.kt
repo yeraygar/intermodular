@@ -14,5 +14,6 @@ data class TableModel(
     var num_row: Int,
     var num_column: Int,
     var comensalesMax: Int,
-    var id_user: String
+    var id_user: String,
+    var id_ticket: String
 )

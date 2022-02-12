@@ -59,6 +59,9 @@ interface ApiServices {
     @GET("users/client/{id}/admin")
     suspend fun getClientAdmin(@Path("id") id : String) : List<UserModel>
 
+    @POST("users")
+    suspend fun createUser(@Body user : UserPost) : Response<UserModel>
+
 
     /********************CLIENT**********************/
 
@@ -72,9 +75,7 @@ interface ApiServices {
     ) :List<ClientModel>
 
     @POST("client")
-    suspend fun createClient(
-        @Body client : ClientPost
-    ) : Response<ClientModel>
+    suspend fun createClient(@Body client : ClientPost) : Response<ClientModel>
 
 
     /********************ZONES**********************/
@@ -82,11 +83,64 @@ interface ApiServices {
     @GET("zones/client/{id}")
     suspend fun getZones(@Path(value = "id") id : String) : List<ZoneModel>
 
+    @POST("zones")
+    suspend fun createZone(@Body zone : ZonePost) : Response<ZoneModel>
+
 
     /********************TABLES**********************/
 
     @GET("tables/zone/{id}")
     suspend fun getZoneTables(@Path(value = "id") id : String) : List<TableModel>
+
+    @POST("tables")
+    suspend fun createTable(@Body table : TablePost) : Response<TableModel>
+
+    @PUT("tables/{id}")
+    suspend fun updateTable(@Path(value = "id") id : String, @Body table : TableModel) : Response<Any>
+
+
+    /********************TICKET**********************/
+
+    @GET("ticket/table/{id}/sin_cobrar")
+    suspend fun hasTicketOpen(@Path(value = "id") id : String ) : List<TicketModel>
+
+    @POST("ticket")
+    suspend fun createTicket(@Body ticket : TicketPost) : Response<TicketModel>
+
+    @PUT("ticket/{id}")
+    suspend fun updateTicket(@Path(value = "id") id : String, @Body ticket : TicketModel) : Response<Any>
+
+    @DELETE("ticket/{id}")
+    suspend fun deleteTicket(@Path(value = "id") id : String) : Response<Any>
+
+
+    /********************TICKET*LINES**********************/
+
+    @GET("ticket_line/ticket/{id}")
+    suspend fun getTicketLines(@Path(value = "id") id : String) : List<ProductModel>
+
+    @POST("ticket_line")
+    suspend fun createTicketLine(@Body product: ProductPost) : Response<ProductModel>
+
+    @PUT("ticket_line/{id}")
+    suspend fun updateTicketLine(@Path(value = "id") id : String, @Body ticket_line : ProductModel) : Response<Any>
+
+    @DELETE("ticket_line/{id}")
+    suspend fun deleteTicketLine(@Path(value = "id") id : String) : Response<Any>
+
+
+    /********************PRODUCTS**********************/
+
+    @GET("product/family/{id}")
+    suspend fun getFamilyProducts(@Path(value = "id") id : String) : List<ProductModel>
+
+
+    /********************FAMILIES**********************/
+
+    @GET("family/client/{id}")
+    suspend fun getClientFamilies(@Path(value = "id") id : String) : List<FamilyModel>
+
+
 
 
 }

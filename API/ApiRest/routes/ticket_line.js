@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const ticketLineSchema = require("../models/product");
+const ticketLineSchema = require("../models/ticket_line");
 
 
 //Create new ticket_line
@@ -36,9 +36,9 @@ router.get("/ticket_line/:id", (req, res) => {
 //Update ticket_line, si algun campo no se pone no se elimina
 router.put("/ticket_line/:id", (req, res) => {
     const {id} = req.params;
-    const {name, email, active} = req.body;
+    const {name, cantidad, precio, stock, total, id_client, id_familia, id_ticket, comentario} = req.body;
     ticketLineSchema
-        .updateOne({_id: id}, {$set:{name, email, active}})
+        .updateOne({_id: id}, {$set:{name, cantidad, precio, stock, total, id_client, id_familia, id_ticket, comentario}})
         .then((data) =>{
             res.json(data);
             console.log(`\nticket_line Update succesful: \n ${data}`);
