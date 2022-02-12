@@ -49,7 +49,7 @@ namespace intermodular
             InitializeComponent();
             { 
             //Obtenemos todas las Zonas que hay en la BD y creamos un botón por cada Zona encontrada
-               Zona.getAllZones().ContinueWith(task =>
+               Zona.getAllClientZones(Client.currentClient._id).ContinueWith(task =>
                 {
                     if (Zona.allZones != null)
                     {

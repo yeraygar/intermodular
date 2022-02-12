@@ -32,7 +32,7 @@ namespace intermodular
             InitializeComponent();
             Staticresources.mainWindow = this;
 
-            Zona.getAllZones().ContinueWith(task =>
+            Zona.getAllClientZones(Client.currentClient._id).ContinueWith(task =>
             {
                 if(Zona.allZones != null)
                 {
@@ -41,7 +41,6 @@ namespace intermodular
                         cargarZonas(Zona.allZones);
                         Mesa.getZoneTables(Zona.allZones[0]._id).ContinueWith(tasks =>
                         {
-
                             cargarGridMesas(Zona.allZones[0]);
                         }, TaskScheduler.FromCurrentSynchronizationContext());
                     }
@@ -457,6 +456,7 @@ namespace intermodular
                             btnMesaPressed.Background = Mesa.currentZoneTables[x].status ? (Brush)(new BrushConverter().ConvertFrom("#8dd56d")) : (Brush)(new BrushConverter().ConvertFrom("#cf6161"));
                             btnMesaPressed.Foreground = Brushes.Black;
                             mesaPressedFound = true;
+                            //Mesa.currentMesa = Mesa.currentZoneTables[x];
                         }
                     }
                 }
@@ -467,8 +467,17 @@ namespace intermodular
             }
             else
             {
-                //Abres una ventana cargando la mesa ---> Vista para realizar pedido, etc.
-                //PedidosMesa(mesa);  -----> Abrimos los pedidos de la mesa
+                bool founds = false;
+               for(int x = 0; x < Mesa.currentZoneTables.Count && !founds; x++)
+                {
+                    if (btn.Tag.Equals(Mesa.currentZoneTables[x]._id))
+                    {
+                        Mesa.currentMesa = Mesa.currentZoneTables[x];
+                        found = true;
+                    }
+                }
+                FicharEmpleado ficharEmp = new FicharEmpleado(false, false);
+                ficharEmp.Show();
             }
         }
 

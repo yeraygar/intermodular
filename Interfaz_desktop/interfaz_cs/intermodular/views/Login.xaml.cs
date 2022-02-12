@@ -66,7 +66,20 @@ namespace intermodular
                     await User.updateUser(User.usuarioElegido._id, User.usuarioElegido);
                     MessageBox.Show($"Usuario {User.usuarioElegido.name} ha fichado {(paraFichar ? "Entrada" : "Salida")}", "Contraseña Correcta!", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
-                else MessageBox.Show($"Usuario {User.usuarioElegido.name}", "Contraseña Correcta!", MessageBoxButton.OK, MessageBoxImage.Information);
+                else
+                {
+                    if(Mesa.currentMesa != null)
+                    {
+                        Comensales comensales = new Comensales(User.usuarioElegido);
+                        comensales.Show();
+                        //vistaPedidos vistaPedidos = new vistaPedidos();
+                        //vistaPedidos.Show();
+                    }
+                    else
+                    {
+                        MessageBox.Show("No va");
+                    }
+                }
 
                 this.Close();
             }

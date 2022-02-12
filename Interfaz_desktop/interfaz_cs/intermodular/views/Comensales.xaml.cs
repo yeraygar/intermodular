@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -19,9 +20,12 @@ namespace intermodular
     /// </summary>
     public partial class Comensales : Window
     {
-        public Comensales()
+        User user;
+        public Comensales(User user)
         {
             InitializeComponent();
+            nombreMesa.Text = "Mesa: "+Mesa.currentMesa.name + "\t  Num Sillas: " + Mesa.currentMesa.comensalesMax;
+            this.user = user;
         }
         /************************* BOTONERA *************************/
 
@@ -149,9 +153,25 @@ namespace intermodular
 
         private void btnAceptar_Click(object sender, System.EventArgs e)
         {
-            // ir a ventana actividad mesa
-            this.Close();
+            if (validComensales())
+            {
+                vistaPedidos vistaPed = new vistaPedidos(user.name, textComensal.Text);
+                vistaPed.Show();
+                this.Close();
+            }else
+            {
+                MessageBox.Show("Número de comensales no válidos","Error",MessageBoxButton.OK,MessageBoxImage.Error);
+            }
 
+        }
+
+        private bool validComensales() => !String.IsNullOrEmpty(textComensal.Text) && !String.IsNullOrWhiteSpace(textComensal.Text) && !textComensal.Text.Contains(" ") && int.Parse(textComensal.Text) > 0 && int.Parse(textComensal.Text) <= Mesa.currentMesa.comensalesMax;
+
+        private void textComensal_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            //bloquear los carácteres no numéricos
+            Regex regex = new Regex("[^0-9]+");
+            e.Handled = regex.IsMatch(e.Text);
         }
     }
 }

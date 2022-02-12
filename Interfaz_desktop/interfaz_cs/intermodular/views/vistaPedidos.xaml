@@ -1,0 +1,140 @@
+﻿<Window x:Class="intermodular.vistaPedidos"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:intermodular.views"
+        mc:Ignorable="d"
+        Title="vistaPedidos"
+        AllowsTransparency="True"
+        Background="White"
+        Width="{x:Static SystemParameters.PrimaryScreenWidth}"
+        Height="{x:Static SystemParameters.PrimaryScreenHeight}"
+        WindowStyle="None"
+        ResizeMode="NoResize"
+        Top="0"
+        Left="0">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="55*"/>
+            <RowDefinition Height="45*"/>
+        </Grid.RowDefinitions>
+        <Border CornerRadius="10">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="20*"/>
+                    <ColumnDefinition Width="80*"/>
+                </Grid.ColumnDefinitions>
+                <Border Grid.Column="1" Background="#E0E0E0" CornerRadius="10" Margin="5">
+                    <ScrollViewer x:Name="scrollProductos" VerticalScrollBarVisibility="Auto" CanContentScroll="True">
+                        <Grid x:Name="gridProductos" Background="Transparent">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition/>
+                            </Grid.RowDefinitions>
+                        </Grid>
+                    </ScrollViewer>
+                </Border>
+                <Border CornerRadius="10" Background="#5da9b7" Margin="5">
+                    <ScrollViewer x:Name="scrollCategoriaProd" VerticalScrollBarVisibility="Auto" CanContentScroll="True">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="10*"/>
+                                <RowDefinition Height="90*"/>
+                            </Grid.RowDefinitions>
+                            <Label FontSize="19" HorizontalAlignment="Center" Foreground="White" Content="Categorías" VerticalAlignment="Center"/>
+                            <Border Grid.Row="1" Background="#E0E0E0" CornerRadius="0,0,10,10" BorderThickness="2">
+                                <ScrollViewer x:Name="scrollFamiliasProd" VerticalScrollBarVisibility="Auto" CanContentScroll="True">
+                                    <StackPanel x:Name="stackFamilias"/>
+                                </ScrollViewer>
+                            </Border>
+                        </Grid>
+                    </ScrollViewer>
+                </Border>
+            </Grid>
+        </Border>
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="20*"/>
+                <ColumnDefinition Width="80*"/>
+            </Grid.ColumnDefinitions>
+            <Border CornerRadius="10" Margin="5">
+                <ScrollViewer x:Name="scrollBtnsAcciones" VerticalScrollBarVisibility="Auto" CanContentScroll="True">
+                    <StackPanel x:Name="stackBtnsAcciones" VerticalAlignment="Center">
+                        <Button x:Name="btnCobrar" Style="{StaticResource btnRedondo}" Width="300" Background="#97cfda" Cursor="Hand" MouseEnter="btnCobrar_MouseEnter" MouseLeave="btnCobrar_MouseLeave">
+                            <Grid Margin="0,10,0,10" Width="300">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="40*"/>
+                                    <ColumnDefinition Width="60*"/>
+                                </Grid.ColumnDefinitions>
+                                <Image x:Name="imgCobrar" Width="50" Height="50" Source="/intermodular;component/images/totales.png" RenderOptions.BitmapScalingMode="HighQuality" HorizontalAlignment="Right" Margin="0,0,5,0"/>
+                                <Label x:Name="lblCobrar" Grid.Column="1" Content="Cobrar" FontSize="19" VerticalAlignment="Center" Margin="5,0,0,0"/>
+                            </Grid>
+                        </Button>
+                        <Button x:Name="btnComensales" Style="{StaticResource btnRedondo}" Margin="0,10,0,0" Width="300" Background="#97cfda" Cursor="Hand" MouseEnter="btnComensales_MouseEnter" MouseLeave="btnComensales_MouseLeave">
+                            <Grid Margin="0,10,0,10" Width="300">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="40*"/>
+                                    <ColumnDefinition Width="60*"/>
+                                </Grid.ColumnDefinitions>
+                                <Image x:Name="imgComensales" Width="50" Height="50" RenderOptions.BitmapScalingMode="HighQuality" HorizontalAlignment="Right" Margin="0,0,5,0" Source="/intermodular;component/images/comensal.png"/>
+                                <Label x:Name="lblComensal" Grid.Column="1" Content="Comensales" FontSize="19" VerticalAlignment="Center" Margin="5,0,0,0"/>
+                            </Grid>
+                        </Button>
+
+                        <Button x:Name="btnEliminarLinea" Style="{StaticResource btnRedondo}" Margin="0,10,0,0" Width="300" Background="#97cfda" Cursor="Hand" MouseEnter="btnEliminarLinea_MouseEnter" MouseLeave="btnEliminarLinea_MouseLeave">
+                            <Grid Margin="0,10,0,10" Width="300">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="40*"/>
+                                    <ColumnDefinition Width="60*"/>
+                                </Grid.ColumnDefinitions>
+                                <Image x:Name="imgEliminarLinea" Width="50" Height="50" RenderOptions.BitmapScalingMode="HighQuality" HorizontalAlignment="Right" Margin="0,0,5,0" Source="/intermodular;component/images/cancel.png"/>
+                                <Label x:Name="lblEliminarLinea" Grid.Column="1" Content="Eliminar línea" FontSize="19" VerticalAlignment="Center" Margin="5,0,0,0"/>
+                            </Grid>
+                        </Button>
+                        <Button x:Name="btnEliminarPedido" Style="{StaticResource btnRedondo}" Margin="0,10,0,0" Width="300" Background="#97cfda" Cursor="Hand" MouseEnter="btnEliminarPedido_MouseEnter" MouseLeave="btnEliminarPedido_MouseLeave">
+                            <Grid Margin="0,10,0,10" Width="300">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="40*"/>
+                                    <ColumnDefinition Width="60*"/>
+                                </Grid.ColumnDefinitions>
+                                <Image x:Name="imgEliminarPedido" Width="50" Height="50" RenderOptions.BitmapScalingMode="HighQuality" HorizontalAlignment="Right" Margin="0,0,5,0" Source="/intermodular;component/images/eliminar.png"/>
+                                <Label x:Name="lblBorrarPedido" Grid.Column="1" Content="Borrar pedido" FontSize="19" VerticalAlignment="Center" Margin="5,0,0,0"/>
+                            </Grid>
+                        </Button>
+                    </StackPanel>
+                </ScrollViewer>
+            </Border>
+            <Border Grid.Column="1" Background="#E0E0E0" CornerRadius="10" Margin="5">
+                <Grid x:Name="gridTicket">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="10*"/>
+                        <RowDefinition Height="80*"/>
+                        <RowDefinition Height="10*"/>
+                    </Grid.RowDefinitions>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="70*"/>
+                            <ColumnDefinition Width="20*"/>
+                            <ColumnDefinition Width="10*"/>
+                        </Grid.ColumnDefinitions>
+                        <Label x:Name="lblCamarero" FontSize="19" Content="Camarero: " VerticalAlignment="Center"/>
+                        <Label Grid.Column="1" x:Name="lblComensales" FontSize="19" Content="Comensales: " VerticalAlignment="Center"/>
+                        <Label Grid.Column="2" x:Name="lblFecha" FontSize="19" Content="Fecha" VerticalAlignment="Center"/>
+                    </Grid>
+                    <Label Grid.Row="2" Content="Total: " FontSize="19" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0,0,50,0"/>
+                    <ScrollViewer Grid.Row="1" x:Name="scrollTicket" VerticalScrollBarVisibility="Auto" CanContentScroll="True" HorizontalScrollBarVisibility="Auto">
+                        <StackPanel x:Name="stackTicket" Orientation="Vertical" Margin="5,0,5,0"/>
+                    </ScrollViewer>
+                </Grid>
+            </Border>
+        </Grid>
+    </Grid>
+</Window>

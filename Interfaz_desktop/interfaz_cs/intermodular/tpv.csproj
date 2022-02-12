@@ -170,6 +170,9 @@
     <Compile Include="views\VistaEmpleados.xaml.cs">
       <DependentUpon>VistaEmpleados.xaml</DependentUpon>
     </Compile>
+    <Compile Include="views\vistaPedidos.xaml.cs">
+      <DependentUpon>vistaPedidos.xaml</DependentUpon>
+    </Compile>
     <Compile Include="views\VistaProductos.xaml.cs">
       <DependentUpon>VistaProductos.xaml</DependentUpon>
     </Compile>
@@ -249,6 +252,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="views\VistaEmpleados.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="views\vistaPedidos.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -423,6 +430,14 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="images\chips.PNG" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="images\comensal.png" />
+    <Resource Include="images\comensal_blanco.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="images\comentario.png" />
+    <Resource Include="images\comentario_blanco.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\System.Text.Json.6.0.1\build\System.Text.Json.targets" Condition="Exists('..\packages\System.Text.Json.6.0.1\build\System.Text.Json.targets')" />
