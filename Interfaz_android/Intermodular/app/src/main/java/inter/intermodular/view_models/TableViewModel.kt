@@ -55,6 +55,7 @@ class TableViewModel : ViewModel() {
                 if (response.isSuccessful){
                     currentTicketLineResponse = response.body()!!
                     Logger.i("CORRECT createTicketLine $product")
+                    
                 }else Logger.e("Response not Successful in createTicketLIne")
             }catch (e: Exception){
                 errorMessage = e.message.toString()

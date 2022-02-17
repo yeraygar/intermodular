@@ -27,14 +27,14 @@ var firstOpenMap : Boolean = true
 var firstOpenTable :Boolean = true
 var toReset : Boolean = true
 
-val defaultAdmin : UserPost = UserPost(
+var defaultAdmin : UserPost = UserPost(
     name = "Admin",
     passw = "1234",
     id_client = currentClient._id,
     rol = "Admin"
 )
 
-val defaultTable : TablePost = TablePost(
+var defaultTable : TablePost = TablePost(
     name = "11",
     id_user = currentUser._id,
     num_column = 0,
@@ -43,7 +43,33 @@ val defaultTable : TablePost = TablePost(
     comensalesMax = 6
 )
 
-val defaultZone : ZonePost = ZonePost(
+var defaultZone : ZonePost = ZonePost(
     zone_name = "Comedor",
     id_client = currentClient._id
 )
+
+var defaultFamily : FamilyPost = FamilyPost(
+    name = "Barril",
+    id_client = currentClient._id
+)
+
+var defaultProduct1 : ProductPost = ProductPost(
+    name = "Caña",
+    precio = 1.5f,
+    cantidad = 1,
+    total = 1.5f,
+    id_client = currentClient._id,
+    id_familia = "Error",
+    id_ticket = "Error"
+)
+var defaultProduct2 : ProductPost = ProductPost(
+    name = "Pinta",
+    precio = 1.5f,
+    cantidad = 1,
+    total = 1.5f,
+    id_client = currentClient._id,
+    id_familia = "Error",
+    id_ticket = "Error"
+)
+
+

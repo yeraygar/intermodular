@@ -9,8 +9,7 @@ import com.orhanobut.logger.Logger
 import inter.intermodular.models.*
 import inter.intermodular.services.ApiServices
 import inter.intermodular.support.*
-import kotlinx.coroutines.async
-import kotlinx.coroutines.awaitAll
+
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import retrofit2.Response
@@ -24,7 +23,7 @@ import retrofit2.Response
 class LoginRegisterViewModel : ViewModel() {
 
     var allUsersClientResponse : List<UserModel> by mutableStateOf(listOf())
-    var adminsClientResponse : List<UserModel> by mutableStateOf(listOf())
+    //var adminsClientResponse : List<UserModel> by mutableStateOf(listOf())
 
     var emailExistsResponse : Boolean by mutableStateOf(true)
     var currentClientResponse : ClientModel by mutableStateOf(
@@ -38,6 +37,10 @@ class LoginRegisterViewModel : ViewModel() {
 
     var currentTableResponse : TableModel by mutableStateOf(
         TableModel("Error", "Error", true, false, "Error", 6, 1,1,10,"Error", "Error"))
+
+    var currentFamilyResponse : FamilyModel by mutableStateOf(
+        FamilyModel("Error", "Error", "Error")
+    )
 
     private var errorMessage : String by mutableStateOf("")
 
@@ -104,7 +107,7 @@ class LoginRegisterViewModel : ViewModel() {
         }
     }
 
-    fun createUser(user : UserPost){
+    private fun createUser(user : UserPost){
         viewModelScope.launch {
             val apiServices = ApiServices.getInstance()
             try{
@@ -121,7 +124,7 @@ class LoginRegisterViewModel : ViewModel() {
         }
     }
 
-    fun createZone(zone : ZonePost){
+    private fun createZone(zone : ZonePost){
         viewModelScope.launch {
             val apiServices = ApiServices.getInstance()
             try{
@@ -138,7 +141,41 @@ class LoginRegisterViewModel : ViewModel() {
         }
     }
 
-    fun createTable(table : TablePost){
+    private fun createFamily(family : FamilyPost){
+        viewModelScope.launch {
+            val apiServices = ApiServices.getInstance()
+            try{
+                val response : Response<FamilyModel> = apiServices.createFamily(family)
+                if(response.isSuccessful){
+                    currentFamilyResponse = response.body()!!
+                    currentFamily = currentFamilyResponse
+                    Logger.i("Create Family SUCCESSFUL \n $response \n ${response.body()}")
+                }else Logger.e("Error Response Create Family")
+            }catch (e: Exception){
+                errorMessage = e.message.toString()
+                Logger.e("FAILURE create Family")
+            }
+        }
+    }
+
+    private fun createProduct(product : ProductPost){
+        viewModelScope.launch {
+            val apiServices = ApiServices.getInstance()
+            try{
+                val response : Response<ProductModel> = apiServices.createProduct(product)
+                if(response.isSuccessful){
+                    //  currentZoneResponse = response.body()!!
+                    //  currentZone = currentZoneResponse
+                    Logger.i("Create Product SUCCESSFUL \n $response \n ${response.body()}")
+                }else Logger.e("Error Response Create Product")
+            }catch (e: Exception){
+                errorMessage = e.message.toString()
+                Logger.e("FAILURE create Product")
+            }
+        }
+    }
+
+    private fun createTable(table : TablePost){
         viewModelScope.launch {
             val apiServices = ApiServices.getInstance()
             try{
@@ -161,6 +198,8 @@ class LoginRegisterViewModel : ViewModel() {
             createUser(defaultAdmin)
             defaultZone.id_client = currentClient._id
             createZone(defaultZone)
+            defaultFamily.id_client = currentClient._id
+            createFamily(defaultFamily)
             delay(500)
             currentZone = currentZoneResponse
             defaultTable.id_zone = currentZoneResponse._id
@@ -174,11 +213,17 @@ class LoginRegisterViewModel : ViewModel() {
                     if(defaultTable.num_column == 5) defaultTable.num_row++
                 }
             }
+            defaultProduct1.id_client = currentClient._id
+            defaultProduct1.id_familia = currentFamilyResponse._id
+            createProduct(defaultProduct1)
+            defaultProduct2.id_client = currentClient._id
+            defaultProduct2.id_familia = currentFamilyResponse._id
+            createProduct(defaultProduct2)
         }
     }
 
 
-    fun getClientAdmins(){
+/*    fun getClientAdmins(){
         viewModelScope.launch {
             val apiServices = ApiServices.getInstance()
             try{
@@ -189,5 +234,6 @@ class LoginRegisterViewModel : ViewModel() {
                 Logger.e("FAILURE getClientAdmins ")
             }
         }
-    }
+    }*/
+
 }

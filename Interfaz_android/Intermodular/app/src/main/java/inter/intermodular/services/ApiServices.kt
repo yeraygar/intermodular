@@ -23,8 +23,8 @@ interface ApiServices {
                                 /**cmd -> ipconfig -> IPv4Address*/
 
                 //val address : Array<String> = arrayOf("http://192.168.56.1:8081/api/", "Pablo")
-               // val address : Array<String> = arrayOf("http://192.168.1.93:8081/api/", "PabloPhone")
-                val address : Array<String> = arrayOf("http://192.168.86.141:8081/api/", "PabloPhoneClase")
+                val address : Array<String> = arrayOf("http://192.168.1.93:8081/api/", "PabloPhone")
+               // val address : Array<String> = arrayOf("http://192.168.86.141:8081/api/", "PabloPhoneClase")
                 //val address : Array<String> = arrayOf("http://xxxxxxxxxx:8081/api/", "Yeray")
                 //val address : Array<String> = arrayOf("http://xxxxxxxxxx:8081/api/", "Maria")
 
@@ -135,11 +135,17 @@ interface ApiServices {
     @GET("product/family/{id}")
     suspend fun getFamilyProducts(@Path(value = "id") id : String) : List<ProductModel>
 
+    @POST("product")
+    suspend fun createProduct(@Body product : ProductPost) : Response<ProductModel>
+
 
     /********************FAMILIES**********************/
 
     @GET("family/client/{id}")
     suspend fun getClientFamilies(@Path(value = "id") id : String) : List<FamilyModel>
+
+    @POST("family")
+    suspend fun createFamily(@Body family : FamilyPost) : Response<FamilyModel>
 
 
 

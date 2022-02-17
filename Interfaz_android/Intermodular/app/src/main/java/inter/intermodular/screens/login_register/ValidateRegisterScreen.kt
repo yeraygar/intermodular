@@ -59,7 +59,9 @@ fun ResponseRegister(
     buttonText: MutableState<String>,
     loading1: MutableState<Boolean>,
     loading2: MutableState<Boolean>,
-    loading3: MutableState<Boolean>
+    loading3: MutableState<Boolean>,
+    loading4: MutableState<Boolean>,
+    loading5: MutableState<Boolean>
 ) {
     val res = loginRegisterViewModel.emailExistsResponse
     if (res) {
@@ -80,6 +82,8 @@ fun ResponseRegister(
             if(loading1.value) Text(text = "Usuario Admin Creado", modifier = Modifier.padding(10.dp), fontWeight = FontWeight.Bold, color = colorResource(id = R.color.azul_oscuro))
             if(loading2.value) Text(text = "Zona Comedor Creada", modifier = Modifier.padding(10.dp), fontWeight = FontWeight.Bold, color = colorResource(id = R.color.azul_oscuro))
             if(loading3.value) Text(text = "30 Mesas Creadas", modifier = Modifier.padding(10.dp), fontWeight = FontWeight.Bold, color = colorResource(id = R.color.azul_oscuro))
+            if(loading4.value) Text(text = "Familia Barril Creada", modifier = Modifier.padding(10.dp), fontWeight = FontWeight.Bold, color = colorResource(id = R.color.azul_oscuro))
+            if(loading5.value) Text(text = "Caña y Pinta Creados", modifier = Modifier.padding(10.dp), fontWeight = FontWeight.Bold, color = colorResource(id = R.color.azul_oscuro))
             Logger.i("Email disponible")
             buttonText.value = "Login"
             LaunchedEffect(Unit){
@@ -89,6 +93,10 @@ fun ResponseRegister(
                 loading2.value = true
                 delay(400)
                 loading3.value = true
+                delay(400)
+                loading4.value = true
+                delay(400)
+                loading5.value = true
             }
         }
     }
@@ -107,6 +115,8 @@ fun ShowAlertDialog(
     val loading1 = remember { mutableStateOf(false)}
     val loading2 = remember { mutableStateOf(false)}
     val loading3 = remember { mutableStateOf(false)}
+    val loading4 = remember { mutableStateOf(false)}
+    val loading5 = remember { mutableStateOf(false)}
     var oneClick = true
 
     if(isDialogOpen.value) {
@@ -139,7 +149,9 @@ fun ShowAlertDialog(
                         buttonText = buttonText,
                         loading1 = loading1,
                         loading2 = loading2,
-                        loading3 = loading3
+                        loading3 = loading3,
+                        loading4 = loading4,
+                        loading5 = loading5
                     )
 
                     Spacer(modifier = Modifier.padding(15.dp))
