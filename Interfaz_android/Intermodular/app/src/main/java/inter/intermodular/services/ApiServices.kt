@@ -23,7 +23,8 @@ interface ApiServices {
                                 /**cmd -> ipconfig -> IPv4Address*/
 
                 //val address : Array<String> = arrayOf("http://192.168.56.1:8081/api/", "Pablo")
-                val address : Array<String> = arrayOf("http://192.168.1.93:8081/api/", "PabloPhone")
+               // val address : Array<String> = arrayOf("http://192.168.1.93:8081/api/", "PabloPhone")
+                val address : Array<String> = arrayOf("http://192.168.86.141:8081/api/", "PabloPhoneClase")
                 //val address : Array<String> = arrayOf("http://xxxxxxxxxx:8081/api/", "Yeray")
                 //val address : Array<String> = arrayOf("http://xxxxxxxxxx:8081/api/", "Maria")
 
