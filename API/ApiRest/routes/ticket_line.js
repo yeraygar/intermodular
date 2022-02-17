@@ -79,4 +79,19 @@ router.get("/ticket_line/ticket/:id_ticket", (req, res) => {
         })
 })
 
+//Delete all ticket_line from a Ticket
+router.delete("/ticket_line/ticket/:id_ticket", (req, res) => {
+    const {id_ticket} = req.params;
+    ticketLineSchema
+    .deleteMany({id_ticket : id_ticket})
+    .then((data) =>{
+        res.json(data);
+        console.log("Todas la lineas del ticket fueron eliminadas "+ data);
+    })
+    .catch((error) => {
+        res.json({message:error});
+        console.log("Error al borrar las líneas de pedido " +error);
+    })
+})
+
 module.exports = router

@@ -16,17 +16,17 @@ using System.Windows.Shapes;
 namespace intermodular
 {
     /// <summary>
-    /// Lógica de interacción para CrearZona.xaml
+    /// Lógica de interacción para ModComensalesPedido.xaml
     /// </summary>
-    public partial class CrearZona : Window
+    public partial class ModComensalesPedido : Window
     {
-        public Zona zona;
-        private bool editedZone = false;
-        public CrearZona()
+        public int comensales;
+        public ModComensalesPedido()
         {
             InitializeComponent();
+            this.Height = (System.Windows.SystemParameters.PrimaryScreenHeight * 0.35);
+            this.Width = (System.Windows.SystemParameters.PrimaryScreenWidth * 0.25);
         }
-
         private void btn_cerrar_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
@@ -36,23 +36,6 @@ namespace intermodular
         {
             this.Close();
         }
-        
-        //Comprobamos que el nombre de la zona y el numero de mesas son valores válidos, de ser así creamos la mesa.
-        private async void btnSiguiente_Click(object sender, RoutedEventArgs e)
-        {
-            if(checkZoneName(txtZona.Text))
-            {
-                zona = await Zona.createZone(new Zona(txtZona.Text));
-                this.Close();
-            }
-            else
-            {
-                MessageBox.Show("Error al crear la zona");
-            }
-
-        }
-
-        //Cambia el color del botón de cerrar, al pasar por encima.
         private void btn_cerrar_MouseEnter(object sender, MouseEventArgs e)
         {
             btn_cerrar.Background = (Brush)(new BrushConverter().ConvertFrom("#ff3232"));
@@ -97,7 +80,7 @@ namespace intermodular
         //Este método comprueba que el nombre de la zona no este vacío, etc, comprueba que sea válido.
         private bool checkZoneName(string txtZona)
         {
-            if(!String.IsNullOrEmpty(txtZona) && !String.IsNullOrWhiteSpace(txtZona))
+            if (!String.IsNullOrEmpty(txtZona) && !String.IsNullOrWhiteSpace(txtZona) && !txtZona.Contains(" ") && int.Parse(txtZona) <= Mesa.currentMesa.comensalesMax && int.Parse(txtZona) > 0)
             {
                 return true;
             }
@@ -107,16 +90,57 @@ namespace intermodular
             }
         }
 
+        private void txtZona_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            Regex regex = new Regex("[^0-9]+");
+            e.Handled = regex.IsMatch(e.Text);
+        }
+
         private void txtZona_TextChanged(object sender, TextChangedEventArgs e)
         {
-            if(!editedZone)
+            imgValidZoneName.Visibility = Visibility.Visible;
+            if(String.IsNullOrEmpty(txtZona.Text) || String.IsNullOrWhiteSpace(txtZona.Text))
             {
-                editedZone = true;
+                imgValidZoneName.Source = (ImageSource)new ImageSourceConverter().ConvertFrom("..\\..\\images\\error.png");
+                imgValidZoneName.ToolTip = "Debe introducir un numero de comensales";
+            }else if(txtZona.Text.Contains(" "))
+            {
+                imgValidZoneName.Source = (ImageSource)new ImageSourceConverter().ConvertFrom("..\\..\\images\\error.png");
+                imgValidZoneName.ToolTip = "El campo no puede contener espacios";
             }
             else
             {
-                imgValidZoneName.Visibility = Visibility.Visible;
-                imgValidZoneName.Source = checkZoneName(txtZona.Text) ? (ImageSource)new ImageSourceConverter().ConvertFrom("..\\..\\images\\verify.png") : (ImageSource)new ImageSourceConverter().ConvertFrom("..\\..\\images\\error.png");
+                if (int.Parse(txtZona.Text) <= 0)
+                {
+                    imgValidZoneName.Source = (ImageSource)new ImageSourceConverter().ConvertFrom("..\\..\\images\\error.png");
+                    imgValidZoneName.ToolTip = "El número de comensales tiene que ser mayor que 0";
+                }
+                else
+                {
+                    if (int.Parse(txtZona.Text) <= Mesa.currentMesa.comensalesMax)
+                    {
+                        imgValidZoneName.Source = (ImageSource)new ImageSourceConverter().ConvertFrom("..\\..\\images\\verify.png");
+                        imgValidZoneName.ToolTip = null;
+                    }
+                    else
+                    {
+                        imgValidZoneName.Source = (ImageSource)new ImageSourceConverter().ConvertFrom("..\\..\\images\\error.png");
+                        imgValidZoneName.ToolTip = "El número introducido es mayor al número máximo de comensales de la mesa";
+                    }
+                }
+            }
+        }
+
+        private void btnSiguiente_Click(object sender, RoutedEventArgs e)
+        {
+            if (checkZoneName(txtZona.Text))
+            {
+                comensales = int.Parse(txtZona.Text);
+                this.Close();
+            }
+            else
+            {
+                MessageBox.Show("Número no válido", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
     }

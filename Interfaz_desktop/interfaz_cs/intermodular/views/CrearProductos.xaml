@@ -60,7 +60,7 @@
                             <ColumnDefinition/>
                             <ColumnDefinition/>
                         </Grid.ColumnDefinitions>
-                        <Button x:Name="btnCancelar" Style="{StaticResource btnRedondo}" Width="180" Height="60" FontSize="19" Cursor="Hand" HorizontalAlignment="Right" Margin="0,0,10,0" Click="btnCancelar_Click" MouseEnter="btnCancelar_MouseEnter" MouseLeave="btnCancelar_MouseLeave">
+                        <Button x:Name="btnCancelar" Style="{StaticResource btnRedondo}" Width="200" Height="60" FontSize="19" Cursor="Hand" HorizontalAlignment="Right" Margin="0,0,10,0" Click="btnCancelar_Click" MouseEnter="btnCancelar_MouseEnter" MouseLeave="btnCancelar_MouseLeave">
                             <Grid>
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition/>

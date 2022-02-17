@@ -1,0 +1,73 @@
+﻿<Window x:Class="intermodular.Comentario"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:intermodular.views"
+        mc:Ignorable="d"
+        AllowsTransparency="true"
+        WindowStyle="none"
+        Background="Transparent"
+        WindowStartupLocation="CenterScreen"
+        Title="CrearZona" 
+        Height="350" 
+        Width="600"
+        ResizeMode="NoResize">
+    <Border Background="#48C9B0" CornerRadius="10">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="47"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="60"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock FontSize="25" Foreground="White" VerticalAlignment="Center" Margin="10,0,0,0">Añadir comentario</TextBlock>
+                <Button x:Name="btn_cerrar" Style="{StaticResource btnRedondo}" Grid.Column="1" Height="40" Width="40" Cursor="Hand" Click="btn_cerrar_Click" MouseEnter="btn_cerrar_MouseEnter" MouseLeave="btn_cerrar_MouseLeave">
+                    <Image x:Name="imgCerrar" Source="..\images\cerrar.png" Width="20" Height="20" RenderOptions.BitmapScalingMode="HighQuality"/>
+                </Button>
+            </Grid>
+            <Border Grid.Row="1" Background="WhiteSmoke" CornerRadius="0,0,10,10" BorderThickness="3">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="2*"/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <Grid>
+                        <TextBlock Margin="60,70,0,0" TextWrapping="Wrap" Text="Comentario" VerticalAlignment="Top" HorizontalAlignment="Left" FontSize="19"/>
+                        <TextBox x:Name="txtComentario" HorizontalAlignment="Left" Margin="172,72,0,0" TextWrapping="NoWrap" VerticalAlignment="Top" Width="319" FontSize="19" Height="27"/>
+                        <Image x:Name="imgValidZoneName" Width="30" Height="30" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="520,69,0,0" Source="/intermodular;component/images/verify.png" RenderOptions.BitmapScalingMode="HighQuality"/>
+                    </Grid>
+                    <Grid Grid.Row="1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <Button x:Name="btnCancelar" Style="{StaticResource btnRedondo}" Width="180" Height="60" FontSize="19" Cursor="Hand" Click="btnCancelar_Click" MouseEnter="btnCancelar_MouseEnter" MouseLeave="btnCancelar_MouseLeave">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+                                <Image x:Name="imgCancel" Source="..\images\cancel.png" Width="30" Height="30" RenderOptions.BitmapScalingMode="HighQuality" Margin="0,0,10,0"/>
+                                <TextBlock Grid.Column="1" FontSize="19" Text="Cancelar"/>
+                            </Grid>
+                        </Button>
+                        <Button x:Name="btnSiguiente" Grid.Column="1" Style="{StaticResource btnRedondo}" Width="200" Height="60" FontSize="19" Cursor="Hand" Click="btnSiguiente_Click" MouseEnter="btnSiguiente_MouseEnter" MouseLeave="btnSiguiente_MouseLeave">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition />
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Text="Siguiente" HorizontalAlignment="Center"/>
+                                <Image x:Name="imgNext" Grid.Column="1" Source="..\images\next.png" Width="30" Margin="10,0,0,0" RenderOptions.BitmapScalingMode="HighQuality"/>
+                            </Grid>
+                        </Button>
+                    </Grid>
+                </Grid>
+            </Border>
+        </Grid>
+    </Border>
+</Window>

@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -16,38 +15,26 @@ using System.Windows.Shapes;
 namespace intermodular
 {
     /// <summary>
-    /// Lógica de interacción para CrearZona.xaml
+    /// Lógica de interacción para Comentario.xaml
     /// </summary>
-    public partial class CrearZona : Window
+    public partial class Comentario : Window
     {
-        public Zona zona;
-        private bool editedZone = false;
-        public CrearZona()
+        public string comentario;
+        public Comentario()
         {
             InitializeComponent();
         }
-
-        private void btn_cerrar_Click(object sender, RoutedEventArgs e)
-        {
-            this.Close();
-        }
-
-        private void btnCancelar_Click(object sender, RoutedEventArgs e)
-        {
-            this.Close();
-        }
-        
         //Comprobamos que el nombre de la zona y el numero de mesas son valores válidos, de ser así creamos la mesa.
         private async void btnSiguiente_Click(object sender, RoutedEventArgs e)
         {
-            if(checkZoneName(txtZona.Text))
+            if (checkZoneName(txtComentario.Text))
             {
-                zona = await Zona.createZone(new Zona(txtZona.Text));
+                comentario = txtComentario.Text;
                 this.Close();
             }
             else
             {
-                MessageBox.Show("Error al crear la zona");
+                MessageBox.Show("Debe añadir un comentario");
             }
 
         }
@@ -97,7 +84,7 @@ namespace intermodular
         //Este método comprueba que el nombre de la zona no este vacío, etc, comprueba que sea válido.
         private bool checkZoneName(string txtZona)
         {
-            if(!String.IsNullOrEmpty(txtZona) && !String.IsNullOrWhiteSpace(txtZona))
+            if (!String.IsNullOrEmpty(txtZona) && !String.IsNullOrWhiteSpace(txtZona))
             {
                 return true;
             }
@@ -106,18 +93,15 @@ namespace intermodular
                 return false;
             }
         }
-
-        private void txtZona_TextChanged(object sender, TextChangedEventArgs e)
+        private void btn_cerrar_Click(object sender, RoutedEventArgs e)
         {
-            if(!editedZone)
-            {
-                editedZone = true;
-            }
-            else
-            {
-                imgValidZoneName.Visibility = Visibility.Visible;
-                imgValidZoneName.Source = checkZoneName(txtZona.Text) ? (ImageSource)new ImageSourceConverter().ConvertFrom("..\\..\\images\\verify.png") : (ImageSource)new ImageSourceConverter().ConvertFrom("..\\..\\images\\error.png");
-            }
+            this.Close();
         }
+
+        private void btnCancelar_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
+
     }
 }

@@ -107,6 +107,13 @@ namespace intermodular
             {
                 retorno = false;
             }
+            else
+            {
+                if(int.Parse(txtNumZona) <= 0)
+                {
+                    retorno = false;
+                }
+            }
             return retorno;
         }
 
@@ -170,8 +177,17 @@ namespace intermodular
                     imgValidNumComensales.ToolTip = "El campo no puede contener espacios";
                 }else
                 {
-                    imgValidNumComensales.Source = (ImageSource)new ImageSourceConverter().ConvertFrom("..\\..\\images\\verify.png");
-                    imgValidNumComensales.ToolTip = null;
+                    if(int.Parse(txtNumMesas.Text) <= 0)
+                    {
+                    imgValidNumComensales.Source = (ImageSource)new ImageSourceConverter().ConvertFrom("..\\..\\images\\error.png");
+                    imgValidNumComensales.ToolTip = "El Número de comensales no puede ser 0";
+                }
+                    else
+                    {
+                        imgValidNumComensales.Source = (ImageSource)new ImageSourceConverter().ConvertFrom("..\\..\\images\\verify.png");
+                        imgValidNumComensales.ToolTip = null;
+                    }
+
                 }
         }
     }
