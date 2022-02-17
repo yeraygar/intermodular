@@ -21,7 +21,11 @@
 
     <Border CornerRadius="20">
         <Border.Background>
-            <ImageBrush ImageSource="..\images\leaves-green-leaves-macro-wallpaper-preview.jpg"/>
+            <VisualBrush>
+                <VisualBrush.Visual>
+                    <Image Source="..\images\leaves-green-leaves-macro-wallpaper-preview.jpg" RenderOptions.BitmapScalingMode="HighQuality"/>
+                </VisualBrush.Visual>
+            </VisualBrush>
         </Border.Background>
         
         <Grid>

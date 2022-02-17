@@ -19,9 +19,12 @@ namespace intermodular
     /// </summary>
     public partial class Cobro : Window
     {
-        public Cobro()
+        public Cobro(string nombreEmpleado,float total)
         {
             InitializeComponent();
+            LabelNombre.Content = nombreEmpleado;
+            LabelMesa.Content = Mesa.currentMesa.name;
+            LabelTotal.Content = "Total " + total + "€";
             //LabelNombre.Content = User.usuarioElegido;
             
         }
@@ -42,14 +45,42 @@ namespace intermodular
             imgCerrar.Source = (ImageSource)new ImageSourceConverter().ConvertFrom("..\\..\\images\\cerrar.png");
         }
 
-        private void boton_efectivo(object sender, RoutedEventArgs e)
+        private async void boton_efectivo(object sender, RoutedEventArgs e)
         {
-            this.Close();
-        }
+            //Cerrar Ticket
+            Ticket.currentTicket.cobrado = true;
+            try
+            {
+               if(await Ticket.updateTicket(Ticket.currentTicket))
+                {
+                    //Actualizar mesa con comensales 0 y ocupada = false
+                    Mesa.currentMesa.comensales = 0;
+                    Mesa.currentMesa.ocupada = false;
+                    if (await Mesa.updateTable(Mesa.currentMesa._id, Mesa.currentMesa))
+                    {
+                        //CurrentMesa = null
+                        //CurrentTicket = null
+                        //Productos ticketLines = null
+                        Ticket.currentTicket = null;
+                        Producto.ticketLines = null;
+                        this.Close();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Error al actualizar la mesa", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
+         
+                }
+                else
+                {
+                    MessageBox.Show("No se pudo cobrar el ticket", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show("Error al acceder a la BD", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
 
-        private void boton_tarjeta(object sender, RoutedEventArgs e)
-        {
-            this.Close();
         }
 
     } 

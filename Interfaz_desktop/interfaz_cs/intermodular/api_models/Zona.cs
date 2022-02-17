@@ -58,13 +58,13 @@ namespace intermodular
 
 
 
-        public Zona(string id_client,string zone_name)
+        public Zona(string zone_name)
         {
-            this._id_client = id_client;
+            this._id_client = Client.currentClient._id;
             this._zone_name = zone_name;
         }
 
-        public static async Task getAllZones()
+       /* public static async Task getAllZones()
         {
             HttpClient client = new HttpClient();
             string url = "http://localhost:8081/api/zones";
@@ -90,7 +90,7 @@ namespace intermodular
                 //allZones = JsonSerializer.Deserialize<List<Zona>>(content);
                 allZones = todasZonas;
             }
-        }
+        }*/
 
         public static async Task getZoneById(string id)
         {
@@ -194,6 +194,34 @@ namespace intermodular
             }else
             {
                 return false;
+            }
+        }
+
+        public static async Task getAllClientZones(string id_client)
+        {
+            string url = $"{Staticresources.urlHead}zones/client/{id_client}";
+
+
+            //Hacemos la peticion
+            var httpResponse = Staticresources.httpClient.GetAsync(url);
+
+            //Tareas que podemos hacer mientras se hace la peticion,
+            // Si no necesitamos hacer nada mientras se puede hacer del tiron
+            // deteniendo el hilo principal:
+            // var httpResponse = await client.GetAsync(url);
+
+            //Detenemos el hilo principal hasta que recibamos la respuesta
+            await httpResponse;
+
+            if (httpResponse.Result.IsSuccessStatusCode)
+            {
+                //Esto tambien asincrono por si el contenido es muy grande (leer respuesta), detiene hilo principal
+                var content = await httpResponse.Result.Content.ReadAsStringAsync();
+
+                //Deserializamos el Json y guardamos en una lista de User
+                List<Zona> listaRes = JsonSerializer.Deserialize<List<Zona>>(content);
+
+                allZones = listaRes;
             }
         }
 

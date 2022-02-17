@@ -24,6 +24,7 @@ namespace intermodular
 
         public static Producto currentProduct;
         public static Producto currentTicketLine;
+        public static List<Producto> ticketLines;
         public static List<Producto> clientProducts;
         public static List<Producto> ticketProducts;
         public static List<Producto> familyProducts;
@@ -157,7 +158,22 @@ namespace intermodular
             else return false;
         }
 
-    /*********************************************LINEA TICKETS************************************************/
+        /*********************************************LINEA TICKETS************************************************/
+
+        public static async Task getAllTicketLinesFromTicket(string id)
+        {
+            string url = $"{Staticresources.urlHead}ticket_line/ticket/{id}";
+            var httpResponse = Staticresources.httpClient.GetAsync(url);
+            await httpResponse;
+
+            if (httpResponse.Result.IsSuccessStatusCode)
+            {
+                var content = await httpResponse.Result.Content.ReadAsStringAsync();
+                List<Producto> allLines = JsonSerializer.Deserialize<List<Producto>>(content);
+
+                ticketLines = allLines;
+            }
+        }
 
         public static async Task<bool> getTicketProducts(string id)
         {
@@ -191,6 +207,7 @@ namespace intermodular
 
         public static async Task<bool> createLineTicket(Producto producto)
         {
+            bool retorno = false;
             string url = $"{Staticresources.urlHead}/ticket_line";
 
             JObject values = new JObject
@@ -204,23 +221,66 @@ namespace intermodular
                 { "stock", producto.stock },
                 { "id_familia", producto.id_familia }
             };
-
-            HttpContent content = new StringContent(values.ToString(), System.Text.Encoding.UTF8, "application/json");
-
-            HttpResponseMessage httpResponse = await Staticresources.httpClient.PostAsync(url, content);
-
-            if (httpResponse.IsSuccessStatusCode)
+            HttpContent content;
+            HttpResponseMessage httpResponse;
+            if (ticketLines != null)
             {
-                string result = await httpResponse.Content.ReadAsStringAsync();
-                currentTicketLine = JsonSerializer.Deserialize<Producto>(result);
-                return true;
+                bool found = false;
+                for (int x = 0; x < ticketLines.Count && !found; x++)
+                {
+                    if (ticketLines[x].name.Equals(producto.name))
+                    {
+                        Console.WriteLine(ticketLines[x].cantidad);
+                        ticketLines[x].cantidad = ticketLines[x].cantidad + 1;
+                        await updateLineTicket(ticketLines[x]);
+                        found = true;
+                    }
+                }
+                
+                if (!found)
+                {
+                    content = new StringContent(values.ToString(), System.Text.Encoding.UTF8, "application/json");
+                    httpResponse = await Staticresources.httpClient.PostAsync(url, content);
+                    if (httpResponse.IsSuccessStatusCode)
+                    {
+                        var result = await httpResponse.Content.ReadAsStringAsync();
+                        var postResult = JsonSerializer.Deserialize<Producto>(result);
+                        currentTicketLine = postResult;
+                        ticketLines.Add(currentTicketLine);
+                        retorno = true;
+                    }
+                    else
+                    {
+                        retorno = false;
+                    }
+
+                }
             }
-            return false;
+            else
+            {
+                content = new StringContent(values.ToString(), System.Text.Encoding.UTF8, "application/json");
+                httpResponse = await Staticresources.httpClient.PostAsync(url, content);
+                if (httpResponse.IsSuccessStatusCode)
+                {
+                    var result = await httpResponse.Content.ReadAsStringAsync();
+                    var postResult = JsonSerializer.Deserialize<Producto>(result);
+                    currentTicketLine = postResult;
+                    ticketLines = new List<Producto>();
+                    ticketLines.Add(currentTicketLine);
+                    retorno = true;
+                }
+                else
+                {
+                    retorno = false;
+                }
+            }
+
+            return retorno;
         }
 
         public static async Task<bool> updateLineTicket(Producto producto)
         {
-            string url = $"{Staticresources.urlHead}ticket_line/{currentTicketLine._id}";
+            string url = $"{Staticresources.urlHead}ticket_line/{producto._id}";
 
             JObject values = new JObject
             {
@@ -235,7 +295,7 @@ namespace intermodular
 
             HttpContent content = new StringContent(values.ToString(), System.Text.Encoding.UTF8, "application/json");
 
-            HttpResponseMessage httpResponse = await Staticresources.httpClient.PostAsync(url, content);
+            HttpResponseMessage httpResponse = await Staticresources.httpClient.PutAsync(url, content);
 
             if (httpResponse.IsSuccessStatusCode)
             {
@@ -265,9 +325,23 @@ namespace intermodular
 
         public static async Task<bool> deleteAllFamilyProducts(string id_familia)
         {
-            string url = $"{Staticresources.urlHead}/product/family/{id_familia}";
+            string url = $"{Staticresources.urlHead}product/family/{id_familia}";
             HttpResponseMessage httpResponse = await Staticresources.httpClient.DeleteAsync(url);
             return httpResponse.IsSuccessStatusCode;  //Esto ya retorna true o false.
+        }
+
+        public static async Task<bool> deleteAllTicketLinesFromTicket(string id_ticket)
+        {
+            string url = $"{Staticresources.urlHead}ticket_line/ticket/{id_ticket}";
+            HttpResponseMessage httpResponse = await Staticresources.httpClient.DeleteAsync(url);
+            if(httpResponse.IsSuccessStatusCode)
+            {
+                ticketLines = null;
+                return true;
+            }else
+            {
+                return false;
+            }
         }
 
 
