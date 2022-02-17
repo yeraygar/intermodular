@@ -68,7 +68,7 @@ namespace intermodular
                 }
                 else
                 {
-                    if(Mesa.currentMesa != null)
+                    if(Mesa.currentMesa != null && Mesa.currentMesa.comensales == 0)
                     {
                         Comensales comensales = new Comensales(User.usuarioElegido);
                         comensales.Show();
@@ -76,9 +76,11 @@ namespace intermodular
                         //vistaPedidos vistaPedidos = new vistaPedidos();
                         //vistaPedidos.Show();
                     }
-                    else
+                    else if(Mesa.currentMesa != null)
                     {
-                        MessageBox.Show("No va");
+                        User.currentUser = User.usuarioElegido;
+                        vistaPedidos viP = new vistaPedidos(User.usuarioElegido.name, Mesa.currentMesa.comensales.ToString());
+                        viP.Show();
                     }
                 }
 

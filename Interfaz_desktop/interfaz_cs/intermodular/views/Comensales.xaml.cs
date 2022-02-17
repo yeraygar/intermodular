@@ -151,13 +151,29 @@ namespace intermodular
             imgCerrar.Source = (ImageSource)new ImageSourceConverter().ConvertFrom("..\\..\\images\\cerrar.png");
         }
 
-        private void btnAceptar_Click(object sender, System.EventArgs e)
+        private async void btnAceptar_Click(object sender, System.EventArgs e)
         {
             if (validComensales())
             {
-                vistaPedidos vistaPed = new vistaPedidos(user.name, textComensal.Text);
-                vistaPed.Show();
-                this.Close();
+                Mesa.currentMesa.comensales = int.Parse(textComensal.Text);
+                if (Mesa.currentMesa.comensales == Mesa.currentMesa.comensalesMax) Mesa.currentMesa.ocupada = true;
+                try
+                {
+                    if (await Mesa.updateTable(Mesa.currentMesa._id, Mesa.currentMesa))
+                    {
+                        vistaPedidos vistaPed = new vistaPedidos(user.name, textComensal.Text);
+                        vistaPed.Show();
+                        this.Close();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Error al actualizar la mesa", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
+                }catch(Exception exception)
+                {
+                    MessageBox.Show("Error al cargar la BD", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+             
             }else
             {
                 MessageBox.Show("Número de comensales no válidos","Error",MessageBoxButton.OK,MessageBoxImage.Error);

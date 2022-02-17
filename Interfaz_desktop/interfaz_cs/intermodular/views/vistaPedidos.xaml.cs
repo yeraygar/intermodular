@@ -35,6 +35,7 @@ namespace intermodular
             this.comensales = int.Parse(numComensales);
             lblFecha.Content = calcularFecha();
             cargarFamiliasProd();
+            cargarTicketMesa();
         }
        private async void cargarFamiliasProd()
         {
@@ -179,9 +180,11 @@ namespace intermodular
                 btn.Click +=  async (object sender, RoutedEventArgs rea) =>
                 {
                     btnProdSelect = btn;
-                    productoSelect = p;
+                    Producto pr = new Producto(p);
+                    productoSelect = pr;
                     Producto.currentProduct = productoSelect;
                     //Añadimos el producto a una línea de pedido
+                    firstProdSelected = !await Ticket.getTicketFromTable(Mesa.currentMesa._id);
                     if(firstProdSelected)
                     {
                         //Se crea el ticket
@@ -190,7 +193,6 @@ namespace intermodular
                         {
                             if(await Ticket.createTicket(ticket))
                             {
-                                //Crear La línea de ticket
                                 try
                                 {
                                     if(await Producto.createLineTicket(productoSelect))
@@ -198,90 +200,7 @@ namespace intermodular
                                        
                                     }
                                     stackTicket.Children.Clear();
-                                    foreach (Producto linea in Producto.ticketLines)
-                                    {
-                                        //Crear Botón de linea de producto
-                                        Button lBtn = new Button
-                                        {
-                                            Margin = new Thickness(5),
-                                            Style = Application.Current.TryFindResource("btnRedondo") as Style
-
-                                        };
-                                        Grid gridLinea = new Grid();
-                                        for (int x = 0; x < 4; x++)
-                                        {
-                                            gridLinea.ColumnDefinitions.Add(new ColumnDefinition());
-                                        }
-                                        gridLinea.ColumnDefinitions[0].Width = new GridLength(20, GridUnitType.Star);
-                                        gridLinea.ColumnDefinitions[1].Width = new GridLength(40, GridUnitType.Star);
-                                        gridLinea.ColumnDefinitions[2].Width = new GridLength(20, GridUnitType.Star);
-                                        gridLinea.ColumnDefinitions[3].Width = new GridLength(20, GridUnitType.Star);
-
-                                        Label lblCantidad = new Label
-                                        {
-                                            Content = linea.cantidad,
-                                            FontSize = 19,
-                                            VerticalAlignment = VerticalAlignment.Center,
-                                            HorizontalAlignment = HorizontalAlignment.Left,
-                                            Margin = new Thickness(2, 0, 0, 0)
-                                        };
-
-                                        Label lblNombre = new Label
-                                        {
-                                            Content = linea.name,
-                                            FontSize = 19,
-                                            VerticalAlignment = VerticalAlignment.Center,
-                                            HorizontalAlignment = HorizontalAlignment.Left,
-                                        };
-
-                                        Label lblPrecioUnidad = new Label
-                                        {
-                                            Content = linea.precio,
-                                            FontSize = 19,
-                                            VerticalAlignment = VerticalAlignment.Center,
-                                            HorizontalAlignment = HorizontalAlignment.Left,
-                                        };
-
-                                        Label lblTotal = new Label
-                                        {
-                                            Content = (float)(Math.Truncate((double)(linea.cantidad * linea.precio) * 100.0) / 100.0),
-                                            FontSize = 19,
-                                            VerticalAlignment = VerticalAlignment.Center,
-                                            HorizontalAlignment = HorizontalAlignment.Left,
-                                        };
-
-                                        Image img = new Image
-                                        {
-                                            Width = 50,
-                                            Height = 50,
-                                            VerticalAlignment = VerticalAlignment.Center,
-                                            HorizontalAlignment = HorizontalAlignment.Left,
-                                            Cursor = Cursors.Hand
-                                        };
-
-                                        Grid gridNombre = new Grid();
-                                        for (int x = 0; x < 2; x++)
-                                        {
-                                            gridNombre.ColumnDefinitions.Add(new ColumnDefinition());
-                                        }
-                                        gridNombre.ColumnDefinitions[0].Width = new GridLength(80, GridUnitType.Star);
-                                        gridNombre.ColumnDefinitions[1].Width = new GridLength(20, GridUnitType.Star);
-                                        Grid.SetColumn(lblNombre, 0);
-                                        Grid.SetColumn(img, 1);
-                                        gridNombre.Children.Add(lblNombre);
-                                        gridNombre.Children.Add(img);
-
-                                        Grid.SetColumn(lblCantidad, 0);
-                                        Grid.SetColumn(gridNombre, 1);
-                                        Grid.SetColumn(lblPrecioUnidad, 2);
-                                        Grid.SetColumn(lblTotal, 3);
-                                        gridLinea.Children.Add(lblCantidad);
-                                        gridLinea.Children.Add(gridNombre);
-                                        gridLinea.Children.Add(lblPrecioUnidad);
-                                        gridLinea.Children.Add(lblTotal);
-                                        lBtn.Content = gridLinea;
-                                        stackTicket.Children.Add(lBtn);
-                                    }
+                                    cargarTicketMesa();
 
                                 }
                                 catch(Exception e)
@@ -301,28 +220,35 @@ namespace intermodular
                         }
                      
                     }
-                    else { 
+                    else {
+                        try
+                        {
+                            if (await Producto.createLineTicket(productoSelect))
+                            {
+
+                            }
+                            stackTicket.Children.Clear();
+                            cargarTicketMesa();
+
+                        }
+                        catch (Exception e)
+                        {
+                            MessageBox.Show("Error al acceder a la BD", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                        }
                     }
 
                 };
 
                 btn.MouseEnter += (object sender, MouseEventArgs MouseEnterevent) =>
                 {
-                    if (btnProdSelect == null || !btnProdSelect.Tag.Equals(btn.Tag))
-                    {
-
                         btn.Background = (Brush)(new BrushConverter().ConvertFrom("#51aaa7"));
                         btn.Foreground = Brushes.White;
-                    }
                 };
 
                 btn.MouseLeave += (object sender, MouseEventArgs MouseLeaveEvent) =>
                 {
-                    if (btnProdSelect == null || !btnProdSelect.Tag.Equals(btn.Tag))
-                    {
                         btn.Background = Brushes.White;
                         btn.Foreground = Brushes.Black;
-                    }
                 };
                 if (column == 2)
                 {
@@ -337,6 +263,210 @@ namespace intermodular
                 Grid.SetColumn(btn, column);
                 Grid.SetRow(btn, row);
                 gridProductos.Children.Add(btn);
+            }
+        }
+        private async void cargarTicketMesa()
+        {
+            try
+            {
+                if(await Ticket.getTicketFromTable(Mesa.currentMesa._id))
+                {
+                    if(Ticket.currentTicket != null)
+                    {
+                        await Producto.getAllTicketLinesFromTicket(Ticket.currentTicket._id);
+
+                        ///
+                        if (Producto.ticketLines != null && Producto.ticketLines.Count > 0)
+                        {
+                            Border borde = new Border
+                            {
+                                Background = Brushes.LightBlue,
+                                BorderThickness = new Thickness(1),
+                                BorderBrush = Brushes.LightBlue
+                            };
+                            //Crear Botón de linea de producto
+                            Grid gridLine = new Grid();
+                            borde.Child = gridLine;
+                            for (int x = 0; x < 4; x++)
+                            {
+                                gridLine.ColumnDefinitions.Add(new ColumnDefinition());
+                            }
+                            gridLine.ColumnDefinitions[0].Width = new GridLength(1, GridUnitType.Star);
+                            gridLine.ColumnDefinitions[1].Width = new GridLength(2, GridUnitType.Star);
+                            gridLine.ColumnDefinitions[2].Width = new GridLength(1, GridUnitType.Star);
+                            gridLine.ColumnDefinitions[3].Width = new GridLength(1, GridUnitType.Star);
+
+                            Label lblCantida = new Label
+                            {
+                                Content = "Cantidad",
+                                FontSize = 19,
+                                VerticalAlignment = VerticalAlignment.Center,
+                                HorizontalAlignment = HorizontalAlignment.Left,
+                                Margin = new Thickness(2, 0, 0, 0)
+                            };
+
+                            Label lblNombr = new Label
+                            {
+                                Content = "Producto",
+                                FontSize = 19,
+                                VerticalAlignment = VerticalAlignment.Center,
+                                HorizontalAlignment = HorizontalAlignment.Left,
+                            };
+
+                            Label lblPrecioUnida = new Label
+                            {
+                                Content = "€/U",
+                                FontSize = 19,
+                                VerticalAlignment = VerticalAlignment.Center,
+                                HorizontalAlignment = HorizontalAlignment.Left,
+                            };
+
+                            Label lblTota = new Label
+                            {
+                                Content = "Total = " + calcTotal().ToString() + "€",
+                                FontSize = 19,
+                                VerticalAlignment = VerticalAlignment.Center,
+                                HorizontalAlignment = HorizontalAlignment.Left,
+                            };
+
+                            Image im = new Image
+                            {
+                                Width = 50,
+                                Height = 50,
+                                VerticalAlignment = VerticalAlignment.Center,
+                                HorizontalAlignment = HorizontalAlignment.Left,
+                                Cursor = Cursors.Hand
+                            };
+
+                            Grid gridNombr = new Grid();
+                            for (int x = 0; x < 2; x++)
+                            {
+                                gridNombr.ColumnDefinitions.Add(new ColumnDefinition());
+                            }
+                            gridNombr.ColumnDefinitions[0].Width = new GridLength(80, GridUnitType.Star);
+                            gridNombr.ColumnDefinitions[1].Width = new GridLength(20, GridUnitType.Star);
+                            Grid.SetColumn(lblNombr, 0);
+                            Grid.SetColumn(im, 1);
+                            gridNombr.Children.Add(lblNombr);
+                            gridNombr.Children.Add(im);
+
+                            Grid.SetColumn(lblCantida, 0);
+                            Grid.SetColumn(gridNombr, 1);
+                            Grid.SetColumn(lblPrecioUnida, 2);
+                            Grid.SetColumn(lblTota, 3);
+                            gridLine.Children.Add(lblCantida);
+                            gridLine.Children.Add(gridNombr);
+                            gridLine.Children.Add(lblPrecioUnida);
+                            gridLine.Children.Add(lblTota);
+                            stackTicket.Children.Add(borde);
+                        }
+                        ///
+                        foreach (Producto t in Producto.ticketLines)
+                            {
+                            Border border = new Border
+                            {
+                                Background = Brushes.White,
+                                BorderThickness = new Thickness(1),
+                                BorderBrush = Brushes.LightBlue
+                            };
+                            //Crear Botón de linea de producto
+                            Grid gridLinea = new Grid();
+                            border.Child = gridLinea;
+                            gridLinea.Background = Brushes.White;
+                            for (int x = 0; x < 4; x++)
+                            {
+                                gridLinea.ColumnDefinitions.Add(new ColumnDefinition());
+                            }
+                            gridLinea.ColumnDefinitions[0].Width = new GridLength(1, GridUnitType.Star);
+                            gridLinea.ColumnDefinitions[1].Width = new GridLength(2, GridUnitType.Star);
+                            gridLinea.ColumnDefinitions[2].Width = new GridLength(1, GridUnitType.Star);
+                            gridLinea.ColumnDefinitions[3].Width = new GridLength(1, GridUnitType.Star);
+
+                            Label lblCantidad = new Label
+                            {
+                                Content = t.cantidad,
+                                FontSize = 19,
+                                VerticalAlignment = VerticalAlignment.Center,
+                                HorizontalAlignment = HorizontalAlignment.Left,
+                                Margin = new Thickness(2, 0, 0, 0)
+                            };
+
+                            Label lblNombre = new Label
+                            {
+                                Content = t.name,
+                                FontSize = 19,
+                                VerticalAlignment = VerticalAlignment.Center,
+                                HorizontalAlignment = HorizontalAlignment.Left,
+                            };
+
+                            Label lblPrecioUnidad = new Label
+                            {
+                                Content = t.precio,
+                                FontSize = 19,
+                                VerticalAlignment = VerticalAlignment.Center,
+                                HorizontalAlignment = HorizontalAlignment.Left,
+                            };
+
+                            Label lblTotal = new Label
+                            {
+                                Content = (float)(Math.Truncate((double)(t.cantidad * t.precio) * 100.0) / 100.0),
+                                FontSize = 19,
+                                VerticalAlignment = VerticalAlignment.Center,
+                                HorizontalAlignment = HorizontalAlignment.Left,
+                            };
+
+                            Image img = new Image
+                            {
+                                Width = 30,
+                                Height = 30,
+                                VerticalAlignment = VerticalAlignment.Center,
+                                HorizontalAlignment = HorizontalAlignment.Left,
+                                Source = (ImageSource)new ImageSourceConverter().ConvertFrom("..\\..\\images\\comentario.png"),
+                                Cursor = Cursors.Hand
+                            };
+
+                            img.MouseLeftButtonDown += (object sender, MouseButtonEventArgs mva) =>
+                            {
+                                if(img.Tag == null || img.Tag.Equals(""))
+                                {
+                                    Comentario comentario = new Comentario();
+                                    comentario.ShowDialog();
+                                    if (comentario.comentario != null) img.Tag = comentario.comentario;
+                                }
+                                else
+                                {
+                                    MessageBox.Show(img.Tag.ToString(), "Comentario", MessageBoxButton.OK, MessageBoxImage.Information);
+                                }
+                            };
+
+                            RenderOptions.SetBitmapScalingMode(img, BitmapScalingMode.HighQuality);
+                            Grid gridNombre = new Grid();
+                            for (int x = 0; x < 2; x++)
+                            {
+                                gridNombre.ColumnDefinitions.Add(new ColumnDefinition());
+                            }
+                            gridNombre.ColumnDefinitions[0].Width = new GridLength(60, GridUnitType.Star);
+                            gridNombre.ColumnDefinitions[1].Width = new GridLength(40, GridUnitType.Star);
+                            Grid.SetColumn(lblNombre, 0);
+                            Grid.SetColumn(img, 1);
+                            gridNombre.Children.Add(lblNombre);
+                            gridNombre.Children.Add(img);
+
+                            Grid.SetColumn(lblCantidad, 0);
+                            Grid.SetColumn(gridNombre, 1);
+                            Grid.SetColumn(lblPrecioUnidad, 2);
+                            Grid.SetColumn(lblTotal, 3);
+                            gridLinea.Children.Add(lblCantidad);
+                            gridLinea.Children.Add(gridNombre);
+                            gridLinea.Children.Add(lblPrecioUnidad);
+                            gridLinea.Children.Add(lblTotal);
+                            stackTicket.Children.Add(border);
+                        }
+                    }
+                }
+            }catch(Exception e)
+            {
+                MessageBox.Show("Error al cargar la BD", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
@@ -396,6 +526,94 @@ namespace intermodular
             btnEliminarPedido.Background = (Brush)(new BrushConverter().ConvertFrom("#97cfda"));
             lblBorrarPedido.Foreground = Brushes.Black;
             imgEliminarPedido.Source = (ImageSource)new ImageSourceConverter().ConvertFrom("..\\..\\images\\eliminar.png");
+        }
+
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            Staticresources.mainWindow.resetGridMesas();
+            Staticresources.mainWindow.cargarGridMesas(Staticresources.mainWindow.zonaSelect);
+            Ticket.currentTicket = null;
+            Producto.ticketLines = null;
+        }
+
+        private void btnVolver_MouseEnter(object sender, MouseEventArgs e)
+        {
+            btnVolver.Background = (Brush)(new BrushConverter().ConvertFrom("#cd2323"));
+            lblVolver.Foreground = Brushes.White;
+            imgVolver.Source = (ImageSource)new ImageSourceConverter().ConvertFrom("..\\..\\images\\back_blanco.png");
+        }
+
+        private void btnVolver_MouseLeave(object sender, MouseEventArgs e)
+        {
+            btnVolver.Background = (Brush)(new BrushConverter().ConvertFrom("#df7777"));
+            lblVolver.Foreground = Brushes.Black;
+            imgVolver.Source = (ImageSource)new ImageSourceConverter().ConvertFrom("..\\..\\images\\back.png");
+        }
+
+        private void btnVolver_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
+
+        private float calcTotal()
+        {
+            float total = 0;
+            foreach(Producto t in Producto.ticketLines)
+            {
+                total += t.total;
+            }
+            return total;
+        }
+
+        private void btnCobrar_Click(object sender, RoutedEventArgs e)
+        {
+            Cobro cobro = new Cobro(lblCamarero.Content.ToString(),calcTotal());
+            cobro.ShowDialog();
+            stackTicket.Children.Clear();
+            cargarTicketMesa();
+        }
+
+        private async void btnComensales_Click(object sender, RoutedEventArgs e)
+        {
+            ModComensalesPedido modCom = new ModComensalesPedido();
+            modCom.ShowDialog();
+            if(modCom.comensales != 0)
+            {
+                comensales = modCom.comensales;
+                try
+                {
+                    Mesa.currentMesa.comensales = modCom.comensales;
+                    if(Mesa.currentMesa.comensales == Mesa.currentMesa.comensalesMax)
+                    {
+                        Mesa.currentMesa.ocupada = true;
+                    }
+                    else
+                    {
+                        Mesa.currentMesa.ocupada = false;
+                    }
+                    Ticket.currentTicket.comensales = comensales;
+                    await Ticket.updateTicket(Ticket.currentTicket);
+                    await Mesa.updateTable(Mesa.currentMesa._id, Mesa.currentMesa);
+                    lblComensales.Content = "Comensales: " + comensales.ToString();
+                }catch(Exception ex)
+                {
+                    MessageBox.Show("Error al actualizar el número de comensales", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            }
+        }
+
+        private async void btnEliminarPedido_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                if(await Producto.deleteAllTicketLinesFromTicket(Ticket.currentTicket._id))
+                {
+                    stackTicket.Children.Clear();
+                }
+            }catch(Exception ex)
+            {
+                MessageBox.Show("Error al elimina las lineas de pedido", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
     }
 }

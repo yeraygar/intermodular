@@ -158,7 +158,22 @@ namespace intermodular
             else return false;
         }
 
-    /*********************************************LINEA TICKETS************************************************/
+        /*********************************************LINEA TICKETS************************************************/
+
+        public static async Task getAllTicketLinesFromTicket(string id)
+        {
+            string url = $"{Staticresources.urlHead}ticket_line/ticket/{id}";
+            var httpResponse = Staticresources.httpClient.GetAsync(url);
+            await httpResponse;
+
+            if (httpResponse.Result.IsSuccessStatusCode)
+            {
+                var content = await httpResponse.Result.Content.ReadAsStringAsync();
+                List<Producto> allLines = JsonSerializer.Deserialize<List<Producto>>(content);
+
+                ticketLines = allLines;
+            }
+        }
 
         public static async Task<bool> getTicketProducts(string id)
         {
@@ -310,9 +325,23 @@ namespace intermodular
 
         public static async Task<bool> deleteAllFamilyProducts(string id_familia)
         {
-            string url = $"{Staticresources.urlHead}/product/family/{id_familia}";
+            string url = $"{Staticresources.urlHead}product/family/{id_familia}";
             HttpResponseMessage httpResponse = await Staticresources.httpClient.DeleteAsync(url);
             return httpResponse.IsSuccessStatusCode;  //Esto ya retorna true o false.
+        }
+
+        public static async Task<bool> deleteAllTicketLinesFromTicket(string id_ticket)
+        {
+            string url = $"{Staticresources.urlHead}ticket_line/ticket/{id_ticket}";
+            HttpResponseMessage httpResponse = await Staticresources.httpClient.DeleteAsync(url);
+            if(httpResponse.IsSuccessStatusCode)
+            {
+                ticketLines = null;
+                return true;
+            }else
+            {
+                return false;
+            }
         }
 
 

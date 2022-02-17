@@ -113,7 +113,6 @@
     <Compile Include="api_models\Familia.cs" />
     <Compile Include="api_models\ProdImage.cs" />
     <Compile Include="api_models\Ticket.cs" />
-    <Compile Include="api_models\TicketLine.cs" />
     <Compile Include="support\Colores.cs" />
     <Compile Include="support\Encrypt.cs" />
     <Compile Include="support\RatioConverter.cs" />
@@ -125,6 +124,9 @@
     </Compile>
     <Compile Include="views\Comensales.xaml.cs">
       <DependentUpon>Comensales.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="views\Comentario.xaml.cs">
+      <DependentUpon>Comentario.xaml</DependentUpon>
     </Compile>
     <Compile Include="views\CrearEmpleado.xaml.cs">
       <DependentUpon>CrearEmpleado.xaml</DependentUpon>
@@ -154,6 +156,9 @@
     <Compile Include="api_models\Mesa.cs" />
     <Compile Include="views\LoginCliente.xaml.cs">
       <DependentUpon>LoginCliente.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="views\ModComensalesPedido.xaml.cs">
+      <DependentUpon>ModComensalesPedido.xaml</DependentUpon>
     </Compile>
     <Compile Include="views\PopUp_Opciones.xaml.cs">
       <DependentUpon>PopUp_Opciones.xaml</DependentUpon>
@@ -192,6 +197,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="views\Comentario.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="views\CrearEmpleado.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -225,6 +234,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="views\LoginCliente.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="views\ModComensalesPedido.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -442,6 +455,10 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="images\comment.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="images\back.png" />
+    <Resource Include="images\back_blanco.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\System.Text.Json.6.0.1\build\System.Text.Json.targets" Condition="Exists('..\packages\System.Text.Json.6.0.1\build\System.Text.Json.targets')" />
