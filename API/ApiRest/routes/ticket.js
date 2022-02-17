@@ -93,12 +93,19 @@ router.get("/ticket/table/:id_table/sin_cobrar", (req, res) => {
         })
 })
 
-
-
-
-
-
-
-
+//Get all open tickets form a client
+router.get("/ticket/:id_client/sin_cobrar", (req, res) => {
+    const {id_client} = req.params;
+    ticketSchema
+        .find({id_client: id_client, cobrado: false} )
+        .then((data) =>{
+            res.json(data);
+            console.log(`\ntclient hasOpenTicket: \n ${data}`);
+        })
+        .catch((err) => {
+            res.json({message:err});
+            console.log(`Error get /api/ticket/client/${id} : ${err}`);
+        })
+})
 
 module.exports = router

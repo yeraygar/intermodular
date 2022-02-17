@@ -177,25 +177,33 @@ namespace intermodular
         }
 
         //Si la caja esta cerrada la abrimos y deshabilitamos el botón de abrir caja
-        private void btn_abrirCaja_Click(object sender, RoutedEventArgs e)
+        private async void btn_abrirCaja_Click(object sender, RoutedEventArgs e)
         {
-            if(Staticresources.caja.Equals("cerrada"))
+            if(await Caja.isCajaOpen()) { }
+            else
             {
-                Staticresources.caja = "abierta";
-                btn_abrirCaja.IsEnabled = false;
-                btn_cerrarCaja.IsEnabled = true;
-                MessageBox.Show("Caja abierta");
+                if (await Caja.createCaja())
+                {
+                    btn_abrirCaja.IsEnabled = false;
+                    btn_cerrarCaja.IsEnabled = true;
+                    Staticresources.caja = "abierta";
+                    MessageBox.Show("Caja abierta");
+                }
             }
         }
 
-        private void btn_cerrarCaja_Click(object sender, RoutedEventArgs e)
+        private async void btn_cerrarCaja_Click(object sender, RoutedEventArgs e)
         {
-            if (Staticresources.caja.Equals("abierta"))
+            if (await Ticket.getClientOpenTickets()) { }
+            else
             {
-                Staticresources.caja = "cerrada";
-                btn_cerrarCaja.IsEnabled = false;
-                btn_abrirCaja.IsEnabled = true;
-                MessageBox.Show("Caja cerrada");
+                if (await Caja.closeCaja())
+                {
+                    btn_cerrarCaja.IsEnabled = false;
+                    btn_abrirCaja.IsEnabled = true;
+                    Staticresources.caja = "cerrada";
+                    MessageBox.Show("Caja cerrada");
+                }
             }
         }
 

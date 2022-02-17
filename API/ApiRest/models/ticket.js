@@ -14,23 +14,31 @@ const ticketSchema = mongoose.Schema({
     id_user_que_abrio:{ 
         type: String,
         required: true,
+        default: "Error"
     },
     id_user_que_cerro:{
         type: String,
         required: false,
-        default: "Sin cerrar"
+        default: "Error"
     },
     id_client:{
         type: String,
-        required: true
+        required: true,
+        default: "Error"
     },
     id_table:{
         type: String,
+        required: true,
+        default: "Error"
+    },
+    id_caja:{
+        type:String,
         required: true
     },
     name_table:{
         type: String,
-        required: true
+        required: true,
+        default: "Error"
     },
     comensales:{
         type: Number,

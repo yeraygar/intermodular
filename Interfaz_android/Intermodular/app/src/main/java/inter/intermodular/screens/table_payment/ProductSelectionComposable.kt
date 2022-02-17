@@ -24,9 +24,6 @@ import inter.intermodular.models.ProductModel
 import inter.intermodular.support.*
 import inter.intermodular.view_models.TableViewModel
 import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
-import kotlin.math.round
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
@@ -105,7 +102,7 @@ fun ShowAlertDialogFamilyProducts(
                                                     tableViewModel.createTicket()
                                                     //delay(100)
                                                     product.id_ticket = currentTicket._id
-                                                    tableViewModel.createTicketLine(product)
+                                                    tableViewModel.createTicketLine(product, currentTicketLines)
                                                     //recalculate(currentTicketLines = currentTicketLines, totalBill = totalBill)
                                                    // delay(100)
 
@@ -129,7 +126,7 @@ fun ShowAlertDialogFamilyProducts(
 
                                                     if (exists) Logger.d("Producto sumado")
                                                     else{
-                                                        tableViewModel.createTicketLine(product)
+                                                        tableViewModel.createTicketLine(product, currentTicketLines)
                                                         currentTicketLines.value = currentTicketLines.value + tableViewModel.currentTicketLineResponse
                                                     }
                                                    // delay(100)

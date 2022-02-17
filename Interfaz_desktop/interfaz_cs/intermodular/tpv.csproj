@@ -109,6 +109,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="api_models\Caja.cs" />
     <Compile Include="api_models\Client.cs" />
     <Compile Include="api_models\Familia.cs" />
     <Compile Include="api_models\ProdImage.cs" />

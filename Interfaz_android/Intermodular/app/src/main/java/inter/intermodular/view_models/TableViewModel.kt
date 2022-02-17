@@ -9,6 +9,7 @@ import androidx.lifecycle.viewModelScope
 import coil.request.SuccessResult
 import com.orhanobut.logger.Logger
 import inter.intermodular.models.*
+import inter.intermodular.screens.table_payment.recalculate
 import inter.intermodular.services.ApiServices
 import inter.intermodular.support.*
 import kotlinx.coroutines.delay
@@ -38,7 +39,10 @@ class TableViewModel : ViewModel() {
     private var errorMessage : String by mutableStateOf("")
 
 
-    fun createTicketLine(product : ProductModel){
+    fun createTicketLine(
+        product: ProductModel,
+        currentTicketLines: MutableState<List<ProductModel>>
+    ){
         viewModelScope.launch {
             val apiServices = ApiServices.getInstance()
             product.id_ticket = currentTicket._id
@@ -55,6 +59,9 @@ class TableViewModel : ViewModel() {
                 val response : Response<ProductModel> = apiServices.createTicketLine(ticketLine)
                 if (response.isSuccessful){
                     currentTicketLineResponse = response.body()!!
+                    var res : MutableList<ProductModel> = currentTicketLines.value as MutableList<ProductModel>
+                    res.add(currentTicketLineResponse)
+                    currentTicketLines.value = res
                     Logger.i("CORRECT createTicketLine $product")
                     
                 }else Logger.e("Response not Successful in createTicketLIne")
@@ -99,7 +106,7 @@ class TableViewModel : ViewModel() {
         }
     }
 
-    fun getTicketLines(ticketId : String){
+    private fun getTicketLines(ticketId : String){
         viewModelScope.launch {
             val apiServices = ApiServices.getInstance()
             try{
@@ -114,7 +121,11 @@ class TableViewModel : ViewModel() {
         }
     }
 
-    fun recuperaMesa(tableId : String){
+    fun recoverTable(
+        tableId: String,
+        currentTicketLines: MutableState<List<ProductModel>>,
+        productClicked: MutableState<Boolean>
+    ){
         viewModelScope.launch {
             try{
                 hasOpenTicket(tableId = tableId)
@@ -125,8 +136,31 @@ class TableViewModel : ViewModel() {
                     Logger.i("Open Ticket True")
                     if(!ticketLinesResponse.isNullOrEmpty()){
                         Logger.i("Mesa recuperada con exito")
-                         ticketLinesResponse
-                    }
+                        var res : MutableList<ProductModel> = mutableListOf()
+                        for( line in ticketLinesResponse){
+                            if(line.name == "Error") deleteTicketLine(line._id)
+                            else{
+
+
+                            var dup = false
+                            for( r in res){
+                                if (r.name == line.name){
+                                    dup = true
+                                    r.cantidad ++
+                                    deleteTicketLine(line._id)
+                                }
+                            }
+                            if (dup){
+                                dup = false
+
+                            }
+                            else res.add(line)
+                           // res.add(line)
+                        }
+                        ticketLinesResponse = res
+                        currentTicketLines.value = res
+                            productClicked.value = true
+                    }}
                 }
             }catch (e: Exception){
                 errorMessage = e.message.toString()

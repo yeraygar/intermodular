@@ -71,11 +71,11 @@ fun TableScreen(
     }
 
     if(currentTicketLines.value.isEmpty() || firstOpenTable){
-        tableViewModel.recuperaMesa(currentTable._id)
+        tableViewModel.recoverTable(currentTable._id, currentTicketLines, productClicked)
         Logger.wtf(currentTicketLines.value.toString())
         Logger.wtf(currentTable._id + currentTable.name)
         Logger.wtf("Ticket" + currentTable.id_ticket)
-        currentTicketLines.value = tableViewModel.ticketLinesResponse
+       // currentTicketLines.value = tableViewModel.ticketLinesResponse
         if(currentTicketLines.value.isNotEmpty()){
             productClicked.value = true
             isComensalesOpen.value = false

@@ -20,6 +20,7 @@ const familyRoutes = require("./routes/family");
 const productRoutes = require("./routes/product");
 const ticketRoutes = require("./routes/ticket");
 const ticketLineRoutes = require("./routes/ticket_line");
+const cajaRoutes = require("./routes/caja")
 const express = require('express');
 const app = express();
 require("dotenv").config();
@@ -35,6 +36,7 @@ app.use("/api", familyRoutes);
 app.use("/api", productRoutes);
 app.use("/api", ticketRoutes);
 app.use("/api", ticketLineRoutes);
+app.use("/api", cajaRoutes)
 
 //CONNECTION WITH MONGODB
 mongoose

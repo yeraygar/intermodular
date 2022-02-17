@@ -47,115 +47,118 @@ fun TicketContentComponent(
             verticalArrangement = Arrangement.Top,
             contentPadding = PaddingValues(5.dp),
         ) {
-            for (i in 0 until currentTicketLines.value.count()) {
-                currentTicketLines.value[i].total = currentTicketLines.value[i].cantidad * currentTicketLines.value[i].precio
+           // for (i in 0 until currentTicketLines.value.count()) {
+            for(product in currentTicketLines.value){
+                if(product.name != "Error"){
+                    product.total = product.cantidad * product.precio
 
-                item {
-                    Card(
+                    item {
+                        Card(
 
-                        modifier = Modifier.combinedClickable(
-                            onLongClick = {
-                                currentLine.value = currentTicketLines.value[i]
-                                isLineOptionsOpen.value = true
-                            },
-                            onClick = {
-                                Toast.makeText(applicationContext, "Manten pulsado para ver opciones", Toast.LENGTH_SHORT).show()
-                                currentLine.value = currentTicketLines.value[i]
-                            }
-                        )
-                    ){
-                        Text(
-                            text = "${currentTicketLines.value[i].cantidad}",
-                            modifier = Modifier
-                                .fillMaxSize()
-                                .padding(10.dp)
-                        )
-                    }
-                }
-                item(span = { GridItemSpan(2) }) {
-                    Card(
-                        modifier = Modifier.combinedClickable(
-                            onLongClick = {
-                                currentLine.value = currentTicketLines.value[i]
-                                isLineOptionsOpen.value = true
-                            },
-                            onClick = {
-                                Toast.makeText(applicationContext, "Manten pulsado para ver opciones", Toast.LENGTH_SHORT).show()
-                                currentLine.value = currentTicketLines.value[i]
-                            }
-                        )
-                    ){
-                        Row (
-                            modifier = Modifier.fillMaxWidth()
-                        ) {
+                            modifier = Modifier.combinedClickable(
+                                onLongClick = {
+                                    currentLine.value = product
+                                    isLineOptionsOpen.value = true
+                                },
+                                onClick = {
+                                    Toast.makeText(applicationContext, "Manten pulsado para ver opciones", Toast.LENGTH_SHORT).show()
+                                    currentLine.value = product
+                                }
+                            )
+                        ){
                             Text(
-                                text = currentTicketLines.value[i].name,
+                                text = "${product.cantidad}",
                                 modifier = Modifier
-                                    .fillMaxWidth(0.8f)
+                                    .fillMaxSize()
                                     .padding(10.dp)
                             )
-                            if(currentTicketLines.value[i].comentario.isNotBlank()
-                                || currentTicketLines.value[i].comentario.isNotEmpty()
-                            ){
-                                IconButton(
-                                    modifier = Modifier.size(20.dp),
-                                    onClick = {
-                                        currentLine.value = currentTicketLines.value[i]
-                                        Logger.d("Click en options icon")
-                                        scope.launch{
-                                            snackbarHostState.currentSnackbarData?.dismiss()
-                                            snackbarHostState.showSnackbar("")
-                                        }
-                                    }) {
-                                    Icon(Icons.Filled.Textsms, contentDescription = "Ver comentario")
+                        }
+                    }
+                    item(span = { GridItemSpan(2) }) {
+                        Card(
+                            modifier = Modifier.combinedClickable(
+                                onLongClick = {
+                                    currentLine.value = product
+                                    isLineOptionsOpen.value = true
+                                },
+                                onClick = {
+                                    Toast.makeText(applicationContext, "Manten pulsado para ver opciones", Toast.LENGTH_SHORT).show()
+                                    currentLine.value = product
+                                }
+                            )
+                        ){
+                            Row (
+                                modifier = Modifier.fillMaxWidth()
+                            ) {
+                                Text(
+                                    text = product.name,
+                                    modifier = Modifier
+                                        .fillMaxWidth(0.8f)
+                                        .padding(10.dp)
+                                )
+                                if(product.comentario.isNotBlank()
+                                    || product.comentario.isNotEmpty()
+                                ){
+                                    IconButton(
+                                        modifier = Modifier.size(20.dp),
+                                        onClick = {
+                                            currentLine.value = product
+                                            Logger.d("Click en options icon")
+                                            scope.launch{
+                                                snackbarHostState.currentSnackbarData?.dismiss()
+                                                snackbarHostState.showSnackbar("")
+                                            }
+                                        }) {
+                                        Icon(Icons.Filled.Textsms, contentDescription = "Ver comentario")
+                                    }
                                 }
                             }
                         }
                     }
-                }
-                item {
-                    Card(
-                        modifier = Modifier.combinedClickable(
-                            onLongClick = {
-                                currentLine.value = currentTicketLines.value[i]
-                                isLineOptionsOpen.value = true
-                            },
-                            onClick = {
-                                Toast.makeText(applicationContext, "Manten pulsado para ver opciones", Toast.LENGTH_SHORT).show()
-                                currentLine.value = currentTicketLines.value[i]
-                            }
-                        )
-                    ){
-                        Text(
-                            text = "${currentTicketLines.value[i].precio}€",
-                            modifier = Modifier
-                                .fillMaxSize()
-                                .padding(10.dp)
-                        )
+                    item {
+                        Card(
+                            modifier = Modifier.combinedClickable(
+                                onLongClick = {
+                                    currentLine.value = product
+                                    isLineOptionsOpen.value = true
+                                },
+                                onClick = {
+                                    Toast.makeText(applicationContext, "Manten pulsado para ver opciones", Toast.LENGTH_SHORT).show()
+                                    currentLine.value = product
+                                }
+                            )
+                        ){
+                            Text(
+                                text = "${product.precio}€",
+                                modifier = Modifier
+                                    .fillMaxSize()
+                                    .padding(10.dp)
+                            )
+                        }
                     }
-                }
-                item {
-                    Card(
-                        modifier = Modifier.combinedClickable(
-                            onLongClick = {
-                                currentLine.value = currentTicketLines.value[i]
-                                isLineOptionsOpen.value = true
-                            },
-                            onClick = {
-                                Toast.makeText(applicationContext, "Manten pulsado para ver opciones", Toast.LENGTH_SHORT).show()
-                                currentLine.value = currentTicketLines.value[i]
-                            }
-                        )
-                    ){
-                        Text(
-                            text =
-                            if (currentTicketLines.value[i].total.toString().length >= 5)
-                                "${currentTicketLines.value[i].total.toString().substring(0,4).toFloat()}€"
-                            else "${currentTicketLines.value[i].total}€",
-                            modifier = Modifier
-                                .fillMaxSize()
-                                .padding(10.dp)
-                        )
+                    item {
+                        Card(
+                            modifier = Modifier.combinedClickable(
+                                onLongClick = {
+                                    currentLine.value = product
+                                    isLineOptionsOpen.value = true
+                                },
+                                onClick = {
+                                    Toast.makeText(applicationContext, "Manten pulsado para ver opciones", Toast.LENGTH_SHORT).show()
+                                    currentLine.value = product
+                                }
+                            )
+                        ){
+                            Text(
+                                text =
+                                if (product.total.toString().length >= 5)
+                                    "${product.total.toString().substring(0,4).toFloat()}€"
+                                else "${product.total}€",
+                                modifier = Modifier
+                                    .fillMaxSize()
+                                    .padding(10.dp)
+                            )
+                        }
                     }
                 }
             }
