@@ -63,21 +63,6 @@ router.delete("/ticket/:id", (req, res) => {
         })
 })
 
-//Get all ticket from a client
-router.get("/ticket/client/:id_client", (req, res) => {
-    const {id_client} = req.params;
-    ticketSchema
-        .find({id_client: id_client})
-        .then((data) =>{
-            res.json(data);
-            console.log(`\nticket: \n ${data}`);
-        })
-        .catch((err) => {
-            res.json({message:err});
-            console.log(`Error get /api/ticket/client/${id} : ${err}`);
-        })
-})
-
 //Get ticket form a table id
 router.get("/ticket/table/:id_table/sin_cobrar", (req, res) => {
     const {id_table} = req.params;
@@ -89,7 +74,22 @@ router.get("/ticket/table/:id_table/sin_cobrar", (req, res) => {
         })
         .catch((err) => {
             res.json({message:err});
-            console.log(`Error get /api/ticket/client/${id} : ${err}`);
+            console.log(`Error get /api/ticket/client/${id_table} : ${err}`);
+        })
+})
+
+//Get all ticket from a client
+router.get("/ticket/client/:id_client", (req, res) => {
+    const {id_client} = req.params;
+    ticketSchema
+        .find({id_client: id_client})
+        .then((data) =>{
+            res.json(data);
+            console.log(`\nticket: \n ${data}`);
+        })
+        .catch((err) => {
+            res.json({message:err});
+            console.log(`Error get /api/ticket/client/${id_client} : ${err}`);
         })
 })
 
@@ -104,8 +104,24 @@ router.get("/ticket/:id_client/sin_cobrar", (req, res) => {
         })
         .catch((err) => {
             res.json({message:err});
-            console.log(`Error get /api/ticket/client/${id} : ${err}`);
+            console.log(`Error get /api/ticket/client/${id_client} : ${err}`);
         })
 })
+
+//Get all tickets form a caja
+router.get("/ticket/caja/:id_caja", (req, res) => {
+    const {id_caja} = req.params;
+    ticketSchema
+        .find({id_caja: id_caja} )
+        .then((data) =>{
+            res.json(data);
+            console.log(`\ntickets caja \n ${data}`);
+        })
+        .catch((err) => {
+            res.json({message:err});
+            console.log(`Error get /api/ticket/caja/${id_caja} : ${err}`);
+        })
+})
+
 
 module.exports = router

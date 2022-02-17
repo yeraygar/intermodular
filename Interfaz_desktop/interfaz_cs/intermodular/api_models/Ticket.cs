@@ -25,8 +25,11 @@ namespace intermodular
         public Boolean cobrado { get; set; }
 
         public static Ticket currentTicket;
+        public static float currentCajaTotal;
         public static List<Ticket> openTickets;
         public static List<Ticket> clientTickets;
+        public static List<Ticket> cajaTickets;
+
 
         public Ticket(int comensales)
         {
@@ -81,9 +84,9 @@ namespace intermodular
                 { "comensales", t.comensales },
                 { "id_user_que_cerro", t.id_user_que_cerro },
                 { "id_table", t.id_table},
-                {"name_table",t.name_table },
-                {"cobrado",t.cobrado },
-                {"date",DateTime.Now }
+                { "name_table",t.name_table },
+                { "cobrado",t.cobrado },
+                { "date",DateTime.Now }
             };
 
             HttpContent content = new StringContent(values.ToString(), System.Text.Encoding.UTF8, "application/json");
@@ -96,11 +99,8 @@ namespace intermodular
                 return true;
             }
             else return false;
-
-
         }
 
-        /** NO BORRAR ESTE METODO EN EL MERGE! (PABLO) */
         public static async Task<bool> getClientOpenTickets()
         {
             string url = $"{Staticresources.urlHead}ticket/{Client.currentClient._id}/sin_cobrar";
@@ -158,6 +158,39 @@ namespace intermodular
                 List<Ticket> t = JsonSerializer.Deserialize<List<Ticket>>(content);
                 clientTickets = t;
             }
+        }
+
+        //Obtener tickets de una caja
+        public static async Task getTicketFromCaja(String id_caja)
+        {
+            string url = $"{Staticresources.urlHead}ticket/caja/{id_caja}";
+            var httpResponse = Staticresources.httpClient.GetAsync(url);
+            await httpResponse;
+
+            if (httpResponse.Result.IsSuccessStatusCode)
+            {
+                var content = await httpResponse.Result.Content.ReadAsStringAsync();
+                List<Ticket> t = JsonSerializer.Deserialize<List<Ticket>>(content);
+                cajaTickets = t;
+            }
+        }
+
+        public static async Task<bool> getCajaTotal(Caja caja)
+        {
+            await getTicketFromCaja(caja._id);
+            if(cajaTickets != null)
+            {
+                if(cajaTickets.Count > 0)
+                {
+                    float total = 0;
+                    foreach(Ticket tk in cajaTickets) total += tk.total;
+                    caja.total = total;
+                    await Caja.updateCaja(caja);
+                    currentCajaTotal = total;
+                    return true;
+                }
+            }
+            return false;
         }
 
         //Obtener tickets de una mesa

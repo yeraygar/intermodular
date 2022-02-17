@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace intermodular
 {
-    class Caja
+    public class Caja
     {
         public string _id { get; set; }
         public DateTime fecha_apertura { get; set; }
@@ -142,10 +142,12 @@ namespace intermodular
                     {
                         openCajas = cajas;
                         currentCaja = cajas[0];
+                        Staticresources.caja = "abierta";
                         return true;
                     }
                 }
             }
+            Staticresources.caja = "cerrada";
             return false;
         }
     }

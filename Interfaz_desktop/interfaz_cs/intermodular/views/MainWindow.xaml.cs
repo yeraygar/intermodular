@@ -50,6 +50,8 @@ namespace intermodular
                     MessageBox.Show("Error al cargar la BD");
                 }
             }, TaskScheduler.FromCurrentSynchronizationContext());
+
+            Caja.isCajaOpen().ContinueWith(task => { }, TaskScheduler.FromCurrentSynchronizationContext());
         }
 
         //Configuramos el click listener para abrir la ventana de opciones y comprobamos que el click se realice con el botón izquierdo del ratón

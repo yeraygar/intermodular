@@ -82,7 +82,7 @@ router.get("/caja/client/:id_client", (req, res) => {
 router.get("/caja/client/:id_client/open", (req, res) => {
     const {id_client} = req.params;
     cajaSchema
-        .find({id_client: id_client, fecha_cierre: null})
+        .find({id_client: id_client, cerrada: false})
         .then((data) =>{
             res.json(data);
             console.log(`\ncaja hasOpencaja: \n ${data}`);
