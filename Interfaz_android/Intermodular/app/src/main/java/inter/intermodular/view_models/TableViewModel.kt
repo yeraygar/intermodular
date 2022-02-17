@@ -6,6 +6,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import coil.request.SuccessResult
 import com.orhanobut.logger.Logger
 import inter.intermodular.models.*
 import inter.intermodular.services.ApiServices

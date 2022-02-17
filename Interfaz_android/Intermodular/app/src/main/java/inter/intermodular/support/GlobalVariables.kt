@@ -9,7 +9,7 @@ var currentZone : ZoneModel = ZoneModel("Error", "Error", "Error")
 var currentTicket : TicketModel = TicketModel("Error", 0.0f, "Error", "Error", "Error", "Error", "Error", "Error", 1, Date(), false)
 var currentTable : TableModel = TableModel("Error", "Error", true, false, "Error", 0, 0,0,5 ,"Error", "Error")
 var currentFamily : FamilyModel = FamilyModel("Error", "Error", "Error")
-var currentProduct : ProductModel = ProductModel("Error","name", 0, 0f,0, 0f, "Error", "Error", "Error", "")
+//var currentProduct : ProductModel = ProductModel("Error","name", 0, 0f,0, 0f, "Error", "Error", "Error", "")
 
 //var currentLinesTicket : List<ProductModel> = listOf()
 var allUsers : List<UserModel> = listOf()

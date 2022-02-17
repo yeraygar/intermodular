@@ -81,9 +81,9 @@ fun ResponseRegister(
             Text(text = "Cliente Creado", modifier = Modifier.padding(10.dp), fontWeight = FontWeight.Bold, color = colorResource(id = R.color.azul_oscuro))
             if(loading1.value) Text(text = "Usuario Admin Creado", modifier = Modifier.padding(10.dp), fontWeight = FontWeight.Bold, color = colorResource(id = R.color.azul_oscuro))
             if(loading2.value) Text(text = "Zona Comedor Creada", modifier = Modifier.padding(10.dp), fontWeight = FontWeight.Bold, color = colorResource(id = R.color.azul_oscuro))
-            if(loading3.value) Text(text = "30 Mesas Creadas", modifier = Modifier.padding(10.dp), fontWeight = FontWeight.Bold, color = colorResource(id = R.color.azul_oscuro))
+            //if(loading3.value) Text(text = "30 Mesas Creadas", modifier = Modifier.padding(10.dp), fontWeight = FontWeight.Bold, color = colorResource(id = R.color.azul_oscuro))
             if(loading4.value) Text(text = "Familia Barril Creada", modifier = Modifier.padding(10.dp), fontWeight = FontWeight.Bold, color = colorResource(id = R.color.azul_oscuro))
-            if(loading5.value) Text(text = "Caña y Pinta Creados", modifier = Modifier.padding(10.dp), fontWeight = FontWeight.Bold, color = colorResource(id = R.color.azul_oscuro))
+           // if(loading5.value) Text(text = "Caña y Pinta Creados", modifier = Modifier.padding(10.dp), fontWeight = FontWeight.Bold, color = colorResource(id = R.color.azul_oscuro))
             Logger.i("Email disponible")
             buttonText.value = "Login"
             LaunchedEffect(Unit){
@@ -124,7 +124,7 @@ fun ShowAlertDialog(
             Surface(
                 modifier = Modifier
                     .width(300.dp)
-                    .height(450.dp)
+                    .height(750.dp)
                     .padding(5.dp),
                 shape = RoundedCornerShape(5.dp),
                 color = Color.White

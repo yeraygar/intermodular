@@ -84,6 +84,8 @@ fun ShowAlertDialogFamilyProducts(
                         ){
                             //for ( i in 0 until familyProductList.value.count()){
                             for (product in familyProductList.value){
+                               // var p : ProductModel = ProductModel(product._id, product.name, product.cantidad, product.precio, product.stock, product.total, product.id_client, product.id_familia, product.id_ticket, product.comentario?:"")
+                               // currentProduct = p
                                 item {
                                     Button(
                                         modifier = Modifier
@@ -96,14 +98,14 @@ fun ShowAlertDialogFamilyProducts(
 
                                             //TODO, logica de crear ticket y anyadir linea_ticket
                                             //scope.launch {
-                                                currentProduct = product
-                                                Logger.i("Producto seleccionado $currentProduct")
+
+                                                Logger.i("Producto seleccionado $product")
                                                 if(currentTicketLines.value.isEmpty()){
 
                                                     tableViewModel.createTicket()
                                                     //delay(100)
-                                                    currentProduct.id_ticket = currentTicket._id
-                                                    tableViewModel.createTicketLine(currentProduct)
+                                                    product.id_ticket = currentTicket._id
+                                                    tableViewModel.createTicketLine(product)
                                                     //recalculate(currentTicketLines = currentTicketLines, totalBill = totalBill)
                                                    // delay(100)
 
@@ -111,7 +113,7 @@ fun ShowAlertDialogFamilyProducts(
                                                 else{
                                                     var exists = false
                                                     for (line in currentTicketLines.value){
-                                                        if (line.name == currentProduct.name){
+                                                        if (line.name == product.name){
                                                             exists = true
                                                             line.cantidad++
                                                             line.total = line.cantidad * line.precio
@@ -127,7 +129,7 @@ fun ShowAlertDialogFamilyProducts(
 
                                                     if (exists) Logger.d("Producto sumado")
                                                     else{
-                                                        tableViewModel.createTicketLine(currentProduct)
+                                                        tableViewModel.createTicketLine(product)
                                                         currentTicketLines.value = currentTicketLines.value + tableViewModel.currentTicketLineResponse
                                                     }
                                                    // delay(100)
@@ -135,6 +137,7 @@ fun ShowAlertDialogFamilyProducts(
                                                 currentTable.id_ticket = currentTicket._id
                                                 //tableViewModel.updateTable(currentTable, currentTable._id)
                                                // delay(100)
+                                            tableViewModel.resetTableViewModel()
                                                 productClicked.value = true
                                                // isDialogOpen.value = false
                                            // }
