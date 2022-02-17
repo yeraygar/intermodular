@@ -49,10 +49,10 @@ namespace intermodular
                 { "comensales", t.comensales },
                 { "id_user_que_abrio", t.id_user_que_abrio },
                 { "id_table", t.id_table},
-                {"name_table",t.name_table },
-                {"cobrado",t.cobrado },
-                {"date",t.date },
-                {"id_client",t.id_client }
+                { "name_table",t.name_table },
+                { "cobrado",t.cobrado },
+                { "date",t.date },
+                { "id_client",t.id_client }
             };
 
             HttpContent content = new StringContent(values.ToString(), System.Text.Encoding.UTF8, "application/json");
