@@ -27,6 +27,7 @@ namespace intermodular
         private Producto productoSelect;
         private bool firstProdSelected = true;
         private int comensales;
+        private Grid lineaSelect;
         public vistaPedidos(string nomCamarero,string numComensales)
         {
             InitializeComponent();
@@ -181,6 +182,7 @@ namespace intermodular
                 {
                     btnProdSelect = btn;
                     Producto pr = new Producto(p);
+                    pr.id_ticket = Ticket.currentTicket == null ? null : Ticket.currentTicket._id;
                     productoSelect = pr;
                     Producto.currentProduct = productoSelect;
                     //Añadimos el producto a una línea de pedido
@@ -373,6 +375,22 @@ namespace intermodular
                             Grid gridLinea = new Grid();
                             border.Child = gridLinea;
                             gridLinea.Background = Brushes.White;
+                            gridLinea.Tag = t._id;
+                            gridLinea.Cursor = Cursors.Hand;
+
+                            //Añadimos el MouseDown event para el grid
+                            gridLinea.MouseLeftButtonDown += (object senderr, MouseButtonEventArgs mbea) =>
+                            {
+                                if(lineaSelect != null)
+                                {
+                                    lineaSelect.Background = Brushes.White;
+                                }
+
+                                btnEliminarLinea.Visibility = Visibility.Visible;
+                                lineaSelect = gridLinea;
+                                gridLinea.Background = (Brush)(new BrushConverter().ConvertFrom("#dde8f2"));
+
+                            };
                             for (int x = 0; x < 4; x++)
                             {
                                 gridLinea.ColumnDefinitions.Add(new ColumnDefinition());
@@ -424,14 +442,32 @@ namespace intermodular
                                 Source = (ImageSource)new ImageSourceConverter().ConvertFrom("..\\..\\images\\comentario.png"),
                                 Cursor = Cursors.Hand
                             };
+                            if(t.comentario != null && !t.comentario.Equals(""))
+                            {
+                                img.Tag = t.comentario;
+                            }
 
-                            img.MouseLeftButtonDown += (object sender, MouseButtonEventArgs mva) =>
+                            img.MouseLeftButtonDown += async (object sender, MouseButtonEventArgs mva) =>
                             {
                                 if(img.Tag == null || img.Tag.Equals(""))
                                 {
                                     Comentario comentario = new Comentario();
                                     comentario.ShowDialog();
-                                    if (comentario.comentario != null) img.Tag = comentario.comentario;
+                                    if (comentario.comentario != null)
+                                    {
+                                        t.comentario = comentario.comentario;
+                                        try
+                                        {
+                                            if(await Producto.updateLineTicket(t))
+                                            {
+                                                img.Tag = t.comentario;
+                                            }
+                                        }
+                                        catch(Exception ex)
+                                        {
+                                            MessageBox.Show("Error al añadir el comentario", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                                        }
+                                    }
                                 }
                                 else
                                 {
@@ -569,8 +605,7 @@ namespace intermodular
         {
             Cobro cobro = new Cobro(lblCamarero.Content.ToString(),calcTotal());
             cobro.ShowDialog();
-            stackTicket.Children.Clear();
-            cargarTicketMesa();
+            this.Close();
         }
 
         private async void btnComensales_Click(object sender, RoutedEventArgs e)
@@ -613,6 +648,25 @@ namespace intermodular
             }catch(Exception ex)
             {
                 MessageBox.Show("Error al elimina las lineas de pedido", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+        private async void btnEliminarLinea_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                if(await Producto.deleteTicketLine(lineaSelect.Tag.ToString()))
+                {
+                    btnEliminarLinea.Visibility = Visibility.Collapsed;
+                    lineaSelect = null;
+                    Producto.ticketLines = null;
+                    Producto.currentTicketLine = null;
+                    stackTicket.Children.Clear();
+                    cargarTicketMesa();
+                }
+            }catch(Exception ex)
+            {
+                MessageBox.Show("Error al eliminar línea de pedido", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
     }
