@@ -56,7 +56,7 @@
                         <Label Content="Usuario" Foreground="DarkSlateGray" FontSize="25" HorizontalAlignment="Left" VerticalAlignment="Center"/>
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                             <TextBox x:Name="textBox"  Height="35" Width="160" FontSize="20"/>
-                            <Button HorizontalAlignment="Right" VerticalAlignment="Bottom"  Grid.Column="0" Grid.Row="1" Background="Transparent" BorderBrush="Transparent" PreviewMouseDown="textBoxUsuario"  >
+                            <Button HorizontalAlignment="Right" VerticalAlignment="Bottom"  Grid.Column="0" Grid.Row="1" Background="Transparent" BorderBrush="Transparent" PreviewMouseDown="textBoxUsuario"  RenderOptions.BitmapScalingMode="HighQuality">
                                 <Image Source="..\images\TECLADO.png" Height="32" Width="32" />
                             </Button>
 
@@ -68,7 +68,7 @@
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                             <PasswordBox Height="35" HorizontalAlignment="Center"  x:Name="passworbox" Width="160" FontSize="20" />
                             <Button HorizontalAlignment="Right" VerticalAlignment="Bottom" Grid.Column="0" Grid.Row="2" Background="Transparent" BorderBrush="Transparent" PreviewMouseDown="textBoxContraseña">
-                                <Image Source="..\images\TECLADO.png" Height="32" Width="32"/>
+                                <Image Source="..\images\TECLADO.png" Height="32" Width="32" RenderOptions.BitmapScalingMode="HighQuality"/>
                             </Button>
 
                         </StackPanel>

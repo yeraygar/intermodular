@@ -55,10 +55,10 @@ namespace intermodular
         /// </summary>
         private async Task comportamientoUsuario(string passwordIntroducido)
         {
-            String passwordElegido = Encrypt.GetSHA256(User.usuarioElegido.passw); //TODO esta ya vendra cifrada en la version final
+            //String passwordElegido = Encrypt.GetSHA256(User.usuarioElegido.passw); //TODO esta ya vendra cifrada en la version final
 
             //if (User.usuarioElegido.passw == passwordBox.Password)
-            if (passwordElegido.Equals(passwordIntroducido))
+            if (User.usuarioElegido.passw.Equals(passwordIntroducido))
             {
                 if (modificar) //actualizamos su estado a activo en la bbdd, cuando fichemos salida haremos lo contrario;
                 {
@@ -101,8 +101,8 @@ namespace intermodular
 
             foreach (User admin in User.usuariosAdmin)
             {
-                String passwordElegido = Encrypt.GetSHA256(admin.passw); // TODO: en la version final vendra cifrado desde la api
-                if (passwordElegido.Equals(passwordIntroducido))
+               // String passwordElegido = Encrypt.GetSHA256(admin.passw); // TODO: en la version final vendra cifrado desde la api
+                if (admin.passw.Equals(passwordIntroducido))
                 {
                     nombreOk = admin.name;
                     passOk = true;

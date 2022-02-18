@@ -88,7 +88,9 @@ namespace intermodular
                 { "name_table",t.name_table },
                 { "cobrado",t.cobrado },
                 { "date",DateTime.Now },
-                { "total",t.total }
+                { "total",t.total },
+                { "tipo_ticket", t.tipo_ticket }
+
             };
 
             HttpContent content = new StringContent(values.ToString(), System.Text.Encoding.UTF8, "application/json");

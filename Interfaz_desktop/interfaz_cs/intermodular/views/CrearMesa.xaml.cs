@@ -129,7 +129,7 @@ namespace intermodular
             if (checkZoneName(txtMesa.Text) && checkZoneNumber(txtNumMesas.Text))
             {
                     Mesa mesa = new Mesa(txtMesa.Text, true, idZonaSelect, int.Parse(txtNumMesas.Text));
-                if (Mesa.currentZoneTables.Count == 0)
+                if (Mesa.currentZoneTables == null ||Mesa.currentZoneTables.Count == 0)
                 {
                     mesa.num_row = 0;
                     mesa.num_column = 0;

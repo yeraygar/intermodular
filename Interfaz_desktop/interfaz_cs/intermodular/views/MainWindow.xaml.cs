@@ -469,17 +469,23 @@ namespace intermodular
             }
             else
             {
-                bool founds = false;
-               for(int x = 0; x < Mesa.currentZoneTables.Count && !founds; x++)
+                if (Staticresources.caja.Equals("abierta"))
                 {
-                    if (btn.Tag.Equals(Mesa.currentZoneTables[x]._id))
+                    bool founds = false;
+                    for (int x = 0; x < Mesa.currentZoneTables.Count && !founds; x++)
                     {
-                        Mesa.currentMesa = Mesa.currentZoneTables[x];
-                        found = true;
+                        if (btn.Tag.Equals(Mesa.currentZoneTables[x]._id))
+                        {
+                            Mesa.currentMesa = Mesa.currentZoneTables[x];
+                            found = true;
+                        }
                     }
-                }
                     FicharEmpleado ficharEmp = new FicharEmpleado(false, false);
                     ficharEmp.Show();
+                }else
+                {
+                    MessageBox.Show("La caja no está abierta", "Información", MessageBoxButton.OK, MessageBoxImage.Information);
+                }
             }
         }
 

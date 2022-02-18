@@ -3,10 +3,11 @@ POST http://localhost:8081/api/users HTTP/1.1
 Content-Type: application/json
 
 {
-    "name":"Yeray 2222",
+    "name":"Yeray",
     "email":"yeray@email.com",
-    "id_client": "61fc6bad557d880476f3d920",
-    "passw" : "2222"
+    "id_client": "620f90ece8f3b3f8ee568153",
+    "passw" : "03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4",
+    "rol" : "Admin"
 }
 
 ###

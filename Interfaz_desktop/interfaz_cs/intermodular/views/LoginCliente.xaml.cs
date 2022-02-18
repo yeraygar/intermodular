@@ -148,11 +148,23 @@ namespace intermodular
                     }
                     else
                     {
-                        Client clientprueba = new Client(textBoxN.Text, textBox.Text, passworbox.Password);
-                        Boolean crearCliente = await Client.createClient(clientprueba);
-                        MessageBox.Show("Usuario creado correctamente");
-                        LoginCliente log = new LoginCliente();
-                        log.ShowDialog();
+                        try
+                        {
+                            Client clientprueba = new Client(textBoxN.Text, textBox.Text, passworbox.Password);
+                            Boolean crearCliente = await Client.createClient(clientprueba);
+                            User admin = new User("Admin", "Admin", Encrypt.GetSHA256("1234"), "", true, "Admin");
+                            await User.createUser(admin);
+                            MessageBox.Show("Usuario: Admin\nContraseña: 1234", "Cliente creado correctamente", MessageBoxButton.OK, MessageBoxImage.Information);
+                            MainWindow m = new MainWindow();
+                            m.Show();
+                            this.Close();
+                        }
+                        catch(Exception ex)
+                        {
+                            MessageBox.Show("Error al acceder a la BD", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                        }
+                    
+                       
                     }
                 }
                 else
