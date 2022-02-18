@@ -19,10 +19,12 @@ namespace intermodular
     /// </summary>
     public partial class Cobro : Window
     {
+        float total;
         public Cobro(string nombreEmpleado,float total)
         {
             InitializeComponent();
             LabelNombre.Content = nombreEmpleado;
+            this.total = total;
             LabelMesa.Content = Mesa.currentMesa.name;
             LabelTotal.Content = "Total " + total + "€";
             //LabelNombre.Content = User.usuarioElegido;
@@ -49,6 +51,10 @@ namespace intermodular
         {
             //Cerrar Ticket
             Ticket.currentTicket.cobrado = true;
+            Ticket.currentTicket.total = total;
+            Button btn = sender as Button;
+            Ticket.currentTicket.id_user_que_cerro = User.currentUser._id;
+            Ticket.currentTicket.tipo_ticket = btn.Tag.Equals("Efectivo") ? "Efectivo" : "Tarjeta";
             try
             {
                if(await Ticket.updateTicket(Ticket.currentTicket))

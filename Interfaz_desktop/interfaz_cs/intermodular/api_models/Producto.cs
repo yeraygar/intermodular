@@ -21,6 +21,7 @@ namespace intermodular
         public string id_familia { get; set; }
         public string id_client { get; set; }
         public string id_ticket { get; set; }
+        public string comentario { get; set; }
 
         public static Producto currentProduct;
         public static Producto currentTicketLine;
@@ -49,7 +50,8 @@ namespace intermodular
             this.total = p.precio * p.cantidad;
             this.id_client = p.id_client;
             this.id_familia = p.id_familia;
-            this.id_ticket = Ticket.currentTicket._id;
+            //this.id_ticket = Ticket.currentTicket._id;
+            this.comentario = p.comentario;
         }
         public Producto()
         {
@@ -290,7 +292,8 @@ namespace intermodular
                 { "precio", producto.precio },
                 { "total", producto.cantidad * producto.precio },
                 { "stock", producto.stock },
-                { "id_familia", producto.id_familia }
+                { "id_familia", producto.id_familia },
+                {"comentario",producto.comentario }
             };
 
             HttpContent content = new StringContent(values.ToString(), System.Text.Encoding.UTF8, "application/json");
@@ -300,13 +303,14 @@ namespace intermodular
             if (httpResponse.IsSuccessStatusCode)
             {
                 string result = await httpResponse.Content.ReadAsStringAsync();
-                currentProduct.name = producto.name;
+                /*currentProduct.name = producto.name;
                 currentProduct.id_client = producto.id_client;
                 currentProduct.cantidad = producto.cantidad;
                 currentProduct.precio = producto.precio;
                 currentProduct.total = producto.precio * producto.cantidad;
                 currentProduct.stock = producto.stock;
                 currentProduct.id_familia = producto.id_familia;
+                currentProduct.comentario = producto.comentario;*/
 
                 return true;
             }
