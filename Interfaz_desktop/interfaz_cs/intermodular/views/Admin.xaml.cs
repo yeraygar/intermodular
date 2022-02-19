@@ -200,7 +200,9 @@ namespace intermodular
 
         private async void btn_cerrarCaja_Click(object sender, RoutedEventArgs e)
         {
-            if (await Ticket.getClientOpenTickets()) { }
+            if (await Ticket.getClientOpenTickets()) {
+                MessageBox.Show("Todavía hay tickets abiertos", "Información", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
             else
             {
                 await Ticket.getCajaTotal(Caja.currentCaja);
