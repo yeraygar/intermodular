@@ -30,6 +30,16 @@ namespace intermodular
         {
 
             InitializeComponent();
+            if(SystemParameters.PrimaryScreenWidth == 800)
+            {
+                grid.Height = 1050;
+                grid.Width = 1400;
+            }
+            else
+            {
+                grid.Height = 1080;
+                grid.Width = 1920;
+            }
             Staticresources.mainWindow = this;
 
             Zona.getAllClientZones(Client.currentClient._id).ContinueWith(task =>
@@ -295,9 +305,6 @@ namespace intermodular
                         {
                             Background = Staticresources.isEditableTables ? mesa.status ? (Brush)(new BrushConverter().ConvertFrom("#8dd56d")) : (Brush)(new BrushConverter().ConvertFrom("#cf6161")) :mesa.ocupada ? (Brush)(new BrushConverter().ConvertFrom("#cf6161")) : mesa.status && mesa.comensales == 0 ? (Brush)(new BrushConverter().ConvertFrom("#8dd56d")) : mesa.status && mesa.comensales > 0 ? (Brush)(new BrushConverter().ConvertFrom("#ebb558")) : (Brush)(new BrushConverter().ConvertFrom("#cf6161")),
                             Tag = mesa._id,
-                            Margin = new Thickness(0, 100, 0, 0),
-                            Width = 200,
-                            Height = 200,
                             Content = mesa.name,
                             Style = Application.Current.TryFindResource("btnRedondo") as Style,
                             FontSize = 50,
@@ -313,6 +320,19 @@ namespace intermodular
                             },
                             Visibility = !mesa.status && !Staticresources.isEditableTables ? Visibility.Hidden : Visibility.Visible
                         };
+
+                        if(SystemParameters.PrimaryScreenWidth == 800)
+                        {
+                            btn.Margin = new Thickness(0, 100, 0, 0);
+                            btn.Width = 100;
+                            btn.Height = 100;
+                        }
+                        else
+                        {
+                            btn.Margin = new Thickness(0, 100, 0, 0);
+                            btn.Width = 200;
+                            btn.Height = 200;
+                        }
 
                         btn.Click += btnsTablesClick;
 

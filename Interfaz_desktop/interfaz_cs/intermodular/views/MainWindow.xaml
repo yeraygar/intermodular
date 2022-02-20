@@ -16,7 +16,7 @@
         Left="0"
       >
     <Viewbox>
-        <Grid x:Name="grid" Background="Transparent" Width="{x:Static SystemParameters.PrimaryScreenWidth}" Height="{x:Static SystemParameters.PrimaryScreenHeight}">
+        <Grid x:Name="grid" Background="Transparent">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="250"/>
                 <ColumnDefinition/>
@@ -33,7 +33,7 @@
                             <RowDefinition Height="auto"/>
                             <RowDefinition/>
                         </Grid.RowDefinitions>
-                        <Border Padding="10" CornerRadius="10,10,0,0" Background="#684e3d">
+                        <Border Padding="10" CornerRadius="10,10,0,0" Background="#1c4e5e">
                             <TextBlock HorizontalAlignment="Center" FontSize="20" Foreground="White">Zonas</TextBlock>
                         </Border>
                         <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" CanContentScroll="True">
