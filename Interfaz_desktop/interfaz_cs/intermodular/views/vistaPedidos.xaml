@@ -15,53 +15,59 @@
         Top="0"
         Left="0" Closing="Window_Closing">
     <Viewbox>
-        <Grid>
+        <Grid Height="{x:Static SystemParameters.PrimaryScreenHeight}" Width="{x:Static SystemParameters.PrimaryScreenWidth}">
         <Grid.RowDefinitions>
-            <RowDefinition Height="594"/>
-            <RowDefinition Height="486"/>
+            <RowDefinition Height="55*"/>
+            <RowDefinition Height="45*"/>
         </Grid.RowDefinitions>
         <Border CornerRadius="10">
-            <Grid>
+            <Grid x:Name="gridPrincipal">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="384"/>
-                    <ColumnDefinition Width="1536"/>
+                    <ColumnDefinition Width="20*"/>
+                    <ColumnDefinition Width="80*"/>
                 </Grid.ColumnDefinitions>
-                <Border Grid.Column="1" Background="#E0E0E0" CornerRadius="10" Margin="5">
+                    <Border Grid.Column="1" Background="#E0E0E0" CornerRadius="10" Margin="5">
+                        <Grid x:Name="gridProd">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="10*"/>
+                                <RowDefinition Height="90*"/>
+                            </Grid.RowDefinitions>
 
-                    <Grid>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="10*"/>
-                            <RowDefinition Height="80*"/>
-                        </Grid.RowDefinitions>
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="70*"/>
-                                <ColumnDefinition Width="20*"/>
-                                <ColumnDefinition Width="10*"/>
-                            </Grid.ColumnDefinitions>
-                            <Label x:Name="lblCamarero" FontSize="19" Content="Camarero: " VerticalAlignment="Center"/>
-                            <Label Grid.Column="1" x:Name="lblComensales" FontSize="19" Content="Comensales: " VerticalAlignment="Center"/>
-                            <Label Grid.Column="2" x:Name="lblFecha" FontSize="19" Content="Fecha" VerticalAlignment="Center"/>
-                        </Grid>
-                        
-                        <ScrollViewer x:Name="scrollProductos" VerticalScrollBarVisibility="Auto" CanContentScroll="True" Grid.Row="1">
-                            <Grid x:Name="gridProductos" Background="Transparent">
+                            <Grid x:Name="gridCamarero">
                                 <Grid.ColumnDefinitions>
-                                    <ColumnDefinition/>
-                                    <ColumnDefinition/>
-                                    <ColumnDefinition/>
-                                    <ColumnDefinition/>
-                                    <ColumnDefinition/>
-                                    <ColumnDefinition/>
+                                    <ColumnDefinition Width="60*"/>
+                                    <ColumnDefinition Width="30*"/>
+                                    <ColumnDefinition Width="25*"/>
                                 </Grid.ColumnDefinitions>
-                                <Grid.RowDefinitions>
-                                    <RowDefinition/>
-                                </Grid.RowDefinitions>
+                                <Viewbox HorizontalAlignment="Left">
+                                    <Label x:Name="lblCamarero" FontSize="19" Content="Camarero: " VerticalAlignment="Center"/>
+                                </Viewbox>
+                                <Viewbox Grid.Column="1" HorizontalAlignment="Left">
+                                    <Label x:Name="lblComensales" FontSize="19" Content="Comensales: " VerticalAlignment="Center"/>
+                                </Viewbox>
+                                <Viewbox Grid.Column="2" HorizontalAlignment="Left">
+                                    <Label Grid.Column="2" x:Name="lblFecha" FontSize="19" Content="Fecha" VerticalAlignment="Center"/>
+                                </Viewbox>
                             </Grid>
-                        </ScrollViewer>
-                    </Grid>
 
-                </Border>
+                            <ScrollViewer x:Name="scrollProductos" VerticalScrollBarVisibility="Auto" CanContentScroll="True" Grid.Row="1">
+                                <Grid x:Name="gridProductos">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition/>
+                                        <ColumnDefinition/>
+                                        <ColumnDefinition/>
+                                        <ColumnDefinition/>
+                                        <ColumnDefinition/>
+                                        <ColumnDefinition/>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition/>
+                                    </Grid.RowDefinitions>
+                                </Grid>
+                            </ScrollViewer>
+                        </Grid>
+
+                    </Border>
                 <Border CornerRadius="10" Background="#5da9b7" Margin="5">
                     <ScrollViewer x:Name="scrollCategoriaProd" VerticalScrollBarVisibility="Auto" CanContentScroll="True">
                         <Grid>
@@ -85,62 +91,64 @@
                 <ColumnDefinition Width="20*"/>
                 <ColumnDefinition Width="80*"/>
             </Grid.ColumnDefinitions>
-            <Border CornerRadius="10" Margin="5">
+            <Border CornerRadius="10" Margin="5" Padding="10">
                 <ScrollViewer x:Name="scrollBtnsAcciones" VerticalScrollBarVisibility="Auto" CanContentScroll="True">
-                    <StackPanel x:Name="stackBtnsAcciones" VerticalAlignment="Center">
-                        <Button x:Name="btnCobrar" Style="{StaticResource btnRedondo}" Width="300" Background="#97cfda" Cursor="Hand" MouseEnter="btnCobrar_MouseEnter" MouseLeave="btnCobrar_MouseLeave" Click="btnCobrar_Click">
-                            <Grid Margin="0,10,0,10" Width="300">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="40*"/>
-                                    <ColumnDefinition Width="60*"/>
-                                </Grid.ColumnDefinitions>
-                                <Image x:Name="imgCobrar" Width="50" Height="50" Source="/intermodular;component/images/totales.png" RenderOptions.BitmapScalingMode="HighQuality" HorizontalAlignment="Right" Margin="0,0,5,0"/>
-                                <Label x:Name="lblCobrar" Grid.Column="1" Content="Cobrar" FontSize="19" VerticalAlignment="Center" Margin="5,0,0,0"/>
-                            </Grid>
-                        </Button>
-                        <Button x:Name="btnComensales" Style="{StaticResource btnRedondo}" Margin="0,10,0,0" Width="300" Background="#97cfda" Cursor="Hand" MouseEnter="btnComensales_MouseEnter" MouseLeave="btnComensales_MouseLeave" Click="btnComensales_Click">
-                            <Grid Margin="0,10,0,10" Width="300">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="40*"/>
-                                    <ColumnDefinition Width="60*"/>
-                                </Grid.ColumnDefinitions>
-                                <Image x:Name="imgComensales" Width="50" Height="50" RenderOptions.BitmapScalingMode="HighQuality" HorizontalAlignment="Right" Margin="0,0,5,0" Source="/intermodular;component/images/comensal.png"/>
-                                <Label x:Name="lblComensal" Grid.Column="1" Content="Comensales" FontSize="19" VerticalAlignment="Center" Margin="5,0,0,0"/>
-                            </Grid>
-                        </Button>
+                        <Viewbox>
+                            <StackPanel x:Name="stackBtnsAcciones" VerticalAlignment="Center">
+                                <Button x:Name="btnCobrar" Style="{StaticResource btnRedondo}" Background="#97cfda" Cursor="Hand" MouseEnter="btnCobrar_MouseEnter" MouseLeave="btnCobrar_MouseLeave" Click="btnCobrar_Click">
+                                    <Grid Margin="0,10,0,10" Width="300">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="40*"/>
+                                            <ColumnDefinition Width="60*"/>
+                                        </Grid.ColumnDefinitions>
+                                        <Image x:Name="imgCobrar" Width="50" Height="50" Source="/intermodular;component/images/totales.png" RenderOptions.BitmapScalingMode="HighQuality" HorizontalAlignment="Right" Margin="0,0,5,0" />
+                                        <Label x:Name="lblCobrar" Grid.Column="1" Content="Cobrar" FontSize="19" VerticalAlignment="Center" Margin="5,0,0,0"/>
+                                    </Grid>
+                                </Button>
+                                <Button x:Name="btnComensales" Style="{StaticResource btnRedondo}" Margin="0,10,0,0" Background="#97cfda" Cursor="Hand" MouseEnter="btnComensales_MouseEnter" MouseLeave="btnComensales_MouseLeave" Click="btnComensales_Click" Height="80">
+                                    <Grid Margin="0,10,0,10" Width="300">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="40*"/>
+                                            <ColumnDefinition Width="60*"/>
+                                        </Grid.ColumnDefinitions>
+                                        <Image x:Name="imgComensales" Width="50" Height="50" RenderOptions.BitmapScalingMode="HighQuality" HorizontalAlignment="Right" Margin="0,0,5,0" Source="/intermodular;component/images/comensal.png"/>
+                                        <Label x:Name="lblComensal" Grid.Column="1" Content="Comensales" FontSize="19" VerticalAlignment="Center" Margin="5,0,0,0"/>
+                                    </Grid>
+                                </Button>
 
-                        <Button x:Name="btnEliminarLinea" Style="{StaticResource btnRedondo}" Margin="0,10,0,0" Width="300" Background="#97cfda" Cursor="Hand" MouseEnter="btnEliminarLinea_MouseEnter" MouseLeave="btnEliminarLinea_MouseLeave" Visibility="Collapsed" Click="btnEliminarLinea_Click">
-                            <Grid Margin="0,10,0,10" Width="300">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="40*"/>
-                                    <ColumnDefinition Width="60*"/>
-                                </Grid.ColumnDefinitions>
-                                <Image x:Name="imgEliminarLinea" Width="50" Height="50" RenderOptions.BitmapScalingMode="HighQuality" HorizontalAlignment="Right" Margin="0,0,5,0" Source="/intermodular;component/images/cancel.png"/>
-                                <Label x:Name="lblEliminarLinea" Grid.Column="1" Content="Eliminar línea" FontSize="19" VerticalAlignment="Center" Margin="5,0,0,0"/>
-                            </Grid>
-                        </Button>
-                        <Button x:Name="btnEliminarPedido" Style="{StaticResource btnRedondo}" Margin="0,10,0,0" Width="300" Background="#97cfda" Cursor="Hand" MouseEnter="btnEliminarPedido_MouseEnter" MouseLeave="btnEliminarPedido_MouseLeave" Click="btnEliminarPedido_Click">
-                            <Grid Margin="0,10,0,10" Width="300">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="40*"/>
-                                    <ColumnDefinition Width="60*"/>
-                                </Grid.ColumnDefinitions>
-                                <Image x:Name="imgEliminarPedido" Width="50" Height="50" RenderOptions.BitmapScalingMode="HighQuality" HorizontalAlignment="Right" Margin="0,0,5,0" Source="/intermodular;component/images/eliminar.png"/>
-                                <Label x:Name="lblBorrarPedido" Grid.Column="1" Content="Borrar pedido" FontSize="19" VerticalAlignment="Center" Margin="5,0,0,0"/>
-                            </Grid>
-                        </Button>
-                        <Button x:Name="btnVolver" Style="{StaticResource btnRedondo}" Margin="0,10,0,0" Width="300" Background="#df7777" Cursor="Hand" MouseEnter="btnVolver_MouseEnter" MouseLeave="btnVolver_MouseLeave" Click="btnVolver_Click">
-                            <Grid Margin="0,10,0,10" Width="300">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="40*"/>
-                                    <ColumnDefinition Width="60*"/>
-                                </Grid.ColumnDefinitions>
-                                <Image x:Name="imgVolver" Width="50" Height="50" RenderOptions.BitmapScalingMode="HighQuality" HorizontalAlignment="Right" Margin="0,0,5,0" Source="/intermodular;component/images/back.png"/>
-                                <Label x:Name="lblVolver" Grid.Column="1" Content="Atrás" FontSize="19" VerticalAlignment="Center" Margin="5,0,0,0"/>
-                            </Grid>
-                        </Button>
-                    </StackPanel>
-                </ScrollViewer>
+                                <Button x:Name="btnEliminarLinea" Style="{StaticResource btnRedondo}" Margin="0,10,0,0" Width="300" Background="#97cfda" Cursor="Hand" MouseEnter="btnEliminarLinea_MouseEnter" MouseLeave="btnEliminarLinea_MouseLeave" Visibility="Collapsed" Click="btnEliminarLinea_Click" Height="80">
+                                    <Grid Margin="0,10,0,10" Width="300">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="40*"/>
+                                            <ColumnDefinition Width="60*"/>
+                                        </Grid.ColumnDefinitions>
+                                        <Image x:Name="imgEliminarLinea" Width="50" Height="50" RenderOptions.BitmapScalingMode="HighQuality" HorizontalAlignment="Right" Margin="0,0,5,0" Source="/intermodular;component/images/cancel.png"/>
+                                        <Label x:Name="lblEliminarLinea" Grid.Column="1" Content="Eliminar línea" FontSize="19" VerticalAlignment="Center" Margin="5,0,0,0"/>
+                                    </Grid>
+                                </Button>
+                                <Button x:Name="btnEliminarPedido" Style="{StaticResource btnRedondo}" Margin="0,10,0,0" Background="#97cfda" Cursor="Hand" MouseEnter="btnEliminarPedido_MouseEnter" MouseLeave="btnEliminarPedido_MouseLeave" Click="btnEliminarPedido_Click" Height="80">
+                                    <Grid Margin="0,10,0,10" Width="300">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="40*"/>
+                                            <ColumnDefinition Width="60*"/>
+                                        </Grid.ColumnDefinitions>
+                                        <Image x:Name="imgEliminarPedido" Width="50" Height="50" RenderOptions.BitmapScalingMode="HighQuality" HorizontalAlignment="Right" Margin="0,0,5,0" Source="/intermodular;component/images/eliminar.png"/>
+                                        <Label x:Name="lblBorrarPedido" Grid.Column="1" Content="Borrar pedido" FontSize="19" VerticalAlignment="Center" Margin="5,0,0,0"/>
+                                    </Grid>
+                                </Button>
+                                <Button x:Name="btnVolver" Style="{StaticResource btnRedondo}" Margin="0,10,0,0" Background="#df7777" Cursor="Hand" MouseEnter="btnVolver_MouseEnter" MouseLeave="btnVolver_MouseLeave" Click="btnVolver_Click" Height="80">
+                                    <Grid Margin="0,10,0,10" Width="300">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="40*"/>
+                                            <ColumnDefinition Width="60*"/>
+                                        </Grid.ColumnDefinitions>
+                                        <Image x:Name="imgVolver" Width="50" Height="50" RenderOptions.BitmapScalingMode="HighQuality" HorizontalAlignment="Right" Margin="0,0,5,0" Source="/intermodular;component/images/back.png"/>
+                                        <Label x:Name="lblVolver" Grid.Column="1" Content="Atrás" FontSize="19" VerticalAlignment="Center" Margin="5,0,0,0"/>
+                                    </Grid>
+                                </Button>
+                            </StackPanel>
+                        </Viewbox>
+                    </ScrollViewer>
             </Border>
             <Border Grid.Column="1" Background="#E0E0E0" CornerRadius="10" Margin="5">
                 <Grid x:Name="gridTicket">

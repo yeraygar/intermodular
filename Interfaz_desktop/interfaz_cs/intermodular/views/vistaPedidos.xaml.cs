@@ -31,6 +31,10 @@ namespace intermodular
         public vistaPedidos(string nomCamarero,string numComensales)
         {
             InitializeComponent();
+            gridProductos.Height = (SystemParameters.PrimaryScreenHeight * 0.55) * 0.9;
+            gridProductos.Width = SystemParameters.PrimaryScreenWidth * 0.8;
+            gridCamarero.Height = (SystemParameters.PrimaryScreenHeight * 0.55) * 0.1;
+            gridCamarero.Width = SystemParameters.PrimaryScreenWidth * 0.8;
             lblCamarero.Content += nomCamarero;
             lblComensales.Content += numComensales;
             this.comensales = int.Parse(numComensales);
@@ -140,9 +144,9 @@ namespace intermodular
                 Button btn = new Button
                 {
                     Background = Brushes.White,
-                    Margin = new Thickness(0, 50, 0, 0),
-                    Width = 200,
-                    Height = 200,
+                    Margin = new Thickness(0, calcSize() * 0.1, 0, 0),
+                    Width = calcSize(),
+                    Height = calcSize(),
                     Tag = p._id,
                     Style = Application.Current.TryFindResource("btnRedondo") as Style,
                     FontSize = 15,
@@ -157,7 +161,7 @@ namespace intermodular
 
                     },
                 };
-
+                Viewbox vb = new Viewbox();
                 Grid grid = new Grid();
                 RowDefinition fila1 = new RowDefinition();
                 fila1.Height = new GridLength(80, GridUnitType.Star);
@@ -176,7 +180,8 @@ namespace intermodular
                 };
                 Grid.SetRow(lbl, 1);
                 grid.Children.Add(lbl);
-                btn.Content = grid;
+                vb.Child = grid;
+                btn.Content = vb;
 
                 btn.Click +=  async (object sender, RoutedEventArgs rea) =>
                 {
@@ -669,6 +674,12 @@ namespace intermodular
             {
                 MessageBox.Show("Error al eliminar línea de pedido", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
+        }
+
+       private double calcSize()
+        {
+            double size = (SystemParameters.PrimaryScreenWidth * 0.8);
+            return (size / 6) * 0.8; 
         }
     }
 }
