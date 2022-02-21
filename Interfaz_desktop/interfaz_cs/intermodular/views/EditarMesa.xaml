@@ -11,79 +11,81 @@
         ResizeMode="NoResize"
         Background="Transparent"
         WindowStartupLocation="CenterScreen">
-    <Border CornerRadius="10" Background="#5da9b7">
-        <Grid>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="47"/>
-                <RowDefinition/>
-            </Grid.RowDefinitions>
-            <Border  Background="#5da9b7" CornerRadius="10,10,0,0">
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition/>
-                        <ColumnDefinition Width="60"/>
-                    </Grid.ColumnDefinitions>
-                    <TextBlock FontSize="25" Foreground="WhiteSmoke" VerticalAlignment="Center" Margin="10,0,0,0">Mesa</TextBlock>
-                    <Button x:Name="btn_cerrar" Style="{StaticResource btnRedondo}" Grid.Column="1" Height="40" Width="40" Cursor="Hand" MouseLeave="btn_cerrar_MouseLeave" MouseEnter="btn_cerrar_MouseEnter" Click="btn_cerrar_Click" >
-                        <Image x:Name="imgCerrar" Source="../images\cerrar.png" Width="20" Height="20" RenderOptions.BitmapScalingMode="HighQuality"/>
-                    </Button>
-                </Grid>
-            </Border>
-            <Border Grid.Row="1" Background="WhiteSmoke" CornerRadius="0,0,10,10" BorderThickness="3">
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="70*"/>
-                        <RowDefinition Height="30*"/>
-                    </Grid.RowDefinitions>
-                    <Label VerticalAlignment="Top" HorizontalAlignment="Left" Content="Nombre" FontSize="19" Margin="40,40,0,0"/>
-                    <Label VerticalAlignment="Top" HorizontalAlignment="Left" Content="Estado" FontSize="19" Margin="40,100,0,0"/>
-                    <Label VerticalAlignment="Top" HorizontalAlignment="Left" Content="Num comensales" FontSize="19" Margin="40,160,0,0"/>
-                    <Border Margin="124,48,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Background="white" BorderThickness="1" BorderBrush="DarkGray">
-                        <Grid Width="216">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="auto"/>
-                            <ColumnDefinition Width="0.5*"/>
-                        </Grid.ColumnDefinitions>
-                            <TextBox x:Name="txtNombreMesa" FontSize="19" HorizontalAlignment="Left" VerticalAlignment="Top" MaxLength="5" Background="white" BorderThickness="0" TextChanged="txtNombreMesa_TextChanged" Width="180"/>
-                            <Label x:Name="numChar" Grid.Column="1" FontSize="14" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                        </Grid>
-                    </Border>
-                    <TextBox x:Name="txtNumComensales" FontSize="19" Width="37" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="204,167,0,0" PreviewTextInput="txtNumComensales_PreviewTextInput" TextChanged="txtNumComensales_TextChanged"/>
-                    <ComboBox x:Name="comboBoxEstado" VerticalAlignment="top" HorizontalAlignment="Left" Margin="124,104,0,0" Width="140" FontSize="19" SelectionChanged="comboBoxEstado_SelectionChanged">
-                        <ComboBoxItem>Abierta</ComboBoxItem>
-                        <ComboBoxItem>Cerrada</ComboBoxItem>
-                    </ComboBox>
-                    <Image x:Name="imgNombreMesa" Width="30" Height="30" RenderOptions.BitmapScalingMode="HighQuality" Source="/intermodular;component/images/verify.png" Margin="347,48,167,151" RenderTransformOrigin="2.233,0.367" Visibility="Hidden"/>
-                    <Image x:Name="imgNumComensales" Width="30" Height="30" RenderOptions.BitmapScalingMode="HighQuality" Source="/intermodular;component/images/verify.png" Margin="246,167,268,32" RenderTransformOrigin="2.233,0.367" Visibility="Hidden"/>
-                    <Image x:Name="imgEstado" Width="30" Height="30" RenderOptions.BitmapScalingMode="HighQuality" Source="/intermodular;component/images/verify.png" Margin="269,105,245,94" RenderTransformOrigin="0.233,1.867" Visibility="Hidden"/>
-                    <Grid Grid.Row="1">
+    <Viewbox>
+        <Border CornerRadius="10" Background="#5da9b7" Height="380" Width="550">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="47"/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Border  Background="#5da9b7" CornerRadius="10,10,0,0">
+                    <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition/>
-                            <ColumnDefinition/>
+                            <ColumnDefinition Width="60"/>
                         </Grid.ColumnDefinitions>
-                        <Button x:Name="btnGuardarCambios" Grid.Column="1" Style="{StaticResource btnRedondo}" HorizontalAlignment="Center" VerticalAlignment="Top" Height="70" Cursor="Hand" Visibility="Hidden" Click="btnGuardarCambios_Click" MouseEnter="btnGuardarCambios_MouseEnter" MouseLeave="btnGuardarCambios_MouseLeave">
-                            <Grid Width="230">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition/>
-                                    <ColumnDefinition Width="2.5*"/>
-                                </Grid.ColumnDefinitions>
-                                <Image x:Name="imgGuardarCambios" Width="25" Height="25" Source="/intermodular;component/images/save.png" RenderOptions.BitmapScalingMode="HighQuality"/>
-                                <TextBlock x:Name="txtGuardarCambios" FontSize="18" Grid.Column="1" Text="Guardar cambios" VerticalAlignment="Center" HorizontalAlignment="Left" />
-                            </Grid>
-                        </Button>
-                        <Button x:Name="btnEliminarCambios" Style="{StaticResource btnRedondo}" HorizontalAlignment="Center" VerticalAlignment="Top" Height="70" Cursor="Hand" Visibility="Hidden" Click="btnEliminarCambios_Click" MouseEnter="btnEliminarCambios_MouseEnter" MouseLeave="btnEliminarCambios_MouseLeave">
-                            <Grid Width="230">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition/>
-                                    <ColumnDefinition Width="2.5*"/>
-                                </Grid.ColumnDefinitions>
-                                <Image x:Name="imgEliminarCambios" Width="30" Height="30" Source="/intermodular;component/images/cancel.png" RenderOptions.BitmapScalingMode="HighQuality"/>
-                                <TextBlock x:Name="txtEliminarCambios" FontSize="18" Grid.Column="1" Text="Eliminar cambios" VerticalAlignment="Center" HorizontalAlignment="Left" />
-                            </Grid>
+                        <TextBlock FontSize="25" Foreground="WhiteSmoke" VerticalAlignment="Center" Margin="10,0,0,0">Mesa</TextBlock>
+                        <Button x:Name="btn_cerrar" Style="{StaticResource btnRedondo}" Grid.Column="1" Height="40" Width="40" Cursor="Hand" MouseLeave="btn_cerrar_MouseLeave" MouseEnter="btn_cerrar_MouseEnter" Click="btn_cerrar_Click" >
+                            <Image x:Name="imgCerrar" Source="../images\cerrar.png" Width="20" Height="20" RenderOptions.BitmapScalingMode="HighQuality"/>
                         </Button>
                     </Grid>
-                </Grid>
-            </Border>
-        </Grid>
-    </Border>
+                </Border>
+                <Border Grid.Row="1" Background="WhiteSmoke" CornerRadius="0,0,10,10" BorderThickness="3">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="70*"/>
+                            <RowDefinition Height="30*"/>
+                        </Grid.RowDefinitions>
+                        <Label VerticalAlignment="Top" HorizontalAlignment="Left" Content="Nombre" FontSize="19" Margin="40,40,0,0"/>
+                        <Label VerticalAlignment="Top" HorizontalAlignment="Left" Content="Estado" FontSize="19" Margin="40,100,0,0"/>
+                        <Label VerticalAlignment="Top" HorizontalAlignment="Left" Content="Num comensales" FontSize="19" Margin="40,160,0,0"/>
+                        <Border Margin="124,48,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Background="white" BorderThickness="1" BorderBrush="DarkGray">
+                            <Grid Width="216">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="auto"/>
+                                    <ColumnDefinition Width="0.5*"/>
+                                </Grid.ColumnDefinitions>
+                                <TextBox x:Name="txtNombreMesa" FontSize="19" HorizontalAlignment="Left" VerticalAlignment="Top" MaxLength="5" Background="white" BorderThickness="0" TextChanged="txtNombreMesa_TextChanged" Width="180"/>
+                                <Label x:Name="numChar" Grid.Column="1" FontSize="14" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                            </Grid>
+                        </Border>
+                        <TextBox x:Name="txtNumComensales" FontSize="19" Width="37" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="204,167,0,0" PreviewTextInput="txtNumComensales_PreviewTextInput" TextChanged="txtNumComensales_TextChanged"/>
+                        <ComboBox x:Name="comboBoxEstado" VerticalAlignment="top" HorizontalAlignment="Left" Margin="124,104,0,0" Width="140" FontSize="19" SelectionChanged="comboBoxEstado_SelectionChanged">
+                            <ComboBoxItem>Abierta</ComboBoxItem>
+                            <ComboBoxItem>Cerrada</ComboBoxItem>
+                        </ComboBox>
+                        <Image x:Name="imgNombreMesa" Width="30" Height="30" RenderOptions.BitmapScalingMode="HighQuality" Source="/intermodular;component/images/verify.png" Margin="347,48,167,151" RenderTransformOrigin="2.233,0.367" Visibility="Hidden"/>
+                        <Image x:Name="imgNumComensales" Width="30" Height="30" RenderOptions.BitmapScalingMode="HighQuality" Source="/intermodular;component/images/verify.png" Margin="246,167,268,32" RenderTransformOrigin="2.233,0.367" Visibility="Hidden"/>
+                        <Image x:Name="imgEstado" Width="30" Height="30" RenderOptions.BitmapScalingMode="HighQuality" Source="/intermodular;component/images/verify.png" Margin="269,105,245,94" RenderTransformOrigin="0.233,1.867" Visibility="Hidden"/>
+                        <Grid Grid.Row="1">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <Button x:Name="btnGuardarCambios" Grid.Column="1" Style="{StaticResource btnRedondo}" HorizontalAlignment="Center" VerticalAlignment="Top" Height="70" Cursor="Hand" Visibility="Hidden" Click="btnGuardarCambios_Click" MouseEnter="btnGuardarCambios_MouseEnter" MouseLeave="btnGuardarCambios_MouseLeave">
+                                <Grid Width="230">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition/>
+                                        <ColumnDefinition Width="2.5*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Image x:Name="imgGuardarCambios" Width="25" Height="25" Source="/intermodular;component/images/save.png" RenderOptions.BitmapScalingMode="HighQuality"/>
+                                    <TextBlock x:Name="txtGuardarCambios" FontSize="18" Grid.Column="1" Text="Guardar cambios" VerticalAlignment="Center" HorizontalAlignment="Left" />
+                                </Grid>
+                            </Button>
+                            <Button x:Name="btnEliminarCambios" Style="{StaticResource btnRedondo}" HorizontalAlignment="Center" VerticalAlignment="Top" Height="70" Cursor="Hand" Visibility="Hidden" Click="btnEliminarCambios_Click" MouseEnter="btnEliminarCambios_MouseEnter" MouseLeave="btnEliminarCambios_MouseLeave">
+                                <Grid Width="230">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition/>
+                                        <ColumnDefinition Width="2.5*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Image x:Name="imgEliminarCambios" Width="30" Height="30" Source="/intermodular;component/images/cancel.png" RenderOptions.BitmapScalingMode="HighQuality"/>
+                                    <TextBlock x:Name="txtEliminarCambios" FontSize="18" Grid.Column="1" Text="Eliminar cambios" VerticalAlignment="Center" HorizontalAlignment="Left" />
+                                </Grid>
+                            </Button>
+                        </Grid>
+                    </Grid>
+                </Border>
+            </Grid>
+        </Border>
+    </Viewbox>
 </Window>

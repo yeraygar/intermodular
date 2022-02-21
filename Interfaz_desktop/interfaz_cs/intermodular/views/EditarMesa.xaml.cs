@@ -25,6 +25,8 @@ namespace intermodular
         public EditarMesa(Mesa mesa)
         {
             InitializeComponent();
+            this.Width = SystemParameters.PrimaryScreenWidth * 0.6;
+            this.Height = SystemParameters.PrimaryScreenHeight * 0.4;
             this.mesa = mesa;
             cargarMesa();
         }
