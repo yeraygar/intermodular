@@ -204,13 +204,13 @@ class LoginRegisterViewModel : ViewModel() {
             currentZone = currentZoneResponse
             defaultTable.id_zone = currentZoneResponse._id
             defaultTable.num_row = 0
-            for ( i in 1 until 2){
+            for ( i in 1 until 3){
                 defaultTable.num_column = 0
                 for(j in 1 until 7){
                     defaultTable.name = "${defaultTable.num_row}${defaultTable.num_column}"
                     createTable(defaultTable)
                     defaultTable.num_column++
-                    if(defaultTable.num_column == 5) defaultTable.num_row++
+                    if(defaultTable.num_column == 6) defaultTable.num_row++
                 }
             }
             defaultProduct1.id_client = currentClient._id
