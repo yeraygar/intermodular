@@ -99,7 +99,7 @@ fun TableScreen(
     }*/
 
     if (firstOpenTable && bool){
-
+        currentTicketLines.value = listOf()
         bool = false
         if(currentTable.id_ticket == "Error"){
             //tableViewModel.resetTableViewModel()
@@ -400,10 +400,24 @@ private fun clickCerrar( //TODO EL PROBLEMA AQUI
         tableViewModel.updateTable(currentTable, currentTable._id)
         Logger.d("Cerrar mesa vacia")
     }*/
-    navController.navigate(ScreenNav.MapScreen.route) {
-        popUpTo(navController.graph.findStartDestination().id) { saveState = false }
-        restoreState = true
+    if(currentTicket.total > 0){
+        Logger.wtf("SALIR $currentTicket in \n $currentTable ")
+        navController.navigate(ScreenNav.MapScreen.route) {
+            popUpTo(navController.graph.findStartDestination().id) { saveState = false }
+            restoreState = true
+        }
+    }else{
+        tableViewModel.deleteTicket(currentTicket._id)
+        currentTable.id_ticket = "Error"
+        currentTable.ocupada = false
+        currentTable.comensales = 1
+        tableViewModel.updateTable(currentTable, currentTable._id)
+        navController.navigate(ScreenNav.MapScreen.route) {
+            popUpTo(navController.graph.findStartDestination().id) { saveState = false }
+            restoreState = true
+        }
     }
+
     //   firstOpenTable = true
 }
 
@@ -421,7 +435,6 @@ fun recalculate(
     currentTicket.total = totalBill.value
     currentTicket.id_user_que_abrio = currentUser._id
     tableViewModel.updateTicket(currentTicket, currentTicket._id)
-
 }
 
 

@@ -277,8 +277,8 @@ private fun pago(
             currentTicket.date to Date()
             currentTable.id_ticket = "Error"
             currentTable.ocupada = false
-            tableViewModel.updateTicket(currentTicket, currentTicket._id)
             tableViewModel.updateTable(currentTable, currentTable._id)
+            tableViewModel.updateTicket(currentTicket, currentTicket._id)
             //firstOpenTable = true
             navController.navigate(ScreenNav.MapScreen.route)
 
@@ -293,8 +293,8 @@ private fun pago(
         currentTable.ocupada = false
         currentTicket.id_user_que_cerro = currentUser._id
         currentTicket.date to Date()
-        tableViewModel.updateTicket(currentTicket, currentTicket._id)
         tableViewModel.updateTable(currentTable, currentTable._id)
+        tableViewModel.updateTicket(currentTicket, currentTicket._id)
         // firstOpenTable = true
         navController.navigate(ScreenNav.MapScreen.route)
     }
