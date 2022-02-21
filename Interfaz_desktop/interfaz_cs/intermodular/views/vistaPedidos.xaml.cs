@@ -126,7 +126,7 @@ namespace intermodular
                 selectedFamilia = null;
             }
             Grid grid = new Grid();
-            for(int x = 0; x < 6; x++)
+            for(int x = 0; x < 3; x++)
             {
                 grid.ColumnDefinitions.Add(new ColumnDefinition());
             }
@@ -144,7 +144,7 @@ namespace intermodular
                 Button btn = new Button
                 {
                     Background = Brushes.White,
-                    Margin = new Thickness(0, calcSize() * 0.1, 0, 0),
+                    Margin = new Thickness(0, calcSize() * 0.2, 0, 0),
                     Width = calcSize(),
                     Height = calcSize(),
                     Tag = p._id,
@@ -679,7 +679,7 @@ namespace intermodular
        private double calcSize()
         {
             double size = (SystemParameters.PrimaryScreenWidth * 0.8);
-            return (size / 6) * 0.8; 
+            return (size / 3) * 0.5; 
         }
     }
 }
