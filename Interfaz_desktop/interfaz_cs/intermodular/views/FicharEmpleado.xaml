@@ -14,29 +14,33 @@
         WindowStartupLocation="CenterScreen"
         AllowsTransparency="True"
         ResizeMode="NoResize">
-    <Border CornerRadius="10,10,10,10" Background="WhiteSmoke">
-        <Grid Background="Transparent">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="47"></RowDefinition>
-                <RowDefinition Height="Auto"></RowDefinition>
-            </Grid.RowDefinitions>
-            <Border CornerRadius="10,10,0,0" Background ="#48C9B0">
-                <Grid Background="Transparent">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition/>
-                        <ColumnDefinition Width="60"/>
-                    </Grid.ColumnDefinitions>
-                    <TextBlock FontSize="25" Foreground="WhiteSmoke" VerticalAlignment="Center" Margin="10,0,0,0">Empleados</TextBlock>
-                    <Button x:Name="btn_cerrar" Style="{StaticResource btnRedondo}" Grid.Column="1" Height="40" Width="40" Cursor="Hand" Click="Btn_cerrar_Click" MouseEnter="btn_cerrar_MouseEnter" MouseLeave="btn_cerrar_MouseLeave">
-                        <Image x:Name="imgCerrar"  Width="20" Height="20" RenderOptions.BitmapScalingMode="HighQuality" Source="/intermodular;component/images/cerrar.png" />
-                    </Button>
-                </Grid>
-            </Border>
-            <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" CanContentScroll="True" Height="650">
-                <StackPanel x:Name="StackPanel2" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Top" Height="700" Width="600">
-                    <fa:ImageAwesome x:Name="Loading" Icon="Spinner" Spin="True" Height="48" Width="48" Margin="200"/>
-                </StackPanel>
-            </ScrollViewer>
-        </Grid>
-    </Border>
+    <Viewbox>
+        <Border CornerRadius="10,10,10,10" Background="#5da9b7" Height="700" Width="600">
+            <Grid Background="Transparent">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="47"></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                </Grid.RowDefinitions>
+                <Border CornerRadius="10,10,0,0">
+                    <Grid Background="Transparent">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition Width="60"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock FontSize="25" Foreground="WhiteSmoke" VerticalAlignment="Center" Margin="10,0,0,0">Empleados</TextBlock>
+                        <Button x:Name="btn_cerrar" Style="{StaticResource btnRedondo}" Grid.Column="1" Height="40" Width="40" Cursor="Hand" Click="Btn_cerrar_Click" MouseEnter="btn_cerrar_MouseEnter" MouseLeave="btn_cerrar_MouseLeave">
+                            <Image x:Name="imgCerrar"  Width="20" Height="20" RenderOptions.BitmapScalingMode="HighQuality" Source="/intermodular;component/images/cerrar.png" />
+                        </Button>
+                    </Grid>
+                </Border>
+                <Border Grid.Row="1" Background="WhiteSmoke" CornerRadius="0,0,10,10" BorderThickness="3">
+                    <ScrollViewer VerticalScrollBarVisibility="Auto" CanContentScroll="True" Height="650">
+                        <StackPanel x:Name="StackPanel2" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Top" Height="700" Width="600">
+                            <fa:ImageAwesome x:Name="Loading" Icon="Spinner" Spin="True" Height="48" Width="48" Margin="200"/>
+                        </StackPanel>
+                    </ScrollViewer>
+                </Border>
+            </Grid>
+        </Border>
+    </Viewbox>
 </Window>

@@ -43,6 +43,10 @@ namespace intermodular
             this.id_client = Client.currentClient._id;
 
         }
+        public Ticket()
+        {
+
+        }
 
         //Crear ticket
         public static async Task<bool> createTicket(Ticket t)

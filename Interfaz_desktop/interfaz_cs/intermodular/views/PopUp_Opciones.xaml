@@ -13,76 +13,78 @@
         Background="Transparent"
         WindowStartupLocation="CenterScreen"
         ResizeMode="NoResize">
-    <Border CornerRadius="10" Background="#48C9B0">
-        <Grid Background="Transparent">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="47"/>
-            <RowDefinition/>
-        </Grid.RowDefinitions>
-            <Border>
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition/>
-                        <ColumnDefinition Width="60"/>
-                    </Grid.ColumnDefinitions>
-                    <TextBlock FontSize="25" Foreground="White" VerticalAlignment="Center" Margin="10,0,0,0">Opciones</TextBlock>
-                    <Button x:Name="btn_cerrar" Style="{StaticResource btnRedondo}" Grid.Column="1" Height="40" Width="40" MouseEnter="btn_cerrar_MouseEnter" MouseLeave="btn_cerrar_MouseLeave" Click="btn_cerrar_Click" Cursor="Hand">
-                        <Image x:Name="imgCerrar" Source="..\images\cerrar.png" Width="20" Height="20" RenderOptions.BitmapScalingMode="HighQuality"/>
-                    </Button>
-                </Grid>
-            </Border>
-            <Border Grid.Row="1" Background="WhiteSmoke" BorderThickness="3" CornerRadius="0,0,10,10">
-                <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition/>
-                    <ColumnDefinition/>
-                </Grid.ColumnDefinitions>
+    <Viewbox>
+        <Border CornerRadius="10" Background="#5da9b7" Height="400" Width="600">
+            <Grid Background="Transparent">
                 <Grid.RowDefinitions>
-                    <RowDefinition/>
+                    <RowDefinition Height="47"/>
                     <RowDefinition/>
                 </Grid.RowDefinitions>
-                <Button x:Name="btn_firmarEntrada" Style="{StaticResource btnRedondo}" Width="260" Height="150" FontSize="20" Cursor="Hand" MouseEnter="Button_MouseEnter" MouseLeave="btn_firmarEntrada_MouseLeave" Click="btn_firmarEntrada_Click">
-                    <Grid Width="260">
+                <Border>
+                    <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition/>
-                            <ColumnDefinition Width="1.2*"/>
+                            <ColumnDefinition Width="60"/>
                         </Grid.ColumnDefinitions>
-                            <Image x:Name="img_ficharEntrada" Width="90" Height="90" Source="..\images\card.png" RenderOptions.BitmapScalingMode="HighQuality"/>
-                        <TextBlock x:Name="txt_ficharEntrada" Grid.Column="1" VerticalAlignment="Center" >Fichar entrada</TextBlock>
+                        <TextBlock FontSize="25" Foreground="White" VerticalAlignment="Center" Margin="10,0,0,0">Opciones</TextBlock>
+                        <Button x:Name="btn_cerrar" Style="{StaticResource btnRedondo}" Grid.Column="1" Height="40" Width="40" MouseEnter="btn_cerrar_MouseEnter" MouseLeave="btn_cerrar_MouseLeave" Click="btn_cerrar_Click" Cursor="Hand">
+                            <Image x:Name="imgCerrar" Source="..\images\cerrar.png" Width="20" Height="20" RenderOptions.BitmapScalingMode="HighQuality"/>
+                        </Button>
                     </Grid>
-                </Button>
-                <Button x:Name="btn_ficharSalida" Style="{StaticResource btnRedondo}" Width="260" Height="150" Grid.Column="1" FontSize="20" Cursor="Hand" MouseEnter="btn_ficharSalida_MouseEnter" MouseLeave="btn_ficharSalida_MouseLeave" Click="btn_firmarSalida_Click">
-                    <Grid Width="260">
+                </Border>
+                <Border Grid.Row="1" Background="WhiteSmoke" BorderThickness="3" CornerRadius="0,0,10,10">
+                    <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition/>
-                            <ColumnDefinition  Width="1.2*"/>
-                        </Grid.ColumnDefinitions>
-                            <Image x:Name="img_ficharSalida" Width="70" Height="70" Source="..\images\manos.png" RenderOptions.BitmapScalingMode="HighQuality"/>
-                        <TextBlock x:Name="txt_ficharSalida" Grid.Column="1" VerticalAlignment="Center">Fichar salida</TextBlock>
-                    </Grid>
-                </Button>
-                <Button x:Name="btn_tickets" Style="{StaticResource btnRedondo}" Width="260" Height="150" Grid.Row="1" FontSize="20" Cursor="Hand" MouseEnter="btn_tickets_MouseEnter" MouseLeave="btn_tickets_MouseLeave">
-                    <Grid Width="260">
-                        <Grid.ColumnDefinitions>
                             <ColumnDefinition/>
-                            <ColumnDefinition Width="1.2*"/>
                         </Grid.ColumnDefinitions>
-                            <Image x:Name="img_tickets" Width="70" Height="70" Source="..\images\ticket.png" RenderOptions.BitmapScalingMode="HighQuality"/>
-                        <TextBlock x:Name="txt_tickets" Grid.Column="1" VerticalAlignment="Center" >Tickets</TextBlock>
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <Button x:Name="btn_firmarEntrada" Style="{StaticResource btnRedondo}" Width="260" Height="150" FontSize="20" Cursor="Hand" MouseEnter="Button_MouseEnter" MouseLeave="btn_firmarEntrada_MouseLeave" Click="btn_firmarEntrada_Click">
+                            <Grid Width="260">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition Width="1.2*"/>
+                                </Grid.ColumnDefinitions>
+                                <Image x:Name="img_ficharEntrada" Width="90" Height="90" Source="..\images\card.png" RenderOptions.BitmapScalingMode="HighQuality"/>
+                                <TextBlock x:Name="txt_ficharEntrada" Grid.Column="1" VerticalAlignment="Center" >Fichar entrada</TextBlock>
+                            </Grid>
+                        </Button>
+                        <Button x:Name="btn_ficharSalida" Style="{StaticResource btnRedondo}" Width="260" Height="150" Grid.Column="1" FontSize="20" Cursor="Hand" MouseEnter="btn_ficharSalida_MouseEnter" MouseLeave="btn_ficharSalida_MouseLeave" Click="btn_firmarSalida_Click">
+                            <Grid Width="260">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition  Width="1.2*"/>
+                                </Grid.ColumnDefinitions>
+                                <Image x:Name="img_ficharSalida" Width="70" Height="70" Source="..\images\manos.png" RenderOptions.BitmapScalingMode="HighQuality"/>
+                                <TextBlock x:Name="txt_ficharSalida" Grid.Column="1" VerticalAlignment="Center">Fichar salida</TextBlock>
+                            </Grid>
+                        </Button>
+                        <Button x:Name="btn_tickets" Style="{StaticResource btnRedondo}" Width="260" Height="150" Grid.Row="1" FontSize="20" Cursor="Hand" MouseEnter="btn_tickets_MouseEnter" MouseLeave="btn_tickets_MouseLeave" Click="btn_tickets_Click">
+                            <Grid Width="260">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition Width="1.2*"/>
+                                </Grid.ColumnDefinitions>
+                                <Image x:Name="img_tickets" Width="70" Height="70" Source="..\images\ticket.png" RenderOptions.BitmapScalingMode="HighQuality"/>
+                                <TextBlock x:Name="txt_tickets" Grid.Column="1" VerticalAlignment="Center" >Tickets</TextBlock>
+                            </Grid>
+                        </Button>
+                        <Button x:Name="btn_admin" Style="{StaticResource btnRedondo}" Width="260" Height="150" Grid.Row="1" Grid.Column="1" FontSize="20" Cursor="Hand" MouseEnter="btn_admin_MouseEnter" MouseLeave="btn_admin_MouseLeave" Click="btn_admin_Click">
+                            <Grid Width="260">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition Width="1.2*"/>
+                                </Grid.ColumnDefinitions>
+                                <Image x:Name="img_admin" Width="70" Height="70" Source="..\images\admin.png" RenderOptions.BitmapScalingMode="HighQuality"/>
+                                <TextBlock x:Name="txt_admin" Grid.Column="1" VerticalAlignment="Center" >Admin</TextBlock>
+                            </Grid>
+                        </Button>
                     </Grid>
-                </Button>
-                <Button x:Name="btn_admin" Style="{StaticResource btnRedondo}" Width="260" Height="150" Grid.Row="1" Grid.Column="1" FontSize="20" Cursor="Hand" MouseEnter="btn_admin_MouseEnter" MouseLeave="btn_admin_MouseLeave" Click="btn_admin_Click">
-                    <Grid Width="260">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition/>
-                            <ColumnDefinition Width="1.2*"/>
-                        </Grid.ColumnDefinitions>
-                            <Image x:Name="img_admin" Width="70" Height="70" Source="..\images\admin.png" RenderOptions.BitmapScalingMode="HighQuality"/>
-                        <TextBlock x:Name="txt_admin" Grid.Column="1" VerticalAlignment="Center" >Admin</TextBlock>
-                    </Grid>
-                </Button>
+                </Border>
             </Grid>
-            </Border>
-        </Grid>
-    </Border>
+        </Border>
+    </Viewbox>
 </Window>

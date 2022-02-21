@@ -27,8 +27,8 @@ namespace intermodular
         public PopUp_Opciones()
         {
             InitializeComponent();
-            //this.Height = Staticresources.height * 0.5;
-            //this.Width = Staticresources.width * 0.5;
+            this.Height = SystemParameters.PrimaryScreenHeight * 0.4;
+            this.Width = SystemParameters.PrimaryScreenWidth * 0.4;
         }
 
         //Cambia el color al situarse sobre el botón de cerrar
@@ -140,6 +140,11 @@ namespace intermodular
             login.ShowDialog();
         }
 
-       
+        private void btn_tickets_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+            VistaTickets vt = new VistaTickets();
+            vt.ShowDialog();
+        }
     }
 }
