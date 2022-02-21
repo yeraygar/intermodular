@@ -432,6 +432,7 @@ fun recalculate(
             line.total = line.cantidad * line.precio
             totalBill.value = totalBill.value + line.total
         }
+    currentTicket.id_caja = currentCaja._id
     currentTicket.total = totalBill.value
     currentTicket.id_user_que_abrio = currentUser._id
     tableViewModel.updateTicket(currentTicket, currentTicket._id)

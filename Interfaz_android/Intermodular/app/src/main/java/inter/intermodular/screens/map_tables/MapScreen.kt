@@ -38,6 +38,7 @@ fun MapScreen(mapViewModel: MapViewModel, navController: NavHostController){
             currentZone = mapViewModel.clientZonesResponse[0]
             firstOpenMap = false
             mapViewModel.getClientFamilies(currentClient._id)
+            mapViewModel.getOpenCaja(currentClient._id)
             Logger.i("OBTENIENDO PRODUCTOS")
         }
         else{

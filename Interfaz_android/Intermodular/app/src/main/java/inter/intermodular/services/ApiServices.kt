@@ -154,6 +154,12 @@ interface ApiServices {
     suspend fun createFamily(@Body family : FamilyPost) : Response<FamilyModel>
 
 
+    /********************CAJA**********************/
+
+    @GET("caja/client/{id}/open")
+    suspend fun getOpenCaja(@Path(value = "id") id : String) : List<CajaModel>
+
+
 
 
 }

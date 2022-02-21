@@ -115,6 +115,23 @@ class MapViewModel : ViewModel() {
         }
     }
 
+    fun getOpenCaja(id_client: String) {
+        viewModelScope.launch {
+            val apiServices = ApiServices.getInstance()
+            try{
+                var res = apiServices.getOpenCaja(id_client)
+                if(res.isNullOrEmpty()){
+                    Logger.w("No hay ninguna caja abierta")
+                }else{
+                    currentCaja = res[0]
+                }
+            }catch (e: java.lang.Exception){
+                errorMessage = e.message.toString()
+                Logger.e("FAILURE loading caja")
+            }
+        }
+    }
+
 
 /*    fun getClientUsersList(){
         viewModelScope.launch {
