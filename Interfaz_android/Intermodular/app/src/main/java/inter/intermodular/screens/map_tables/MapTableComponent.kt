@@ -50,7 +50,7 @@ fun MapTableComponent(
 
                 item {
                     //RowContent(i, mapViewModel, navController)
-                    ButtonMesa(i, navController)
+                    ButtonMesa(i, navController, mapViewModel)
 
                 }
           //  }
@@ -61,7 +61,7 @@ fun MapTableComponent(
 
 
 @Composable
-private fun ButtonMesa(i: Int, navController: NavHostController) {
+private fun ButtonMesa(i: Int, navController: NavHostController, mapViewModel: MapViewModel) {
     Button(
         modifier = Modifier
             .height(60.dp)
@@ -80,12 +80,28 @@ private fun ButtonMesa(i: Int, navController: NavHostController) {
             //currentTable = if(emptySpace) currentZoneTables[i-1] else currentZoneTables[i]
             currentTable = currentZoneTables[i]
             currentTable.id_user = currentUser._id
-            firstOpenTable = true
-            Logger.i("Mesa seleccionada $currentTable")
-            navController.navigate(ScreenNav.TableScreen.route){
-                popUpTo(navController.graph.findStartDestination().id){saveState = false}
-                restoreState = true
+            if(currentTable.id_ticket != "Error" && currentTable.id_ticket.isNotEmpty()){
+                firstOpenTable = false
+                bool = true
+                mapViewModel.getTicket(currentTable.id_ticket){
+                    currentTicket = mapViewModel.ticketResponse[0]
+                    Logger.i("Mesa seleccionada $currentTable")
+                    navController.navigate(ScreenNav.TableScreen.route){
+                        popUpTo(navController.graph.findStartDestination().id){saveState = false}
+                        restoreState = true
+                    }
+                }
+            }else{
+                firstOpenTable = true
+                bool = true
+                Logger.i("Mesa seleccionada $currentTable")
+                navController.navigate(ScreenNav.TableScreen.route){
+                    popUpTo(navController.graph.findStartDestination().id){saveState = false}
+                    restoreState = true
+                }
             }
+
+
         }) {
         Text(
             text =  if (currentZoneTables[i].name.length > 3)

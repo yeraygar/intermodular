@@ -37,7 +37,14 @@ fun ShowAlertDialogFamilyProducts(
     totalBill: MutableState<Float>,
     productClicked: MutableState<Boolean>,
 ) {
-    currentProductList = tableViewModel.familyProductsResponse
+   // currentProductList = tableViewModel.familyProductsResponse
+
+  /*  for((key, value) in familyAndProducts){
+        if(currentFamily.name == key){
+            currentProductList = value
+        }
+    }*/
+
 
     if(isDialogOpen.value) {
         if (!familyProductList.value.isNullOrEmpty()){
@@ -118,10 +125,13 @@ fun ShowAlertDialogFamilyProducts(
                                                     Logger.wtf("LLega onsuccess")
                                                     tableViewModel.currentTicketLineResponse.cantidad++
                                                     tableViewModel.updateTicketLine(tableViewModel.currentTicketLineResponse, tableViewModel.currentTicketLineResponse._id){
+                                                        bool = true
                                                     }
                                                 }, onFailureCallback = {
                                                     Logger.wtf("Llega on Faiuler")
-                                                    tableViewModel.createTicketLine(product, currentTicketLines){}
+                                                    tableViewModel.createTicketLine(product, currentTicketLines){
+                                                        bool = true
+                                                    }
 
                                                 })
                                             /*      for (line in currentTicketLines.value) {

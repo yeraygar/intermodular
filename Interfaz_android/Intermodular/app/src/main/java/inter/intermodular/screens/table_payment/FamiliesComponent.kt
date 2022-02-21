@@ -24,6 +24,7 @@ import inter.intermodular.models.ProductModel
 import inter.intermodular.support.allFamilies
 import inter.intermodular.support.currentFamily
 import inter.intermodular.support.currentProductList
+import inter.intermodular.support.familyAndProducts
 import inter.intermodular.view_models.TableViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.delay
@@ -41,7 +42,7 @@ fun FamiliesComponent(
         cells = GridCells.Adaptive(100.dp),
         modifier = Modifier.fillMaxSize()
     ) {
-        for (i in 0 until tableViewModel.clientFamiliesResponse.count()) {
+        for ((key, value) in familyAndProducts) {
             item {
                 Button(
                     modifier = Modifier
@@ -51,24 +52,27 @@ fun FamiliesComponent(
 
                     colors = ButtonDefaults.buttonColors(colorResource(id = R.color.azul_oscuro)),
                     onClick = {
-                        currentFamily = tableViewModel.clientFamiliesResponse[i]
+                        currentFamily.name = key
                         Logger.i("Familia seleccionada $currentFamily")
+                        familyProductList.value = value
+                        isDialogOpen.value = true
 
-                        scope.launch {
-                            tableViewModel.getFamilyProducts(tableViewModel.clientFamiliesResponse[i]._id)
-                            delay(100)
-                            familyProductList.value = tableViewModel.familyProductsResponse
 
-                            currentProductList = tableViewModel.familyProductsResponse
-                            isDialogOpen.value = true
+                        /*      scope.launch {
+                                  tableViewModel.getFamilyProducts(tableViewModel.clientFamiliesResponse[i]._id)
+                                  delay(100)
+                                  familyProductList.value = tableViewModel.familyProductsResponse
 
-                        }
+                                  currentProductList = tableViewModel.familyProductsResponse
+                                  isDialogOpen.value = true
+
+                              }*/
 
                     }) {
                     Text(
-                        text = if (allFamilies[i].name.length > 5)
-                            allFamilies[i].name.substring(0, 5)
-                        else allFamilies[i].name,
+                        text = if (key.length > 5)
+                            key.substring(0, 5)
+                        else key,
                         fontSize = 16.sp,
                         color = Color.White,
                         fontWeight = FontWeight.Bold

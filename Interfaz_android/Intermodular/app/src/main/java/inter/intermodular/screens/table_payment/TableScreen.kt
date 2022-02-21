@@ -64,10 +64,14 @@ fun TableScreen(
     }
 
     //TODO cargar familias y productos al acceder a la mesa
-    if(toReset){
+/*    if(toReset){
         currentTicketLines.value = listOf()
         tableViewModel.resetTableViewModel()
         toReset = false
+    }*/
+
+    for((key, value) in familyAndProducts){
+        Logger.d(key + value)
     }
 
 /*    if(currentTicketLines.value.isEmpty() || firstOpenTable){
@@ -88,8 +92,43 @@ fun TableScreen(
         }
         firstOpenTable = false
     }*/
+/*    LaunchedEffect(key1 = firstOpenTable){
+        isComensalesOpen.value = true
+    }*/
 
-    LaunchedEffect(key1 = true){
+    if (firstOpenTable && bool){
+        bool = false
+        if(currentTable.id_ticket == "Error"){
+            //tableViewModel.resetTableViewModel()
+            tableViewModel.createTicket(){
+                currentTicket = tableViewModel.currentTicketResponse
+                currentTable.id_ticket = currentTicket._id
+                tableViewModel.updateTable(currentTable, currentTable._id)
+                isComensalesOpen.value = true
+
+            }
+        }
+        firstOpenTable = false
+    }else if(!firstOpenTable && bool){
+        if(currentTicket._id == currentTable.id_ticket && bool){
+
+            //tableViewModel.resetTableViewModel()
+            tableViewModel.getTicketLines(currentTicket._id){
+                currentTicketLines.value = tableViewModel.ticketLinesResponse
+                recalculate(
+                    currentTicketLines = currentTicketLines,
+                    totalBill = totalBill,
+                    tableViewModel = tableViewModel
+                )
+                productClicked.value = false
+            }
+        }
+        bool = false
+    }
+
+
+
+    /*LaunchedEffect(key1 = true){
         if(currentTable.id_ticket == "Error"){
             //tableViewModel.resetTableViewModel()
             tableViewModel.createTicket(){
@@ -110,7 +149,7 @@ fun TableScreen(
                 productClicked.value = false
             }
         }
-    }
+    }*/
 
 /*    LaunchedEffect(key1 = currentTicketLines.value{
         tableViewModel.getTicketLines(currentTicket._id){
@@ -129,7 +168,7 @@ fun TableScreen(
         productClicked.value = false
     }*/
 
-    tableViewModel.getClientFamilies(currentClient._id)
+ //   tableViewModel.getClientFamilies(currentClient._id)
 
     TableStart(
         navController = navController,

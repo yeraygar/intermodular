@@ -7,14 +7,10 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.orhanobut.logger.Logger
-import inter.intermodular.models.TableModel
+import inter.intermodular.models.*
 import kotlinx.coroutines.launch
-import inter.intermodular.models.UserModel
-import inter.intermodular.models.ZoneModel
 import inter.intermodular.services.ApiServices
-import inter.intermodular.support.clientZones
-import inter.intermodular.support.currentClient
-import inter.intermodular.support.currentZoneTables
+import inter.intermodular.support.*
 import java.lang.Exception
 
 class MapViewModel : ViewModel() {
@@ -26,6 +22,9 @@ class MapViewModel : ViewModel() {
 
     var clientZonesResponse : List<ZoneModel> by mutableStateOf(listOf())
     var zoneTablesResponse : List<TableModel> by mutableStateOf((listOf()))
+    var ticketResponse : List<TicketModel> by mutableStateOf((listOf()))
+
+
 
     private var errorMessage : String by mutableStateOf("")
 
@@ -58,6 +57,55 @@ class MapViewModel : ViewModel() {
             }
         }
     }
+
+    fun getTicket(ticketId : String, onSuccessCallback: () -> Unit){
+        viewModelScope.launch {
+            val apiServices = ApiServices.getInstance()
+            try{
+                //ticketLinesResponse = listOf()
+                    var res = apiServices.getTicket(ticketId)
+                ticketResponse = res
+                if(!ticketResponse.isNullOrEmpty())onSuccessCallback()
+                //allFamilies = ticketLinesResponse
+                Logger.i("SUCCESS loading ticket for ticketId: $ticketId")
+            }catch (e: Exception){
+                errorMessage = e.message.toString()
+                Logger.e("FAILURE loading ticket for ticketId: $ticketId")
+            }
+        }
+    }
+
+    var clientFamiliesResponse : List<FamilyModel> by mutableStateOf(listOf())
+    var familyProductsResponse : List<ProductModel> by mutableStateOf(listOf())
+
+    fun getClientFamilies(clientId : String){
+        viewModelScope.launch {
+            val apiServices = ApiServices.getInstance()
+            try{
+                clientFamiliesResponse = listOf()
+                clientFamiliesResponse = apiServices.getClientFamilies(clientId)
+                allFamilies = clientFamiliesResponse
+                Logger.i("SUCCESS loading getClientFamilies for clientId: $clientId")
+                for(family in allFamilies){
+                    try{
+                        familyProductsResponse = listOf()
+                        familyProductsResponse = apiServices.getFamilyProducts(family._id)
+                        Logger.i("SUCCESS loading getFamilyProducts for familyId: ${family._id}")
+                        if(!familyProductsResponse.isNullOrEmpty()){
+                            familyAndProducts[family.name] = familyProductsResponse
+                        }
+                    }catch (e: Exception){
+                        errorMessage = e.message.toString()
+                        Logger.e("FAILURE loading family productos for familyId: ${family._id}")
+                    }
+                }
+            }catch (e: Exception){
+                errorMessage = e.message.toString()
+                Logger.e("FAILURE loading client families for clientId: $clientId")
+            }
+        }
+    }
+
 
 /*    fun getClientUsersList(){
         viewModelScope.launch {

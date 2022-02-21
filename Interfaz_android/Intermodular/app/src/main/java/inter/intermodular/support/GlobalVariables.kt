@@ -2,6 +2,7 @@ package inter.intermodular.support
 
 import inter.intermodular.models.*
 import java.util.*
+import kotlin.collections.HashMap
 
 var currentClient = ClientModel("Error", "Error", "Error", "Error")
 var currentUser: UserModel = UserModel("error", "error", "error", "error", "error", "error", false)
@@ -25,8 +26,13 @@ var backLogin = true;
 var backRegister = true;
 var backUser = true;
 var firstOpenMap : Boolean = true
-var firstOpenTable :Boolean = true
+var firstOpenTable :Boolean = false
 var toReset : Boolean = true
+
+var familyAndProducts : HashMap<String, List<ProductModel>> = HashMap()
+
+var bool = true
+
 
 var defaultAdmin : UserPost = UserPost(
     name = "Admin",
