@@ -18,4 +18,5 @@ data class TicketModel(
     var comensales : Int,
     var date : Date,
     var cobrado: Boolean,
+    var id_caja: String,
 )

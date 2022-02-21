@@ -41,7 +41,7 @@ fun MapScreen(mapViewModel: MapViewModel, navController: NavHostController){
         else{
             title.value = currentZone?.zone_name ?: "Zona"
         }
-        mapViewModel.getZoneTables(currentZone!!._id)
+        mapViewModel.getZoneTables(currentZone!!._id){}
         if(!mapViewModel.zoneTablesResponse.isNullOrEmpty()){
             currentZoneTables = mapViewModel.zoneTablesResponse
             MapTablesStart(

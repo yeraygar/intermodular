@@ -176,8 +176,9 @@ fun ShowAlertDialogLineOptions(
                             enabled = (aceptarEnabled.value && currentLine.value.comentario != commentInput.value),
                             onClick = {
                                 currentLine.value.comentario = commentInput.value
-                                tableViewModel.updateTicketLine(currentLine.value, currentLine.value._id)
-                                isLineOptionsOpen.value = false
+                                tableViewModel.updateTicketLine(currentLine.value, currentLine.value._id){
+                                    isLineOptionsOpen.value = false
+                                }
                             },
                             modifier = Modifier
                                 .fillMaxWidth()
@@ -198,8 +199,9 @@ fun ShowAlertDialogLineOptions(
                             enabled = (currentLine.value.comentario.isNotEmpty() || currentLine.value.comentario.isNotBlank()),
                             onClick = {
                                 currentLine.value.comentario = ""
-                                tableViewModel.updateTicketLine(currentLine.value, currentLine.value._id)
-                                isLineOptionsOpen.value = false
+                                tableViewModel.updateTicketLine(currentLine.value, currentLine.value._id){
+                                    isLineOptionsOpen.value = false
+                                }
                             },
                             modifier = Modifier
                                 .fillMaxWidth()

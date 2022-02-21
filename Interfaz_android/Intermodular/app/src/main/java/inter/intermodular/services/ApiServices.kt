@@ -120,6 +120,9 @@ interface ApiServices {
     @GET("ticket_line/ticket/{id}")
     suspend fun getTicketLines(@Path(value = "id") id : String) : List<ProductModel>
 
+    @GET("ticket_line/ticket/{id}/{name}")
+    suspend fun getTicketLineByName(@Path(value = "id") id : String, @Path(value = "name") name : String) : List<ProductModel>
+
     @POST("ticket_line")
     suspend fun createTicketLine(@Body product: ProductPost) : Response<ProductModel>
 

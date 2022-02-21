@@ -33,7 +33,8 @@ const ticketSchema = mongoose.Schema({
     },
     id_caja:{
         type:String,
-        required: true
+        required: false,
+        default: "Error"
     },
     name_table:{
         type: String,

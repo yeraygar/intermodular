@@ -1,5 +1,6 @@
 package inter.intermodular.view_models
 
+import androidx.activity.OnBackPressedCallback
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
@@ -28,13 +29,14 @@ class MapViewModel : ViewModel() {
 
     private var errorMessage : String by mutableStateOf("")
 
-    fun getZoneTables(id_zone : String){
+    fun getZoneTables(id_zone : String, onSuccessCallback: () -> Unit){
         viewModelScope.launch {
             val apiServices = ApiServices.getInstance()
             try{
                 zoneTablesResponse = apiServices.getZoneTables(id_zone)
                 currentZoneTables = zoneTablesResponse
                 Logger.i("SUCCESS getZoneTables")
+                onSuccessCallback()
                 for(table in currentZoneTables) if(table.id_ticket != "Error") Logger.w("Mesas en current Zone:\n $table")
             }catch(e : Exception){
                 errorMessage = e.message.toString()

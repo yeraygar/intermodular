@@ -40,11 +40,11 @@ fun MapTableComponent(
             .fillMaxSize()
             .padding(5.dp)
     ) {
-        mapViewModel.getZoneTables(currentZone?._id ?: "Error")
-        if (!mapViewModel.zoneTablesResponse.isNullOrEmpty()) {
+        mapViewModel.getZoneTables(currentZone?._id ?: "Error"){
+        //if (!mapViewModel.zoneTablesResponse.isNullOrEmpty()) {
 
             currentZoneTables = mapViewModel.zoneTablesResponse
-            currentZoneTables = currentZoneTables.sortedWith(compareBy<TableModel> { it.num_row }.thenBy { it.num_column })
+            currentZoneTables = currentZoneTables.sortedWith(compareBy<TableModel> { it.num_row }.thenBy { it.num_column })           }
 
             for (i in 0 until currentZoneTables.count()) {
 
@@ -53,7 +53,7 @@ fun MapTableComponent(
                     ButtonMesa(i, navController)
 
                 }
-            }
+          //  }
         }
     }
 }
