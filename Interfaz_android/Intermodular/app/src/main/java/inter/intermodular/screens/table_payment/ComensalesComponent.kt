@@ -40,13 +40,13 @@ fun ShowAlertDialogComensales(
         aceptarEnabled.value = true
     }
     else {
-        Toast.makeText(applicationContext, "Comensales entre [1 - ${currentTable.comensalesMax}]", Toast.LENGTH_SHORT).show()
+        Toast.makeText(applicationContext, "Comensales entre [1 - ${currentTable.comensalesMax}]", Toast.LENGTH_SHORT)
+            .show()
     }
 
     Dialog(onDismissRequest = { isComensalesOpen.value = false }) {
         Surface(
             modifier = Modifier
-                //.fillMaxSize()
                 .padding(10.dp, 20.dp),
             shape = RoundedCornerShape(5.dp),
             color = Color.White
@@ -124,7 +124,6 @@ fun ShowAlertDialogComensales(
                 Spacer(modifier = Modifier.height(5.dp))
 
                 Button(
-                    //  enabled = isAceptarEnabled.value,
                     onClick = {
                         isComensalesOpen.value = false
                     },

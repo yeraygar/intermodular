@@ -33,6 +33,7 @@ import inter.intermodular.models.ProductModel
 import inter.intermodular.support.currentTable
 import inter.intermodular.support.currentTicket
 import inter.intermodular.support.currentUser
+import inter.intermodular.support.firstOpenTable
 import inter.intermodular.view_models.TableViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
@@ -62,8 +63,6 @@ fun ShowAlertDialogCobrar(
     Dialog(onDismissRequest = { isCobrarOpen.value = false }) {
         Surface(
             modifier = Modifier
-                //.width(400.dp)
-                //.height(600.dp)
                 .padding(10.dp),
             shape = RoundedCornerShape(5.dp),
             color = Color.White
@@ -72,7 +71,6 @@ fun ShowAlertDialogCobrar(
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.Center,
                 modifier = Modifier
-                    // .fillMaxSize()
                     .padding(10.dp)
             ) {
 
@@ -119,7 +117,6 @@ fun ShowAlertDialogCobrar(
                         Switch(
                             checked = pagoTarjeta.value,
                             onCheckedChange = { pagoTarjeta.value = it},
-                            //modifier = Modifier.fillMaxWidth()
                         )
                     }
                     item{
@@ -145,7 +142,6 @@ fun ShowAlertDialogCobrar(
                         }
                     }
                 }
-
 
                 OutlinedTextField(
                     enabled = !pagoTarjeta.value,
@@ -203,7 +199,6 @@ fun ShowAlertDialogCobrar(
                 Button(
                     enabled = aceptarEnabled.value,
                     onClick = {
-                        //todo fallos aqui
                         if(currentTicket._id == currentTable.id_ticket){
                             pago(
                                 pagoTarjeta,
@@ -283,8 +278,7 @@ private fun pago(
             currentTable.ocupada = false
             tableViewModel.updateTable(currentTable, currentTable._id)
             tableViewModel.updateTicket(currentTicket, currentTicket._id)
-
-            //firstOpenTable = true
+            firstOpenTable = true
             navController.navigate(ScreenNav.MapScreen.route)
 
         } else {
@@ -300,7 +294,7 @@ private fun pago(
         currentTicket.date to Date()
         tableViewModel.updateTable(currentTable, currentTable._id)
         tableViewModel.updateTicket(currentTicket, currentTicket._id)
-        // firstOpenTable = true
+        firstOpenTable = true
         navController.navigate(ScreenNav.MapScreen.route)
     }
 }

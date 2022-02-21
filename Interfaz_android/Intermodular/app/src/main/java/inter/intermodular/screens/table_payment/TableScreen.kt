@@ -59,44 +59,7 @@ fun TableScreen(
 
     if(currentTicketLines.value.isNotEmpty()){
         afterFirstProduct.value = false
-        for(line in currentTicketLines.value)
-            Logger.d(" $line \n $currentTable \n $currentTicket ")
     }
-
-    //TODO cargar familias y productos al acceder a la mesa
-/*    if(toReset){
-        currentTicketLines.value = listOf()
-        tableViewModel.resetTableViewModel()
-        toReset = false
-    }*/
-
-    for((key, value) in familyAndProducts){
-        Logger.d(key + value)
-    }
-
-
-
-/*    if(currentTicketLines.value.isEmpty() || firstOpenTable){
-        tableViewModel.recoverTable(currentTable._id, currentTicketLines, productClicked)
-        Logger.wtf(currentTicketLines.value.toString())
-        Logger.wtf(currentTable._id + currentTable.name)
-        Logger.wtf("Ticket" + currentTable.id_ticket)
-       // currentTicketLines.value = tableViewModel.ticketLinesResponse
-        if(currentTicketLines.value.isNotEmpty()){
-            productClicked.value = true
-            isComensalesOpen.value = false
-            ticketCreado = true
-        }else{
-            if(!currentTable.ocupada && firstOpenTable){
-                isComensalesOpen.value = true
-                ticketCreado = false
-            }
-        }
-        firstOpenTable = false
-    }*/
-/*    LaunchedEffect(key1 = firstOpenTable){
-        isComensalesOpen.value = true
-    }*/
 
     if (firstOpenTable && bool){
         currentTicketLines.value = listOf()
@@ -115,7 +78,6 @@ fun TableScreen(
     }else if(!firstOpenTable && bool){
         if(currentTicket._id == currentTable.id_ticket && bool){
 
-            //tableViewModel.resetTableViewModel()
             tableViewModel.getTicketLines(currentTicket._id){
                 currentTicketLines.value = tableViewModel.ticketLinesResponse
                 recalculate(
@@ -129,66 +91,21 @@ fun TableScreen(
         bool = false
     }
 
-    tableViewModel.getTicket(currentTable.id_ticket) {
-     //   currentTicket = tableViewModel.ticketResponse[0]
-        currentTable.id_ticket = currentTicket._id
-        tableViewModel.updateTable(currentTable, currentTable._id)
-        /*tableViewModel.getTicketLines(currentTable.id_ticket){
-            currentTicketLines.value = tableViewModel.ticketLinesResponse
-        }*/
-        tableViewModel.getTicketLines(currentTable.id_ticket){
-            currentTicketLines.value = tableViewModel.ticketLinesResponse
-        }
-    }
-/*    tableViewModel.getTicketLines(currentTable.id_ticket){
-        currentTicketLines.value = tableViewModel.ticketLinesResponse
-    }*/
-   // currentTicketLines.value = tableViewModel.ticketLinesResponse
-
-
-
-
-    /*LaunchedEffect(key1 = true){
-        if(currentTable.id_ticket == "Error"){
-            //tableViewModel.resetTableViewModel()
-            tableViewModel.createTicket(){
-                currentTicket = tableViewModel.currentTicketResponse
-                currentTable.id_ticket = currentTicket._id
-                tableViewModel.updateTable(currentTable, currentTable._id)
-            }
-        }else if(currentTicket._id == currentTable.id_ticket  && productClicked.value){
-
-            //tableViewModel.resetTableViewModel()
-            tableViewModel.getTicketLines(currentTicket._id){
+    if(!currentTicket.cobrado){
+        tableViewModel.getTicket(currentTable.id_ticket) {
+            currentTable.id_ticket = currentTicket._id
+            tableViewModel.updateTable(currentTable, currentTable._id)
+            tableViewModel.getTicketLines(currentTable.id_ticket){
                 currentTicketLines.value = tableViewModel.ticketLinesResponse
-                recalculate(
-                    currentTicketLines = currentTicketLines,
-                    totalBill = totalBill,
-                    tableViewModel = tableViewModel
-                )
-                productClicked.value = false
             }
         }
-    }*/
+    }else{
+        currentTable.id_ticket = "Error"
+        tableViewModel.updateTable(currentTable, currentTable._id)
+    }
 
-/*    LaunchedEffect(key1 = currentTicketLines.value{
-        tableViewModel.getTicketLines(currentTicket._id){
-            currentTicketLines.value = tableViewModel.ticketLinesResponse
-        }
-    }*/
 
     title.value = "${currentTable.name} - ${currentUser.name}"
-
-/*    if(productClicked.value){
-        recalculate(
-            currentTicketLines = currentTicketLines,
-            totalBill = totalBill,
-            tableViewModel = tableViewModel
-        )
-        productClicked.value = false
-    }*/
-
- //   tableViewModel.getClientFamilies(currentClient._id)
 
     TableStart(
         navController = navController,
@@ -387,20 +304,6 @@ private fun clickCerrar( //TODO EL PROBLEMA AQUI
     tableViewModel: TableViewModel,
     navController: NavController
 ) {
-    /*if (*//*!currentTicketLines.value.isNullOrEmpty()*//* currentTicket.total != 0f) {
-        currentTable.id_ticket = currentTicket._id
-        currentTable.ocupada = true
-        Logger.wtf("Mesa cerrada llena \nCurrentTicket ${currentTicket._id} && Table ${currentTable.id_ticket}")
-        tableViewModel.updateTable(currentTable, currentTable._id)
-        currentTicketLines.value = listOf()
-    } else {
-        if (currentTable.id_ticket != "Error")
-            tableViewModel.deleteTicket(currentTable.id_ticket)
-        currentTable.id_ticket = "Error"
-        currentTable.ocupada = false
-        tableViewModel.updateTable(currentTable, currentTable._id)
-        Logger.d("Cerrar mesa vacia")
-    }*/
     if(currentTicket.total > 0){
         Logger.wtf("SALIR $currentTicket in \n $currentTable ")
         navController.navigate(ScreenNav.MapScreen.route) {
@@ -418,8 +321,6 @@ private fun clickCerrar( //TODO EL PROBLEMA AQUI
             restoreState = true
         }
     }
-
-    //   firstOpenTable = true
 }
 
 fun recalculate(

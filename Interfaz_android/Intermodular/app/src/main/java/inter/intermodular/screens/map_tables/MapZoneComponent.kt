@@ -37,8 +37,6 @@ fun MapZoneComponent(
         modifier = Modifier
             .fillMaxWidth()
             .height(80.dp),
-
-       // backgroundColor = colorResource(id = R.color.azul_oscuro)
             ) {
        Column(
            horizontalAlignment = Alignment.CenterHorizontally,

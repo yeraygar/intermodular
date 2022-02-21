@@ -32,10 +32,7 @@ fun ValidateRegisterScreen(
 ) {
     if(!loginRegisterViewModel.emailExistsResponse && !clientCreated) {
         loginRegisterViewModel.createClient(ClientPost(name!!, email!!, getSHA256(password!!)))
-
         clientCreated = true
-
-        //TODO crear un usuario Admin por defecto
     }
     val isDialogOpen = remember { mutableStateOf(true) }
     val buttonText = remember { mutableStateOf("")}
