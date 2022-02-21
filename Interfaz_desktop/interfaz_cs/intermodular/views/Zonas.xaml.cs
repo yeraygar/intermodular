@@ -47,6 +47,8 @@ namespace intermodular
         public Zonas()
         {
             InitializeComponent();
+            this.Width = SystemParameters.PrimaryScreenWidth * 0.6;
+            this.Height = SystemParameters.PrimaryScreenHeight * 0.8;
             { 
             //Obtenemos todas las Zonas que hay en la BD y creamos un botón por cada Zona encontrada
                Zona.getAllClientZones(Client.currentClient._id).ContinueWith(task =>

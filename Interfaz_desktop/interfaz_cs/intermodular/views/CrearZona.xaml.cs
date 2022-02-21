@@ -25,6 +25,8 @@ namespace intermodular
         public CrearZona()
         {
             InitializeComponent();
+            this.Width = SystemParameters.PrimaryScreenWidth * 0.3;
+            this.Height = SystemParameters.PrimaryScreenHeight * 0.3;
         }
 
         private void btn_cerrar_Click(object sender, RoutedEventArgs e)
