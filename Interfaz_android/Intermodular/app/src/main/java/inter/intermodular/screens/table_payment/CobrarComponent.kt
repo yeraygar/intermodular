@@ -29,6 +29,7 @@ import androidx.compose.ui.window.Dialog
 import androidx.navigation.NavController
 import inter.intermodular.R
 import inter.intermodular.ScreenNav
+import inter.intermodular.models.ProductModel
 import inter.intermodular.support.currentTable
 import inter.intermodular.support.currentTicket
 import inter.intermodular.support.currentUser
@@ -46,7 +47,8 @@ fun ShowAlertDialogCobrar(
     applicationContext: Context,
     navController: NavController,
     scaffoldState: ScaffoldState,
-    scope: CoroutineScope
+    scope: CoroutineScope,
+    currentTicketLines: MutableState<List<ProductModel>>
 ) {
     var aceptarEnabled = remember { mutableStateOf(false) }
     var cashOk = remember { mutableStateOf(false) }
@@ -208,7 +210,8 @@ fun ShowAlertDialogCobrar(
                                 cashInput,
                                 tableViewModel,
                                 navController,
-                                applicationContext
+                                applicationContext,
+
                             )
                         }else{
                             tableViewModel.getTicket(currentTable.id_ticket){
@@ -222,6 +225,7 @@ fun ShowAlertDialogCobrar(
                                 )
                             }
                         }
+                        currentTicketLines.value = listOf()
                     },
                     modifier = Modifier
                         .fillMaxWidth()
@@ -279,6 +283,7 @@ private fun pago(
             currentTable.ocupada = false
             tableViewModel.updateTable(currentTable, currentTable._id)
             tableViewModel.updateTicket(currentTicket, currentTicket._id)
+
             //firstOpenTable = true
             navController.navigate(ScreenNav.MapScreen.route)
 

@@ -86,6 +86,8 @@ private fun ButtonMesa(i: Int, navController: NavHostController, mapViewModel: M
             if(currentTable.id_ticket != "Error" && currentTable.id_ticket.isNotEmpty()) {
                 if (currentTicket._id == currentTable._id) {
                     Logger.i("Mesa seleccionada $currentTable")
+                    firstOpenTable = false
+                    bool = true
                     navController.navigate(ScreenNav.TableScreen.route) {
                         popUpTo(navController.graph.findStartDestination().id) { saveState = false }
                         restoreState = true

@@ -234,7 +234,8 @@ fun TableScreen(
             applicationContext = applicationContext,
             navController = navController,
             scaffoldState = scaffoldState,
-            scope = scope
+            scope = scope,
+            currentTicketLines = currentTicketLines
         )
 
     if(isLineOptionsOpen.value){
