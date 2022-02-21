@@ -126,6 +126,12 @@ fun TableScreen(
         bool = false
     }
 
+    tableViewModel.getTicketLines(currentTable.id_ticket){
+        currentTicketLines.value = tableViewModel.ticketLinesResponse
+    }
+    currentTicketLines.value = tableViewModel.ticketLinesResponse
+
+
 
 
     /*LaunchedEffect(key1 = true){
@@ -366,7 +372,7 @@ private fun clickCerrar(
     tableViewModel: TableViewModel,
     navController: NavController
 ) {
-    if (!currentTicketLines.value.isNullOrEmpty()) {
+    /*if (*//*!currentTicketLines.value.isNullOrEmpty()*//* currentTicket.total != 0f) {
         currentTable.id_ticket = currentTicket._id
         currentTable.ocupada = true
         Logger.wtf("Mesa cerrada llena \nCurrentTicket ${currentTicket._id} && Table ${currentTable.id_ticket}")
@@ -379,7 +385,7 @@ private fun clickCerrar(
         currentTable.ocupada = false
         tableViewModel.updateTable(currentTable, currentTable._id)
         Logger.d("Cerrar mesa vacia")
-    }
+    }*/
     navController.navigate(ScreenNav.MapScreen.route) {
         popUpTo(navController.graph.findStartDestination().id) { saveState = false }
         restoreState = true

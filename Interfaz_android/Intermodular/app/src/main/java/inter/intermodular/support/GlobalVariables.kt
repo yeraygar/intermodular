@@ -49,9 +49,22 @@ var defaultTable : TablePost = TablePost(
     id_zone = currentZone._id,
     comensalesMax = 6
 )
+var defaultTable2 : TablePost = TablePost(
+    name = "11",
+    id_user = currentUser._id,
+    num_column = 0,
+    num_row = 0,
+    id_zone = currentZone._id,
+    comensalesMax = 6
+)
 
 var defaultZone : ZonePost = ZonePost(
     zone_name = "Comedor",
+    id_client = currentClient._id
+)
+
+var defaultZone2 : ZonePost = ZonePost(
+    zone_name = "Terraza",
     id_client = currentClient._id
 )
 
@@ -62,7 +75,7 @@ var defaultFamily : FamilyPost = FamilyPost(
 
 var defaultProduct1 : ProductPost = ProductPost(
     name = "Caña",
-    precio = 1.5f,
+    precio = 1f,
     cantidad = 1,
     total = 1.5f,
     id_client = currentClient._id,
