@@ -11,157 +11,159 @@
         Background="Transparent"
         WindowStartupLocation="CenterScreen"
         Title="VistaProductos" Height="800" Width="1200">
-    <Border Background="#5da9b7" CornerRadius="10">
-        <Grid>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="47"/>
-                <RowDefinition/>
-            </Grid.RowDefinitions>
+    <Viewbox>
+        <Border Background="#5da9b7" CornerRadius="10" Height="800" Width="1200">
             <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition/>
-                    <ColumnDefinition Width="60"/>
-                </Grid.ColumnDefinitions>
-                <TextBlock FontSize="25" Foreground="White" VerticalAlignment="Center" Margin="10,0,0,0">Productos</TextBlock>
-                <Button x:Name="btn_cerrar" Style="{StaticResource btnRedondo}" Grid.Column="1" Height="40" Width="40" Cursor="Hand" MouseEnter="btn_cerrar_MouseEnter" MouseLeave="btn_cerrar_MouseLeave" Click="btn_cerrar_Click">
-                    <Image x:Name="imgCerrar" Source="..\images\cerrar.png" Width="20" Height="20" RenderOptions.BitmapScalingMode="HighQuality"/>
-                </Button>
-            </Grid>
-            <Border Grid.Row="1" BorderThickness="3">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="47"/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
                 <Grid>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="400"/>
                         <ColumnDefinition/>
+                        <ColumnDefinition Width="60"/>
                     </Grid.ColumnDefinitions>
-                    <Border Padding="10" Background="WhiteSmoke" CornerRadius="0,0,0,10">
-                        <Border CornerRadius="10">
-                            <Grid>
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="auto"/>
-                                    <RowDefinition/>
-                                    <RowDefinition Height="auto"/>
-                                </Grid.RowDefinitions>
-                                <Border CornerRadius="10,10,0,0" Background="DarkSlateGray" Padding="20">
-                                    <TextBlock Foreground="white" FontSize="23" HorizontalAlignment="Center" VerticalAlignment="Center">Familia</TextBlock>
-                                </Border>
-                                <Border Grid.Row="1" BorderBrush="DarkSlateGray" BorderThickness="4,0,4,0" Padding="5" Background="#E0E0E0">
-                                    <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" CanContentScroll="True">
-                                        <StackPanel x:Name="stackFamilias">
+                    <TextBlock FontSize="25" Foreground="White" VerticalAlignment="Center" Margin="10,0,0,0">Productos</TextBlock>
+                    <Button x:Name="btn_cerrar" Style="{StaticResource btnRedondo}" Grid.Column="1" Height="40" Width="40" Cursor="Hand" MouseEnter="btn_cerrar_MouseEnter" MouseLeave="btn_cerrar_MouseLeave" Click="btn_cerrar_Click">
+                        <Image x:Name="imgCerrar" Source="..\images\cerrar.png" Width="20" Height="20" RenderOptions.BitmapScalingMode="HighQuality"/>
+                    </Button>
+                </Grid>
+                <Border Grid.Row="1" BorderThickness="3">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="400"/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <Border Padding="10" Background="WhiteSmoke" CornerRadius="0,0,0,10">
+                            <Border CornerRadius="10">
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="auto"/>
+                                        <RowDefinition/>
+                                        <RowDefinition Height="auto"/>
+                                    </Grid.RowDefinitions>
+                                    <Border CornerRadius="10,10,0,0" Background="DarkSlateGray" Padding="20">
+                                        <TextBlock Foreground="white" FontSize="23" HorizontalAlignment="Center" VerticalAlignment="Center">Familia</TextBlock>
+                                    </Border>
+                                    <Border Grid.Row="1" BorderBrush="DarkSlateGray" BorderThickness="4,0,4,0" Padding="5" Background="#E0E0E0">
+                                        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" CanContentScroll="True">
+                                            <StackPanel x:Name="stackFamilias">
 
-                                        </StackPanel>
-                                    </ScrollViewer>
-                                </Border>
-                                <Border Grid.Row="2" Background="DarkSlateGray" CornerRadius="0,0,10,10" Padding="10">
-                                    <Grid HorizontalAlignment="Center">
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition/>
-                                            <ColumnDefinition/>
-                                            <ColumnDefinition/>
-                                        </Grid.ColumnDefinitions>
-                                        <Button x:Name="btnAgregarFamilia" Style="{StaticResource btnRedondo}" Height="90" Width="90" Cursor="Hand" Click="btnAgregarFamilia_Click" MouseEnter="btnAgregarFamilia_MouseEnter" MouseLeave="btnAgregarFamilia_MouseLeave">
-                                            <Grid VerticalAlignment="Center" HorizontalAlignment="Center">
-                                                <Grid.RowDefinitions>
-                                                    <RowDefinition/>
-                                                    <RowDefinition/>
-                                                </Grid.RowDefinitions>
-                                                <Image x:Name="imgAgregarZona" Width="30" Height="30" HorizontalAlignment="Center" VerticalAlignment="Top" RenderOptions.BitmapScalingMode="HighQuality" Margin="10,0,11,0" Source="/intermodular;component/images/agregar.png"/>
-                                                <TextBlock Grid.Row="1" FontSize="18" VerticalAlignment="Top" HorizontalAlignment="Center">Agregar</TextBlock>
-                                            </Grid>
-                                        </Button>
-                                        <Button x:Name="btnEditarFamilia" Style="{StaticResource btnRedondo}" Height="90" Width="90" Grid.Column="1" Cursor="Hand" Margin="5,0,5,0" Visibility="Collapsed" Click="btnEditarFamilia_Click" MouseEnter="btnEditarFamilia_MouseEnter" MouseLeave="btnEditarFamilia_MouseLeave">
-                                            <Grid VerticalAlignment="Center" HorizontalAlignment="Center">
-                                                <Grid.RowDefinitions>
-                                                    <RowDefinition/>
-                                                    <RowDefinition/>
-                                                </Grid.RowDefinitions>
-                                                <Image x:Name="imgEditarFamilia" Width="30" Height="30" HorizontalAlignment="Center" VerticalAlignment="Center" RenderOptions.BitmapScalingMode="HighQuality" Source="/intermodular;component/images/pencil.png"/>
-                                                <TextBlock Grid.Row="1" FontSize="18" HorizontalAlignment="Center">Editar</TextBlock>
-                                            </Grid>
-                                        </Button>
-                                        <Button x:Name="btnEliminarFamilia" Style="{StaticResource btnRedondo}" Height="90" Width="90" Grid.Column="2" Cursor="Hand" Visibility="Collapsed" Click="btnEliminarFamilia_Click" MouseEnter="btnEliminarFamilia_MouseEnter" MouseLeave="btnEliminarFamilia_MouseLeave">
-                                            <Grid VerticalAlignment="Center" HorizontalAlignment="Center">
-                                                <Grid.RowDefinitions>
-                                                    <RowDefinition/>
-                                                    <RowDefinition/>
-                                                </Grid.RowDefinitions>
-                                                <Image x:Name="imgEliminarFamilia" Width="30" Height="30" HorizontalAlignment="Center" VerticalAlignment="Center" RenderOptions.BitmapScalingMode="HighQuality" Source="/intermodular;component/images/eliminar.png"/>
-                                                <TextBlock Grid.Row="1" FontSize="18" HorizontalAlignment="Center">Eliminar</TextBlock>
-                                            </Grid>
-                                        </Button>
-                                    </Grid>
-                                </Border>
-                            </Grid>
-                        </Border>
-                    </Border>
-                    <Border Padding="10" Grid.Column="1" Background="WhiteSmoke" CornerRadius="0,0,10,0">
-                        <Border CornerRadius="10" Background="#E0E0E0">
-                            <Grid>
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="auto"/>
-                                    <RowDefinition/>
-                                    <RowDefinition Height="auto"/>
-                                </Grid.RowDefinitions>
-                                <Border CornerRadius="10,10,0,0" Background="DarkSlateGray" Padding="20">
-                                    <TextBlock Name="tituloFamiliaProducto" Foreground="white" FontSize="23" HorizontalAlignment="Center" VerticalAlignment="Center">Productos</TextBlock>
-                                </Border>
-                                <Border x:Name="contenedorGridProductos" Grid.Row="1">
-                                    <ScrollViewer VerticalScrollBarVisibility="Auto" CanContentScroll="True">
-                                        <Grid x:Name="gridProductos">
+                                            </StackPanel>
+                                        </ScrollViewer>
+                                    </Border>
+                                    <Border Grid.Row="2" Background="DarkSlateGray" CornerRadius="0,0,10,10" Padding="10">
+                                        <Grid HorizontalAlignment="Center">
                                             <Grid.ColumnDefinitions>
                                                 <ColumnDefinition/>
                                                 <ColumnDefinition/>
                                                 <ColumnDefinition/>
                                             </Grid.ColumnDefinitions>
+                                            <Button x:Name="btnAgregarFamilia" Style="{StaticResource btnRedondo}" Height="90" Width="90" Cursor="Hand" Click="btnAgregarFamilia_Click" MouseEnter="btnAgregarFamilia_MouseEnter" MouseLeave="btnAgregarFamilia_MouseLeave">
+                                                <Grid VerticalAlignment="Center" HorizontalAlignment="Center">
+                                                    <Grid.RowDefinitions>
+                                                        <RowDefinition/>
+                                                        <RowDefinition/>
+                                                    </Grid.RowDefinitions>
+                                                    <Image x:Name="imgAgregarZona" Width="30" Height="30" HorizontalAlignment="Center" VerticalAlignment="Top" RenderOptions.BitmapScalingMode="HighQuality" Margin="10,0,11,0" Source="/intermodular;component/images/agregar.png"/>
+                                                    <TextBlock Grid.Row="1" FontSize="18" VerticalAlignment="Top" HorizontalAlignment="Center">Agregar</TextBlock>
+                                                </Grid>
+                                            </Button>
+                                            <Button x:Name="btnEditarFamilia" Style="{StaticResource btnRedondo}" Height="90" Width="90" Grid.Column="1" Cursor="Hand" Margin="5,0,5,0" Visibility="Collapsed" Click="btnEditarFamilia_Click" MouseEnter="btnEditarFamilia_MouseEnter" MouseLeave="btnEditarFamilia_MouseLeave">
+                                                <Grid VerticalAlignment="Center" HorizontalAlignment="Center">
+                                                    <Grid.RowDefinitions>
+                                                        <RowDefinition/>
+                                                        <RowDefinition/>
+                                                    </Grid.RowDefinitions>
+                                                    <Image x:Name="imgEditarFamilia" Width="30" Height="30" HorizontalAlignment="Center" VerticalAlignment="Center" RenderOptions.BitmapScalingMode="HighQuality" Source="/intermodular;component/images/pencil.png"/>
+                                                    <TextBlock Grid.Row="1" FontSize="18" HorizontalAlignment="Center">Editar</TextBlock>
+                                                </Grid>
+                                            </Button>
+                                            <Button x:Name="btnEliminarFamilia" Style="{StaticResource btnRedondo}" Height="90" Width="90" Grid.Column="2" Cursor="Hand" Visibility="Collapsed" Click="btnEliminarFamilia_Click" MouseEnter="btnEliminarFamilia_MouseEnter" MouseLeave="btnEliminarFamilia_MouseLeave">
+                                                <Grid VerticalAlignment="Center" HorizontalAlignment="Center">
+                                                    <Grid.RowDefinitions>
+                                                        <RowDefinition/>
+                                                        <RowDefinition/>
+                                                    </Grid.RowDefinitions>
+                                                    <Image x:Name="imgEliminarFamilia" Width="30" Height="30" HorizontalAlignment="Center" VerticalAlignment="Center" RenderOptions.BitmapScalingMode="HighQuality" Source="/intermodular;component/images/eliminar.png"/>
+                                                    <TextBlock Grid.Row="1" FontSize="18" HorizontalAlignment="Center">Eliminar</TextBlock>
+                                                </Grid>
+                                            </Button>
                                         </Grid>
-                                    </ScrollViewer>
-                                </Border>
-                                <Border x:Name="contenedorBtnsProd" Grid.Row="2" Padding="10" Background="DarkSlateGray" CornerRadius="0,0,10,10" Visibility="Hidden">
-                                    <Grid HorizontalAlignment="Center">
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition/>
-                                            <ColumnDefinition/>
-                                            <ColumnDefinition/>
-                                        </Grid.ColumnDefinitions>
-                                        <Grid.RowDefinitions>
-                                            <RowDefinition/>
-                                        </Grid.RowDefinitions>
-                                        <Button x:Name="btnAgregarProd" Style="{StaticResource btnRedondo}" Height="90" Width="90" Cursor="Hand" Visibility="Collapsed" Click="btnAgregarProd_Click" MouseEnter="btnAgregarProd_MouseEnter" MouseLeave="btnAgregarProd_MouseLeave">
-                                            <Grid VerticalAlignment="Center" HorizontalAlignment="Center">
-                                                <Grid.RowDefinitions>
-                                                    <RowDefinition/>
-                                                    <RowDefinition/>
-                                                </Grid.RowDefinitions>
-                                                <Image x:Name="imgAgregarProd" Width="30" Height="30" HorizontalAlignment="Center" VerticalAlignment="Top" RenderOptions.BitmapScalingMode="HighQuality" Margin="10,0,11,0" Source="/intermodular;component/images/agregar.png"/>
-                                                <TextBlock Grid.Row="1" FontSize="18" VerticalAlignment="Top" HorizontalAlignment="Center">Agregar</TextBlock>
-                                            </Grid>
-                                        </Button>
-                                        <Button Grid.Column="1" x:Name="btnEditarProd" Style="{StaticResource btnRedondo}" Height="90" Width="90" Cursor="Hand" Margin="40,0,40,0" Visibility="Collapsed" Click="btnEditarProd_Click" MouseLeave="btnEditarProd_MouseEnter" MouseEnter="btnEditarProd_MouseEnter_1">
-                                            <Grid VerticalAlignment="Center" HorizontalAlignment="Center">
-                                                <Grid.RowDefinitions>
-                                                    <RowDefinition/>
-                                                    <RowDefinition/>
-                                                </Grid.RowDefinitions>
-                                                <Image x:Name="imgEditarProd" Width="30" Height="30" HorizontalAlignment="Center" VerticalAlignment="Top" RenderOptions.BitmapScalingMode="HighQuality" Margin="10,0,11,0" Source="/intermodular;component/images/pencil.png"/>
-                                                <TextBlock Grid.Row="1" FontSize="18" VerticalAlignment="Top" HorizontalAlignment="Center">Editar</TextBlock>
-                                            </Grid>
-                                        </Button>
-                                        <Button Grid.Column="2" x:Name="btnEliminarProd" Style="{StaticResource btnRedondo}" Height="90" Width="90" Cursor="Hand" Visibility="Collapsed" Click="btnEliminarProd_Click" MouseLeave="btnEliminarProd_MouseEnter" MouseEnter="btnEliminarProd_MouseEnter_1">
-                                            <Grid VerticalAlignment="Center" HorizontalAlignment="Center">
-                                                <Grid.RowDefinitions>
-                                                    <RowDefinition/>
-                                                    <RowDefinition/>
-                                                </Grid.RowDefinitions>
-                                                <Image x:Name="imgEliminarProd" Width="30" Height="30" HorizontalAlignment="Center" VerticalAlignment="Top" RenderOptions.BitmapScalingMode="HighQuality" Margin="10,0,11,0" Source="/intermodular;component/images/eliminar.png"/>
-                                                <TextBlock Grid.Row="1" FontSize="18" VerticalAlignment="Top" HorizontalAlignment="Center">Eliminar</TextBlock>
-                                            </Grid>
-                                        </Button>
-                                    </Grid>
-                                </Border>
-                            </Grid>
+                                    </Border>
+                                </Grid>
+                            </Border>
                         </Border>
-                    </Border>
-                </Grid>
-            </Border>
-        </Grid>
-    </Border>
+                        <Border Padding="10" Grid.Column="1" Background="WhiteSmoke" CornerRadius="0,0,10,0">
+                            <Border CornerRadius="10" Background="#E0E0E0">
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="auto"/>
+                                        <RowDefinition/>
+                                        <RowDefinition Height="auto"/>
+                                    </Grid.RowDefinitions>
+                                    <Border CornerRadius="10,10,0,0" Background="DarkSlateGray" Padding="20">
+                                        <TextBlock Name="tituloFamiliaProducto" Foreground="white" FontSize="23" HorizontalAlignment="Center" VerticalAlignment="Center">Productos</TextBlock>
+                                    </Border>
+                                    <Border x:Name="contenedorGridProductos" Grid.Row="1">
+                                        <ScrollViewer VerticalScrollBarVisibility="Auto" CanContentScroll="True">
+                                            <Grid x:Name="gridProductos">
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition/>
+                                                    <ColumnDefinition/>
+                                                    <ColumnDefinition/>
+                                                </Grid.ColumnDefinitions>
+                                            </Grid>
+                                        </ScrollViewer>
+                                    </Border>
+                                    <Border x:Name="contenedorBtnsProd" Grid.Row="2" Padding="10" Background="DarkSlateGray" CornerRadius="0,0,10,10" Visibility="Hidden">
+                                        <Grid HorizontalAlignment="Center">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition/>
+                                                <ColumnDefinition/>
+                                                <ColumnDefinition/>
+                                            </Grid.ColumnDefinitions>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition/>
+                                            </Grid.RowDefinitions>
+                                            <Button x:Name="btnAgregarProd" Style="{StaticResource btnRedondo}" Height="90" Width="90" Cursor="Hand" Visibility="Collapsed" Click="btnAgregarProd_Click" MouseEnter="btnAgregarProd_MouseEnter" MouseLeave="btnAgregarProd_MouseLeave">
+                                                <Grid VerticalAlignment="Center" HorizontalAlignment="Center">
+                                                    <Grid.RowDefinitions>
+                                                        <RowDefinition/>
+                                                        <RowDefinition/>
+                                                    </Grid.RowDefinitions>
+                                                    <Image x:Name="imgAgregarProd" Width="30" Height="30" HorizontalAlignment="Center" VerticalAlignment="Top" RenderOptions.BitmapScalingMode="HighQuality" Margin="10,0,11,0" Source="/intermodular;component/images/agregar.png"/>
+                                                    <TextBlock Grid.Row="1" FontSize="18" VerticalAlignment="Top" HorizontalAlignment="Center">Agregar</TextBlock>
+                                                </Grid>
+                                            </Button>
+                                            <Button Grid.Column="1" x:Name="btnEditarProd" Style="{StaticResource btnRedondo}" Height="90" Width="90" Cursor="Hand" Margin="40,0,40,0" Visibility="Collapsed" Click="btnEditarProd_Click" MouseLeave="btnEditarProd_MouseEnter" MouseEnter="btnEditarProd_MouseEnter_1">
+                                                <Grid VerticalAlignment="Center" HorizontalAlignment="Center">
+                                                    <Grid.RowDefinitions>
+                                                        <RowDefinition/>
+                                                        <RowDefinition/>
+                                                    </Grid.RowDefinitions>
+                                                    <Image x:Name="imgEditarProd" Width="30" Height="30" HorizontalAlignment="Center" VerticalAlignment="Top" RenderOptions.BitmapScalingMode="HighQuality" Margin="10,0,11,0" Source="/intermodular;component/images/pencil.png"/>
+                                                    <TextBlock Grid.Row="1" FontSize="18" VerticalAlignment="Top" HorizontalAlignment="Center">Editar</TextBlock>
+                                                </Grid>
+                                            </Button>
+                                            <Button Grid.Column="2" x:Name="btnEliminarProd" Style="{StaticResource btnRedondo}" Height="90" Width="90" Cursor="Hand" Visibility="Collapsed" Click="btnEliminarProd_Click" MouseLeave="btnEliminarProd_MouseEnter" MouseEnter="btnEliminarProd_MouseEnter_1">
+                                                <Grid VerticalAlignment="Center" HorizontalAlignment="Center">
+                                                    <Grid.RowDefinitions>
+                                                        <RowDefinition/>
+                                                        <RowDefinition/>
+                                                    </Grid.RowDefinitions>
+                                                    <Image x:Name="imgEliminarProd" Width="30" Height="30" HorizontalAlignment="Center" VerticalAlignment="Top" RenderOptions.BitmapScalingMode="HighQuality" Margin="10,0,11,0" Source="/intermodular;component/images/eliminar.png"/>
+                                                    <TextBlock Grid.Row="1" FontSize="18" VerticalAlignment="Top" HorizontalAlignment="Center">Eliminar</TextBlock>
+                                                </Grid>
+                                            </Button>
+                                        </Grid>
+                                    </Border>
+                                </Grid>
+                            </Border>
+                        </Border>
+                    </Grid>
+                </Border>
+            </Grid>
+        </Border>
+    </Viewbox>
 </Window>

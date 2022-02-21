@@ -24,6 +24,8 @@ namespace intermodular
         public CrearFamiliaProducto(Familia familia)
         {
             InitializeComponent();
+            this.Width = SystemParameters.PrimaryScreenWidth * 0.5;
+            this.Height = SystemParameters.PrimaryScreenHeight * 0.3;
             this.familia = familia;
             if(familia == null)
             {
