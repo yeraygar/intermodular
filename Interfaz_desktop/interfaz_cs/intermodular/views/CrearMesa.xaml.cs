@@ -134,6 +134,7 @@ namespace intermodular
                 {
                     mesa.num_row = 0;
                     mesa.num_column = 0;
+                    Mesa.currentZoneTables = new List<Mesa>();
                 }
                 else
                 {

@@ -44,7 +44,7 @@ namespace intermodular
 
         private async void btnAceptar_Click(object sender, System.EventArgs e)
         {
-            String passwordIntroducido = Encrypt.GetSHA256(passwordBox.Password);
+            String passwordIntroducido = passwordBox.Password;
 
             if (admin) comportamientoAdministrador(passwordIntroducido);
             else await comportamientoUsuario(passwordIntroducido);

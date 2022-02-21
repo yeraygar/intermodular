@@ -152,7 +152,7 @@ namespace intermodular
                         {
                             Client clientprueba = new Client(textBoxN.Text, textBox.Text, passworbox.Password);
                             Boolean crearCliente = await Client.createClient(clientprueba);
-                            User admin = new User("Admin", "Admin", Encrypt.GetSHA256("1234"), "", true, "Admin");
+                            User admin = new User("Admin", "Admin", "1234", "", true, "Admin");
                             await User.createUser(admin);
                             MessageBox.Show("Usuario: Admin\nContraseña: 1234", "Cliente creado correctamente", MessageBoxButton.OK, MessageBoxImage.Information);
                             MainWindow m = new MainWindow();

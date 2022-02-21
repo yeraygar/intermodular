@@ -30,7 +30,7 @@ namespace intermodular
         {
 
             InitializeComponent();
-            if(SystemParameters.PrimaryScreenWidth == 800)
+            /*if(SystemParameters.PrimaryScreenWidth == 800)
             {
                 grid.Height = 1050;
                 grid.Width = 1400;
@@ -39,7 +39,7 @@ namespace intermodular
             {
                 grid.Height = 1080;
                 grid.Width = 1920;
-            }
+            }*/
             Staticresources.mainWindow = this;
 
             Zona.getAllClientZones(Client.currentClient._id).ContinueWith(task =>
@@ -305,9 +305,9 @@ namespace intermodular
                         {
                             Background = Staticresources.isEditableTables ? mesa.status ? (Brush)(new BrushConverter().ConvertFrom("#8dd56d")) : (Brush)(new BrushConverter().ConvertFrom("#cf6161")) :mesa.ocupada ? (Brush)(new BrushConverter().ConvertFrom("#cf6161")) : mesa.status && mesa.comensales == 0 ? (Brush)(new BrushConverter().ConvertFrom("#8dd56d")) : mesa.status && mesa.comensales > 0 ? (Brush)(new BrushConverter().ConvertFrom("#ebb558")) : (Brush)(new BrushConverter().ConvertFrom("#cf6161")),
                             Tag = mesa._id,
-                            Content = mesa.name,
+                            //Content = mesa.name,
                             Style = Application.Current.TryFindResource("btnRedondo") as Style,
-                            FontSize = 50,
+                            //FontSize = 19,
                             Cursor = Cursors.Hand,
                             VerticalAlignment = VerticalAlignment.Top,
                             Effect = new DropShadowEffect
@@ -320,19 +320,19 @@ namespace intermodular
                             },
                             Visibility = !mesa.status && !Staticresources.isEditableTables ? Visibility.Hidden : Visibility.Visible
                         };
-
-                        if(SystemParameters.PrimaryScreenWidth == 800)
+                        Viewbox vb = new Viewbox();
+                        Label lb = new Label
                         {
-                            btn.Margin = new Thickness(0, 100, 0, 0);
-                            btn.Width = 100;
-                            btn.Height = 100;
-                        }
-                        else
-                        {
-                            btn.Margin = new Thickness(0, 100, 0, 0);
-                            btn.Width = 200;
-                            btn.Height = 200;
-                        }
+                            Content = mesa.name,
+                            FontSize = 19,
+                            Margin = new Thickness(10,0,10,0)
+                        };
+                      
+                        vb.Child = lb;
+                        btn.Content = vb;
+                        btn.Width = calcSize();
+                        btn.Height = calcSize();
+                        btn.Margin = new Thickness(0, calcSize() * 0.1, 0, 0);
 
                         btn.Click += btnsTablesClick;
 
@@ -397,12 +397,9 @@ namespace intermodular
             Button btn = new Button
             {
                 Tag = mesa._id,
-                Margin = new Thickness(0,100,0,0),
-                Width = 200,
-                Height = 200,
                 Style = Application.Current.TryFindResource("btnRedondo") as Style,
                 Background = Staticresources.isEditableTables ? mesa.status ? (Brush)(new BrushConverter().ConvertFrom("#8dd56d")) : (Brush)(new BrushConverter().ConvertFrom("#cf6161")) : mesa.ocupada ? (Brush)(new BrushConverter().ConvertFrom("#cf6161")) : mesa.status && mesa.comensales == 0 ? (Brush)(new BrushConverter().ConvertFrom("#8dd56d")) : mesa.status && mesa.comensales > 0 ? (Brush)(new BrushConverter().ConvertFrom("#ebb558")) : (Brush)(new BrushConverter().ConvertFrom("#cf6161")),
-                Content = mesa.name,
+                //Content = mesa.name,
                 FontSize = 50,
                 Cursor = Cursors.Hand,
                 VerticalAlignment = VerticalAlignment.Top,
@@ -415,7 +412,21 @@ namespace intermodular
 
                 },
                 Visibility = !mesa.status && !Staticresources.isEditableTables ? Visibility.Hidden : Visibility.Visible
+                
             };
+            Viewbox vb = new Viewbox();
+            Label lb = new Label
+            {
+                Content = mesa.name,
+                FontSize = 19,
+                Margin = new Thickness(10, 0, 10, 0)
+            };
+            
+            vb.Child = lb;
+            btn.Content = vb;
+            btn.Width = calcSize();
+            btn.Height = calcSize();
+            btn.Margin = new Thickness(0, calcSize() * 0.1, 0, 0);
             if (mapaMesas.RowDefinitions.Count < mesa.num_row + 1)
             {
                 mapaMesas.RowDefinitions.Add(new RowDefinition());
@@ -611,6 +622,12 @@ namespace intermodular
                 columnaEditarMesa.Width = new GridLength(0);
                 columnaEliminarMesa.Width = new GridLength(0);
             }
+        }
+
+        private double calcSize()
+        {
+            double size = SystemParameters.PrimaryScreenWidth - 250;
+            return (size / 6) * 0.8;
         }
     }
 }

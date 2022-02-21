@@ -197,6 +197,7 @@ namespace intermodular
                             {
                                 try
                                 {
+                                    await Mesa.updateTable(Mesa.currentMesa._id,Mesa.currentMesa);
                                     if(await Producto.createLineTicket(productoSelect))
                                     {
                                        

@@ -16,7 +16,7 @@
         Left="0"
       >
     <Viewbox>
-        <Grid x:Name="grid" Background="Transparent">
+        <Grid x:Name="grid" Background="Transparent" Width="{x:Static SystemParameters.PrimaryScreenWidth}"  Height="{x:Static SystemParameters.PrimaryScreenHeight}">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="250"/>
                 <ColumnDefinition/>
@@ -60,14 +60,16 @@
                     </ScrollViewer>
                 </Border>
             </Border>
-            <Grid Grid.Row="3" VerticalAlignment="Center" HorizontalAlignment="Center" Cursor="Hand" MouseDown="Grid_MouseDown">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="auto"/>
-                    <RowDefinition Height="auto"/>
-                </Grid.RowDefinitions>
-                <Image x:Name="imgOpciones" Source="..\images\settings.png" Height="60" Width="60" HorizontalAlignment="Center" VerticalAlignment="Center" RenderOptions.BitmapScalingMode="HighQuality"/>
-                <TextBlock Grid.Row="1" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center">Opciones</TextBlock>
-            </Grid>
+            <Viewbox Grid.Row="3">
+                <Grid VerticalAlignment="Center" HorizontalAlignment="Center" Cursor="Hand" MouseDown="Grid_MouseDown" Margin="5">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                    </Grid.RowDefinitions>
+                    <Image x:Name="imgOpciones" Source="..\images\settings.png" Height="60" Width="60" HorizontalAlignment="Center" VerticalAlignment="Center" RenderOptions.BitmapScalingMode="HighQuality"/>
+                    <TextBlock Grid.Row="1" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center">Opciones</TextBlock>
+                </Grid>
+            </Viewbox>
             <Border Padding="10" Grid.Row="3" Grid.Column="1">
                 <Grid x:Name="gridBtnsTable">
                     <Grid.RowDefinitions>
@@ -81,30 +83,40 @@
                         <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
                     <Button x:Name="btnAddTable" Style="{StaticResource btnRedondo}" Margin="3" Cursor="Hand" Click="btnAddTable_Click" Background="#0099a9" IsEnabled="False" Tag="add" MouseEnter="btnsMouseEnterMenuAdminMesas" MouseLeave="btnsMouseLeaveMenuAdminMesas">
-                        <StackPanel Orientation="Horizontal">
-                            <Image x:Name="imgAddMesa" Width="50" Height="50" Source="/intermodular;component/images/agregar.png" RenderOptions.BitmapScalingMode="HighQuality"/>
-                            <TextBlock FontSize="19" Text="Añadir mesa" VerticalAlignment="Center" Margin="10,0,0,0"/>
-                        </StackPanel>
+                        <Viewbox>
+                            <StackPanel Orientation="Horizontal" Margin="5,0,5,0">
+                                <Image x:Name="imgAddMesa" Width="40" Height="50" Source="/intermodular;component/images/agregar.png" RenderOptions.BitmapScalingMode="HighQuality"/>
+                                <TextBlock FontSize="17" Text="Añadir mesa" VerticalAlignment="Center" Margin="10,0,0,0"/>
+                            </StackPanel>
+                        </Viewbox>
                     </Button>
                     <Button x:Name="btnEditarMesa" Style="{StaticResource btnRedondo}" Margin="3" Grid.Column="1" Cursor="Hand" Background="#0099a9" IsEnabled="False" Tag="edit" MouseEnter="btnsMouseEnterMenuAdminMesas" MouseLeave="btnsMouseLeaveMenuAdminMesas" Click="btnEditarMesa_Click">
-                        <StackPanel Orientation="Horizontal">
-                            <Image x:Name="imgEditMesa" Width="40" Height="40" Source="/intermodular;component/images/pencil.png" RenderOptions.BitmapScalingMode="HighQuality"/>
-                            <TextBlock FontSize="19" Text="Editar mesa" VerticalAlignment="Center" Margin="10,0,0,0"/>
-                        </StackPanel>
+                        <Viewbox>
+                            <StackPanel Orientation="Horizontal" Margin="5,0,5,0" VerticalAlignment="Center">
+                                <Image x:Name="imgEditMesa" Width="25" Height="40" Source="/intermodular;component/images/pencil.png" RenderOptions.BitmapScalingMode="HighQuality"/>
+                                <TextBlock FontSize="17" Text="Editar mesa" VerticalAlignment="Center" Margin="10,0,0,0"/>
+                            </StackPanel>
+                        </Viewbox>
                     </Button>
                     <Button x:Name="btnEliminarMesa" Style="{StaticResource btnRedondo}" Margin="3" Grid.Column="2" Cursor="Hand" Background="#0099a9" IsEnabled="False" Tag="delete" MouseEnter="btnsMouseEnterMenuAdminMesas" MouseLeave="btnsMouseLeaveMenuAdminMesas" Click="btnEliminarMesa_Click">
-                        <StackPanel Orientation="Horizontal">
-                            <Image x:Name="imgDeleteMesa" Width="40" Height="40" Source="/intermodular;component/images/eliminar.png" RenderOptions.BitmapScalingMode="HighQuality"/>
-                            <TextBlock FontSize="19" Text="Eliminar mesa" VerticalAlignment="Center" Margin="10,0,0,0"/>
-                        </StackPanel>
+                        <Viewbox>
+                            <StackPanel Orientation="Horizontal" Margin="5,0,5,0">
+                                <Image x:Name="imgDeleteMesa" Width="25" Height="40" Source="/intermodular;component/images/eliminar.png" RenderOptions.BitmapScalingMode="HighQuality"/>
+                                <TextBlock FontSize="17" Text="Eliminar mesa" VerticalAlignment="Center" Margin="10,0,0,0"/>
+                            </StackPanel>
+                        </Viewbox>
                     </Button>
                     <Button x:Name="btnSalir" Style="{StaticResource btnRedondo}" Margin="3"  Grid.Column="3" Cursor="Hand" Click="btnSalir_Click" Background="#0099a9" IsEnabled="False" Tag="exit" MouseEnter="btnsMouseEnterMenuAdminMesas" MouseLeave="btnsMouseLeaveMenuAdminMesas">
-                        <StackPanel Orientation="Horizontal">
-                            <Image x:Name="imgExitMesasAdmin" Width="40" Height="40" Source="/intermodular;component/images/cancel.png" RenderOptions.BitmapScalingMode="HighQuality"/>
-                            <TextBlock FontSize="19" Text="Salir" VerticalAlignment="Center" Margin="10,0,0,0"/>
-                        </StackPanel>
+                        <Viewbox>
+                            <StackPanel Orientation="Horizontal" Margin="20,0,40,0">
+                                <Image x:Name="imgExitMesasAdmin" Width="25" Height="40" Source="/intermodular;component/images/cancel.png" RenderOptions.BitmapScalingMode="HighQuality"/>
+                                <TextBlock FontSize="17" Text="Salir" VerticalAlignment="Center" Margin="10,0,0,0"/>
+                            </StackPanel>
+                        </Viewbox>
                     </Button>
-                    <TextBlock x:Name="textBlockPie" Grid.ColumnSpan="4" Grid.Row="1" FontSize="30" Text="Bienvenido al TPV" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                    <Viewbox Grid.Row="1" Grid.ColumnSpan="4">
+                        <TextBlock x:Name="textBlockPie" Grid.ColumnSpan="4" Grid.Row="1" FontSize="30" Text="Bienvenido al TPV" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="23" />
+                    </Viewbox>
                 </Grid>
             </Border>
         </Grid>
