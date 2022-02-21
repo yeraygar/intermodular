@@ -41,7 +41,7 @@ fun TableScreen(
     val title = remember { mutableStateOf("") }
     val afterFirstProduct = remember { mutableStateOf(false)}
     val totalBill = remember { mutableStateOf(0.0f)}
-    val productClicked = remember { mutableStateOf(false)}
+    val productClicked = remember { mutableStateOf(true)}
 
     var currentLine = remember { mutableStateOf(
         ProductModel("Error", "Error",0, 0.0f, 0, 0.0f,
@@ -63,14 +63,20 @@ fun TableScreen(
             Logger.d(" $line \n $currentTable \n $currentTicket ")
     }
 
-    //TODO otro boolean para el reset
-    if(toReset){
+    //TODO cargar familias y productos al acceder a la mesa
+/*    if(toReset){
         currentTicketLines.value = listOf()
         tableViewModel.resetTableViewModel()
         toReset = false
+    }*/
+
+    for((key, value) in familyAndProducts){
+        Logger.d(key + value)
     }
 
-    if(currentTicketLines.value.isEmpty() || firstOpenTable){
+
+
+/*    if(currentTicketLines.value.isEmpty() || firstOpenTable){
         tableViewModel.recoverTable(currentTable._id, currentTicketLines, productClicked)
         Logger.wtf(currentTicketLines.value.toString())
         Logger.wtf(currentTable._id + currentTable.name)
@@ -79,25 +85,110 @@ fun TableScreen(
         if(currentTicketLines.value.isNotEmpty()){
             productClicked.value = true
             isComensalesOpen.value = false
+            ticketCreado = true
         }else{
-            if(!currentTable.ocupada && firstOpenTable)
+            if(!currentTable.ocupada && firstOpenTable){
                 isComensalesOpen.value = true
+                ticketCreado = false
+            }
         }
         firstOpenTable = false
+    }*/
+/*    LaunchedEffect(key1 = firstOpenTable){
+        isComensalesOpen.value = true
+    }*/
+
+    if (firstOpenTable && bool){
+        currentTicketLines.value = listOf()
+        bool = false
+        if(currentTable.id_ticket == "Error"){
+            //tableViewModel.resetTableViewModel()
+            tableViewModel.createTicket(){
+                currentTicket = tableViewModel.currentTicketResponse
+                currentTable.id_ticket = currentTicket._id
+                tableViewModel.updateTable(currentTable, currentTable._id)
+                isComensalesOpen.value = true
+
+            }
+        }
+        firstOpenTable = false
+    }else if(!firstOpenTable && bool){
+        if(currentTicket._id == currentTable.id_ticket && bool){
+
+            //tableViewModel.resetTableViewModel()
+            tableViewModel.getTicketLines(currentTicket._id){
+                currentTicketLines.value = tableViewModel.ticketLinesResponse
+                recalculate(
+                    currentTicketLines = currentTicketLines,
+                    totalBill = totalBill,
+                    tableViewModel = tableViewModel
+                )
+                productClicked.value = false
+            }
+        }
+        bool = false
     }
+
+    tableViewModel.getTicket(currentTable.id_ticket) {
+     //   currentTicket = tableViewModel.ticketResponse[0]
+        currentTable.id_ticket = currentTicket._id
+        tableViewModel.updateTable(currentTable, currentTable._id)
+        /*tableViewModel.getTicketLines(currentTable.id_ticket){
+            currentTicketLines.value = tableViewModel.ticketLinesResponse
+        }*/
+        tableViewModel.getTicketLines(currentTable.id_ticket){
+            currentTicketLines.value = tableViewModel.ticketLinesResponse
+        }
+    }
+/*    tableViewModel.getTicketLines(currentTable.id_ticket){
+        currentTicketLines.value = tableViewModel.ticketLinesResponse
+    }*/
+   // currentTicketLines.value = tableViewModel.ticketLinesResponse
+
+
+
+
+    /*LaunchedEffect(key1 = true){
+        if(currentTable.id_ticket == "Error"){
+            //tableViewModel.resetTableViewModel()
+            tableViewModel.createTicket(){
+                currentTicket = tableViewModel.currentTicketResponse
+                currentTable.id_ticket = currentTicket._id
+                tableViewModel.updateTable(currentTable, currentTable._id)
+            }
+        }else if(currentTicket._id == currentTable.id_ticket  && productClicked.value){
+
+            //tableViewModel.resetTableViewModel()
+            tableViewModel.getTicketLines(currentTicket._id){
+                currentTicketLines.value = tableViewModel.ticketLinesResponse
+                recalculate(
+                    currentTicketLines = currentTicketLines,
+                    totalBill = totalBill,
+                    tableViewModel = tableViewModel
+                )
+                productClicked.value = false
+            }
+        }
+    }*/
+
+/*    LaunchedEffect(key1 = currentTicketLines.value{
+        tableViewModel.getTicketLines(currentTicket._id){
+            currentTicketLines.value = tableViewModel.ticketLinesResponse
+        }
+    }*/
 
     title.value = "${currentTable.name} - ${currentUser.name}"
 
-    if(productClicked.value){
+/*    if(productClicked.value){
         recalculate(
             currentTicketLines = currentTicketLines,
             totalBill = totalBill,
             tableViewModel = tableViewModel
         )
         productClicked.value = false
-    }
+    }*/
 
-    tableViewModel.getClientFamilies(currentClient._id)
+ //   tableViewModel.getClientFamilies(currentClient._id)
 
     TableStart(
         navController = navController,
@@ -143,9 +234,10 @@ fun TableScreen(
             applicationContext = applicationContext,
             navController = navController,
             scaffoldState = scaffoldState,
-            scope = scope
+            scope = scope,
+            currentTicketLines = currentTicketLines
         )
-    
+
     if(isLineOptionsOpen.value){
         ShowAlertDialogLineOptions(
             isLineOptionsOpen = isLineOptionsOpen,
@@ -203,7 +295,9 @@ fun TableStart(
                                     text = currentLine.value.comentario,
                                     color = Color.White,
                                     fontWeight = FontWeight.Bold,
-                                    modifier = Modifier.padding(30.dp).fillMaxWidth(0.8f)
+                                    modifier = Modifier
+                                        .padding(30.dp)
+                                        .fillMaxWidth(0.8f)
                                 )
                                 IconButton(
                                     //modifier = Modifier.size(20.dp).padding(20.dp),
@@ -288,12 +382,12 @@ fun customShape() = object : Shape {
 }
 
 
-private fun clickCerrar(
+private fun clickCerrar( //TODO EL PROBLEMA AQUI
     currentTicketLines: MutableState<List<ProductModel>>,
     tableViewModel: TableViewModel,
     navController: NavController
 ) {
-    if (!currentTicketLines.value.isNullOrEmpty()) {
+    /*if (*//*!currentTicketLines.value.isNullOrEmpty()*//* currentTicket.total != 0f) {
         currentTable.id_ticket = currentTicket._id
         currentTable.ocupada = true
         Logger.wtf("Mesa cerrada llena \nCurrentTicket ${currentTicket._id} && Table ${currentTable.id_ticket}")
@@ -306,11 +400,25 @@ private fun clickCerrar(
         currentTable.ocupada = false
         tableViewModel.updateTable(currentTable, currentTable._id)
         Logger.d("Cerrar mesa vacia")
+    }*/
+    if(currentTicket.total > 0){
+        Logger.wtf("SALIR $currentTicket in \n $currentTable ")
+        navController.navigate(ScreenNav.MapScreen.route) {
+            popUpTo(navController.graph.findStartDestination().id) { saveState = false }
+            restoreState = true
+        }
+    }else{
+        tableViewModel.deleteTicket(currentTicket._id)
+        currentTable.id_ticket = "Error"
+        currentTable.ocupada = false
+        currentTable.comensales = 1
+        tableViewModel.updateTable(currentTable, currentTable._id)
+        navController.navigate(ScreenNav.MapScreen.route) {
+            popUpTo(navController.graph.findStartDestination().id) { saveState = false }
+            restoreState = true
+        }
     }
-    navController.navigate(ScreenNav.MapScreen.route) {
-        popUpTo(navController.graph.findStartDestination().id) { saveState = false }
-        restoreState = true
-    }
+
     //   firstOpenTable = true
 }
 
@@ -325,10 +433,10 @@ fun recalculate(
             line.total = line.cantidad * line.precio
             totalBill.value = totalBill.value + line.total
         }
+    currentTicket.id_caja = currentCaja._id
     currentTicket.total = totalBill.value
     currentTicket.id_user_que_abrio = currentUser._id
     tableViewModel.updateTicket(currentTicket, currentTicket._id)
-
 }
 
 

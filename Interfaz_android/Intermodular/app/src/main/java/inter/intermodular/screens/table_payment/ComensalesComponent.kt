@@ -23,6 +23,7 @@ import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
 import inter.intermodular.R
 import inter.intermodular.support.currentTable
+import inter.intermodular.support.currentTicket
 import inter.intermodular.view_models.TableViewModel
 import java.lang.Exception
 
@@ -100,6 +101,8 @@ fun ShowAlertDialogComensales(
                             isComensalesOpen.value = false
                             aceptarEnabled.value = false
                             tableViewModel.updateTable(currentTable, currentTable._id)
+                            currentTicket.comensales = comensales.value
+                            tableViewModel.updateTicket(currentTicket, currentTicket._id)
                         }else{
                             Toast.makeText(applicationContext, "Valor Incorrecto [1 - ${currentTable.comensalesMax}] ", Toast.LENGTH_SHORT).show()
                         }

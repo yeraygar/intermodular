@@ -37,11 +37,14 @@ fun MapScreen(mapViewModel: MapViewModel, navController: NavHostController){
             title.value = mapViewModel.clientZonesResponse[0].zone_name
             currentZone = mapViewModel.clientZonesResponse[0]
             firstOpenMap = false
+            mapViewModel.getClientFamilies(currentClient._id)
+            mapViewModel.getOpenCaja(currentClient._id)
+            Logger.i("OBTENIENDO PRODUCTOS")
         }
         else{
             title.value = currentZone?.zone_name ?: "Zona"
         }
-        mapViewModel.getZoneTables(currentZone!!._id)
+        mapViewModel.getZoneTables(currentZone!!._id){}
         if(!mapViewModel.zoneTablesResponse.isNullOrEmpty()){
             currentZoneTables = mapViewModel.zoneTablesResponse
             MapTablesStart(

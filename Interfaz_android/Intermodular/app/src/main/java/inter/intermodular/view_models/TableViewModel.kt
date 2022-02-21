@@ -14,6 +14,7 @@ import inter.intermodular.services.ApiServices
 import inter.intermodular.support.*
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import retrofit2.Callback
 import retrofit2.Response
 import java.util.*
 
@@ -26,7 +27,7 @@ class TableViewModel : ViewModel() {
 
     var currentTicketResponse : TicketModel by mutableStateOf(
         TicketModel("Error", 0f, "Error", "Error",
-            "Error", "Error", "Error","Error" , 0, Date(), false)
+            "Error", "Error", "Error","Error" , 0, Date(), false, "Error")
     )
 
     var openTicketResponse : List<TicketModel> by mutableStateOf(listOf())
@@ -34,6 +35,8 @@ class TableViewModel : ViewModel() {
     var clientFamiliesResponse : List<FamilyModel> by mutableStateOf(listOf())
     var ticketLinesResponse : List<ProductModel> by mutableStateOf(listOf())
     var updateOkResponse : Boolean by mutableStateOf(false)
+    var ticketResponse : List<TicketModel> by mutableStateOf((listOf()))
+
 
 
     private var errorMessage : String by mutableStateOf("")
@@ -41,7 +44,8 @@ class TableViewModel : ViewModel() {
 
     fun createTicketLine(
         product: ProductModel,
-        currentTicketLines: MutableState<List<ProductModel>>
+        currentTicketLines: MutableState<List<ProductModel>>,
+        onSuccessCallback: () -> Unit
     ){
         viewModelScope.launch {
             val apiServices = ApiServices.getInstance()
@@ -53,7 +57,7 @@ class TableViewModel : ViewModel() {
                 total = product.total,
                 id_client = product.id_client,
                 id_familia = product.id_familia,
-                id_ticket = product.id_ticket
+                id_ticket = product.id_ticket,
                 )
             try{
                 val response : Response<ProductModel> = apiServices.createTicketLine(ticketLine)
@@ -63,6 +67,7 @@ class TableViewModel : ViewModel() {
                     res.add(currentTicketLineResponse)
                     currentTicketLines.value = res
                     Logger.i("CORRECT createTicketLine $product")
+                    onSuccessCallback()
                     
                 }else Logger.e("Response not Successful in createTicketLIne")
             }catch (e: Exception){
@@ -72,7 +77,11 @@ class TableViewModel : ViewModel() {
         }
     }
 
-    fun updateTicketLine(productLine: ProductModel, productLineId : String){
+    fun updateTicketLine(
+        productLine: ProductModel,
+        productLineId : String,
+        onSuccessCallback: () -> Unit
+    ){
         viewModelScope.launch {
             val apiServices = ApiServices.getInstance()
             updateOkResponse = false
@@ -81,6 +90,7 @@ class TableViewModel : ViewModel() {
                 if (response.isSuccessful){
                     updateOkResponse = true
                     Logger.i("SUCCESS updateTicketLine $response ${response.body()}")
+                    onSuccessCallback()
                 }else Logger.e("FAILURE response updateTicketLine $productLine in $productLineId")
             }catch (e: Exception){
                 errorMessage = e.message.toString()
@@ -106,7 +116,7 @@ class TableViewModel : ViewModel() {
         }
     }
 
-    private fun getTicketLines(ticketId : String){
+    fun getTicketLines(ticketId : String, onSuccessCallback: () -> Unit){
         viewModelScope.launch {
             val apiServices = ApiServices.getInstance()
             try{
@@ -114,9 +124,41 @@ class TableViewModel : ViewModel() {
                 ticketLinesResponse = apiServices.getTicketLines(ticketId)
                 //allFamilies = ticketLinesResponse
                 Logger.i("SUCCESS loading getTicketLines for ticketId: $ticketId")
+                onSuccessCallback()
             }catch (e: Exception){
                 errorMessage = e.message.toString()
                 Logger.e("FAILURE loading ticket lines for ticketId: $ticketId")
+            }
+        }
+    }
+
+    fun getTicketLineByName(id_ticket : String, name : String, onSuccessCallback: () -> Unit, onFailureCallback: () -> Unit){
+        viewModelScope.launch {
+            val apiServices = ApiServices.getInstance()
+            try{
+                //if(res.isSuccessful){
+                    try{
+                        var res = apiServices.getTicketLineByName(id_ticket, name)
+                       // currentTicketLineResponse = res
+                        if(res.isNullOrEmpty()){
+                            Logger.e("current ticket response = error: ")
+                            onFailureCallback()
+
+                        }else{
+                            Logger.i("on success callback getTicketLineByID: ")
+                            currentTicketLineResponse = res[0]
+                            onSuccessCallback()
+                        }
+
+                    }catch (ex: Exception){
+                        errorMessage = ex.message.toString()
+                        Logger.e("FAILURE loading ticket lines for ticketId and name PRIMER CATCH: ")
+                    }
+               // }else onFailureCallback()
+            }catch (e: Exception){
+               // onFailureCallback()
+                errorMessage = e.message.toString()
+                Logger.e("FAILURE loading ticket lines for ticketId and name SEGUND CATCH ")
             }
         }
     }
@@ -131,7 +173,7 @@ class TableViewModel : ViewModel() {
                 hasOpenTicket(tableId = tableId)
                 delay(100)
                 if(!openTicketResponse.isNullOrEmpty()){
-                    getTicketLines(openTicketResponse[0]._id)
+                   // getTicketLines(openTicketResponse[0]._id)
                     delay(100)
                     Logger.i("Open Ticket True")
                     if(!ticketLinesResponse.isNullOrEmpty()){
@@ -169,7 +211,7 @@ class TableViewModel : ViewModel() {
         }
     }
 
-    fun createTicket(){
+    fun createTicket(onSuccessCallback: () -> Unit){
         viewModelScope.launch {
             val newTicket : TicketPost =
                 TicketPost(currentUser._id, currentClient._id, currentTable._id, currentTable.name)
@@ -182,6 +224,7 @@ class TableViewModel : ViewModel() {
                     currentTable.id_ticket = currentTicketResponse._id
                     currentTable.ocupada = true
                     updateTable(currentTable, currentTable._id)
+                    onSuccessCallback()
                     Logger.i("Create ticket successful ${response.body()}")
                 }else Logger.e("Error response CreateTicket $response")
 
@@ -191,6 +234,8 @@ class TableViewModel : ViewModel() {
             }
         }
     }
+
+
 
     fun updateTicket(ticket: TicketModel, ticketId : String){
         viewModelScope.launch {
@@ -300,7 +345,7 @@ class TableViewModel : ViewModel() {
 
         currentTicketResponse
         TicketModel("Error", 0f, "Error", "Error",
-            "Error", "Error", "Error","Error" , 0, Date(), false)
+            "Error", "Error", "Error","Error" , 0, Date(), false, "Error")
 
 
 
@@ -309,6 +354,27 @@ class TableViewModel : ViewModel() {
         clientFamiliesResponse = listOf()
         ticketLinesResponse = listOf()
         updateOkResponse = false
+    }
+
+
+    fun getTicket(ticketId : String, onSuccessCallback: () -> Unit){
+        viewModelScope.launch {
+            val apiServices = ApiServices.getInstance()
+            try{
+                //ticketLinesResponse = listOf()
+                var res = apiServices.getTicket(ticketId)
+                currentTicketResponse= res
+                if(currentTicketResponse._id != "Error"){
+                    currentTicket = currentTicketResponse
+                    onSuccessCallback()
+                }
+                //allFamilies = ticketLinesResponse
+                Logger.i("SUCCESS loading ticket for ticketId: $ticketId")
+            }catch (e: java.lang.Exception){
+                errorMessage = e.message.toString()
+                Logger.e("FAILURE loading ticket for ticketId: $ticketId")
+            }
+        }
     }
 
 

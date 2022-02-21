@@ -94,4 +94,20 @@ router.delete("/ticket_line/ticket/:id_ticket", (req, res) => {
     })
 })
 
+//Get ticket_line from a Ticket and name ticket_line
+router.get("/ticket_line/ticket/:id_ticket/:name", (req, res) => {
+    const id_ticket = req.params.id_ticket;
+    const name = req.params.name;
+    ticketLineSchema
+        .find({id_ticket: id_ticket, name: name})
+        .then((data) =>{
+            res.json(data);
+            console.log(`\nticket_line name: \n ${data}`);
+        })
+        .catch((err) => {
+            res.json({message:err});
+            console.log(`Error get /api/ticket_line/ticket/name${id} : ${err}`);
+        })
+})
+
 module.exports = router

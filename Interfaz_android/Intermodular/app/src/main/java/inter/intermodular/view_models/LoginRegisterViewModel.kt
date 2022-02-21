@@ -196,21 +196,21 @@ class LoginRegisterViewModel : ViewModel() {
         viewModelScope.launch {
             defaultAdmin.id_client = currentClient._id
             createUser(defaultAdmin)
+            createFamily(defaultFamily)
             defaultZone.id_client = currentClient._id
             createZone(defaultZone)
             defaultFamily.id_client = currentClient._id
-            createFamily(defaultFamily)
             delay(500)
             currentZone = currentZoneResponse
             defaultTable.id_zone = currentZoneResponse._id
             defaultTable.num_row = 0
-            for ( i in 0 until 5){
+            for ( i in 1 until 3){
                 defaultTable.num_column = 0
-                for(j in 0 until 6){
-                    defaultTable.name = "${defaultTable.num_row + 1}${defaultTable.num_column + 1}"
+                for(j in 1 until 7){
+                    defaultTable.name = "${defaultTable.num_row}${defaultTable.num_column}"
                     createTable(defaultTable)
                     defaultTable.num_column++
-                    if(defaultTable.num_column == 5) defaultTable.num_row++
+                    if(defaultTable.num_column == 6) defaultTable.num_row++
                 }
             }
             defaultProduct1.id_client = currentClient._id
@@ -219,6 +219,26 @@ class LoginRegisterViewModel : ViewModel() {
             defaultProduct2.id_client = currentClient._id
             defaultProduct2.id_familia = currentFamilyResponse._id
             createProduct(defaultProduct2)
+
+     /*       delay(300)
+            defaultZone2.id_client = currentClient._id
+            createZone(defaultZone2)
+            defaultFamily.id_client = currentClient._id
+            delay(500)
+            currentZone = currentZoneResponse
+            defaultTable2.id_zone = currentZoneResponse._id
+            defaultTable2.num_row = 0
+            defaultTable2.num_column = 0
+            for ( i in 1 until 3){
+                defaultTable2.num_column = 0
+                for(j in 1 until 7){
+                    defaultTable2.name = "${defaultTable.num_row}${defaultTable2.num_column}"
+                    createTable(defaultTable2)
+                    defaultTable2.num_column++
+                    if(defaultTable2.num_column == 5) defaultTable2.num_row++
+                }
+            }*/
+
         }
     }
 

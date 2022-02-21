@@ -2,13 +2,15 @@ package inter.intermodular.support
 
 import inter.intermodular.models.*
 import java.util.*
+import kotlin.collections.HashMap
 
 var currentClient = ClientModel("Error", "Error", "Error", "Error")
 var currentUser: UserModel = UserModel("error", "error", "error", "error", "error", "error", false)
 var currentZone : ZoneModel = ZoneModel("Error", "Error", "Error")
-var currentTicket : TicketModel = TicketModel("Error", 0.0f, "Error", "Error", "Error", "Error", "Error", "Error", 1, Date(), false)
+var currentTicket : TicketModel = TicketModel("Error", 0.0f, "Error", "Error", "Error", "Error", "Error", "Error", 1, Date(), false, "Error")
 var currentTable : TableModel = TableModel("Error", "Error", true, false, "Error", 0, 0,0,5 ,"Error", "Error")
 var currentFamily : FamilyModel = FamilyModel("Error", "Error", "Error")
+var currentCaja : CajaModel = CajaModel("Error", Date(), Date(), false, 0f, "Error")
 //var currentProduct : ProductModel = ProductModel("Error","name", 0, 0f,0, 0f, "Error", "Error", "Error", "")
 
 //var currentLinesTicket : List<ProductModel> = listOf()
@@ -18,14 +20,20 @@ var currentZoneTables : List<TableModel> = listOf()
 var allFamilies : List<FamilyModel> = listOf()
 var currentProductList : List<ProductModel> = listOf()
 
+var ticketCreado = false;
 var clientCreated = false
 var loginIntents = 4;
 var backLogin = true;
 var backRegister = true;
 var backUser = true;
 var firstOpenMap : Boolean = true
-var firstOpenTable :Boolean = true
+var firstOpenTable :Boolean = false
 var toReset : Boolean = true
+
+var familyAndProducts : HashMap<String, List<ProductModel>> = HashMap()
+
+var bool = true
+
 
 var defaultAdmin : UserPost = UserPost(
     name = "Admin",
@@ -42,9 +50,22 @@ var defaultTable : TablePost = TablePost(
     id_zone = currentZone._id,
     comensalesMax = 6
 )
+var defaultTable2 : TablePost = TablePost(
+    name = "11",
+    id_user = currentUser._id,
+    num_column = 0,
+    num_row = 0,
+    id_zone = currentZone._id,
+    comensalesMax = 6
+)
 
 var defaultZone : ZonePost = ZonePost(
     zone_name = "Comedor",
+    id_client = currentClient._id
+)
+
+var defaultZone2 : ZonePost = ZonePost(
+    zone_name = "Terraza",
     id_client = currentClient._id
 )
 
@@ -55,7 +76,7 @@ var defaultFamily : FamilyPost = FamilyPost(
 
 var defaultProduct1 : ProductPost = ProductPost(
     name = "Caña",
-    precio = 1.5f,
+    precio = 1f,
     cantidad = 1,
     total = 1.5f,
     id_client = currentClient._id,

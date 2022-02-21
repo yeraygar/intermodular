@@ -37,7 +37,14 @@ fun ShowAlertDialogFamilyProducts(
     totalBill: MutableState<Float>,
     productClicked: MutableState<Boolean>,
 ) {
-    currentProductList = tableViewModel.familyProductsResponse
+   // currentProductList = tableViewModel.familyProductsResponse
+
+  /*  for((key, value) in familyAndProducts){
+        if(currentFamily.name == key){
+            currentProductList = value
+        }
+    }*/
+
 
     if(isDialogOpen.value) {
         if (!familyProductList.value.isNullOrEmpty()){
@@ -93,49 +100,74 @@ fun ShowAlertDialogFamilyProducts(
                                         colors = ButtonDefaults.buttonColors(colorResource(id = R.color.azul_oscuro)),
                                         onClick = {
 
-                                            //TODO, logica de crear ticket y anyadir linea_ticket
+                                            //TODO, logica de crear ticket y anyadir linea_ticket QUITAR EL CREATE TICKET DE AQUI
                                             //scope.launch {
 
                                                 Logger.i("Producto seleccionado $product")
-                                                if(currentTicketLines.value.isEmpty()){
-
-                                                    tableViewModel.createTicket()
+                                          /*      if(currentTicketLines.value.isEmpty() && !ticketCreado){
+                                                    ticketCreado = true
+                                                    //tableViewModel.createTicket()
                                                     //delay(100)
                                                     product.id_ticket = currentTicket._id
-                                                    tableViewModel.createTicketLine(product, currentTicketLines)
+                                                    tableViewModel.createTicketLine(product, currentTicketLines){
+                                                        //TODO ANYADIR EL TEXTO
+                                                    }
                                                     //recalculate(currentTicketLines = currentTicketLines, totalBill = totalBill)
                                                    // delay(100)
 
                                                 }
-                                                else{
-                                                    var exists = false
-                                                    for (line in currentTicketLines.value){
-                                                        if (line.name == product.name){
-                                                            exists = true
-                                                            line.cantidad++
-                                                            line.total = line.cantidad * line.precio
-                                                            //if (line.total.toString().length >= 5)
-                                                               // line.total = line.total.toString().substring(0,4).toFloat()
-                                                            tableViewModel.updateTicketLine(line, line._id)
-                                                            val toGenerateLines = currentTicketLines.value
-                                                            currentTicketLines.value = listOf()
-                                                            currentTicketLines.value = toGenerateLines
-                                                          //  delay(400)
-                                                        }
+                                                else{*/
+                                            // var exists = true
+                                            tableViewModel.getTicketLineByName(
+                                                currentTicket._id,
+                                                product.name,
+                                                onSuccessCallback = {
+                                                    Logger.wtf("LLega onsuccess")
+                                                    tableViewModel.currentTicketLineResponse.cantidad++
+                                                    tableViewModel.updateTicketLine(tableViewModel.currentTicketLineResponse, tableViewModel.currentTicketLineResponse._id){
+                                                        bool = true
+                                                    }
+                                                }, onFailureCallback = {
+                                                    Logger.wtf("Llega on Faiuler")
+                                                    tableViewModel.createTicketLine(product, currentTicketLines){
+                                                        bool = true
                                                     }
 
-                                                    if (exists) Logger.d("Producto sumado")
+                                                })
+                                            /*      for (line in currentTicketLines.value) {
+                                                      if (line.name == product.name) {
+                                                          exists = true
+                                                          line.cantidad++
+                                                          line.total = line.cantidad * line.precio
+                                                          //if (line.total.toString().length >= 5)
+                                                          // line.total = line.total.toString().substring(0,4).toFloat()
+                                                          tableViewModel.updateTicketLine(
+                                                              line,
+                                                              line._id
+                                                          ) {
+                                                             *//* val toGenerateLines =
+                                                                    currentTicketLines.value
+                                                                currentTicketLines.value = listOf()
+                                                                currentTicketLines.value =
+                                                                    toGenerateLines*//*
+                                                            }
+                                                            //  delay(400)
+                                                        }
+                                                    }*/
+
+                                                  /*  if (exists) Logger.d("Producto sumado")
                                                     else{
-                                                        tableViewModel.createTicketLine(product, currentTicketLines)
-                                                        currentTicketLines.value = currentTicketLines.value + tableViewModel.currentTicketLineResponse
-                                                    }
+                                                        tableViewModel.createTicketLine(product, currentTicketLines){
+                                                            //currentTicketLines.value = currentTicketLines.value + tableViewModel.currentTicketLineResponse
+                                                        }
+                                                    }*/
                                                    // delay(100)
-                                                }
-                                                currentTable.id_ticket = currentTicket._id
+
+                                               // currentTable.id_ticket = currentTicket._id
                                                 //tableViewModel.updateTable(currentTable, currentTable._id)
                                                // delay(100)
-                                            tableViewModel.resetTableViewModel()
-                                                productClicked.value = true
+                                           // tableViewModel.resetTableViewModel()
+                                             //   productClicked.value = true
                                                // isDialogOpen.value = false
                                            // }
 

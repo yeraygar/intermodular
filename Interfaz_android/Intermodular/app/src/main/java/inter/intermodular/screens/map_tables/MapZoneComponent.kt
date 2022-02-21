@@ -65,10 +65,10 @@ fun MapZoneComponent(
                 onClick = {
                     currentZone = mapViewModel.clientZonesResponse[i]
                     Logger.i("CurrentZone: ${currentZone!!.zone_name}")
-                    mapViewModel.getZoneTables(mapViewModel.clientZonesResponse[i]._id)
+                    mapViewModel.getZoneTables(mapViewModel.clientZonesResponse[i]._id){}
                     currentZoneTables = mapViewModel.zoneTablesResponse
                     title.value = currentZone!!.zone_name
-                    mapViewModel.getZoneTables(currentZone!!._id)
+                    mapViewModel.getZoneTables(currentZone!!._id){}
                     if (!mapViewModel.zoneTablesResponse.isNullOrEmpty()) {
                         currentZoneTables = mapViewModel.zoneTablesResponse
                         scope.launch {

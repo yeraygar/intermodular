@@ -1,20 +1,18 @@
 package inter.intermodular.view_models
 
+import androidx.activity.OnBackPressedCallback
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.orhanobut.logger.Logger
-import inter.intermodular.models.TableModel
+import inter.intermodular.models.*
 import kotlinx.coroutines.launch
-import inter.intermodular.models.UserModel
-import inter.intermodular.models.ZoneModel
 import inter.intermodular.services.ApiServices
-import inter.intermodular.support.clientZones
-import inter.intermodular.support.currentClient
-import inter.intermodular.support.currentZoneTables
+import inter.intermodular.support.*
 import java.lang.Exception
+import java.util.*
 
 class MapViewModel : ViewModel() {
 
@@ -25,16 +23,25 @@ class MapViewModel : ViewModel() {
 
     var clientZonesResponse : List<ZoneModel> by mutableStateOf(listOf())
     var zoneTablesResponse : List<TableModel> by mutableStateOf((listOf()))
+    var ticketResponse : List<TicketModel> by mutableStateOf((listOf()))
+
+    var currentTicketResponse : TicketModel by mutableStateOf(
+        TicketModel("Error", 0f, "Error", "Error",
+            "Error", "Error", "Error","Error" , 0, Date(), false, "Error")
+    )
+
+
 
     private var errorMessage : String by mutableStateOf("")
 
-    fun getZoneTables(id_zone : String){
+    fun getZoneTables(id_zone : String, onSuccessCallback: () -> Unit){
         viewModelScope.launch {
             val apiServices = ApiServices.getInstance()
             try{
                 zoneTablesResponse = apiServices.getZoneTables(id_zone)
                 currentZoneTables = zoneTablesResponse
                 Logger.i("SUCCESS getZoneTables")
+                onSuccessCallback()
                 for(table in currentZoneTables) if(table.id_ticket != "Error") Logger.w("Mesas en current Zone:\n $table")
             }catch(e : Exception){
                 errorMessage = e.message.toString()
@@ -56,6 +63,75 @@ class MapViewModel : ViewModel() {
             }
         }
     }
+
+    fun getTicket(ticketId : String, onSuccessCallback: () -> Unit){
+        viewModelScope.launch {
+            val apiServices = ApiServices.getInstance()
+            try{
+                //ticketLinesResponse = listOf()
+                var res = apiServices.getTicket(ticketId)
+                currentTicketResponse= res
+                if(currentTicketResponse._id != "Error"){
+                    currentTicket = currentTicketResponse
+                    onSuccessCallback()
+                }
+                //allFamilies = ticketLinesResponse
+                Logger.i("SUCCESS loading ticket for ticketId: $ticketId")
+            }catch (e: java.lang.Exception){
+                errorMessage = e.message.toString()
+                Logger.e("FAILURE loading ticket for ticketId: $ticketId")
+            }
+        }
+    }
+
+    var clientFamiliesResponse : List<FamilyModel> by mutableStateOf(listOf())
+    var familyProductsResponse : List<ProductModel> by mutableStateOf(listOf())
+
+    fun getClientFamilies(clientId : String){
+        viewModelScope.launch {
+            val apiServices = ApiServices.getInstance()
+            try{
+                clientFamiliesResponse = listOf()
+                clientFamiliesResponse = apiServices.getClientFamilies(clientId)
+                allFamilies = clientFamiliesResponse
+                Logger.i("SUCCESS loading getClientFamilies for clientId: $clientId")
+                for(family in allFamilies){
+                    try{
+                        familyProductsResponse = listOf()
+                        familyProductsResponse = apiServices.getFamilyProducts(family._id)
+                        Logger.i("SUCCESS loading getFamilyProducts for familyId: ${family._id}")
+                        if(!familyProductsResponse.isNullOrEmpty()){
+                            familyAndProducts[family.name] = familyProductsResponse
+                        }
+                    }catch (e: Exception){
+                        errorMessage = e.message.toString()
+                        Logger.e("FAILURE loading family productos for familyId: ${family._id}")
+                    }
+                }
+            }catch (e: Exception){
+                errorMessage = e.message.toString()
+                Logger.e("FAILURE loading client families for clientId: $clientId")
+            }
+        }
+    }
+
+    fun getOpenCaja(id_client: String) {
+        viewModelScope.launch {
+            val apiServices = ApiServices.getInstance()
+            try{
+                var res = apiServices.getOpenCaja(id_client)
+                if(res.isNullOrEmpty()){
+                    Logger.w("No hay ninguna caja abierta")
+                }else{
+                    currentCaja = res[0]
+                }
+            }catch (e: java.lang.Exception){
+                errorMessage = e.message.toString()
+                Logger.e("FAILURE loading caja")
+            }
+        }
+    }
+
 
 /*    fun getClientUsersList(){
         viewModelScope.launch {

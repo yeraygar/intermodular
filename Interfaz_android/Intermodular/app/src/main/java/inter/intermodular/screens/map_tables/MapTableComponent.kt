@@ -40,20 +40,21 @@ fun MapTableComponent(
             .fillMaxSize()
             .padding(5.dp)
     ) {
-        mapViewModel.getZoneTables(currentZone?._id ?: "Error")
-        if (!mapViewModel.zoneTablesResponse.isNullOrEmpty()) {
+        mapViewModel.getZoneTables(currentZone?._id ?: "Error"){
+        //if (!mapViewModel.zoneTablesResponse.isNullOrEmpty()) {
 
             currentZoneTables = mapViewModel.zoneTablesResponse
-            currentZoneTables = currentZoneTables.sortedWith(compareBy<TableModel> { it.num_row }.thenBy { it.num_column })
+           // currentZoneTables = currentZoneTables.sortedWith(compareBy<TableModel> { it.num_row }.thenBy { it.num_column })
+        }
 
             for (i in 0 until currentZoneTables.count()) {
 
                 item {
                     //RowContent(i, mapViewModel, navController)
-                    ButtonMesa(i, navController)
+                    ButtonMesa(i, navController, mapViewModel)
 
                 }
-            }
+          //  }
         }
     }
 }
@@ -61,7 +62,7 @@ fun MapTableComponent(
 
 
 @Composable
-private fun ButtonMesa(i: Int, navController: NavHostController) {
+private fun ButtonMesa(i: Int, navController: NavHostController, mapViewModel: MapViewModel) {
     Button(
         modifier = Modifier
             .height(60.dp)
@@ -76,16 +77,53 @@ private fun ButtonMesa(i: Int, navController: NavHostController) {
             disabledElevation = 0.dp
         ),*/
         onClick = {
+
+            //TODO COMPROBAR SI EL ID TICKET NO ES ERROR O NO ES EL MISMO QUE EL CURRENT TICKET
             toReset = true
             //currentTable = if(emptySpace) currentZoneTables[i-1] else currentZoneTables[i]
             currentTable = currentZoneTables[i]
             currentTable.id_user = currentUser._id
-            firstOpenTable = true
-            Logger.i("Mesa seleccionada $currentTable")
+            if(currentTable.id_ticket != "Error" && currentTable.id_ticket.isNotEmpty()) {
+                if (currentTicket._id == currentTable._id) {
+                    Logger.i("Mesa seleccionada $currentTable")
+                    firstOpenTable = false
+                    bool = true
+                    navController.navigate(ScreenNav.TableScreen.route) {
+                        popUpTo(navController.graph.findStartDestination().id) { saveState = false }
+                        restoreState = true
+                    }
+                } else {
+                    mapViewModel.getTicket(currentTable.id_ticket) {
+                        currentTicket = mapViewModel.ticketResponse[0]
+                        Logger.i("Mesa seleccionada $currentTable")
+                        navController.navigate(ScreenNav.TableScreen.route) {
+                            popUpTo(navController.graph.findStartDestination().id) {
+                                saveState = false
+                            }
+                            restoreState = true
+
+                        }
+                    }
+                }
+                firstOpenTable = false
+                bool = true
+
+            }else{
+                firstOpenTable = true
+                bool = true
+                Logger.i("Mesa seleccionada $currentTable")
+                navController.navigate(ScreenNav.TableScreen.route){
+                    popUpTo(navController.graph.findStartDestination().id){saveState = false}
+                    restoreState = true
+                }
+
+            }
             navController.navigate(ScreenNav.TableScreen.route){
                 popUpTo(navController.graph.findStartDestination().id){saveState = false}
                 restoreState = true
             }
+
+
         }) {
         Text(
             text =  if (currentZoneTables[i].name.length > 3)

@@ -105,6 +105,9 @@ interface ApiServices {
     @GET("ticket/table/{id}/sin_cobrar")
     suspend fun hasTicketOpen(@Path(value = "id") id : String ) : List<TicketModel>
 
+    @GET("ticket/{id}")
+    suspend fun getTicket(@Path(value = "id") id : String) : TicketModel
+
     @POST("ticket")
     suspend fun createTicket(@Body ticket : TicketPost) : Response<TicketModel>
 
@@ -119,6 +122,9 @@ interface ApiServices {
 
     @GET("ticket_line/ticket/{id}")
     suspend fun getTicketLines(@Path(value = "id") id : String) : List<ProductModel>
+
+    @GET("ticket_line/ticket/{id}/{name}")
+    suspend fun getTicketLineByName(@Path(value = "id") id : String, @Path(value = "name") name : String) : List<ProductModel>
 
     @POST("ticket_line")
     suspend fun createTicketLine(@Body product: ProductPost) : Response<ProductModel>
@@ -146,6 +152,12 @@ interface ApiServices {
 
     @POST("family")
     suspend fun createFamily(@Body family : FamilyPost) : Response<FamilyModel>
+
+
+    /********************CAJA**********************/
+
+    @GET("caja/client/{id}/open")
+    suspend fun getOpenCaja(@Path(value = "id") id : String) : List<CajaModel>
 
 
 
