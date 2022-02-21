@@ -201,34 +201,26 @@ fun ShowAlertDialogCobrar(
                 Button(
                     enabled = aceptarEnabled.value,
                     onClick = {
-                        if (!pagoTarjeta.value){
-                            if (cashInput.value >= currentTicket.total){
-                                currentTicket.cobrado = true
-                                currentTicket.comensales = currentTable.comensales
-                                currentTicket.tipo_ticket = "Efectivo"
-                                currentTicket.id_user_que_cerro = currentUser._id
-                                currentTicket.date to Date()
-                                currentTable.id_ticket = "Error"
-                                currentTable.ocupada = false
-                                tableViewModel.updateTicket(currentTicket, currentTicket._id)
-                                tableViewModel.updateTable(currentTable, currentTable._id)
-                                //firstOpenTable = true
-                                navController.navigate(ScreenNav.MapScreen.route)
-
-                            }else{
-                                Toast.makeText(applicationContext, "Falta dinero en efectivo", Toast.LENGTH_SHORT).show()
-                            }
+                        //todo fallos aqui
+                        if(currentTicket._id == currentTable.id_ticket){
+                            pago(
+                                pagoTarjeta,
+                                cashInput,
+                                tableViewModel,
+                                navController,
+                                applicationContext
+                            )
                         }else{
-                            currentTicket.tipo_ticket = "Tarjeta"
-                            currentTicket.cobrado = true
-                            currentTable.id_ticket = "Error"
-                            currentTable.ocupada = false
-                            currentTicket.id_user_que_cerro = currentUser._id
-                            currentTicket.date to Date()
-                            tableViewModel.updateTicket(currentTicket, currentTicket._id)
-                            tableViewModel.updateTable(currentTable, currentTable._id)
-                            // firstOpenTable = true
-                            navController.navigate(ScreenNav.MapScreen.route)
+                            tableViewModel.getTicket(currentTable.id_ticket){
+                                currentTicket = tableViewModel.currentTicketResponse
+                                pago(
+                                    pagoTarjeta,
+                                    cashInput,
+                                    tableViewModel,
+                                    navController,
+                                    applicationContext
+                                )
+                            }
                         }
                     },
                     modifier = Modifier
@@ -266,5 +258,44 @@ fun ShowAlertDialogCobrar(
                 }
             }
         }
+    }
+}
+
+private fun pago(
+    pagoTarjeta: MutableState<Boolean>,
+    cashInput: MutableState<Float>,
+    tableViewModel: TableViewModel,
+    navController: NavController,
+    applicationContext: Context
+) {
+    if (!pagoTarjeta.value) {
+        if (cashInput.value >= currentTicket.total) {
+            currentTicket.cobrado = true
+            currentTicket.comensales = currentTable.comensales
+            currentTicket.tipo_ticket = "Efectivo"
+            currentTicket.id_user_que_cerro = currentUser._id
+            currentTicket.date to Date()
+            currentTable.id_ticket = "Error"
+            currentTable.ocupada = false
+            tableViewModel.updateTicket(currentTicket, currentTicket._id)
+            tableViewModel.updateTable(currentTable, currentTable._id)
+            //firstOpenTable = true
+            navController.navigate(ScreenNav.MapScreen.route)
+
+        } else {
+            Toast.makeText(applicationContext, "Falta dinero en efectivo", Toast.LENGTH_SHORT)
+                .show()
+        }
+    } else {
+        currentTicket.tipo_ticket = "Tarjeta"
+        currentTicket.cobrado = true
+        currentTable.id_ticket = "Error"
+        currentTable.ocupada = false
+        currentTicket.id_user_que_cerro = currentUser._id
+        currentTicket.date to Date()
+        tableViewModel.updateTicket(currentTicket, currentTicket._id)
+        tableViewModel.updateTable(currentTable, currentTable._id)
+        // firstOpenTable = true
+        navController.navigate(ScreenNav.MapScreen.route)
     }
 }

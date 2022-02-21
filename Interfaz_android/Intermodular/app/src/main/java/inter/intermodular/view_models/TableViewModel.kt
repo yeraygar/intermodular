@@ -35,6 +35,8 @@ class TableViewModel : ViewModel() {
     var clientFamiliesResponse : List<FamilyModel> by mutableStateOf(listOf())
     var ticketLinesResponse : List<ProductModel> by mutableStateOf(listOf())
     var updateOkResponse : Boolean by mutableStateOf(false)
+    var ticketResponse : List<TicketModel> by mutableStateOf((listOf()))
+
 
 
     private var errorMessage : String by mutableStateOf("")
@@ -352,6 +354,27 @@ class TableViewModel : ViewModel() {
         clientFamiliesResponse = listOf()
         ticketLinesResponse = listOf()
         updateOkResponse = false
+    }
+
+
+    fun getTicket(ticketId : String, onSuccessCallback: () -> Unit){
+        viewModelScope.launch {
+            val apiServices = ApiServices.getInstance()
+            try{
+                //ticketLinesResponse = listOf()
+                var res = apiServices.getTicket(ticketId)
+                currentTicketResponse= res
+                if(currentTicketResponse._id != "Error"){
+                    currentTicket = currentTicketResponse
+                    onSuccessCallback()
+                }
+                //allFamilies = ticketLinesResponse
+                Logger.i("SUCCESS loading ticket for ticketId: $ticketId")
+            }catch (e: java.lang.Exception){
+                errorMessage = e.message.toString()
+                Logger.e("FAILURE loading ticket for ticketId: $ticketId")
+            }
+        }
     }
 
 

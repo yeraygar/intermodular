@@ -74,6 +74,8 @@ fun TableScreen(
         Logger.d(key + value)
     }
 
+
+
 /*    if(currentTicketLines.value.isEmpty() || firstOpenTable){
         tableViewModel.recoverTable(currentTable._id, currentTicketLines, productClicked)
         Logger.wtf(currentTicketLines.value.toString())
@@ -97,6 +99,7 @@ fun TableScreen(
     }*/
 
     if (firstOpenTable && bool){
+
         bool = false
         if(currentTable.id_ticket == "Error"){
             //tableViewModel.resetTableViewModel()
@@ -126,10 +129,21 @@ fun TableScreen(
         bool = false
     }
 
-    tableViewModel.getTicketLines(currentTable.id_ticket){
-        currentTicketLines.value = tableViewModel.ticketLinesResponse
+    tableViewModel.getTicket(currentTable.id_ticket) {
+     //   currentTicket = tableViewModel.ticketResponse[0]
+        currentTable.id_ticket = currentTicket._id
+        tableViewModel.updateTable(currentTable, currentTable._id)
+        /*tableViewModel.getTicketLines(currentTable.id_ticket){
+            currentTicketLines.value = tableViewModel.ticketLinesResponse
+        }*/
+        tableViewModel.getTicketLines(currentTable.id_ticket){
+            currentTicketLines.value = tableViewModel.ticketLinesResponse
+        }
     }
-    currentTicketLines.value = tableViewModel.ticketLinesResponse
+/*    tableViewModel.getTicketLines(currentTable.id_ticket){
+        currentTicketLines.value = tableViewModel.ticketLinesResponse
+    }*/
+   // currentTicketLines.value = tableViewModel.ticketLinesResponse
 
 
 
@@ -367,7 +381,7 @@ fun customShape() = object : Shape {
 }
 
 
-private fun clickCerrar(
+private fun clickCerrar( //TODO EL PROBLEMA AQUI
     currentTicketLines: MutableState<List<ProductModel>>,
     tableViewModel: TableViewModel,
     navController: NavController

@@ -12,6 +12,7 @@ import kotlinx.coroutines.launch
 import inter.intermodular.services.ApiServices
 import inter.intermodular.support.*
 import java.lang.Exception
+import java.util.*
 
 class MapViewModel : ViewModel() {
 
@@ -23,6 +24,11 @@ class MapViewModel : ViewModel() {
     var clientZonesResponse : List<ZoneModel> by mutableStateOf(listOf())
     var zoneTablesResponse : List<TableModel> by mutableStateOf((listOf()))
     var ticketResponse : List<TicketModel> by mutableStateOf((listOf()))
+
+    var currentTicketResponse : TicketModel by mutableStateOf(
+        TicketModel("Error", 0f, "Error", "Error",
+            "Error", "Error", "Error","Error" , 0, Date(), false, "Error")
+    )
 
 
 
@@ -63,12 +69,15 @@ class MapViewModel : ViewModel() {
             val apiServices = ApiServices.getInstance()
             try{
                 //ticketLinesResponse = listOf()
-                    var res = apiServices.getTicket(ticketId)
-                ticketResponse = res
-                if(!ticketResponse.isNullOrEmpty())onSuccessCallback()
+                var res = apiServices.getTicket(ticketId)
+                currentTicketResponse= res
+                if(currentTicketResponse._id != "Error"){
+                    currentTicket = currentTicketResponse
+                    onSuccessCallback()
+                }
                 //allFamilies = ticketLinesResponse
                 Logger.i("SUCCESS loading ticket for ticketId: $ticketId")
-            }catch (e: Exception){
+            }catch (e: java.lang.Exception){
                 errorMessage = e.message.toString()
                 Logger.e("FAILURE loading ticket for ticketId: $ticketId")
             }

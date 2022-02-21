@@ -106,7 +106,7 @@ interface ApiServices {
     suspend fun hasTicketOpen(@Path(value = "id") id : String ) : List<TicketModel>
 
     @GET("ticket/{id}")
-    suspend fun getTicket(@Path(value = "id") id : String) : List<TicketModel>
+    suspend fun getTicket(@Path(value = "id") id : String) : TicketModel
 
     @POST("ticket")
     suspend fun createTicket(@Body ticket : TicketPost) : Response<TicketModel>

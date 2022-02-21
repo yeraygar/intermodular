@@ -13,7 +13,7 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="069ddd03-50ea-4920-8045-2ecc81179fd3" name="Default Changelist" comment="Mar de bugs; Veo la luz al final del ticket">
+    <list default="true" id="069ddd03-50ea-4920-8045-2ecc81179fd3" name="Default Changelist" comment="Mar de bugs; Funciona?!">
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/build/kotlin/compileDebugKotlin/build-history.bin" beforeDir="false" afterPath="$PROJECT_DIR$/app/build/kotlin/compileDebugKotlin/build-history.bin" afterDir="false" />
@@ -55,11 +55,11 @@
       <change beforePath="$PROJECT_DIR$/app/build/kotlin/compileDebugKotlin/caches-jvm/lookups/lookups.tab.values.at" beforeDir="false" afterPath="$PROJECT_DIR$/app/build/kotlin/compileDebugKotlin/caches-jvm/lookups/lookups.tab.values.at" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/build/kotlin/compileDebugKotlin/caches-jvm/lookups/lookups.tab_i" beforeDir="false" afterPath="$PROJECT_DIR$/app/build/kotlin/compileDebugKotlin/caches-jvm/lookups/lookups.tab_i" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/build/kotlin/compileDebugKotlin/last-build.bin" beforeDir="false" afterPath="$PROJECT_DIR$/app/build/kotlin/compileDebugKotlin/last-build.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/inter/intermodular/screens/login_register/ValidateRegisterScreen.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/inter/intermodular/screens/login_register/ValidateRegisterScreen.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/inter/intermodular/screens/map_tables/MapTableComponent.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/inter/intermodular/screens/map_tables/MapTableComponent.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/inter/intermodular/screens/table_payment/CobrarComponent.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/inter/intermodular/screens/table_payment/CobrarComponent.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/inter/intermodular/screens/table_payment/TableScreen.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/inter/intermodular/screens/table_payment/TableScreen.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/inter/intermodular/support/GlobalVariables.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/inter/intermodular/support/GlobalVariables.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/inter/intermodular/view_models/LoginRegisterViewModel.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/inter/intermodular/view_models/LoginRegisterViewModel.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/inter/intermodular/services/ApiServices.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/inter/intermodular/services/ApiServices.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/inter/intermodular/view_models/MapViewModel.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/inter/intermodular/view_models/MapViewModel.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/inter/intermodular/view_models/TableViewModel.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/inter/intermodular/view_models/TableViewModel.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -397,7 +397,14 @@
       <option name="project" value="LOCAL" />
       <updated>1645440700864</updated>
     </task>
-    <option name="localTasksCounter" value="31" />
+    <task id="LOCAL-00031" summary="Mar de bugs; Funciona?!">
+      <created>1645446203455</created>
+      <option name="number" value="00031" />
+      <option name="presentableId" value="LOCAL-00031" />
+      <option name="project" value="LOCAL" />
+      <updated>1645446203455</updated>
+    </task>
+    <option name="localTasksCounter" value="32" />
     <servers />
   </component>
   <component name="Vcs.Log.History.Properties">
@@ -423,7 +430,6 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Cambios auto al inicialiar, problemas de gitignore" />
     <MESSAGE value="Avances en el Map" />
     <MESSAGE value="Android Documentado" />
     <MESSAGE value="Seleccion de Zona Funcionando!" />
@@ -448,115 +454,51 @@
     <MESSAGE value="Probando a cambiar el for de contentTicket" />
     <MESSAGE value="Mar de bus; la base de datos se actualiza correctamente al anyadir productos" />
     <MESSAGE value="Mar de bugs; Veo la luz al final del ticket" />
-    <option name="LAST_COMMIT_MESSAGE" value="Mar de bugs; Veo la luz al final del ticket" />
+    <MESSAGE value="Mar de bugs; Funciona?!" />
+    <option name="LAST_COMMIT_MESSAGE" value="Mar de bugs; Funciona?!" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="kotlin-line">
-          <url>file://$PROJECT_DIR$/app/src/main/java/inter/intermodular/screens/table_payment/TableScreen.kt</url>
-          <line>137</line>
-          <option name="timeStamp" value="47" />
+          <url>file://$PROJECT_DIR$/app/src/main/java/inter/intermodular/view_models/TableViewModel.kt</url>
+          <line>362</line>
+          <option name="timeStamp" value="1" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="kotlin-line">
-          <url>file://$PROJECT_DIR$/app/src/main/java/inter/intermodular/screens/table_payment/TableScreen.kt</url>
-          <line>135</line>
-          <option name="timeStamp" value="48" />
+          <url>file://$PROJECT_DIR$/app/src/main/java/inter/intermodular/view_models/TableViewModel.kt</url>
+          <line>365</line>
+          <option name="timeStamp" value="2" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="kotlin-line">
-          <url>file://$PROJECT_DIR$/app/src/main/java/inter/intermodular/screens/table_payment/TableScreen.kt</url>
-          <line>134</line>
-          <option name="timeStamp" value="49" />
+          <url>file://$PROJECT_DIR$/app/src/main/java/inter/intermodular/view_models/TableViewModel.kt</url>
+          <line>366</line>
+          <option name="timeStamp" value="3" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="kotlin-line">
-          <url>file://$PROJECT_DIR$/app/src/main/java/inter/intermodular/screens/table_payment/TableScreen.kt</url>
-          <line>142</line>
-          <option name="timeStamp" value="50" />
+          <url>file://$PROJECT_DIR$/app/src/main/java/inter/intermodular/view_models/TableViewModel.kt</url>
+          <line>364</line>
+          <option name="timeStamp" value="4" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="kotlin-line">
-          <url>file://$PROJECT_DIR$/app/src/main/java/inter/intermodular/screens/table_payment/TableScreen.kt</url>
-          <line>145</line>
-          <option name="timeStamp" value="51" />
+          <url>file://$PROJECT_DIR$/app/src/main/java/inter/intermodular/view_models/TableViewModel.kt</url>
+          <line>372</line>
+          <option name="timeStamp" value="5" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="kotlin-line">
-          <url>file://$PROJECT_DIR$/app/src/main/java/inter/intermodular/screens/table_payment/TableScreen.kt</url>
-          <line>147</line>
-          <option name="timeStamp" value="52" />
+          <url>file://$PROJECT_DIR$/app/src/main/java/inter/intermodular/view_models/TableViewModel.kt</url>
+          <line>367</line>
+          <option name="timeStamp" value="6" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="kotlin-line">
-          <url>file://$PROJECT_DIR$/app/src/main/java/inter/intermodular/view_models/MapViewModel.kt</url>
-          <line>66</line>
-          <option name="timeStamp" value="53" />
+          <url>file://$PROJECT_DIR$/app/src/main/java/inter/intermodular/view_models/TableViewModel.kt</url>
+          <line>360</line>
+          <option name="timeStamp" value="7" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="kotlin-line">
-          <url>file://$PROJECT_DIR$/app/src/main/java/inter/intermodular/view_models/MapViewModel.kt</url>
-          <line>63</line>
-          <option name="timeStamp" value="54" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="kotlin-line">
-          <url>file://$PROJECT_DIR$/app/src/main/java/inter/intermodular/view_models/MapViewModel.kt</url>
-          <line>62</line>
-          <option name="timeStamp" value="55" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="kotlin-line">
-          <url>file://$PROJECT_DIR$/app/src/main/java/inter/intermodular/view_models/MapViewModel.kt</url>
-          <line>67</line>
-          <option name="timeStamp" value="56" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="kotlin-line">
-          <url>file://$PROJECT_DIR$/app/src/main/java/inter/intermodular/screens/map_tables/MapTableComponent.kt</url>
-          <line>109</line>
-          <option name="timeStamp" value="60" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="kotlin-line">
-          <url>file://$PROJECT_DIR$/app/src/main/java/inter/intermodular/screens/table_payment/TableScreen.kt</url>
-          <line>98</line>
-          <option name="timeStamp" value="64" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="kotlin-line">
-          <url>file://$PROJECT_DIR$/app/src/main/java/inter/intermodular/screens/table_payment/TableScreen.kt</url>
-          <line>100</line>
-          <option name="timeStamp" value="65" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="kotlin-line">
-          <url>file://$PROJECT_DIR$/app/src/main/java/inter/intermodular/screens/table_payment/TableScreen.kt</url>
-          <line>102</line>
-          <option name="timeStamp" value="66" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="kotlin-line">
-          <url>file://$PROJECT_DIR$/app/src/main/java/inter/intermodular/screens/table_payment/TableScreen.kt</url>
-          <line>110</line>
-          <option name="timeStamp" value="67" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="kotlin-line">
-          <url>file://$PROJECT_DIR$/app/src/main/java/inter/intermodular/screens/table_payment/TableScreen.kt</url>
-          <line>112</line>
-          <option name="timeStamp" value="68" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="kotlin-line">
-          <url>file://$PROJECT_DIR$/app/src/main/java/inter/intermodular/screens/table_payment/TableScreen.kt</url>
-          <line>117</line>
-          <option name="timeStamp" value="69" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="kotlin-line">
-          <url>file://$PROJECT_DIR$/app/src/main/java/inter/intermodular/screens/table_payment/TableScreen.kt</url>
-          <line>120</line>
-          <option name="timeStamp" value="70" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="kotlin-line">
-          <url>file://$PROJECT_DIR$/app/src/main/java/inter/intermodular/screens/table_payment/TableScreen.kt</url>
-          <line>122</line>
-          <option name="timeStamp" value="71" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="kotlin-line">
-          <url>file://$PROJECT_DIR$/app/src/main/java/inter/intermodular/screens/map_tables/MapTableComponent.kt</url>
-          <line>85</line>
-          <option name="timeStamp" value="72" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="kotlin-line">
-          <url>file://$PROJECT_DIR$/app/src/main/java/inter/intermodular/screens/map_tables/MapTableComponent.kt</url>
-          <line>105</line>
-          <option name="timeStamp" value="73" />
+          <url>file://$PROJECT_DIR$/app/src/main/java/inter/intermodular/view_models/TableViewModel.kt</url>
+          <line>361</line>
+          <option name="timeStamp" value="8" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
