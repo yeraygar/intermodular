@@ -305,7 +305,7 @@ namespace intermodular
                             Label lblCantida = new Label
                             {
                                 Content = "Cantidad",
-                                FontSize = 19,
+                                FontSize = ((SystemParameters.PrimaryScreenWidth * 0.8) * 19) / 1536,
                                 VerticalAlignment = VerticalAlignment.Center,
                                 HorizontalAlignment = HorizontalAlignment.Left,
                                 Margin = new Thickness(2, 0, 0, 0)

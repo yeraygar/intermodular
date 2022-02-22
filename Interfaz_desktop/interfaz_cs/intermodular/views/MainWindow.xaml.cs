@@ -30,16 +30,11 @@ namespace intermodular
         {
 
             InitializeComponent();
-            /*if(SystemParameters.PrimaryScreenWidth == 800)
-            {
-                grid.Height = 1050;
-                grid.Width = 1400;
-            }
-            else
-            {
-                grid.Height = 1080;
-                grid.Width = 1920;
-            }*/
+            imgOpciones.Width = ((SystemParameters.PrimaryScreenWidth * 0.15) * 60) / 288;
+            imgOpciones.Height = ((SystemParameters.PrimaryScreenWidth * 0.15) * 60) / 288;
+            txtOpciones.FontSize = ((SystemParameters.PrimaryScreenWidth * 0.15) * 19) / 288;
+            textBlockPie.FontSize = ((SystemParameters.PrimaryScreenWidth * 0.85) * 30) / 1632;
+            txtTituloZonas.FontSize = ((SystemParameters.PrimaryScreenWidth * 0.15) * 19) / 288;
             Staticresources.mainWindow = this;
 
             Zona.getAllClientZones(Client.currentClient._id).ContinueWith(task =>
@@ -87,12 +82,12 @@ namespace intermodular
             {
                 Content = zona.zone_name,
                 Tag = zona._id,
-                Height = 70,
+                Height = ((SystemParameters.PrimaryScreenHeight * 0.9) * 70) / 972,
                 Margin = new Thickness(10),
                 Style = Application.Current.TryFindResource("btnRedondo") as Style,
                 Cursor = Cursors.Hand,
-                FontSize = 19
-            };
+                FontSize = ((SystemParameters.PrimaryScreenWidth * 0.15) * 19) / 288
+        };
 
             btn.MouseEnter += (object senderMouseEnter, MouseEventArgs mouseEventArg) =>
             {
@@ -149,11 +144,11 @@ namespace intermodular
                 {
                     Content = z.zone_name,
                     Tag = z._id,
-                    Height = 70,
+                    Height = ((SystemParameters.PrimaryScreenHeight * 0.9) * 70) / 972,
                     Margin = new Thickness(10),
                     Style = Application.Current.TryFindResource("btnRedondo") as Style,
                     Cursor = Cursors.Hand,
-                    FontSize = 19
+                    FontSize = ((SystemParameters.PrimaryScreenWidth * 0.15) * 19) / 288
                 };
 
                 btn.MouseEnter += (object senderMouseEnter, MouseEventArgs mouseEventArg) =>
