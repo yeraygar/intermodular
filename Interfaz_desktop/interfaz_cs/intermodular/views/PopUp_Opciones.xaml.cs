@@ -140,11 +140,28 @@ namespace intermodular
             login.ShowDialog();
         }
 
-        private void btn_tickets_Click(object sender, RoutedEventArgs e)
+        private async void btn_tickets_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
-            VistaTickets vt = new VistaTickets();
-            vt.ShowDialog();
+            try
+            {
+                await Ticket.getClientOpenTickets();
+                if (Ticket.openTickets != null && Ticket.openTickets.Count > 0)
+                { 
+                        VistaTickets vt = new VistaTickets();
+                        vt.ShowDialog();
+                    
+                }
+                else
+                {
+                    MessageBox.Show("Todavía no existe ningún ticket", "Información", MessageBoxButton.OK, MessageBoxImage.Information);
+                }
+            }
+            catch(Exception exc)
+            {
+                MessageBox.Show("Error al cargar la BD", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+          
         }
     }
 }

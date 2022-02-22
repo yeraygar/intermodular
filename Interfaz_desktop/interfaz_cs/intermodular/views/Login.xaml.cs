@@ -66,7 +66,6 @@ namespace intermodular
                 {
                     User.usuarioElegido.active = paraFichar;
                     await User.updateUser(User.usuarioElegido._id, User.usuarioElegido);
-                    MessageBox.Show($"Usuario {User.usuarioElegido.name} ha fichado {(paraFichar ? "Entrada" : "Salida")}", "Contraseña Correcta!", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
                 else
                 {
@@ -113,7 +112,6 @@ namespace intermodular
 
             if (passOk)
             {
-                MessageBox.Show($"Admin: {nombreOk}", "Contraseña Correcta!", MessageBoxButton.OK, MessageBoxImage.Information);
 
                 Admin admin = new Admin();
                 this.Close();

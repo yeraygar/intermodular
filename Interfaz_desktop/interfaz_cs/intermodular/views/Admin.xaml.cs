@@ -218,9 +218,16 @@ namespace intermodular
 
         private void btn_zonas_Click(object sender, RoutedEventArgs e)
         {
-            Zonas zonas = new Zonas();
-            this.Close();
-            zonas.ShowDialog();
+            if (Staticresources.caja.Equals("cerrada"))
+            {
+                Zonas zonas = new Zonas();
+                this.Close();
+                zonas.ShowDialog();
+            }
+            else
+            {
+                MessageBox.Show("No se pueden editar las zonas con la caja abierta", "Información", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
         }
 
         private void btn_mesas_Click(object sender, RoutedEventArgs e)
@@ -231,11 +238,18 @@ namespace intermodular
                 MessageBox.Show("No hay ninguna zona creada");
             }
             else {
-                Staticresources.isEditableTables = true;
-                Staticresources.mainWindow.addEditableTableBtns(Staticresources.isEditableTables);
-                Staticresources.mainWindow.resetGridMesas();
-                Staticresources.mainWindow.cargarGridMesas(Staticresources.mainWindow.zonaSelect);
-                this.Close();
+                if (Staticresources.caja.Equals("cerrada"))
+                {
+                    Staticresources.isEditableTables = true;
+                    Staticresources.mainWindow.addEditableTableBtns(Staticresources.isEditableTables);
+                    Staticresources.mainWindow.resetGridMesas();
+                    Staticresources.mainWindow.cargarGridMesas(Staticresources.mainWindow.zonaSelect);
+                    this.Close();
+                }
+                else
+                {
+                    MessageBox.Show("No se pueden editar la mesas con la caja abierta", "Información", MessageBoxButton.OK, MessageBoxImage.Information);
+                }
             }
         }
 
@@ -247,15 +261,53 @@ namespace intermodular
 
         private void btn_productos_Click(object sender, RoutedEventArgs e)
         {
-            VistaProductos vistaProd = new VistaProductos();
-            vistaProd.Show();
+            if (Staticresources.caja.Equals("cerrada"))
+            {
+                VistaProductos vistaProd = new VistaProductos();
+                vistaProd.Show();
+            }
+            else
+            {
+                MessageBox.Show("No se pueden editar los productos con la caja abierta", "Información", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
         }
 
-        private void btn_totales_Click(object sender, RoutedEventArgs e)
+        private async void btn_totales_Click(object sender, RoutedEventArgs e)
         {
-            this.Close();
-            Totales totales = new Totales();
-            totales.ShowDialog();
+            if (Caja.currentCaja == null && await Caja.isCajaOpen())
+            {
+                await Ticket.getTicketFromCaja(Caja.currentCaja._id);
+                if (Ticket.cajaTickets != null && Ticket.cajaTickets.Count > 0)
+                {
+                    this.Close();
+                    Totales totales = new Totales();
+                    totales.ShowDialog();
+                }
+                
+                else
+                {
+                    MessageBox.Show("No hay Tickets", "Información", MessageBoxButton.OK, MessageBoxImage.Information);
+                }
+            }
+            else if (Caja.currentCaja != null)
+            {
+                await Ticket.getTicketFromCaja(Caja.currentCaja._id);
+                if (Ticket.cajaTickets != null && Ticket.cajaTickets.Count > 0)
+                {
+                    this.Close();
+                    Totales totales = new Totales();
+                    totales.ShowDialog();
+                }
+                else
+                {
+                    MessageBox.Show("No hay Tickets", "Información", MessageBoxButton.OK, MessageBoxImage.Information);
+                }
+
+            }
+            else
+            {
+               MessageBox.Show("No hay ninguna caja abierta", "Información", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
         }
     }
 }

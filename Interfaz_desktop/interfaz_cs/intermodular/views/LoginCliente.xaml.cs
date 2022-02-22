@@ -23,6 +23,7 @@ namespace intermodular
     /// </summary>
     public partial class LoginCliente : Window
     {
+        private int intentos = 3;
         public LoginCliente()
         {
             InitializeComponent();
@@ -81,7 +82,16 @@ namespace intermodular
                     }
                     else
                     {
-                        MessageBox.Show("Usuario o contraseña incorrectos");
+                        intentos--;
+                        if (intentos == 0)
+                        {
+                            this.Close();
+                        }
+                        else
+                        {
+                            MessageBox.Show("Usuario o contraseña incorrectos\nTe quedan " + intentos + " intentos", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                        }
+                        
                     }
                 }
                 catch(Exception exc)
@@ -139,8 +149,14 @@ namespace intermodular
             {
                 if (textBox.Text.Length != 0 || textBoxN.Text.Length != 0 || passworbox.Password.Length != 0 || passworbox2.Password.Length != 0)
                 {
-
-                    Boolean comprobarEmail = await Client.checkEmailExists(textBox.Text);
+                    Boolean comprobarEmail = false;
+                    try
+                    {
+                        comprobarEmail = await Client.checkEmailExists(textBox.Text);
+                    }catch(Exception ex)
+                    {
+                        MessageBox.Show("Error al conectarse a la BD", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
 
                     if (comprobarEmail)
                     {
