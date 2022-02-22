@@ -25,7 +25,7 @@ namespace intermodular
     {
         public LoginCliente()
         {
-            InitializeComponent(); 
+            InitializeComponent();
         }
       
         private void textBoxUsuario(object sender, MouseButtonEventArgs e)

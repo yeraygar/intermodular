@@ -15,19 +15,18 @@
         Top="0"
         Left="0"
         >
-
-    <Viewbox>
-        <Border>
-            <Grid Width="{x:Static SystemParameters.PrimaryScreenWidth}" Height="{x:Static SystemParameters.PrimaryScreenHeight}">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="60"></RowDefinition>
-                    <RowDefinition></RowDefinition>
-                </Grid.RowDefinitions>
-                <Border Grid.Row="1" Background="WhiteSmoke" Opacity="0.90" CornerRadius="20" VerticalAlignment="Center" HorizontalAlignment="Center" Width="600" Height="500">
+    <Border>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="60"></RowDefinition>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+            <Viewbox Grid.Row="1">
+                <Border x:Name="borderPrincipal" Grid.Row="1" Background="WhiteSmoke" Opacity="0.90" CornerRadius="20" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="100">
                     <Border.Effect>
                         <DropShadowEffect BlurRadius="190" ShadowDepth="0" Opacity="0.9" Color="Black" />
                     </Border.Effect>
-                    <Grid Grid.Row="1">
+                    <Grid Grid.Row="1" Width="600" Height="700">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="1*"></ColumnDefinition>
                             <ColumnDefinition Width="2*"></ColumnDefinition>
@@ -69,7 +68,7 @@
                             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                                 <TextBox Name="textBoxN" Height="35" Width="160" FontSize="20" VerticalAlignment="Top" />
                                 <Button HorizontalAlignment="Right" VerticalAlignment="Bottom"  Grid.Column="0" Grid.Row="1" Background="Transparent" BorderBrush="Transparent" PreviewMouseDown="textBoxNombre">
-                                    <Image Source="..\images\TECLADO.png" Height="32" Width="32" />
+                                    <Image Source="..\images\TECLADO.png" Height="32" Width="32" RenderOptions.BitmapScalingMode="HighQuality" />
                                 </Button>
 
                             </StackPanel>
@@ -81,7 +80,7 @@
                             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                                 <PasswordBox Height="35" HorizontalAlignment="Center"  x:Name="passworbox2" VerticalAlignment="Bottom" Width="160" FontSize="20" />
                                 <Button HorizontalAlignment="Right" VerticalAlignment="top" Grid.Column="0" Grid.Row="2" Background="Transparent" BorderBrush="Transparent" PreviewMouseDown="textBoxContraseña2">
-                                    <Image Source="..\images\TECLADO.png" Height="32" Width="32"/>
+                                    <Image Source="..\images\TECLADO.png" Height="32" Width="32" RenderOptions.BitmapScalingMode="HighQuality"/>
                                 </Button>
                             </StackPanel>
                         </StackPanel>
@@ -94,11 +93,11 @@
 
                     </Grid>
                 </Border>
-                <Button x:Name="btn_cerrar" Style="{StaticResource btnRedondo}" Height="40" Margin="0,20,20,0" Width="40" Grid.Row="0" HorizontalAlignment="Right"  Cursor="Hand"  Click="cerrar" MouseEnter="btn_cerrar_MouseEnter" MouseLeave="btn_cerrar_MouseLeave">
-                    <Image Source="..\images\cerrar.png" Width="20" Height="20"/>
-                </Button>
-            </Grid>
-        </Border>
-    </Viewbox>
+            </Viewbox>
+            <Button x:Name="btn_cerrar" Style="{StaticResource btnRedondo}" Height="40" Margin="0,20,20,0" Width="40" Grid.Row="0" HorizontalAlignment="Right"  Cursor="Hand"  Click="cerrar" MouseEnter="btn_cerrar_MouseEnter" MouseLeave="btn_cerrar_MouseLeave">
+                <Image Source="..\images\cerrar.png" Width="20" Height="20"/>
+            </Button>
+        </Grid>
+    </Border>
 </Window>
 
