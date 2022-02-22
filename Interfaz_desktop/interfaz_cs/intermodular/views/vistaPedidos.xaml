@@ -40,13 +40,13 @@
                                     <ColumnDefinition Width="25*"/>
                                 </Grid.ColumnDefinitions>
                                 <Viewbox HorizontalAlignment="Left">
-                                    <Label x:Name="lblCamarero" FontSize="19" Content="Camarero: " VerticalAlignment="Center"/>
+                                    <Label x:Name="lblCamarero" FontSize="8" Content="Camarero: " VerticalAlignment="Center"/>
                                 </Viewbox>
                                 <Viewbox Grid.Column="1" HorizontalAlignment="Left">
-                                    <Label x:Name="lblComensales" FontSize="19" Content="Comensales: " VerticalAlignment="Center"/>
+                                    <Label x:Name="lblComensales" FontSize="8" Content="Comensales: " VerticalAlignment="Center"/>
                                 </Viewbox>
-                                <Viewbox Grid.Column="2" HorizontalAlignment="Left">
-                                    <Label Grid.Column="2" x:Name="lblFecha" FontSize="19" Content="Fecha" VerticalAlignment="Center"/>
+                                <Viewbox Grid.Column="2" HorizontalAlignment="Right" Margin="0,0,10,0">
+                                    <Label Grid.Column="2" x:Name="lblFecha" FontSize="8" Content="Fecha" VerticalAlignment="Center"/>
                                 </Viewbox>
                             </Grid>
 

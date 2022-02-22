@@ -54,13 +54,13 @@ namespace intermodular
                         {
                             Button btn = new Button
                             {
-                                Height = 70,
+                                Height = ((SystemParameters.PrimaryScreenHeight * 0.55) * 70) / 594,
                                 Content = f.name,
                                 Tag = f._id,
                                 Style = Application.Current.TryFindResource("btnRedondo") as Style,
                                 Cursor = Cursors.Hand,
                                 Margin = new Thickness(10, 30, 10, 0),
-                                FontSize = 19
+                                FontSize = ((SystemParameters.PrimaryScreenWidth * 0.2) * 19) / 384
                             };
 
                             //Creamos un Evento click para cada botón que se crea y asignamos un valor u otro a ciertos elementos, dependiendo de la información que devuelve cada zona de la BD
@@ -161,7 +161,6 @@ namespace intermodular
 
                     },
                 };
-                Viewbox vb = new Viewbox();
                 Grid grid = new Grid();
                 RowDefinition fila1 = new RowDefinition();
                 fila1.Height = new GridLength(80, GridUnitType.Star);
@@ -174,14 +173,13 @@ namespace intermodular
                 {
                     Name = "lblProd",
                     Content = p.name,
-                    FontSize = 15,
+                    FontSize = calcTextSize(btn.Width),
                     VerticalAlignment = VerticalAlignment.Top,
                     HorizontalAlignment = HorizontalAlignment.Center,
                 };
                 Grid.SetRow(lbl, 1);
                 grid.Children.Add(lbl);
-                vb.Child = grid;
-                btn.Content = vb;
+                btn.Content = grid;
 
                 btn.Click +=  async (object sender, RoutedEventArgs rea) =>
                 {
@@ -316,7 +314,7 @@ namespace intermodular
                             Label lblNombr = new Label
                             {
                                 Content = "Producto",
-                                FontSize = 19,
+                                FontSize = ((SystemParameters.PrimaryScreenWidth * 0.8) * 19) / 1536,
                                 VerticalAlignment = VerticalAlignment.Center,
                                 HorizontalAlignment = HorizontalAlignment.Left,
                             };
@@ -324,7 +322,7 @@ namespace intermodular
                             Label lblPrecioUnida = new Label
                             {
                                 Content = "€/U",
-                                FontSize = 19,
+                                FontSize = ((SystemParameters.PrimaryScreenWidth * 0.8) * 19) / 1536,
                                 VerticalAlignment = VerticalAlignment.Center,
                                 HorizontalAlignment = HorizontalAlignment.Left,
                             };
@@ -332,15 +330,15 @@ namespace intermodular
                             Label lblTota = new Label
                             {
                                 Content = "Total = " + calcTotal().ToString() + "€",
-                                FontSize = 19,
+                                FontSize = ((SystemParameters.PrimaryScreenWidth * 0.8) * 19) / 1536,
                                 VerticalAlignment = VerticalAlignment.Center,
                                 HorizontalAlignment = HorizontalAlignment.Left,
                             };
 
                             Image im = new Image
                             {
-                                Width = 50,
-                                Height = 50,
+                                Width = ((SystemParameters.PrimaryScreenWidth * 0.8) * 50) / 1536,
+                                Height = ((SystemParameters.PrimaryScreenWidth * 0.8) * 50) / 1536,
                                 VerticalAlignment = VerticalAlignment.Center,
                                 HorizontalAlignment = HorizontalAlignment.Left,
                                 Cursor = Cursors.Hand
@@ -409,7 +407,7 @@ namespace intermodular
                             Label lblCantidad = new Label
                             {
                                 Content = t.cantidad,
-                                FontSize = 19,
+                                FontSize = ((SystemParameters.PrimaryScreenWidth * 0.8) * 19) / 1536,
                                 VerticalAlignment = VerticalAlignment.Center,
                                 HorizontalAlignment = HorizontalAlignment.Left,
                                 Margin = new Thickness(2, 0, 0, 0)
@@ -418,7 +416,7 @@ namespace intermodular
                             Label lblNombre = new Label
                             {
                                 Content = t.name,
-                                FontSize = 19,
+                                FontSize = ((SystemParameters.PrimaryScreenWidth * 0.8) * 19) / 1536,
                                 VerticalAlignment = VerticalAlignment.Center,
                                 HorizontalAlignment = HorizontalAlignment.Left,
                             };
@@ -426,7 +424,7 @@ namespace intermodular
                             Label lblPrecioUnidad = new Label
                             {
                                 Content = t.precio,
-                                FontSize = 19,
+                                FontSize = ((SystemParameters.PrimaryScreenWidth * 0.8) * 19) / 1536,
                                 VerticalAlignment = VerticalAlignment.Center,
                                 HorizontalAlignment = HorizontalAlignment.Left,
                             };
@@ -434,15 +432,15 @@ namespace intermodular
                             Label lblTotal = new Label
                             {
                                 Content = (float)(Math.Truncate((double)(t.cantidad * t.precio) * 100.0) / 100.0),
-                                FontSize = 19,
+                                FontSize = ((SystemParameters.PrimaryScreenWidth * 0.8) * 19) / 1536,
                                 VerticalAlignment = VerticalAlignment.Center,
                                 HorizontalAlignment = HorizontalAlignment.Left,
                             };
 
                             Image img = new Image
                             {
-                                Width = 30,
-                                Height = 30,
+                                Width = ((SystemParameters.PrimaryScreenWidth * 0.8) * 30) / 1536,
+                                Height = ((SystemParameters.PrimaryScreenWidth * 0.8) * 30) / 1536,
                                 VerticalAlignment = VerticalAlignment.Center,
                                 HorizontalAlignment = HorizontalAlignment.Left,
                                 Source = (ImageSource)new ImageSourceConverter().ConvertFrom("..\\..\\images\\comentario.png"),
@@ -681,5 +679,7 @@ namespace intermodular
             double size = (SystemParameters.PrimaryScreenWidth * 0.8);
             return (size / 3) * 0.5; 
         }
+
+        private double calcTextSize(double size) => (size * 19) / 200;
     }
 }

@@ -320,19 +320,20 @@ namespace intermodular
                             },
                             Visibility = !mesa.status && !Staticresources.isEditableTables ? Visibility.Hidden : Visibility.Visible
                         };
-                        Viewbox vb = new Viewbox();
-                        Label lb = new Label
-                        {
-                            Content = mesa.name,
-                            FontSize = 19,
-                            Margin = new Thickness(10,0,10,0)
-                        };
-                      
-                        vb.Child = lb;
-                        btn.Content = vb;
+
                         btn.Width = calcSize();
                         btn.Height = calcSize();
                         btn.Margin = new Thickness(0, calcSize() * 0.1, 0, 0);
+
+                        Label lb = new Label
+                        {
+                            Content = mesa.name,
+                            FontSize = calcTextSize(btn.Width),
+                            Margin = new Thickness(10,0,10,0)
+                        };
+                      
+                        btn.Content = lb;
+                      
 
                         btn.Click += btnsTablesClick;
 
@@ -627,7 +628,9 @@ namespace intermodular
         private double calcSize()
         {
             double size = SystemParameters.PrimaryScreenWidth - 250;
-            return (size / 6) * 0.8;
+            return (size / 6) * 0.7;
         }
+
+        private double calcTextSize(double size) => (size * 50) / 200; 
     }
 }

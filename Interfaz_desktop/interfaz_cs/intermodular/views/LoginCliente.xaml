@@ -22,7 +22,7 @@
                 <RowDefinition></RowDefinition>
             </Grid.RowDefinitions>
             <Viewbox Grid.Row="1">
-                <Border x:Name="borderPrincipal" Grid.Row="1" Background="WhiteSmoke" Opacity="0.90" CornerRadius="20" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="100">
+                <Border x:Name="borderPrincipal" Grid.Row="1" Background="WhiteSmoke" Opacity="0.90" CornerRadius="20" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="200">
                     <Border.Effect>
                         <DropShadowEffect BlurRadius="190" ShadowDepth="0" Opacity="0.9" Color="Black" />
                     </Border.Effect>
