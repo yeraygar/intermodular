@@ -159,10 +159,10 @@ POST http://localhost:8081/api/tables HTTP/1.1
 Content-Type: application/json
 
 {
-    "name":"M7",
-    "status": false,
-    "id_client": "61fab7718b4920d2aa2d129c",
-    "id_zone": "62023cfe530ff963d9eaef22",
+    "name":"M",
+    "status": true,
+    "id_client": "6214b039a55dc783031caabf",
+    "id_zone": "6214b822a55dc783031cab76",
     "num_row": "4",
     "num_column":"5",
     "ocupada": false,
@@ -175,20 +175,18 @@ POST http://localhost:8081/api/zones HTTP/1.1
 Content-Type: application/json
 
 {
-    "id_client": "61fab7718b4920d2aa2d129c",
-    "zone_name": "Zona 2" 
+    "id_client": "6214b039a55dc783031caabf",
+    "zone_name": "Sala 4" 
 }
 
 ###
-POST http://localhost:8081/api/user HTTP/1.1
+POST http://localhost:8081/api/users HTTP/1.1
 Content-Type: application/json
 
 {
-    "name": "Federico",
-    "email": "No importa",
-    "passw": "1234",
-    "id_client": "61fab7718b4920d2aa2d129c",
-    "rol": "Admin"
+    "name": "Empleado13",
+    "passw": "123456",
+    "id_client": "6214b039a55dc783031caabf"
 }
 
 ###

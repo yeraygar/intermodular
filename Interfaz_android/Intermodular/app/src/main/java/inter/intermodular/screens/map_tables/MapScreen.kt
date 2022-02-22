@@ -22,9 +22,6 @@ import kotlinx.coroutines.launch
 fun MapScreen(mapViewModel: MapViewModel, navController: NavHostController){
 
     mapViewModel.getClientZones(currentClient._id)
-   // mapViewModel.getUsersFichados(true)
-    //mapViewModel.getClientUsersList()
-    //mapViewModel.getClientAdmins()
 
     val scaffoldState = rememberScaffoldState()
     val scope = rememberCoroutineScope()
@@ -55,9 +52,6 @@ fun MapScreen(mapViewModel: MapViewModel, navController: NavHostController){
                 snackbarHostState = snackbarHostState,
                 navController = navController
             )
-        }else{
-
-            //TODO crear zona por defecto con un par de mesas
         }
     }
 }
