@@ -15,7 +15,6 @@ namespace intermodular
         public static double height;
         public static MainWindow mainWindow;
         public static bool isEditableTables = false;
-
         /// <summary>http://localhost:8081/api/</summary>
         public static string urlHead = "http://localhost:8081/api/";
         public static HttpClient httpClient = new HttpClient();

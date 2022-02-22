@@ -28,6 +28,8 @@ namespace intermodular
         public CrearProductos(string idFamilia,Producto producto)
         {
             InitializeComponent();
+            this.Width = SystemParameters.PrimaryScreenWidth * 0.25;
+            this.Height = SystemParameters.PrimaryScreenHeight * 0.6;
             this.idFamilia = idFamilia;
             this.producto = producto;
         }

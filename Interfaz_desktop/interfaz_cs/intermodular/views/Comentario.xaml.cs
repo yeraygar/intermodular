@@ -23,6 +23,8 @@ namespace intermodular
         public Comentario()
         {
             InitializeComponent();
+            this.Height = SystemParameters.PrimaryScreenHeight * 0.3;
+            this.Width = SystemParameters.PrimaryScreenWidth * 0.4;
         }
         //Comprobamos que el nombre de la zona y el numero de mesas son valores válidos, de ser así creamos la mesa.
         private async void btnSiguiente_Click(object sender, RoutedEventArgs e)

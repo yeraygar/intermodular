@@ -28,6 +28,8 @@ namespace intermodular
         public CrearEmpleado()
         {
             InitializeComponent();
+            this.Width = SystemParameters.PrimaryScreenWidth * 0.7;
+            this.Height = SystemParameters.PrimaryScreenHeight * 0.5;
         }
 
         private bool isValidEmail(string email)

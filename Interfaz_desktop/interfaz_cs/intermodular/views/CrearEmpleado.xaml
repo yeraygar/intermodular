@@ -13,95 +13,97 @@
         Height="500" 
         Width="670"
         ResizeMode="NoResize">
-    <Border Background="#5da9b7" CornerRadius="10">
-        <Grid>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="47"/>
-                <RowDefinition/>
-            </Grid.RowDefinitions>
+    <Viewbox>
+        <Border Background="#5da9b7" CornerRadius="10" Height="500" Width="670">
             <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition/>
-                    <ColumnDefinition Width="60"/>
-                </Grid.ColumnDefinitions>
-                <TextBlock FontSize="25" Foreground="White" VerticalAlignment="Center" Margin="10,0,0,0">Crear empleado</TextBlock>
-                <Button x:Name="btn_cerrar" Style="{StaticResource btnRedondo}" Grid.Column="1" Height="40" Width="40" Cursor="Hand" Click="btn_cerrar_Click" MouseEnter="btn_cerrar_MouseEnter" MouseLeave="btn_cerrar_MouseLeave">
-                    <Image x:Name="imgCerrar" Source="..\images\cerrar.png" Width="20" Height="20" RenderOptions.BitmapScalingMode="HighQuality"/>
-                </Button>
-            </Grid>
-            <Border Grid.Row="1" Background="WhiteSmoke" CornerRadius="0,0,10,10" BorderThickness="3">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="47"/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
                 <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="2*"/>
-                        <RowDefinition/>
-                    </Grid.RowDefinitions>
-                    <Grid>
-                        <TextBlock Margin="83,48,0,0" TextWrapping="Wrap" Text="Nombre" VerticalAlignment="Top" HorizontalAlignment="Left" FontSize="19"/>
-                        <TextBox x:Name="txtNombre" HorizontalAlignment="Left" Margin="190,48,0,0" TextWrapping="NoWrap" VerticalAlignment="Top" Width="300" FontSize="19" TextChanged="txtNombre_TextChanged"/>
-                        <Image x:Name="imgValidZoneName" Width="30" Height="30" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="520,69,0,0" Source="/intermodular;component/images/verify.png" RenderOptions.BitmapScalingMode="HighQuality" Visibility="Hidden"/>
-                        <TextBlock Margin="83,106,0,0" TextWrapping="Wrap" Text="Email" VerticalAlignment="Top" HorizontalAlignment="Left" FontSize="19"/>
-                        <TextBlock Margin="83,222,0,0" TextWrapping="Wrap" Text="Rol" VerticalAlignment="Top" HorizontalAlignment="Left" FontSize="19"/>
-                        <TextBlock Margin="83,164,0,0" TextWrapping="Wrap" Text="Contraseña" VerticalAlignment="Top" HorizontalAlignment="Left" FontSize="19"/>
-                        <Border Width="300" HorizontalAlignment="Left" VerticalAlignment="Top"  Margin="190,164,0,0">
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="2.5*"/>
-                                    <ColumnDefinition Width="0.5*"/>
-                                </Grid.ColumnDefinitions>
-                                <Border>
-                                    <Grid>
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition x:Name="columnaPass"/>
-                                            <ColumnDefinition x:Name="columnaPassVisible" Width="0"/>
-                                        </Grid.ColumnDefinitions>
-                                        <PasswordBox x:Name="password" FontSize="19" PasswordChanged="password_PasswordChanged"/>
-                                        <TextBox Grid.Column="1" x:Name="passwordVisible" FontSize="19" TextChanged="passwordVisible_TextChanged" />
-                                    </Grid>
-                                </Border>
-                                <Border Grid.Column="1" Background="DarkGray">
-                                    <Image x:Name="imgVerPass" Width="25" Height="25" RenderOptions.BitmapScalingMode="HighQuality" Source="/intermodular;component/images/eye.png" VerticalAlignment="Center" HorizontalAlignment="Center" Cursor="Hand" MouseDown="Image_MouseDown" Tag="hidden"/>
-                                </Border>
-                            </Grid>
-                        </Border>
-                        <ComboBox x:Name="comboBoxRol" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="190,222,0,0" Width="130" FontSize="19">
-                            <ComboBoxItem Content="Estándar" IsSelected="True"/>
-                            <ComboBoxItem Content="Admin"/>
-                        </ComboBox>
-                        <TextBox x:Name="txtEmail" HorizontalAlignment="Left" Margin="190,106,0,0" TextWrapping="NoWrap" VerticalAlignment="Top" Width="300" FontSize="19" TextChanged="txtEmail_TextChanged" />
-                        <Image x:Name="imgNombre" Width="30" Height="30" HorizontalAlignment="Left" VerticalAlignment="top" Source="/intermodular;component/images/verify.png" Margin="495,45,0,0" Visibility="Hidden" RenderOptions.BitmapScalingMode="HighQuality"/>
-                        <Image x:Name="imgEmail" Width="30" Height="30" HorizontalAlignment="Left" VerticalAlignment="top" Source="/intermodular;component/images/verify.png" Margin="495,104,0,0" Visibility="Hidden" RenderOptions.BitmapScalingMode="HighQuality"/>
-                        <Image x:Name="imgPass" Width="30" Height="30" HorizontalAlignment="Left" VerticalAlignment="top" Source="/intermodular;component/images/verify.png" Margin="495,164,0,0" Visibility="Hidden" RenderOptions.BitmapScalingMode="HighQuality"/>
-                        <Image x:Name="imgRol" Width="30" Height="30" HorizontalAlignment="Left" VerticalAlignment="top" Source="/intermodular;component/images/verify.png" RenderOptions.BitmapScalingMode="HighQuality" Margin="325,222,0,0"/>
-                    </Grid>
-                    <Grid Grid.Row="1">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition/>
-                            <ColumnDefinition/>
-                        </Grid.ColumnDefinitions>
-                        <Button x:Name="btnCancelar" Style="{StaticResource btnRedondo}" Width="180" Height="60" FontSize="19" Cursor="Hand" Click="btnCancelar_Click" MouseEnter="btnCancelar_MouseEnter" MouseLeave="btnCancelar_MouseLeave">
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition/>
-                                    <ColumnDefinition/>
-                                </Grid.ColumnDefinitions>
-                                <Image x:Name="imgCancel" Source="..\images\cancel.png" Width="30" Height="30" RenderOptions.BitmapScalingMode="HighQuality" Margin="0,0,10,0"/>
-                                <TextBlock Grid.Column="1" FontSize="19" Text="Cancelar"/>
-                            </Grid>
-                        </Button>
-                        <Button x:Name="btnSiguiente" Grid.Column="1" Style="{StaticResource btnRedondo}" Width="200" Height="60" FontSize="19" Cursor="Hand" MouseEnter="btnSiguiente_MouseEnter" MouseLeave="btnSiguiente_MouseLeave" Click="btnSiguiente_Click">
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition />
-                                    <ColumnDefinition/>
-                                </Grid.ColumnDefinitions>
-                                <TextBlock Text="Siguiente" HorizontalAlignment="Center"/>
-                                <Image x:Name="imgNext" Grid.Column="1" Source="..\images\next.png" Width="30" Margin="10,0,0,0" RenderOptions.BitmapScalingMode="HighQuality"/>
-                            </Grid>
-                        </Button>
-                    </Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition Width="60"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock FontSize="25" Foreground="White" VerticalAlignment="Center" Margin="10,0,0,0">Crear empleado</TextBlock>
+                    <Button x:Name="btn_cerrar" Style="{StaticResource btnRedondo}" Grid.Column="1" Height="40" Width="40" Cursor="Hand" Click="btn_cerrar_Click" MouseEnter="btn_cerrar_MouseEnter" MouseLeave="btn_cerrar_MouseLeave">
+                        <Image x:Name="imgCerrar" Source="..\images\cerrar.png" Width="20" Height="20" RenderOptions.BitmapScalingMode="HighQuality"/>
+                    </Button>
                 </Grid>
-            </Border>
-        </Grid>
-    </Border>
+                <Border Grid.Row="1" Background="WhiteSmoke" CornerRadius="0,0,10,10" BorderThickness="3">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="2*"/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <Grid>
+                            <TextBlock Margin="83,48,0,0" TextWrapping="Wrap" Text="Nombre" VerticalAlignment="Top" HorizontalAlignment="Left" FontSize="19"/>
+                            <TextBox x:Name="txtNombre" HorizontalAlignment="Left" Margin="190,48,0,0" TextWrapping="NoWrap" VerticalAlignment="Top" Width="300" FontSize="19" TextChanged="txtNombre_TextChanged"/>
+                            <Image x:Name="imgValidZoneName" Width="30" Height="30" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="520,69,0,0" Source="/intermodular;component/images/verify.png" RenderOptions.BitmapScalingMode="HighQuality" Visibility="Hidden"/>
+                            <TextBlock Margin="83,106,0,0" TextWrapping="Wrap" Text="Email" VerticalAlignment="Top" HorizontalAlignment="Left" FontSize="19"/>
+                            <TextBlock Margin="83,222,0,0" TextWrapping="Wrap" Text="Rol" VerticalAlignment="Top" HorizontalAlignment="Left" FontSize="19"/>
+                            <TextBlock Margin="83,164,0,0" TextWrapping="Wrap" Text="Contraseña" VerticalAlignment="Top" HorizontalAlignment="Left" FontSize="19"/>
+                            <Border Width="300" HorizontalAlignment="Left" VerticalAlignment="Top"  Margin="190,164,0,0">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="2.5*"/>
+                                        <ColumnDefinition Width="0.5*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Border>
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition x:Name="columnaPass"/>
+                                                <ColumnDefinition x:Name="columnaPassVisible" Width="0"/>
+                                            </Grid.ColumnDefinitions>
+                                            <PasswordBox x:Name="password" FontSize="19" PasswordChanged="password_PasswordChanged"/>
+                                            <TextBox Grid.Column="1" x:Name="passwordVisible" FontSize="19" TextChanged="passwordVisible_TextChanged" />
+                                        </Grid>
+                                    </Border>
+                                    <Border Grid.Column="1" Background="DarkGray">
+                                        <Image x:Name="imgVerPass" Width="25" Height="25" RenderOptions.BitmapScalingMode="HighQuality" Source="/intermodular;component/images/eye.png" VerticalAlignment="Center" HorizontalAlignment="Center" Cursor="Hand" MouseDown="Image_MouseDown" Tag="hidden"/>
+                                    </Border>
+                                </Grid>
+                            </Border>
+                            <ComboBox x:Name="comboBoxRol" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="190,222,0,0" Width="130" FontSize="19">
+                                <ComboBoxItem Content="Estándar" IsSelected="True"/>
+                                <ComboBoxItem Content="Admin"/>
+                            </ComboBox>
+                            <TextBox x:Name="txtEmail" HorizontalAlignment="Left" Margin="190,106,0,0" TextWrapping="NoWrap" VerticalAlignment="Top" Width="300" FontSize="19" TextChanged="txtEmail_TextChanged" />
+                            <Image x:Name="imgNombre" Width="30" Height="30" HorizontalAlignment="Left" VerticalAlignment="top" Source="/intermodular;component/images/verify.png" Margin="495,45,0,0" Visibility="Hidden" RenderOptions.BitmapScalingMode="HighQuality"/>
+                            <Image x:Name="imgEmail" Width="30" Height="30" HorizontalAlignment="Left" VerticalAlignment="top" Source="/intermodular;component/images/verify.png" Margin="495,104,0,0" Visibility="Hidden" RenderOptions.BitmapScalingMode="HighQuality"/>
+                            <Image x:Name="imgPass" Width="30" Height="30" HorizontalAlignment="Left" VerticalAlignment="top" Source="/intermodular;component/images/verify.png" Margin="495,164,0,0" Visibility="Hidden" RenderOptions.BitmapScalingMode="HighQuality"/>
+                            <Image x:Name="imgRol" Width="30" Height="30" HorizontalAlignment="Left" VerticalAlignment="top" Source="/intermodular;component/images/verify.png" RenderOptions.BitmapScalingMode="HighQuality" Margin="325,222,0,0"/>
+                        </Grid>
+                        <Grid Grid.Row="1">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <Button x:Name="btnCancelar" Style="{StaticResource btnRedondo}" Width="180" Height="60" FontSize="19" Cursor="Hand" Click="btnCancelar_Click" MouseEnter="btnCancelar_MouseEnter" MouseLeave="btnCancelar_MouseLeave">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition/>
+                                        <ColumnDefinition/>
+                                    </Grid.ColumnDefinitions>
+                                    <Image x:Name="imgCancel" Source="..\images\cancel.png" Width="30" Height="30" RenderOptions.BitmapScalingMode="HighQuality" Margin="0,0,10,0"/>
+                                    <TextBlock Grid.Column="1" FontSize="19" Text="Cancelar"/>
+                                </Grid>
+                            </Button>
+                            <Button x:Name="btnSiguiente" Grid.Column="1" Style="{StaticResource btnRedondo}" Width="200" Height="60" FontSize="19" Cursor="Hand" MouseEnter="btnSiguiente_MouseEnter" MouseLeave="btnSiguiente_MouseLeave" Click="btnSiguiente_Click">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition />
+                                        <ColumnDefinition/>
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock Text="Siguiente" HorizontalAlignment="Center"/>
+                                    <Image x:Name="imgNext" Grid.Column="1" Source="..\images\next.png" Width="30" Margin="10,0,0,0" RenderOptions.BitmapScalingMode="HighQuality"/>
+                                </Grid>
+                            </Button>
+                        </Grid>
+                    </Grid>
+                </Border>
+            </Grid>
+        </Border>
+    </Viewbox>
 </Window>
 

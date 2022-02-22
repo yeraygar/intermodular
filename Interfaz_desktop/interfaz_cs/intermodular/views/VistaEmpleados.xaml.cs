@@ -26,6 +26,8 @@ namespace intermodular
         public VistaEmpleados()
         {
             InitializeComponent();
+            this.Width = SystemParameters.PrimaryScreenWidth * 0.6;
+            this.Height = SystemParameters.PrimaryScreenHeight * 0.8;
             User.getClientUsers(Client.currentClient._id).ContinueWith(task =>
             {
                 if(User.usuariosDeCliente != null)

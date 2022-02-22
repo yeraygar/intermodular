@@ -25,7 +25,8 @@ namespace intermodular
         public CrearMesa(string id)
         {
             InitializeComponent();
-            //this.Width = Static
+            this.Width = SystemParameters.PrimaryScreenWidth * 0.6;
+            this.Height = SystemParameters.PrimaryScreenHeight * 0.4;
             idZonaSelect = id;
         }
 
@@ -133,6 +134,7 @@ namespace intermodular
                 {
                     mesa.num_row = 0;
                     mesa.num_column = 0;
+                    Mesa.currentZoneTables = new List<Mesa>();
                 }
                 else
                 {

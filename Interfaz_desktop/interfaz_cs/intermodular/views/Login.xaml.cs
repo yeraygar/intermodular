@@ -28,6 +28,8 @@ namespace intermodular
         public Login(bool paraFichar, bool modificar, bool admin)
         {
             InitializeComponent();
+            this.Width = SystemParameters.PrimaryScreenWidth * 0.5;
+            this.Height = SystemParameters.PrimaryScreenHeight * 0.6;
             if (admin) LabelNombre.Content = "Administrador";
             else LabelNombre.Content = User.usuarioElegido.name;
 
@@ -42,7 +44,7 @@ namespace intermodular
 
         private async void btnAceptar_Click(object sender, System.EventArgs e)
         {
-            String passwordIntroducido = Encrypt.GetSHA256(passwordBox.Password);
+            String passwordIntroducido = passwordBox.Password;
 
             if (admin) comportamientoAdministrador(passwordIntroducido);
             else await comportamientoUsuario(passwordIntroducido);
@@ -200,7 +202,7 @@ namespace intermodular
         {
             
             var bc = new BrushConverter();
-            aceptar.Background = (Brush)bc.ConvertFrom("#48C9B0");
+            aceptar.Background = (Brush)bc.ConvertFrom("#5da9b7");
 
         }
 

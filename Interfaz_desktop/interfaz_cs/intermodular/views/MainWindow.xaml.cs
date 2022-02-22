@@ -30,6 +30,11 @@ namespace intermodular
         {
 
             InitializeComponent();
+            imgOpciones.Width = ((SystemParameters.PrimaryScreenWidth * 0.15) * 60) / 288;
+            imgOpciones.Height = ((SystemParameters.PrimaryScreenWidth * 0.15) * 60) / 288;
+            txtOpciones.FontSize = ((SystemParameters.PrimaryScreenWidth * 0.15) * 19) / 288;
+            textBlockPie.FontSize = ((SystemParameters.PrimaryScreenWidth * 0.85) * 30) / 1632;
+            txtTituloZonas.FontSize = ((SystemParameters.PrimaryScreenWidth * 0.15) * 19) / 288;
             Staticresources.mainWindow = this;
 
             Zona.getAllClientZones(Client.currentClient._id).ContinueWith(task =>
@@ -77,12 +82,12 @@ namespace intermodular
             {
                 Content = zona.zone_name,
                 Tag = zona._id,
-                Height = 70,
+                Height = ((SystemParameters.PrimaryScreenHeight * 0.9) * 70) / 972,
                 Margin = new Thickness(10),
                 Style = Application.Current.TryFindResource("btnRedondo") as Style,
                 Cursor = Cursors.Hand,
-                FontSize = 19
-            };
+                FontSize = ((SystemParameters.PrimaryScreenWidth * 0.15) * 19) / 288
+        };
 
             btn.MouseEnter += (object senderMouseEnter, MouseEventArgs mouseEventArg) =>
             {
@@ -139,11 +144,11 @@ namespace intermodular
                 {
                     Content = z.zone_name,
                     Tag = z._id,
-                    Height = 70,
+                    Height = ((SystemParameters.PrimaryScreenHeight * 0.9) * 70) / 972,
                     Margin = new Thickness(10),
                     Style = Application.Current.TryFindResource("btnRedondo") as Style,
                     Cursor = Cursors.Hand,
-                    FontSize = 19
+                    FontSize = ((SystemParameters.PrimaryScreenWidth * 0.15) * 19) / 288
                 };
 
                 btn.MouseEnter += (object senderMouseEnter, MouseEventArgs mouseEventArg) =>
@@ -295,12 +300,9 @@ namespace intermodular
                         {
                             Background = Staticresources.isEditableTables ? mesa.status ? (Brush)(new BrushConverter().ConvertFrom("#8dd56d")) : (Brush)(new BrushConverter().ConvertFrom("#cf6161")) :mesa.ocupada ? (Brush)(new BrushConverter().ConvertFrom("#cf6161")) : mesa.status && mesa.comensales == 0 ? (Brush)(new BrushConverter().ConvertFrom("#8dd56d")) : mesa.status && mesa.comensales > 0 ? (Brush)(new BrushConverter().ConvertFrom("#ebb558")) : (Brush)(new BrushConverter().ConvertFrom("#cf6161")),
                             Tag = mesa._id,
-                            Margin = new Thickness(0, 100, 0, 0),
-                            Width = 200,
-                            Height = 200,
-                            Content = mesa.name,
+                            //Content = mesa.name,
                             Style = Application.Current.TryFindResource("btnRedondo") as Style,
-                            FontSize = 50,
+                            //FontSize = 19,
                             Cursor = Cursors.Hand,
                             VerticalAlignment = VerticalAlignment.Top,
                             Effect = new DropShadowEffect
@@ -313,6 +315,20 @@ namespace intermodular
                             },
                             Visibility = !mesa.status && !Staticresources.isEditableTables ? Visibility.Hidden : Visibility.Visible
                         };
+
+                        btn.Width = calcSize();
+                        btn.Height = calcSize();
+                        btn.Margin = new Thickness(0, calcSize() * 0.1, 0, 0);
+
+                        Label lb = new Label
+                        {
+                            Content = mesa.name,
+                            FontSize = calcTextSize(btn.Width),
+                            Margin = new Thickness(10,0,10,0)
+                        };
+                      
+                        btn.Content = lb;
+                      
 
                         btn.Click += btnsTablesClick;
 
@@ -377,12 +393,9 @@ namespace intermodular
             Button btn = new Button
             {
                 Tag = mesa._id,
-                Margin = new Thickness(0,100,0,0),
-                Width = 200,
-                Height = 200,
                 Style = Application.Current.TryFindResource("btnRedondo") as Style,
                 Background = Staticresources.isEditableTables ? mesa.status ? (Brush)(new BrushConverter().ConvertFrom("#8dd56d")) : (Brush)(new BrushConverter().ConvertFrom("#cf6161")) : mesa.ocupada ? (Brush)(new BrushConverter().ConvertFrom("#cf6161")) : mesa.status && mesa.comensales == 0 ? (Brush)(new BrushConverter().ConvertFrom("#8dd56d")) : mesa.status && mesa.comensales > 0 ? (Brush)(new BrushConverter().ConvertFrom("#ebb558")) : (Brush)(new BrushConverter().ConvertFrom("#cf6161")),
-                Content = mesa.name,
+                //Content = mesa.name,
                 FontSize = 50,
                 Cursor = Cursors.Hand,
                 VerticalAlignment = VerticalAlignment.Top,
@@ -395,7 +408,21 @@ namespace intermodular
 
                 },
                 Visibility = !mesa.status && !Staticresources.isEditableTables ? Visibility.Hidden : Visibility.Visible
+                
             };
+            Viewbox vb = new Viewbox();
+            Label lb = new Label
+            {
+                Content = mesa.name,
+                FontSize = 19,
+                Margin = new Thickness(10, 0, 10, 0)
+            };
+            
+            vb.Child = lb;
+            btn.Content = vb;
+            btn.Width = calcSize();
+            btn.Height = calcSize();
+            btn.Margin = new Thickness(0, calcSize() * 0.1, 0, 0);
             if (mapaMesas.RowDefinitions.Count < mesa.num_row + 1)
             {
                 mapaMesas.RowDefinitions.Add(new RowDefinition());
@@ -592,5 +619,13 @@ namespace intermodular
                 columnaEliminarMesa.Width = new GridLength(0);
             }
         }
+
+        private double calcSize()
+        {
+            double size = SystemParameters.PrimaryScreenWidth - 250;
+            return (size / 6) * 0.7;
+        }
+
+        private double calcTextSize(double size) => (size * 50) / 200; 
     }
 }

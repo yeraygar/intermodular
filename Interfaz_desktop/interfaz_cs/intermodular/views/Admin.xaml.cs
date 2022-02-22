@@ -27,8 +27,8 @@ namespace intermodular
         public Admin()
         {
             InitializeComponent();
-            //this.Width = Staticresources.width * 0.4;
-            //this.Height = Staticresources.height * 0.7;
+            this.Width = SystemParameters.PrimaryScreenWidth * 0.4;
+            this.Height = SystemParameters.PrimaryScreenHeight * 0.7;
             if(Staticresources.caja.Equals("cerrada"))
             {
                 btn_cerrarCaja.IsEnabled = false;
@@ -200,7 +200,9 @@ namespace intermodular
 
         private async void btn_cerrarCaja_Click(object sender, RoutedEventArgs e)
         {
-            if (await Ticket.getClientOpenTickets()) { }
+            if (await Ticket.getClientOpenTickets()) {
+                MessageBox.Show("Todavía hay tickets abiertos", "Información", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
             else
             {
                 await Ticket.getCajaTotal(Caja.currentCaja);

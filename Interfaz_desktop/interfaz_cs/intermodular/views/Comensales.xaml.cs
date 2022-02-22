@@ -26,6 +26,8 @@ namespace intermodular
             InitializeComponent();
             nombreMesa.Text = "Mesa: "+Mesa.currentMesa.name + "\t  Num Sillas: " + Mesa.currentMesa.comensalesMax;
             this.user = user;
+            this.Width = SystemParameters.PrimaryScreenWidth * 0.5;
+            this.Height = SystemParameters.PrimaryScreenHeight * 0.6;
         }
         /************************* BOTONERA *************************/
 
@@ -105,7 +107,7 @@ namespace intermodular
         {
 
             var bc = new BrushConverter();
-            aceptar.Background = (Brush)bc.ConvertFrom("#48C9B0");
+            aceptar.Background = (Brush)bc.ConvertFrom("#5da9b7");
 
         }
 

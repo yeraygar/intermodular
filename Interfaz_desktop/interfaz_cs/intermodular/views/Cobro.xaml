@@ -14,16 +14,13 @@
         WindowStartupLocation="CenterScreen"
         ResizeMode="NoResize">
 
-    <Border CornerRadius="10" Background="WhiteSmoke">
+    <Border CornerRadius="10" Background="#5da9b7">
         <Grid>
             <Grid.RowDefinitions>
-                <RowDefinition Height="47"/>                
-                <RowDefinition Height="60"></RowDefinition>
-                <RowDefinition Height="60"></RowDefinition>
-                <RowDefinition Height="60"></RowDefinition>
+                <RowDefinition Height="47"/>
                 <RowDefinition></RowDefinition>
             </Grid.RowDefinitions>
-            <Border  Background="#48C9B0" CornerRadius="10,10,0,0">
+            <Border CornerRadius="10,10,0,0">
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition/>
@@ -35,50 +32,58 @@
                     </Button>
                 </Grid>
             </Border>
-            
-            <StackPanel Orientation="Horizontal" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center">
-                <Label Content="Empleado" FontSize="30"/>
-                <Label x:Name="LabelNombre" Content="Maria" FontSize="30"/>
-            </StackPanel>            
-            <StackPanel Orientation="Horizontal" Grid.Row="3" HorizontalAlignment="Center" VerticalAlignment="Center">
-                <Label Content="Mesa" FontSize="30" />
-                <Label x:Name="LabelMesa" Content="5" FontSize="30"/>
-            </StackPanel>
-           
-            <Grid Grid.Row="4">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition></ColumnDefinition>
-                    <ColumnDefinition Width="50"></ColumnDefinition>
-                    <ColumnDefinition></ColumnDefinition>
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="200"></RowDefinition>
-                    <RowDefinition Height="50"></RowDefinition>
-                    <RowDefinition></RowDefinition>
-                </Grid.RowDefinitions>
+            <Border Grid.Row="1" Background="WhiteSmoke" CornerRadius="0,0,10,10" BorderThickness="3">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition Height="50"/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
 
-                <StackPanel Orientation="Horizontal" Grid.Row="2" Grid.ColumnSpan="3" HorizontalAlignment="Center" VerticalAlignment="top">
-                    <Label Content="Total" FontSize="50"/>
-                    <Label x:Name="LabelTotal" Content="25.89€" FontSize="50"/>
-                </StackPanel>
-                  
-                <Button x:Name="boton_Efectivo" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="0" Width="220" Height="90" Style="{StaticResource btnRedondo}" Background="#48C9B0" FontSize="20" Foreground="WhiteSmoke" Click="boton_efectivo" Cursor="Hand" Tag="Efectivo">
-                    <StackPanel Orientation="Horizontal">
-                        <Image Source="/intermodular;component/images/monedas.png" HorizontalAlignment="Left" Height="60" VerticalAlignment="Center" Width="60" RenderOptions.BitmapScalingMode="HighQuality"/>
-                        <TextBlock x:Name="TextblockEfectivo" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="30" Margin="15">Efectivo</TextBlock>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                        <Label Content="Empleado" FontSize="30"/>
+                        <Label x:Name="LabelNombre" Content="Maria" FontSize="30"/>
                     </StackPanel>
-                </Button>
-
-                <Button x:Name="boton_Tarjeta" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="0" Grid.Column="2" Width="220" Height="90" Style="{StaticResource btnRedondo}" Background="#48C9B0" FontSize="20" Foreground="WhiteSmoke" Click="boton_efectivo" Cursor="Hand" Tag="Tarjeta">
-                    <StackPanel Orientation="Horizontal">
-                        <Image Source="/intermodular;component/images/tarjetas.png" HorizontalAlignment="Left" Height="80" VerticalAlignment="Center" Width="80" Margin="0" RenderOptions.BitmapScalingMode="HighQuality"/>
-                        <TextBlock x:Name="Textblocktarjeta" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="10" FontSize="30">Tarjeta</TextBlock>
+                    <StackPanel Orientation="Horizontal" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center">
+                        <Label Content="Mesa" FontSize="30" />
+                        <Label x:Name="LabelMesa" Content="5" FontSize="30"/>
                     </StackPanel>
-                </Button>
 
-            </Grid>
-            
+                    <Grid Grid.Row="2" Grid.RowSpan="2">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition Width="50"></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="200"></RowDefinition>
+                            <RowDefinition Height="100"></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                        </Grid.RowDefinitions>
 
+                        <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.ColumnSpan="3" HorizontalAlignment="Center" VerticalAlignment="top">
+                            <Label Content="Total" FontSize="50"/>
+                            <Label x:Name="LabelTotal" Content="25.89€" FontSize="50"/>
+                        </StackPanel>
+
+                        <Button x:Name="boton_Efectivo" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="0" Width="220" Height="90" Style="{StaticResource btnRedondo}" Background="#5da9b7" FontSize="20" Foreground="WhiteSmoke" Click="boton_efectivo" Cursor="Hand" Tag="Efectivo">
+                            <StackPanel Orientation="Horizontal">
+                                <Image Source="/intermodular;component/images/monedas.png" HorizontalAlignment="Left" Height="60" VerticalAlignment="Center" Width="60" RenderOptions.BitmapScalingMode="HighQuality"/>
+                                <TextBlock x:Name="TextblockEfectivo" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="30" Margin="15">Efectivo</TextBlock>
+                            </StackPanel>
+                        </Button>
+
+                        <Button x:Name="boton_Tarjeta" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="0" Grid.Column="2" Width="220" Height="90" Style="{StaticResource btnRedondo}" Background="#5da9b7" FontSize="20" Foreground="WhiteSmoke" Click="boton_efectivo" Cursor="Hand" Tag="Tarjeta">
+                            <StackPanel Orientation="Horizontal">
+                                <Image Source="/intermodular;component/images/tarjetas.png" HorizontalAlignment="Left" Height="80" VerticalAlignment="Center" Width="80" Margin="0" RenderOptions.BitmapScalingMode="HighQuality"/>
+                                <TextBlock x:Name="Textblocktarjeta" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="10" FontSize="30">Tarjeta</TextBlock>
+                            </StackPanel>
+                        </Button>
+
+                    </Grid>
+                </Grid>
+            </Border>
         </Grid>
     </Border>
 </Window>
