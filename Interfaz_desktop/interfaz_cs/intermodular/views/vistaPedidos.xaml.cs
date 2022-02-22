@@ -605,9 +605,51 @@ namespace intermodular
             imgVolver.Source = (ImageSource)new ImageSourceConverter().ConvertFrom("..\\..\\images\\back.png");
         }
 
-        private void btnVolver_Click(object sender, RoutedEventArgs e)
+        private async void btnVolver_Click(object sender, RoutedEventArgs e)
         {
-            this.Close();
+            try
+            {
+                if (Ticket.currentTicket != null)
+                {
+                    if (Producto.ticketLines == null || Producto.ticketLines.Count <= 0)
+                    {
+                        if (await Ticket.deleteTicket())
+                        {
+                            try
+                            {
+                                await Mesa.updateTable(Mesa.currentMesa._id, Mesa.currentMesa);
+                                Mesa.currentMesa.id_ticket = "Error";
+                                Mesa.currentMesa.ocupada = false;
+                                Mesa.currentMesa.comensales = 0;
+                            }
+                            catch(Exception adsf)
+                            {
+                                MessageBox.Show("Error de conexión", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    try
+                    {
+                        await Mesa.updateTable(Mesa.currentMesa._id, Mesa.currentMesa);
+                        Mesa.currentMesa.id_ticket = "Error";
+                        Mesa.currentMesa.ocupada = false;
+                        Mesa.currentMesa.comensales = 0;
+                    }
+                    catch(Exception ezxc)
+                    {
+                        MessageBox.Show("Error de conexion", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
+                    
+                }
+                this.Close();
+            }
+            catch(Exception eXC)
+            {
+                MessageBox.Show("Error de conexión", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
 
         private float calcTotal()
