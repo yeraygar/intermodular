@@ -306,7 +306,7 @@ namespace intermodular
             }
             else
             {
-               MessageBox.Show("No hay ninguna caja abierta", "Información", MessageBoxButton.OK, MessageBoxImage.Information);
+               MessageBox.Show("No hay ninguna caja seleccionada", "Información", MessageBoxButton.OK, MessageBoxImage.Information);
             }
         }
     }
