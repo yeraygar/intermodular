@@ -41,8 +41,6 @@ fun UserSelection(navController: NavController, loginRegisterViewModel: LoginReg
     val inputText = remember { mutableStateOf("")}
     val isAceptarEnabled = remember { mutableStateOf(false)}
 
-    //TODO MANEJAR CON CUIDADO EL BACK BUTTON
-
     isAceptarEnabled.value = inputText.value.isNotEmpty()
 
     ShowAlertDialogUser(
@@ -61,12 +59,6 @@ fun UserSelection(navController: NavController, loginRegisterViewModel: LoginReg
     if(!loginRegisterViewModel.allUsersClientResponse.isNullOrEmpty()){
         allUsers = loginRegisterViewModel.allUsersClientResponse
         drawUsers(navController, loginRegisterViewModel, isDialogOpen)
-    }
-    else{
-        //TODO
-        //Informar que no hay users
-        //crear un administrador por defecto
-        //Indicar la User: Admin Passw 1234 e iniciar sesion con el
     }
 }
 
@@ -106,14 +98,6 @@ fun ShowAlertDialogUser(
                     horizontalAlignment = Alignment.CenterHorizontally,
                     verticalArrangement = Arrangement.Center
                 ) {
-                    /*Spacer(modifier = Modifier.padding(5.dp))
-
-                    Text(
-                        text = "INTRODUCE PASSWORD",
-                        color = Color.Black,
-                        fontWeight = FontWeight.Bold,
-                        fontSize = 25.sp
-                    )*/
 
                     OutlinedTextField(
                         value = inputText.value,
