@@ -19,12 +19,12 @@ namespace intermodular
     /// </summary>
     public partial class Cobro : Window
     {
-        float total;
         public Cobro(string nombreEmpleado,float total)
         {
             InitializeComponent();
+            this.Width = SystemParameters.PrimaryScreenWidth * 0.3;
+            this.Height = SystemParameters.PrimaryScreenHeight * 0.5;
             LabelNombre.Content = nombreEmpleado;
-            this.total = total;
             LabelMesa.Content = Mesa.currentMesa.name;
             LabelTotal.Content = "Total " + total + "€";
             //LabelNombre.Content = User.usuarioElegido;
@@ -50,8 +50,8 @@ namespace intermodular
         private async void boton_efectivo(object sender, RoutedEventArgs e)
         {
             //Cerrar Ticket
+            Ticket.currentTicket.date = DateTime.Now;
             Ticket.currentTicket.cobrado = true;
-            Ticket.currentTicket.total = total;
             Button btn = sender as Button;
             Ticket.currentTicket.id_user_que_cerro = User.currentUser._id;
             Ticket.currentTicket.tipo_ticket = btn.Tag.Equals("Efectivo") ? "Efectivo" : "Tarjeta";
@@ -60,6 +60,7 @@ namespace intermodular
                if(await Ticket.updateTicket(Ticket.currentTicket))
                 {
                     //Actualizar mesa con comensales 0 y ocupada = false
+                    Mesa.currentMesa.id_ticket = "Error";
                     Mesa.currentMesa.comensales = 0;
                     Mesa.currentMesa.ocupada = false;
                     if (await Mesa.updateTable(Mesa.currentMesa._id, Mesa.currentMesa))

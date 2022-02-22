@@ -235,6 +235,8 @@ namespace intermodular
                         Console.WriteLine(ticketLines[x].cantidad);
                         ticketLines[x].cantidad = ticketLines[x].cantidad + 1;
                         await updateLineTicket(ticketLines[x]);
+                        Producto.currentTicketLine = ticketLines[x];
+                        Producto.currentTicketLine.total += producto.precio; 
                         found = true;
                     }
                 }
@@ -323,7 +325,19 @@ namespace intermodular
 
             HttpResponseMessage httpResponse = await Staticresources.httpClient.DeleteAsync(url);
 
-            if (httpResponse.IsSuccessStatusCode) return true;
+            if (httpResponse.IsSuccessStatusCode)
+            {
+                bool found = false;
+                for(int x = 0; x < ticketLines.Count && !found; x++)
+                {
+                    if(ticketLines[x]._id.Equals(id))
+                    {
+                        found = true;
+                        ticketLines.RemoveAt(x);
+                    }
+                }
+                return true;
+            }
             else return false;
         }
 

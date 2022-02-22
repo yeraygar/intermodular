@@ -171,6 +171,9 @@
     <Compile Include="views\Teclado.xaml.cs">
       <DependentUpon>Teclado.xaml</DependentUpon>
     </Compile>
+    <Compile Include="views\Totales.xaml.cs">
+      <DependentUpon>Totales.xaml</DependentUpon>
+    </Compile>
     <Compile Include="views\VistaEmpleados.xaml.cs">
       <DependentUpon>VistaEmpleados.xaml</DependentUpon>
     </Compile>
@@ -259,6 +262,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="views\PopUp_Opciones.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="views\Totales.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

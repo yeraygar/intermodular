@@ -298,7 +298,7 @@ namespace intermodular
                     {
                         Button btn = new Button
                         {
-                            Background = Staticresources.isEditableTables ? mesa.status ? (Brush)(new BrushConverter().ConvertFrom("#8dd56d")) : (Brush)(new BrushConverter().ConvertFrom("#cf6161")) :mesa.ocupada ? (Brush)(new BrushConverter().ConvertFrom("#cf6161")) : mesa.status && mesa.comensales == 0 ? (Brush)(new BrushConverter().ConvertFrom("#8dd56d")) : mesa.status && mesa.comensales > 0 ? (Brush)(new BrushConverter().ConvertFrom("#ebb558")) : (Brush)(new BrushConverter().ConvertFrom("#cf6161")),
+                            Background = Staticresources.isEditableTables ? mesa.status ? (Brush)(new BrushConverter().ConvertFrom("#8dd56d")) : (Brush)(new BrushConverter().ConvertFrom("#cf6161")) :mesa.ocupada ? (Brush)(new BrushConverter().ConvertFrom("#cf6161")) : mesa.status && mesa.comensales == 0 ? (Brush)(new BrushConverter().ConvertFrom("#8dd56d")) : mesa.status && mesa.comensales > 0 ? (Brush)(new BrushConverter().ConvertFrom("#cf6161")) : (Brush)(new BrushConverter().ConvertFrom("#cf6161")),
                             Tag = mesa._id,
                             //Content = mesa.name,
                             Style = Application.Current.TryFindResource("btnRedondo") as Style,
@@ -346,7 +346,7 @@ namespace intermodular
                         {
                             if (btnMesaPressed == null || !btnMesaPressed.Tag.Equals(btn.Tag))
                             {
-                                btn.Background = Staticresources.isEditableTables ? mesa.status ? (Brush)(new BrushConverter().ConvertFrom("#8dd56d")) : (Brush)(new BrushConverter().ConvertFrom("#cf6161")) : mesa.ocupada ? (Brush)(new BrushConverter().ConvertFrom("#cf6161")) : mesa.status && mesa.comensales == 0 ? (Brush)(new BrushConverter().ConvertFrom("#8dd56d")) : mesa.status && mesa.comensales > 0 ? (Brush)(new BrushConverter().ConvertFrom("#ebb558")) : (Brush)(new BrushConverter().ConvertFrom("#cf6161"));
+                                btn.Background = Staticresources.isEditableTables ? mesa.status ? (Brush)(new BrushConverter().ConvertFrom("#8dd56d")) : (Brush)(new BrushConverter().ConvertFrom("#cf6161")) : mesa.ocupada ? (Brush)(new BrushConverter().ConvertFrom("#cf6161")) : mesa.status && mesa.comensales == 0 ? (Brush)(new BrushConverter().ConvertFrom("#8dd56d")) : mesa.status && mesa.comensales > 0 ? (Brush)(new BrushConverter().ConvertFrom("#cf6161")) : (Brush)(new BrushConverter().ConvertFrom("#cf6161"));
                                 btn.Foreground = Brushes.Black;
                             }
                         };
@@ -394,7 +394,7 @@ namespace intermodular
             {
                 Tag = mesa._id,
                 Style = Application.Current.TryFindResource("btnRedondo") as Style,
-                Background = Staticresources.isEditableTables ? mesa.status ? (Brush)(new BrushConverter().ConvertFrom("#8dd56d")) : (Brush)(new BrushConverter().ConvertFrom("#cf6161")) : mesa.ocupada ? (Brush)(new BrushConverter().ConvertFrom("#cf6161")) : mesa.status && mesa.comensales == 0 ? (Brush)(new BrushConverter().ConvertFrom("#8dd56d")) : mesa.status && mesa.comensales > 0 ? (Brush)(new BrushConverter().ConvertFrom("#ebb558")) : (Brush)(new BrushConverter().ConvertFrom("#cf6161")),
+                Background = Staticresources.isEditableTables ? mesa.status ? (Brush)(new BrushConverter().ConvertFrom("#8dd56d")) : (Brush)(new BrushConverter().ConvertFrom("#cf6161")) : mesa.ocupada ? (Brush)(new BrushConverter().ConvertFrom("#cf6161")) : mesa.status && mesa.comensales == 0 ? (Brush)(new BrushConverter().ConvertFrom("#8dd56d")) : mesa.status && mesa.comensales > 0 ? (Brush)(new BrushConverter().ConvertFrom("#cf6161")) : (Brush)(new BrushConverter().ConvertFrom("#cf6161")),
                 //Content = mesa.name,
                 FontSize = 50,
                 Cursor = Cursors.Hand,
@@ -410,19 +410,19 @@ namespace intermodular
                 Visibility = !mesa.status && !Staticresources.isEditableTables ? Visibility.Hidden : Visibility.Visible
                 
             };
-            Viewbox vb = new Viewbox();
-            Label lb = new Label
-            {
-                Content = mesa.name,
-                FontSize = 19,
-                Margin = new Thickness(10, 0, 10, 0)
-            };
+
             
-            vb.Child = lb;
-            btn.Content = vb;
             btn.Width = calcSize();
             btn.Height = calcSize();
             btn.Margin = new Thickness(0, calcSize() * 0.1, 0, 0);
+            Label lb = new Label
+            {
+                Content = mesa.name,
+                FontSize = calcTextSize(btn.Width),
+                Margin = new Thickness(10, 0, 10, 0)
+            };
+
+            btn.Content = lb;
             if (mapaMesas.RowDefinitions.Count < mesa.num_row + 1)
             {
                 mapaMesas.RowDefinitions.Add(new RowDefinition());

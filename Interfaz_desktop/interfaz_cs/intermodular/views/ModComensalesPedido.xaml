@@ -14,7 +14,7 @@
         Width="500"
         ResizeMode="NoResize">
     <Viewbox>
-        <Border Background="#48C9B0" CornerRadius="10">
+        <Border Background="#5da9b7" CornerRadius="10">
         <Grid Height="300">
             <Grid.RowDefinitions>
                 <RowDefinition Height="47"/>

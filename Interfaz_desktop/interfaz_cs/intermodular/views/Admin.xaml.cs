@@ -250,5 +250,12 @@ namespace intermodular
             VistaProductos vistaProd = new VistaProductos();
             vistaProd.Show();
         }
+
+        private void btn_totales_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+            Totales totales = new Totales();
+            totales.ShowDialog();
+        }
     }
 }

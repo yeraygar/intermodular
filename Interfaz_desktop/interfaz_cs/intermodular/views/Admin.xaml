@@ -116,7 +116,7 @@
                                 <TextBlock x:Name="txt_productos" Grid.Row="1" HorizontalAlignment="Center" Padding="5" FontSize="20">Productos</TextBlock>
                             </Grid>
                         </Button>
-                        <Button x:Name="btn_totales" Width="260" Height="150" Style="{StaticResource btnRedondo}" Grid.Row="3" MouseEnter="btn_totales_MouseEnter" MouseLeave="btn_totales_MouseLeave" Cursor="Hand">
+                        <Button x:Name="btn_totales" Width="260" Height="150" Style="{StaticResource btnRedondo}" Grid.Row="3" MouseEnter="btn_totales_MouseEnter" MouseLeave="btn_totales_MouseLeave" Cursor="Hand" Click="btn_totales_Click">
                             <Grid>
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="2*"/>

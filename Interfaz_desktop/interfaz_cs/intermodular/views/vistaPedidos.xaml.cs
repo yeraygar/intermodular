@@ -200,10 +200,12 @@ namespace intermodular
                             {
                                 try
                                 {
+                                    Mesa.currentMesa.ocupada = true;
                                     await Mesa.updateTable(Mesa.currentMesa._id,Mesa.currentMesa);
                                     if(await Producto.createLineTicket(productoSelect))
                                     {
-                                       
+                                        Ticket.currentTicket.total += Producto.currentTicketLine.total;
+                                        await Ticket.updateTicket(Ticket.currentTicket);
                                     }
                                     stackTicket.Children.Clear();
                                     cargarTicketMesa();
@@ -232,6 +234,19 @@ namespace intermodular
                             if (await Producto.createLineTicket(productoSelect))
                             {
 
+
+                            }
+                            else
+                            {
+                                Ticket.currentTicket.total = Producto.currentTicketLine.total;
+                                try
+                                {
+                                    await Ticket.updateTicket(Ticket.currentTicket);
+                                }
+                                catch (Exception ex)
+                                {
+                                    MessageBox.Show("Error al cargar la BD", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                                }
                             }
                             stackTicket.Children.Clear();
                             cargarTicketMesa();
@@ -647,6 +662,11 @@ namespace intermodular
             {
                 if(await Producto.deleteAllTicketLinesFromTicket(Ticket.currentTicket._id))
                 {
+                    Ticket.currentTicket.total = 0;
+                    await Ticket.updateTicket(Ticket.currentTicket);
+                    lineaSelect = null;
+                    Producto.ticketLines = null;
+                    Producto.currentTicketLine = null;
                     stackTicket.Children.Clear();
                 }
             }catch(Exception ex)
@@ -661,6 +681,8 @@ namespace intermodular
             {
                 if(await Producto.deleteTicketLine(lineaSelect.Tag.ToString()))
                 {
+                    Ticket.currentTicket.total = recalc();
+                    await Ticket.updateTicket(Ticket.currentTicket);
                     btnEliminarLinea.Visibility = Visibility.Collapsed;
                     lineaSelect = null;
                     Producto.ticketLines = null;
@@ -681,5 +703,16 @@ namespace intermodular
         }
 
         private double calcTextSize(double size) => (size * 19) / 200;
+
+
+        private float recalc()
+        {
+            float total = 0;
+            foreach(Producto t in Producto.ticketLines)
+            {
+                total += t.total;
+            }
+            return total;
+        }
     }
 }
