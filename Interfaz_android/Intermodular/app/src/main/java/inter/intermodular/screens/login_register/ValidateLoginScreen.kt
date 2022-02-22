@@ -135,7 +135,7 @@ fun ResponseLogin(
             fontWeight = FontWeight.Bold,
             fontSize = 15.sp
         )
-        buttonText.value = "BACK"
+        buttonText.value = "ATRAS"
         Logger.e("Error, la respuesta no se ha cargado bien / Login Incorrecto")
 
         if(loginIntents == 0) { activityKiller() }
